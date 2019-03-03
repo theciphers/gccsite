@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib import admin
 from django.urls import include, path
 from gcc import views, staff_views
 
@@ -59,11 +61,18 @@ urlpatterns = [
     path('resources/', views.RessourcesView.as_view(), name='resources'),
 
     path('editions/', views.EditionsView.as_view(), name='editions'),
-    path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
+    path('editions/<int:year>/', views.EditionsView.as_view(),
+         name='editions'),
 
     # User profile, view and edit
     path('user/<int:pk>/', include(USER_PATTERNS)),
     path('user/login', views.LoginView.as_view(), name='login'),
     path('user/register', views.RegistrationView.as_view(), name='register'),
-
 ]
+
+if not settings.DEBUG:
+    # In production environments, GCC has its own separate domain and its
+    # urlpatterns is used as the ROOT_URLCONF.
+    urlpatterns.extend([
+        path('admin/', admin.site.urls),
+    ])
