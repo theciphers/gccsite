@@ -1,11 +1,10 @@
 public/static
 public/media
 
-prologin/prologin/settings/dev.py
-prologin/prologin/settings/prod.py
-prologin/prologin/settings/semifinal.py
+gccsite/gccsite/settings/dev.py
+gccsite/gccsite/settings/prod.py
 
-prologin/locale
+gccsite/locale
 
 .idea/
 venv/

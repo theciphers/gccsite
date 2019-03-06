@@ -1,0 +1,18 @@
+from django.urls import path, include
+from users import views
+
+app_name = 'users'
+
+user_patterns = [
+    path('profile', views.ProfileView.as_view(), name='profile'),
+    path('edit', views.EditUserView.as_view(), name='edit'),
+]
+
+urlpatterns = [
+    # User profile, view and edit
+    path('<int:pk>/', include(user_patterns)),
+
+    # Login and logout
+    path('login', views.LoginView.as_view(), name='login'),
+    path('logout', views.LogoutView.as_view(), name='logout'),
+]

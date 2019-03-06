@@ -1,0 +1,128 @@
+{% extends "gcc/base.html" %}
+{% load static %}
+{% load i18n %}
+
+
+{% block content %}
+<section class="wrapper emph-infos important">
+    <div class="title">{% trans "Train to code" %}</div>
+    <div class="container">
+      <p>
+        {% blocktrans %}
+        Many resources are available on the internet to start coding, but it is sometime hard not to get lost in this ocean of informations.
+        We detail here some interesting resources to start learning.
+        {% endblocktrans %}
+      </p>
+    </div>
+</section>
+
+<section class="wrapper emph-infos">
+  <div class="title">{% trans "Which language ?" %}</div>
+    <div class="container">
+      <p>
+        {% blocktrans %}
+        When coding, we describe information that the machine will execute. To be able interact with the machine, we need to choose the language we will write in.
+        There are many existing languages, each with their specificities.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans %}
+        It's important to know in which language we want to start programming in when starting because we learn to program in a language.
+        During the summer camps we mainly teach Python, which we recommend to start.
+        It's an easy language to start with (compared to other...) and it has many uses. YouTube for example is coded in Python.
+        {% endblocktrans %}
+      </p>
+    </div>
+</section>
+
+<section class="wrapper">
+    <div class="title">{% trans "Starting" %}</div>
+
+    <div class="container">
+      <div class="highlight-row">
+        <div class="highlight">
+          {% with url="http://www.france-ioi.org/" %}
+          <a target="_blank" href="{{url}}" class="image featured">
+            <img src="{% static 'gcc/img/logo_ioi.png' %}" />
+          </a>
+
+          <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
+          <p>
+            {% blocktrans %}
+            France-IOI offers a learning platform with exercises organized by level of difficulty, everything accessible completely freely and fully in french !
+            {% endblocktrans %}
+          </p>
+          <a target="_blank" href="{{url}}" class="button style1">France IOI</a>
+          {% endwith %}
+        </div>
+        <div class="highlight">
+          {% with url="https://www.codecademy.com/fr" %}
+          <a target="_blank" href="{{url}}" class="image featured">
+            <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
+          </a>
+
+          <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
+          <p>
+            {% blocktrans %}
+            If you speak a bit of English, Codeacademy is a good resource to start programming.
+            {% endblocktrans %}
+          </p>
+          <a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a>
+          {% endwith %}
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrapper">
+  <div class="title">{% trans "Keep coding"%}</div>
+  <div class="container">
+    <p>
+        {% blocktrans %}
+        The good thing when learning to program, is that it can be used in many ways, to do plenty of things
+        There are a lot of sub domain or application in computer science, and to keep coding, it's more fun to find something we really like
+        Here are some examples:
+        {% endblocktrans %}
+    </p>
+
+    <div class="feature-list">
+      <section class="row irr_10rem_1fr">
+        {% with url="https://djangogirls.org/" %}
+        <div class="img-container">
+          <a href="{{url}}">
+            <img src="https://djangogirls.org/static/img/global/logo.png" />
+          </a>
+        </div>
+        <div>
+          <h3><a href="{{url}}">Django girls</a></h3>
+          <p>
+              {% blocktrans %}
+              They have written a tutorial to create a blog in Python thanks to the Django framework.
+              It has been entirely translated in french and is very accessible.
+              Django is a very powerful tool for web platforms. Both the GCC! and Prologin websites use Django.
+              {% endblocktrans %}
+          </p>
+        </div>
+        {% endwith %}
+      </section>
+      <section class="row irr_10rem_1fr">
+        <div class="img-container">
+          <a href="//prologin.org/">
+            <img src="{% static 'img/logo_cube.png' %}" />
+          </a>
+        </div>
+        <div>
+          <h3><a href="//prologin.org/">Prologin</a></h3>
+          <p>
+              {% blocktrans %}
+              It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
+              On the website, you can find archives of the previous years exercises.
+              They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !
+              {% endblocktrans %}
+         </p>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}
