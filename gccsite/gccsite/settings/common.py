@@ -1,5 +1,5 @@
 """
-Django common settings for prologin project.
+Django common settings for GCC project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from collections import namedtuple
-import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -137,22 +136,6 @@ FORMAT_MODULE_PATH = [
 
 USE_TZ = True
 
-MIGRATION_MODULES = {
-    'zinnia': 'news.migrations_zinnia',
-}
-
-# Celery (task scheduler)
-
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['pickle']
-CELERY_TASK_SERIALIZER = 'pickle'
-CELERY_RESULT_SERIALIZER = 'pickle'
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_ENABLE_UTC = True
-CELERY_RESULT_BACKEND = BROKER_URL  # also use redis to store the results
-CELERY_RESULT_PERSISTENT = True  # keep results on broker restart
-CELERY_TASK_RESULT_EXPIRES = 3600 * 12  # 12 hours
-
 # Emails
 
 DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}.{ext}"
@@ -177,12 +160,6 @@ STATICFILES_FINDERS = (
 )
 
 
-# Media files (uploaded)
-
-MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, 'public', 'media')
-MEDIA_URL = '/media/'
-
-
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
@@ -193,44 +170,13 @@ AUTH_USER_MODEL = 'users.GCCUser'
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('gcc:index')
-USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
-
-
-AuthTokenClient = namedtuple('AuthTokenClient', ['secret', 'redirect_url'])
-
-# TTL of short-lived access codes.
-AUTH_TOKEN_ACCESS_EXPIRATION = datetime.timedelta(minutes=30)
-# TTL of auth tokens before asking for a new login flow.
-AUTH_TOKEN_REFRESH_EXPIRATION = datetime.timedelta(days=14)
-# Registered third-party clients.
-AUTH_TOKEN_CLIENTS = {
-    # 'client_id: AuthTokenClient('client secret', 'https://callback/url'),
-}
-
-# Forum
-
-FORUM_THREADS_PER_PAGE = 25
-FORUM_POSTS_PER_PAGE = 20
-FORUM_MENTIONS_PER_MESSAGE = 3  # @mention limit to prevent database DoS
 
 # Prologin specific
 SITE_HOST = 'gcc.prologin.org'
 SITE_BASE_URL = 'https://{}'.format(SITE_HOST)
 PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
 DEFAULT_FROM_EMAIL = 'Prologin <{}>'.format(PROLOGIN_CONTACT_MAIL)
-PROLOGIN_EDITION = None
-PROLOGIN_MAX_AVATAR_SIZE = 220
-PROLOGIN_MAX_AGE = 21
-PROLOGIN_MAX_LEVEL_DIFFICULTY = 9
-PROLOGIN_SEMIFINAL_MIN_WISH_COUNT = 1
-PROLOGIN_SEMIFINAL_MAX_WISH_COUNT = 3
-PROLOGIN_VM_VERSION_PATH = 'http://vm.prologin.org/languages'
-LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 GOOGLE_ANALYTICS_ID = ''
-PROLOGIN_WEBHOOK_BASE_URL = 'https://webhook.prologin.org'
-PROLOGIN_WEBHOOK_SECRET = 'changeme'
-PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY = 15 * 60  # in seconds; 15 minutes
-PROLOGIN_SEMIFINAL_MODE = False
 
 ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
 ARCHIVES_REPOSITORY_STATIC_PREFIX = 'archives'
@@ -264,9 +210,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_COLLAPSED': True,
     'SHOW_TOOLBAR_CALLBACK': show_toolbar_cb
 }
-
-BOOTSTRAP3 = {'success_css_class': ''}
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # NPM (static assets)
 NPM_ROOT_PATH = os.path.join(PROJECT_ROOT_DIR, 'assets')

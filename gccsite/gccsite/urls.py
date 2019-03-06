@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
@@ -24,8 +23,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns.extend(static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT))
     urlpatterns.extend([
         path('e/400/', TemplateView.as_view(template_name='400.html')),
         path('e/403/', TemplateView.as_view(template_name='403.html')),
