@@ -10,26 +10,20 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost', 'testserver']
 INTERNAL_IPS = ALLOWED_HOSTS
 
-SITE_HOST = "localhost:8000"
-
-# Current edition
-PROLOGIN_EDITION = 2019
+SITE_HOST = "localhost:8001"
 
 # Repository paths
-PROBLEMS_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'problems')
-DOCUMENTS_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'documents')
 ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
 
-# Camisole url
-PROBLEMS_CORRECTORS = ('http://vm.prologin.org/run',)
+OAUTH_ENDPOINT = 'http://localhost:8000/user/auth'
+OAUTH_SECRET = 'CHANGEME'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prologin',
+        'NAME': 'gcc',
     }
 }
 
