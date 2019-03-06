@@ -4,7 +4,6 @@ from crispy_forms.layout import Layout
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
-from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
 
@@ -20,7 +19,7 @@ class UserProfileForm(forms.ModelForm):
         model = User
         fields = (
             # left column
-            'first_name', 'last_name', 'email', 'birthday',
+            'first_name', 'last_name', 'gender', 'email', 'birthday',
             'address', 'postal_code', 'city', 'country',
             'phone', 'school_stage',
             # right column
@@ -45,7 +44,7 @@ class UserProfileForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         # input, input, ...
-        self.helper[:10].wrap_together(layout.Div, css_class="col-md-6")
+        self.helper[:6].wrap_together(layout.Div, css_class="col-md-6")
         # COL, input, input...
         self.helper[1:].wrap_together(layout.Div, css_class="col-md-6")
         # COL, COL
