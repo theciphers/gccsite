@@ -155,6 +155,7 @@ STATICFILES_FINDERS = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 AUTH_USER_MODEL = 'users.GCCUser'
 

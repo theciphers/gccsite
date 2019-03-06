@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 
 from oauth import models
@@ -38,7 +38,7 @@ def handle_oauth_response(request, res):
         logout(request)
         return False
 
-    user, created = User.objects.get_or_create(
+    user, created = get_user_model().objects.get_or_create(
         pk=data['user']['pk'],
         defaults={field: data['user'][field] for field in USER_SYNC_KEYS})
 
