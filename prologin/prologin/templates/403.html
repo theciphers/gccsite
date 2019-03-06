@@ -1,0 +1,14 @@
+{% extends "_error_base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% with 403 as number %}{{ block.super }}{% endwith %}{% endblock %}
+{% block title       %}{% with 403 as number %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block explanation %}
+    {% if user.is_authenticated %}
+        <p>{% blocktrans %}You do not have the permission to access this content.{% endblocktrans %}</p>
+    {% else %}
+        {% url 'users:login' as url %}
+        <p>{% blocktrans %}You do not have the permission to access this content. Try to <a href="{{ url }}">sign in</a>.{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

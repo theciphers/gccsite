@@ -1,0 +1,23 @@
+{% load staticfiles i18n utils %}{% get_current_language as langcode %}
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS", "output/PlainSource"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"], scale: 85 },
+    showMathMenu: true,
+    MathMenu: {
+      showLocale: false,
+      showRenderer: false,
+      showFontMenu: false,
+    },
+    menuSettings: {
+      locale: '{{ langcode }}',
+    },
+  });
+</script>
+<script type="text/javascript" src="{% static 'vendor/mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<h2>{% trans "Sponsors" %}</h2>
+<div class="row">
+  {% for sponsor in sponsors %}
+  <div class="col-xs-6 col-sm-12 text-center">
+    {% if sponsor.site %}<a href="{{ sponsor.site }}" title="{{ sponsor.name }}" rel="nofollow">{% endif %}
+      {% if sponsor.logo %}
+      <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" class="sponsor" />
+      {% else %}
+        <strong>{{ sponsor.name }}</strong>
+      {% endif %}
+    {% if sponsor.site %}</a>{% endif %}
+  </div>
+  {% endfor %}
+</div>

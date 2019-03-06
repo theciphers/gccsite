@@ -1,0 +1,20 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs markup %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb edition.year "" %}
+  {% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# TODO #}
+{% endblock breadcrumbs %}
+
+{% block title %}{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <h1>{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}</h1>
+
+
+
+{% endblock %}

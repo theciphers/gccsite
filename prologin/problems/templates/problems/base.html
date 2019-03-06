@@ -1,0 +1,8 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "problems:index" %}{% include "problems/stub-module-name.html" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}

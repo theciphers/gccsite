@@ -1,0 +1,70 @@
+{% extends "problems/base.html" %}
+{% load i18n %}
+{% load bootstrap django_bootstrap_breadcrumbs utils %}
+
+{% block title %}{% include "problems/stub-module-title.html" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% include "problems/stub-module-title.html" %}</h1>
+
+  {% url 'forum:index' as forum_url %}
+<p>{% blocktrans %}This page contains all the exercises from previous Prologin editions. You can browse through them,
+and search by difficulty or years. If you need help to get started with algorithmics, you should read our
+<a href="https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/">resources</a>.{% endblocktrans %}</p>
+<p>{% blocktrans with forum=forum_url %}Stuck on a problem? Ask for help on the <a href="{{ forum }}">forums</a>!{% endblocktrans %}</p>
+
+  <p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
+  {% include "problems/stub_search_form.html" %}
+
+  {% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
+
+  <div class="row" id="problems">
+    {% for grouped_challenge in grouped_challenges %}
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="challenge-group">
+          <div class="challenge-year">{{ grouped_challenge.grouper }}</div>
+          <ul class="challenge-event-list">
+            {% for challenge in grouped_challenge.list|dictsort:'event_type.name' %}
+              <li>
+                <a href="{% url 'problems:challenge' grouped_challenge.grouper challenge.event_type.name %}">
+                {{ challenge.event_type|choiceenum_label }}
+                <small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %}) </small>
+                {% if not challenge.displayable %} {# hidden to normal users; add a marker for staff #}
+                  <span class="fa-stack fa-lg" style="font-size: 0.7em">
+                  <i class="fa fa-eye fa-stack-1x"></i>
+                  <i title="{% trans "Challenge is hidden to regular users" %}" class="fa fa-ban fa-stack-2x text-danger"></i>
+                  </span>
+                {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>{% trans "What is this?" %}</h3>
+
+      <p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
+In this section, you can browse and tackle all the problems from the previous Prologin events. These are
+problems from both the Prologin online qualifications and the on-site regional events.{% endblocktrans %}</p>
+    </div>
+    <div class="col-sm-6">
+      <h3>{% trans "How does it work?" %}</h3>
+
+      <p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
+submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
+need to solve the problem.{% endblocktrans %}</p>
+      {% url 'problems:manual' as manual_url %}
+      <p>{% blocktrans %}If you need any help with the automatic correction
+      system, you can read the <a href="{{ manual_url }}" style="white-space: nowrap;"><i class="fa fa-book"></i> online judge manual</a>.
+      {% endblocktrans %}</p>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+.change-list .field {
+  padding-left: .5em !important;
+}
+
+.team-member-avatar.small {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  box-shadow: none;
+  margin: 0.2em;
+}
+
+@media(max-width: 992px) {
+  #correct-nav {
+    position: relative;
+    width: auto !important;
+  }
+}
+
+.correction {
+  margin-bottom: 10px;
+}
+
+.event-wish-list li {
+  cursor: pointer;
+}
+
+.flash {
+  animation: flash .3s ease;
+  animation-iteration-count: 2;
+}
+
+@keyframes flash {
+    0% { background-color: initial; }
+    75% { background-color: #53a653; }
+    100% { background-color: initial; }
+}

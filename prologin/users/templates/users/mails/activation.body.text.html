@@ -1,0 +1,22 @@
+{% load i18n utils %}{% spaceless %}{% autoescape off %}
+
+{% get_setting 'PROLOGIN_CONTACT_MAIL' as contactmail %}
+
+{% blocktrans with user.username as username %}
+Hi {{ username }}!
+
+Thanks for you registration on Prologin. In order to complete the process
+and allow you to sign in, you have to activate your account. Please open
+the following link in your browser:
+
+{{ url }}
+
+If you cannot click on the link, copy-paste it in your browser address bar.
+
+Should you have any question, please contact us by sending an email at
+{{ contactmail }}.
+
+--
+The Prologin staff
+{% endblocktrans %}
+{% endautoescape %}{% endspaceless %}

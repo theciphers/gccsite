@@ -1,0 +1,216 @@
+{% extends "forum/base.html" %}
+{% load humanize i18n staticfiles %}
+{% load bootstrap django_bootstrap_breadcrumbs markup rules %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "forum:forum" forum.slug forum.pk %}{{ forum.name }}{% endbreadcrumb_for %}
+  {% breadcrumb_for "forum:thread" forum.slug forum.pk thread.slug thread.pk %}
+    {{ thread.title }}{% endbreadcrumb_for %}
+  {% if is_paginated %}
+    {% breadcrumb_for "" %}Page {{ page_obj.number }}{% endbreadcrumb_for %}
+  {% endif %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/pygments-monokai.css' %}" media="screen"/>
+  {{ block.super }}
+{% endblock %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block content %}
+
+  <h1>{{ thread.title }}</h1>
+  {% has_perm 'forum.move_thread' request.user thread as user_can_move_thread %}
+  {% if user_can_move_thread %}
+    <form style="display: inline-block" action="{% url 'forum:move-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-default">
+        <i class="fa fa-random"></i>
+        {% trans "Move the thread to" %}
+      </button>
+      {{ move_thread_form.forum|bootstrap_inline }}
+    </form>
+  {% endif %}
+  {% has_perm 'forum.edit_thread_pin' request.user thread as user_can_pin_thread %}
+  {% if user_can_pin_thread %}
+    <form style="display: inline-block" action="{% url 'forum:edit-thread-pin' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      {{ edit_thread_pin_form.type }}
+      <button type="submit" class="btn btn-default">
+        <i class="fa fa-{% if thread.is_sticky %}circle-o{% else %}thumb-tack{% endif %}"></i>
+        {% if thread.is_sticky %}{% trans "Unstick the thread" %}
+        {% else %}{% trans "Stick the thread" %}{% endif %}
+      </button>
+    </form>
+  {% endif %}
+  {% has_perm 'forum.edit_thread_lock' request.user thread as user_can_lock_thread %}
+  {% if user_can_lock_thread %}
+    <form style="display: inline-block" action="{% url 'forum:edit-thread-lock' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      {{ edit_thread_lock_form.status }}
+      <button type="submit" class="btn btn-warning">
+        <i class="fa fa-{% if thread.is_closed %}un{% endif %}lock"></i>
+        {% if thread.is_closed %}{% trans "Open the thread" %}
+        {% else %}{% trans "Close the thread" %}{% endif %}
+      </button>
+    </form>
+  {% endif %}
+  {% has_perm 'forum.delete_thread' request.user thread as user_can_delete_thread %}
+  {% if user_can_delete_thread %}
+    <a href="{% url 'forum:delete-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}"
+       class="btn btn-danger">
+      <i class="fa fa-trash"></i>
+      {% trans "Delete thread" %}
+    </a>
+  {% endif %}
+
+  {% has_perm 'forum.create_post' request.user thread as user_can_post %}
+  <div class="row">
+    <div class="col-sm-8 pagination-narrow">{% include "stub_pagination.html" %}</div>
+    {% if user_can_post %}
+      <div class="col-sm-4 text-right"><a href="#reply-thread"><i
+        class="fa fa-angle-double-down"></i> {% trans "Reply to the thread" %}</a></div>{% endif %}
+  </div>
+
+  <section class="forum-post-list" id="forum-list">
+    {% for post in posts %}
+      <article class="forum-post clearfix" id="message-{{ post.pk }}">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="post-author">
+              <div class="row">
+                <div class="col-sm-12 col-xs-7 post-author-username">
+                  <div class="post-author-link"><a
+                    href="{{ post.author.get_absolute_url }}">{{ post.author.username }}</a>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-xs-5 post-author-avatar">
+                  {% if post.is_visible %}
+                    {% if post.author.avatar %}
+                      <img class="avatar avatar-full" src="{{ post.author.avatar.url }}"
+                           alt="{% blocktrans with post.author.username as username %}{{ username }}'s profile picture{% endblocktrans %}"/>
+                    {% endif %}
+                    {% if post.author.is_staff %}<span class="staff-flare"><i class="fa fa-star-o"></i> {% trans "Staff member" %}</span>{% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-10">
+            <div class="text-muted forum-meta forum-ellipsis">
+              <div class="pull-right forum-actions">
+                {% has_perm 'forum.edit_post' request.user post as user_can_edit_post %}
+                {% has_perm 'forum.edit_post_visibility' request.user post as user_can_edit_post_visibility %}
+                {% has_perm 'forum.delete_post' request.user post as user_can_delete_post %}
+                {% has_perm 'forum.view_post' request.user post as user_can_view_post %}
+                {% if request.user.is_authenticated and user_can_post and user_can_view_post %}
+                  <a href="{% url 'forum:cite-post' thread.slug post.pk %}" class="btn btn-default btn-xs btn-cite">
+                    <i class="fa fa-quote-left"></i> {% trans "Cite" %}</a>
+                {% endif %}
+                {% if user_can_edit_post %}
+                  <a href="{% url 'forum:edit-post' thread.slug post.pk %}" class="btn btn-default btn-xs"><i
+                    class="fa fa-pencil"></i> {% trans "Edit" %}</a>
+                {% endif %}
+                {% if user_can_edit_post_visibility %}
+                  <form action="{% url 'forum:edit-post-visibility' thread.slug post.pk %}" method="POST"
+                        style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="is_visible"
+                           value="{% if post.is_visible %}false{% else %}true{% endif %}">
+                    <button type="submit" class="btn btn-default btn-xs"><i
+                      class="fa fa-eye{% if post.is_visible %}-slash{% else %}{% endif %}"></i>
+                      {% if post.is_visible %}{% trans "Hide" %}{% else %}{% trans "Unhide" %}{% endif %}</button>
+                  </form>
+                {% endif %}
+                {% if user_can_delete_post %}
+                  <a href="{% url 'forum:delete-post' thread.slug post.pk %}" class="btn btn-danger btn-xs"><i
+                    class="fa fa-trash"></i> {% trans "Delete" %}</a>
+                {% endif %}
+              </div>
+              <a href="{{ post.get_permalink }}" title="{{ post.date_created|date:"c" }}"
+                 class="message-permalink">{{ post.date_created|date:"DATETIME_FORMAT" }}</a>
+              {% if post.is_edited %}
+                <span class="separator">⋅</span> <span class="text-muted"><i class="fa fa-pencil"></i>
+                {% blocktrans with date_iso=post.date_last_edited|date:"c" date=post.date_last_edited|date:"DATETIME_FORMAT" %}Edited on <span title="{{ date_iso }}">{{ date }}</span>{% endblocktrans %}
+                {% if post.last_edited_author != post.author %}{% blocktrans with username=post.last_edited_author %}by {{ username }}{% endblocktrans %}{% endif %}
+                {% if post.last_edited_reason %}({{ post.last_edited_reason }}){% endif %}</span>
+              {% endif %}
+            </div>
+            <div class="post-content tex2jax_process">
+              {% if post.is_visible %}{{ post.content|flavored_markdown }}{% else %}
+                <p class="text-muted"><i class="fa fa-trash"></i> {% trans "Message is deleted." %}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+
+  <div class="row">
+    <div class="col-sm-8 pagination-narrow">{% include "stub_pagination.html" %}</div>
+    <div class="col-sm-4 text-right"><a href="#forum-list"><i
+      class="fa fa-angle-double-up"></i> {% trans "Back to top" %}</a></div>
+  </div>
+
+  <h3 id="reply-thread">{% trans "Reply to the thread" %}</h3>
+  {% if user.is_authenticated %}
+    {% if user_can_post %}
+      <form method="POST">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> {% trans "Add reply" %}</button>
+        <button type="submit" class="btn btn-default" formaction="#preview" name="preview" value="1"><i class="fa fa-file-text"></i> {% trans "Preview" context "Preview, the action (button)" %}</button>
+      </form>
+      {% if preview %}
+        <h3 id="preview">{% trans "Preview" context "Preview, the noun (title)" %}</h3>
+        <div class="forum-post post-content tex2jax_process">{{ form.content.value|flavored_markdown }}</div>
+      {% endif %}
+    {% else %}
+      {# authenticated but cannot post #}
+      <div class="alert alert-info">
+        <i class="fa fa-lock"></i>
+        <div>{% trans "Sorry, you are not allowed to post new messages in this thread." %}</div>
+      </div>
+    {% endif %}
+  {% else %}
+    {# anonymous #}
+    {% include "forum/stub_login_required.html" %}
+  {% endif %}
+
+{% endblock %}
+
+{% block extra_script %}
+  {{ block.super }}
+  {% include "stub-mathjax.html" %}
+  <script type="text/javascript">
+    /* When clicking permalinks, just scroll to message, don't do the full redirect */
+    $(function() {
+      var $post_textarea = $('#id_content');
+      $('.message-permalink').click(function (e) {
+        e.preventDefault();
+        document.location.hash = $(this).parents('.forum-post').attr('id');
+      });
+      $('a[href="#reply-thread"]').click(function () {
+        try {
+          $post_textarea.focus();
+        } catch (e) {
+        }
+      });
+      $('.btn-cite').click(function(e) {
+        e.preventDefault();
+        var cite_url = $(this).attr('href');
+        $.getJSON(cite_url)
+          .done(function(data) {
+            $post_textarea.val($post_textarea.val() + '\n' + data.message).focus();
+          })
+          .fail(function(err) {
+            console.error(err);
+          });
+      });
+    });
+  </script>
+{% endblock %}

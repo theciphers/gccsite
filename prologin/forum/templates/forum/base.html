@@ -1,0 +1,31 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs utils %}
+
+{# FIXME: find a way of not repeating base.super_title ie. "— Prologin"; {{ block.super }} does not work as expected #}
+{% block super_title %}{% block title %}{% endblock %} – Forums — Prologin{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/onesignal-emoji-picker/lib/css/emoji.css' %}">
+{% endblock %}
+
+{% block extra_script %}
+  {{ block.super }}
+  <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/config.js' %}"></script>
+  <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/util.js' %}"></script>
+  <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/jquery.emojiarea.js' %}"></script>
+  <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/emoji-picker.js' %}"></script>
+  <script type="application/javascript">
+    $(function() {
+      window.emojiPicker = new EmojiPicker({
+      assetsPath: '{% static 'vendor/onesignal-emoji-picker/lib/img/' %}',
+        popupButtonClasses: 'fa fa-smile-o'
+      });
+      window.emojiPicker.discover();
+
+      // Display newlines in the input area when previewing message
+      $('.emoji-wysiwyg-editor').css("white-space", "pre-wrap");
+    });
+  </script>
+{% endblock %}

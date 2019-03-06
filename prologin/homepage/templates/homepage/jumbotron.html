@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<section class="home-jumbo jumbotron">
+  <div class="container">
+
+    <h1>{% trans "Prologin, the French National Computer Science Contest" %}</h1>
+    <p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
+
+    {% trans "Unknown date" as no_such_date %}
+    {# timeline #}
+    <div class="htl">
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="line">
+            <i class="fa fa-chevron-right" style="left: 25%"></i>
+            <i class="fa fa-chevron-right" style="left: 75%"></i>
+          </div>
+        </div>
+      {% with edition=request.current_edition phase_event=request.current_edition.phase.0.name phase_type=request.current_edition.phase.1 contestant=request.current_contestant qualif=request.current_events.qualification semifinals=request.current_events.semifinal firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last final=request.current_events.final %}
+        {% include "homepage/jumbotron-qualification.html" %}
+        {% include "homepage/jumbotron-semifinals.html" %}
+        {% include "homepage/jumbotron-final.html" %}
+      {% endwith %}
+      </div>
+    </div>
+    {# /timeline #}
+  </div>
+</section>

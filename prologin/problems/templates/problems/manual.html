@@ -1,0 +1,141 @@
+{% extends "problems/base.html" %}
+{% load i18n staticfiles %}
+{% load bootstrap django_bootstrap_breadcrumbs drupal utils %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "problems:manual" %}{% trans "Manual" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Online judge manual" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Online judge manual" %}</h1>
+
+<p>{% blocktrans %}The online training system is a tool to help you improve
+your programing skills. It is open to everyone, and obviously free. What
+follows is a guide to understand its principles and get the most out of it.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Problems" %}</h2>
+
+<p>{% blocktrans %}
+The problems given during the previous editions of the Prologin contest are
+archived and available on this website. You can train with the problems of the
+qualification and regional event problems of the previous years. They are ordered
+by year and difficulty: from beginner to advanced.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Evaluation" %}</h2>
+
+<p>{% blocktrans %}
+The exercises are evaluated by our server: your program is compiled then tested
+automatically. It is executed once per test. The possible errors are:
+{% endblocktrans %}</p>
+
+<ul>
+  <li>{% trans "Your program does not compile;" %}
+  <li>{% trans "Your program exceeded the time limit given in the subject;" %}
+  <li>{% trans "Your program exceeded the memory limit given in the subject;" %}
+  <li>{% trans "Your program gave a wrong result for at least one test;" %}
+  <li>{% trans "Your program does not terminate correctly." %}
+</ul>
+
+<p>{% blocktrans %}
+If there is a compilation error, the error output of the compiler is shown.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+The output produced by your program has to match exactly with the format given
+in the subjects. The correction system compares the output with a reference
+output, character by character.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+After the tests have been executed, a summary is shown, indicating which tests
+succeeded and which tests failed. The output of your program and the output
+given by the correction system is shown only for the first failed test. The
+exercise will only be considered solved when all the tests succeed.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+The correction can take up to several minutes, so be patient.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Score" %}</h2>
+
+<p>{% blocktrans %}
+The training system grades your submissions. Every solved exercise gives you
+a number of points that depends of the level of the problem and the number of
+failed attempts you tried. You should test your program yourself before
+submitting it.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Code stubs" %}</h2>
+
+<p>{% blocktrans %}
+For some languages, we provide code stubs that can "parse" correctly the data
+given in the standard input of the program. You only need to write the content
+of a stub function that takes these parsed data in parameter. Note that it is
+absolutely not mandatory to use these stubs, although they can be really
+useful most of the time.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Correction system" %}</h2>
+
+<h3>{% trans "Time and memory limitations" %}</h3>
+
+<p>{% blocktrans %}
+Every problem enforces some limits in terms of memory usage and execution time.
+Some coefficients are applied on some slower or memory greedy languages. No
+particular limitation is applied on the stack size.
+{% endblocktrans %}</p>
+
+{# TODO: The informations here should be retrieved automatically from the VM #}
+
+<h3>{% trans "Hardware architecture" %}</h3>
+
+{% with hardware_cpu="Intel(R) Xeon(R) CPU E3-1241 v3" hardware_clockrate="3.50 Ghz" hardware_architecture="x86_64" hardware_byteorder="Little Endian" hardware_ncpu="1" hardware_mem="3" %}
+
+<p>{% blocktrans %}
+Your programs are executed in a virtual machine with an {{ hardware_cpu }}
+with a clock rate of {{ hardware_clockrate }} and an
+{{ hardware_architecture }} architecture. The byte order is
+{{ hardware_byteorder }}. The virtual machine has {{ hardware_ncpu }} dedicated
+vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
+{% endblocktrans %}</p>
+
+{% endwith %}
+
+<h3>{% trans "Compilers and interpreters" %}</h3>
+
+<table class="table table-hover table-condensed">
+<thead>
+  <tr>
+    <th>{% trans "Language" context "manual language table" %}</th>
+    <th>{% trans "Binary" context "manual language table" %}</th>
+    <th>{% trans "Version" context "manual language table" %}</th>
+    <th>{% trans "Options" context "manual language table" %}</th>
+  </tr>
+</thead>
+<tbody>
+{% trans "<em>unknown</em>" context "unknown version" as unknown %}
+{% for langname, lang in languages.items|dictsort:'0.lower' %}
+  {% for pname, prog in lang.programs.items|dictsort:'0.lower' %}
+    <tr>
+    {% if forloop.first %} {# first row: put name #}
+      <th rowspan="{{ lang.programs|length }}">{{ lang.name }}</th>
+    {% endif %}
+      <td><code>{{ pname }}</code></td>
+      <td>{{ prog.version|default_if_none:unknown }}</td>
+      <td>{% if prog.opts %}<code>{{ prog.opts|join:' ' }}</code>{% endif %}</td>
+    </tr>
+  {% endfor %}
+{% empty %}
+  <tr><td colspan="4"><i class="fa fa-frown-o"></i> <em>{% trans "The program list is temporarily unavailable." %}</em></td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
