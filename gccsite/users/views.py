@@ -60,15 +60,9 @@ class ProfileView(DetailView):
     context_object_name = 'shown_user'
     template_name = 'users/profile.html'
 
-    def get_queryset(self):
-        from zinnia.models.author import Author
-        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
-        return super().get_queryset().prefetch_related('team_memberships')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
-        context['shown_author'] = self.author
         context['see_private'] = (self.request.user == shown_user or
                                   self.request.user.is_staff)
         return context
@@ -92,7 +86,6 @@ class EditUserView(PermissionRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['can_edit_profile'] = self.can_edit_profile()
         return kwargs
 
     def form_valid(self, form):

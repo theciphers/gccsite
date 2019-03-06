@@ -66,8 +66,8 @@
             <li class="pull-right">
               <a>{{ user.username }}</a>
               <ul style="">
-                <li><a href="{% url 'gcc:profile' user.id %}"><i class="fa fa-user"></i>{% trans 'My profile' %}</a></li>
-                <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i>{% trans 'Profile & options' %}</a></li>
+                <li><a href="{% url 'users:profile' user.id %}"><i class="fa fa-user"></i>{% trans 'My profile' %}</a></li>
+                <li><a href="{% url 'users:edit' user.id %}"><i class="fa fa-cog"></i>{% trans 'Profile & options' %}</a></li>
                 <li><a href="{% url 'gcc:application_summary' user.id %}"><i class="fa fa-pencil-alt"></i>{% trans 'My applications' %}</a></li>
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">

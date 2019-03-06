@@ -12,6 +12,9 @@ urlpatterns = [
     # GCC
     path('', include('gcc.urls', namespace='gcc')),
 
+    # GCC
+    path('user/', include('users.urls', namespace='users')),
+
     # Oauth
     path('user/auth/', include('oauth.urls', namespace='oauth')),
 

@@ -1,29 +1,22 @@
-{% extends "prologin/base.html" %}
-{% load i18n staticfiles %}
-{% load bootstrap django_bootstrap_breadcrumbs %}
-
-{% block breadcrumbs %}
-  {{ block.super }}
-  {% breadcrumb_for "users:register" %}{% trans "Register" %}{% endbreadcrumb_for %}
-{% endblock breadcrumbs %}
-
-{% block title %}{% trans "Register" %}{% endblock %}
-
-{% block content %}
-<div class="row"><div class="col-lg-6 col-md-8">
-
-<h1>{% trans "Register" %}</h1>
-<p>{% trans "Please choose a username. You must use a valid email address, as you will receive a message to confirm your registration." %}</p>
-
-<form method="POST" class="form-horizontal" action="{% url 'users:register' %}?next={{ next }}">
-  {% csrf_token %}
-  {{ form|bootstrap_horizontal }}
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input class="btn btn-primary" type="submit" value="{% trans "Register" %}">
-    </div>
-  </div>
-</form>
-
-</div></div>
+{% extends "gcc/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans "GCC! − Register" %}{% endblock %}
+{% block header-popup %}
+<div id="header-popup">
+    <h2>{% trans "Register to " %}<a href="{% url 'home' %}">Prologin</a></h2>
+    <p>
+      <strong>
+          You are going to register to the <a href="{% url "home" %}">Prologin website</a>, check out the contest organized by our organisation.
+      </strong>
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="text-align: center">
+            <button type="submit">{% trans "Register" %}</button>
+        </div>
+        <input type="hidden" name="next" value="/gcc/">
+    </form>
+</div>
 {% endblock %}

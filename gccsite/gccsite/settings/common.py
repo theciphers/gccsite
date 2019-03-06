@@ -37,23 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     # Vendor
-    'adminsortable',
-    'bootstrapform',
     'bootstrap3',
-    'captcha',
+    'bootstrapform',
     'compat',
     'crispy_forms',
-    'datatableview',
-    'django_bootstrap_breadcrumbs',
-    'django_comments',
-    'django_prometheus',
     'djmail',
-    'hijack',
-    'mptt',
-    'reversion',
-    'rules.apps.AutodiscoverRulesConfig',
+    'rules',
     'statictemplate',
-    'tagging',
 
     # GCC apps
     'gccsite',
@@ -80,7 +70,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
-    'oauth.middleware.RefreshTokenMiddleware',
+    # 'oauth.middleware.RefreshTokenMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 )
 
@@ -163,6 +153,7 @@ STATICFILES_FINDERS = (
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'rules.permissions.ObjectPermissionBackend',
 )
 AUTH_USER_MODEL = 'users.GCCUser'

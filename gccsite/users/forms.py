@@ -16,9 +16,6 @@ User = get_user_model()
 
 
 class UserProfileForm(forms.ModelForm):
-    readonly_during_contest = ('first_name', 'last_name', 'address', 'birthday',
-                               'postal_code', 'city', 'country',)
-
     class Meta:
         model = User
         fields = (
@@ -35,52 +32,18 @@ class UserProfileForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.can_edit_profile = kwargs.pop('can_edit_profile', True)
         super().__init__(*args, **kwargs)
 
         self.fields['gender'].required = False
         self.fields['gender'].label = _("How do you prefer to be described?")
-
-        self.homes = []
-        home_fields = []
-        for candidate in self.instance.get_homes():
-            home_year = candidate.edition.year
-            home_field = forms.BooleanField(
-                required=False,
-                initial=candidate.is_home_public,
-                label=(_("%(year)s final home") % {'year': home_year}),
-            )
-            self.homes.append(candidate)
-            key = 'home_{}'.format(home_year)
-            home_fields.append(key)
-            self.fields[key] = home_field
-
         self.fields['gender'].choices = [
             (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
             (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
             ("", _("Other or prefer not to tell")),
         ]
-        if not self.can_edit_profile:
-            for field in self.readonly_during_contest:
-                self.fields[field].widget.attrs['readonly'] = 'readonly'
-                self.fields[field].help_text = format_html(
-                    '<small class="smaller">{}</small>',
-                    _("You can not change your details during the contest. If there is an "
-                      "important change you want to make, please contact the staff."))
 
         self.helper = FormHelper(self)
         self.helper.form_tag = False
-        if home_fields:
-            # regroup home checkboxes in a panel
-            home_panel = layout.Div(
-                layout.Div(layout.HTML(format_html('<i class="fa fa-book"></i> {}', _("Public homes"))), css_class="panel-heading"),
-                layout.Div(
-                    layout.HTML(format_html('<p class="text-muted">{}</p>',
-                                            _("Checked editions will make the files available for download to anyone."))),
-                    *(layout.Field(f, template='bootstrap3/layout/inline_field.html') for f in home_fields),
-                    css_class="panel-body"),
-                css_class="panel panel-default")
-            self.helper[len(self.helper) - len(home_fields):] = [home_panel]
         # input, input, ...
         self.helper[:10].wrap_together(layout.Div, css_class="col-md-6")
         # COL, input, input...
@@ -89,13 +52,6 @@ class UserProfileForm(forms.ModelForm):
         self.helper[:].wrap_together(layout.Div, css_class="row")
 
     def clean(self):
-        for candidate in self.homes:
-            candidate.is_home_public = self.cleaned_data['home_{}'.format(candidate.edition.year)]
-            candidate.save()
-
-        if not self.can_edit_profile:
-            for field in self.readonly_during_contest:
-                self.cleaned_data.pop(field, None)
         return super().clean()
 
 
