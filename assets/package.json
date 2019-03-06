@@ -1,24 +1,17 @@
 {
-  "name": "prologin-site",
+  "name": "gcc-site",
   "version": "0.0.1",
-  "description": "Static assets management for prologin-site",
+  "description": "Static assets management for gcc-site",
   "repository": {
     "type": "git",
-    "url": "git@github.com:prologin/site"
+    "url": "git@github.com:prologin/gccsite"
   },
   "author": "Association Prologin",
   "license": "GPL-3.0",
   "private": true,
   "devDependencies": {
-    "ace-builds": "1.x.x",
     "bootstrap": "3.4.x",
-    "corejs-typeahead": "1.x.x",
-    "datatables.net": "1.x.x",
-    "datatables.net-bs": "1.x.x",
     "font-awesome": "4.x.x",
-    "jquery": "3.x.x",
-    "mathjax": ">=2.7.4",
-    "onesignal-emoji-picker": "git+https://github.com/OneSignal/emoji-picker",
-    "select2": "4.x.x"
+    "jquery": "3.x.x"
   }
 }

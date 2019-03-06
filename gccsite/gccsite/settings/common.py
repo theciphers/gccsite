@@ -272,16 +272,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 NPM_ROOT_PATH = os.path.join(PROJECT_ROOT_DIR, 'assets')
 NPM_STATIC_FILES_PREFIX = 'vendor'
 NPM_FILE_PATTERNS = {
-    'ace-builds': ['src-min-noconflict/*.js'],
     'bootstrap': ['dist/css/*.css', 'dist/js/*.js'],
-    'corejs-typeahead': ['dist/*.js'],
-    'datatables.net': ['js/*.js'],
-    'datatables.net-bs': ['js/*.js', 'css/*.css'],
     'font-awesome': ['css/*.css', 'fonts/*'],
     'jquery': ['dist/*.js'],
-    'mathjax': ['MathJax.js', 'jax/*', 'localization/*', 'fonts/*',
-                'extensions/*', 'config/*.js'],
-    'onesignal-emoji-picker': ['lib/js/*.js', 'lib/css/*.css', 'lib/img/*'],
-    'pygments-css': ['*.css'],
-    'select2': ['dist/css/*.css', 'dist/js/*.js', 'dist/js/i18n/*.js'],
 }
