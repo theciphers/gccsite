@@ -13,6 +13,9 @@ urlpatterns = [
     # GCC
     path('', include('gcc.urls', namespace='gcc')),
 
+    # Oauth
+    path('user/auth/', include('oauth.urls', namespace='oauth')),
+
     # Built-in Django admin
     path('admin/', admin.site.urls),
 

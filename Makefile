@@ -1,5 +1,5 @@
 TOP = $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-DIR = $(TOP)/prologin
+DIR = $(TOP)/gccsite
 LOCALE_DIR = $(DIR)/locale
 MANAGE = cd $(DIR) && PYTHONWARNINGS=once ./manage.py
 REGIONAL_MANAGE = cd $(DIR) && DJANGO_SETTINGS_MODULE=prologin.settings.semifinal_dev ./manage.py

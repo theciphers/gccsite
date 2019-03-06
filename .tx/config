@@ -1,8 +1,8 @@
 [main]
 host = https://www.transifex.com
 
-[prologin-site.django]
-file_filter = prologin/locale/<lang>/LC_MESSAGES/django.po
-source_file = prologin/locale/en/LC_MESSAGES/django.po
+[gcc-site.django]
+file_filter = gccsite/locale/<lang>/LC_MESSAGES/django.po
+source_file = gccsite/locale/en/LC_MESSAGES/django.po
 source_lang = en
-
+type = PO

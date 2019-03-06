@@ -58,6 +58,7 @@ INSTALLED_APPS = (
 
     # GCC apps
     'gccsite',
+    'oauth',
     'centers',
     'users',
     'gcc',
@@ -74,13 +75,14 @@ MIDDLEWARE = (
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'oauth.middleware.RefreshTokenMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 )
 
 TEMPLATES = [
@@ -190,7 +192,7 @@ AUTH_USER_MODEL = 'users.GCCUser'
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')
-LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_REDIRECT_URL = reverse_lazy('gcc:index')
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
 
@@ -232,6 +234,9 @@ PROLOGIN_SEMIFINAL_MODE = False
 
 ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
 ARCHIVES_REPOSITORY_STATIC_PREFIX = 'archives'
+
+OAUTH_ENDPOINT = 'https://prologin.org/user/auth'
+OAUTH_CLIENT_ID = 'gcc'
 
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')

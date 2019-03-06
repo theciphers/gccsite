@@ -60,8 +60,7 @@
           </li>
           {% if not user.is_authenticated %}
             <li class="pull-right">
-              <a href="{# {% url 'gcc:register' %} #}">{% trans 'Register' %}</a>
-              <a href="{# {% url 'gcc:login' %} #}">{% trans 'Sign in' %}</a>
+              <a href="{% url 'oauth:autologin' %}">{% trans 'Sign in with Prologin' %}</a>
             </li>
           {% else %}
             <li class="pull-right">
