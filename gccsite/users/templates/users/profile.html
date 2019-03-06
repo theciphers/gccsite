@@ -17,7 +17,7 @@
   {% trans "<em>not provided</em>" as noinfo %}
 
   {% if shown_user.id == user.id or see_private %}
-  <a href="{% url 'gcc:edit' shown_user.id %}" class="btn btn-default pull-right">
+  <a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default pull-right">
     <i class="fa fa-pencil"></i> {% trans "Edit profile" %}</a>
   {% endif %}
 
@@ -184,9 +184,10 @@
     </div>
     <div class="panel-body">
       <table class="table table-noborder table-align-middle"><tbody>
+        <!--
         <tr>
           <td>
-            <a href="{% url 'users:takeout' shown_user.id %}"
+            <a href="{# {% url 'users:takeout' shown_user.id %} #}"
                class="btn btn-block btn-info">
               <i class="fa fa-download"></i>
               {% trans "Export your personal data" %}
@@ -199,6 +200,7 @@
             {% endblocktrans %}
           </td>
         </tr>
+        -->
 
         <tr>
           <td>

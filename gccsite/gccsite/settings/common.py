@@ -70,7 +70,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
-    # 'oauth.middleware.RefreshTokenMiddleware',
+    'oauth.middleware.RefreshTokenMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 )
 
@@ -149,6 +149,7 @@ STATICFILES_FINDERS = (
     'npm.finders.NpmFinder',
 )
 
+SESSION_COOKIE_NAME = 'sessionid_gcc'
 
 # Authentication
 
