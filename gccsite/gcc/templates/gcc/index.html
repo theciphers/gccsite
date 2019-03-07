@@ -7,7 +7,7 @@
     <div class="container">
         <p>
             {% blocktrans %}
-            The Girls Can Code! Summer camp is an initiation week to programming for
+            The Girls Can Code! summer camp is an initiation week to programming for
             teenage girls.
             {% endblocktrans %}
         </p>
@@ -35,9 +35,9 @@
             </div>
             <p>
                 {% blocktrans %}
-                We learn the fundamentals of programming with the Python language, and things to start your own small project !
+                You will learn the fundamentals of programming with the Python language to start your own projects!
                 <br /><br />
-                Internships are free and organized by volunteers and by the Prologin association.
+                Internships are free and all the food expenses are covered during the week.
                 {% endblocktrans %}
             </p>
         </div>
@@ -48,20 +48,20 @@
     <div class="container">
         <section id="features">
             <header class="style1">
-                <h2>{% trans 'Everything you have to know about the summer camp' %}</h2>
-                <p>{% trans 'For all other question, contact us' %}</p>
+                <h2>{% trans 'Everything about the summer camp' %}</h2>
+                <p>{% trans 'Feel free to contact us if you have any question' %}</p>
             </header>
             <div class="feature-list">
                 <section>
                     <h3 class="icon fa-graduation-cap" aria-hidden="true">{% trans 'Prerequisites' %}</h3>
                     <p>
                         {% blocktrans %}
-                        The summer camp's goal is to adapt to each of you thus you do not have to have a minimal level in IT before the summer camp.
-                        Beside, go take a look to
+                        The summer camp's goal is to adapt to each of you, thus you do not need some level of IT before the summer camp.
+                        Besides that, go dig into
                         {% endblocktrans %}
                         <a href="{% url 'gcc:resources' %}">{% trans 'some resources' %}</a>
                         {% blocktrans %}
-                        to peek a look at what's coming !
+                        to peek a look at what's coming!
                         {% endblocktrans %}
                     </p>
                 </section>
@@ -70,12 +70,12 @@
                     <p>
                         {% blocktrans %}
                         Internships are free and meals are provided.
-                        The association does not provide any accommodation or transportation to the stage place.
+                        The association does not cover any accommodation or transportation to the summer camp.
                         But if you have any financial issues, send us a mail to
                         {% endblocktrans %}
                         <a href="mailto:info@prologin.org">info@prologin.org</a>
                         {% blocktrans %}
-                        and we will talk about a possible scholarship.
+                        so we can discuss a possible scholarship.
                         {% endblocktrans %}
                     </p>
                 </section>
@@ -83,7 +83,6 @@
                     <h3 class="icon fa-frown-o">{% trans 'For those who cannot apply' %}</h3>
                     <p>
                         {% blocktrans %}
-                        The IT is not closed so far !
                         Do not hesitate to discover the <ref> recommended resources to start<ref> and if you are less than 21 years old, you can take part to the 27<sup>th</sup> edition
                                 {% endblocktrans %}
                                 <a href="//prologin.org/">{% trans 'of the Prologin contest' %}</a>.
@@ -96,8 +95,8 @@
                     <h3 class="icon fa-calendar">{% trans 'The program' %}</h3>
                     <p>
                         {% blocktrans %}
-                        Internship last one week during which there is some practical courses on diverse subjects(Python introduction, networks, web), and some conferences where the women speakers work in IT.
-                        Finally, the week ends with a small project where creativity is inferred
+                        Internships last one week during which there is practical courses on diverse subjects (Python introduction, networks, web), and some conferences from women working in IT.
+                        Finally, the week ends with a small project where participants need to use their creativity.
                         {% endblocktrans %}
                     </p>
                 </section>
@@ -146,7 +145,7 @@
         </h3>
                 <p>
                     {% blocktrans %}
-                    The Prologin association was created in 1991 to plan the national computer contest, and run since 2014 the Girls Can Code! summer camp.
+                    The Prologin association was created in 1991 to plan the national computer contest, and runs since 2014 the Girls Can Code! summer camps.
                     {% endblocktrans %}
                 </p>
                 <a target="_blank"  href="//prologin.org/" class="button style1">{% trans 'More' %}</a>
@@ -159,7 +158,7 @@
     <div class="container">
         <p>
             {% blocktrans %}
-            We would like to thanks our sponsors without whom summer camps would not happen.
+            We would like to thank our sponsors without whom summer camps would not happen.
             {% endblocktrans %}
         </p>
         <div class="row reg_5rem">
@@ -177,7 +176,7 @@
 {% block footer %}
 <div id="newsletter" class="container">
     <header>
-        <h2>{% trans 'Any question ?' %}</h2>
+        <h2>{% trans 'Any question?' %}</h2>
         <p>
             {% blocktrans %}
             Do not hesitate to contact us.
@@ -190,7 +189,7 @@
             {% csrf_token %}
             <div class="row reg_20rem">
                 <input type="text" name="email" placeholder="Email" />
-                <input type="submit" value="{% trans "S'inscrire à la newsletter"%}" />
+                <input type="submit" value="{% trans "Subscribe to the newsletter"%}" />
             </div>
         </form>
     </section>
