@@ -4,6 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# Thibault Allançon <tallancon@gmail.com>, 2019
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2019
 # 
 #, fuzzy
@@ -95,7 +96,7 @@ msgid ""
 "You have to identify as a girl/woman to apply to the Girls Can Code! summer "
 "camps."
 msgstr ""
-"Vous devez vous identifier comment une fille/femme pour vous inscrire à un "
+"Vous devez vous identifier comme une fille/femme pour vous inscrire à un "
 "stage Girls Can Code!."
 
 #: gcc/forms.py:125
@@ -117,15 +118,15 @@ msgid ""
 msgstr ""
 "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons "
 "légales : l'association engage sa responsabilité pour vous encadrer lors des"
-" épreuves régionales et de la finale."
+" stages."
 
 #: gcc/forms.py:137
 msgid ""
 "We will send the invitation to the summer camps at this address, so make "
 "sure it's valid."
 msgstr ""
-"Nous enverrons la convocation aux épreuves régionales à cette adresse, "
-"assurez-vous qu'elle soit correcte."
+"Nous enverrons la convocation aux stages à cette adresse, assurez-vous "
+"qu'elle soit correcte."
 
 #: gcc/forms.py:139
 #, python-format
@@ -271,7 +272,7 @@ msgstr "Édition"
 
 #: gcc/templates/gcc/application/summary.html:78
 msgid "Sadly you did not apply yet for the current edition..."
-msgstr "Vous n'avez pas encore participé au concours cette année."
+msgstr "Vous n'avez pas encore participé au stage cette année."
 
 #: gcc/templates/gcc/application/summary.html:83
 #: gcc/templates/gcc/base.html:141
@@ -315,7 +316,7 @@ msgstr "Acceptée"
 #: gcc/templates/gcc/application/summary.html:151
 #: gcc/templates/gcc/application/summary.html:161
 msgid "You have been assigned to:"
-msgstr "Vous avez été assigné à:"
+msgstr "Vous avez été assigné à :"
 
 #: gcc/templates/gcc/application/summary.html:157
 msgid "Please confirm your venue."
@@ -342,7 +343,7 @@ msgid ""
 "Be careful after this you won't be able to change your answers or event "
 "wishes."
 msgstr ""
-"Soyez prudente, après cela vous ne pourrez plus modifier vos réponse ni "
+"Soyez prudente, après cela vous ne pourrez plus modifier vos réponses ni "
 "l'ordre de vos préférences."
 
 #: gcc/templates/gcc/application/wishes.html:14
@@ -369,7 +370,7 @@ msgstr "Du %(start)s au %(end)s"
 #: gcc/templates/gcc/application/wishes.html:34
 #, python-format
 msgid "Inscription close the %(signup_end)s "
-msgstr "L'inscription ce termine le %(signup_end)s "
+msgstr "L'inscription se termine le %(signup_end)s "
 
 #: gcc/templates/gcc/base.html:42
 msgid "Free computer science summer camps for girls under 18."
@@ -538,7 +539,7 @@ msgstr "Être une fille encore non bachelière"
 
 #: gcc/templates/gcc/index.html:27
 msgid "For European Union or Swiss inhabitants"
-msgstr "Pour les ressortissants de l'Union européenne ou en Suisse"
+msgstr "Être un ressortissant de l'Union européenne ou de la Suisse"
 
 #: gcc/templates/gcc/index.html:28
 msgid "Complete the application form"
@@ -578,11 +579,11 @@ msgstr "Plus d'informations"
 
 #: gcc/templates/gcc/index.html:51
 msgid "Everything you have to know about the summer camp"
-msgstr "Tous ce qu'il y a à savoir sur le stage"
+msgstr "Tout ce qu'il faut savoir sur le stage"
 
 #: gcc/templates/gcc/index.html:52
 msgid "For all other question, contact us"
-msgstr "Pour toute autre question, contactez nous"
+msgstr "Pour toute autre question, contactez-nous"
 
 #: gcc/templates/gcc/index.html:56
 msgid "Prerequisites"
@@ -596,8 +597,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"Le stage a pour but de s’adapter au niveau de chacune donc pas besoin d’avoir un niveau minimum en informatique avant le stage.\n"
-"Par contre, c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur"
+"Le stage a pour but de s’adapter au niveau de chacune donc inutile d’avoir un niveau minimum en informatique avant le stage.\n"
+"Par contre si tu veux savoir dans quoi tu te lances avant le stage, n'hésite pas à faire un tour sur"
 
 #: gcc/templates/gcc/index.html:62
 msgid "some resources"
@@ -650,7 +651,7 @@ msgid ""
 "                                "
 msgstr ""
 "\n"
-"L’informatique ne t’es pas fermé pour autant !\n"
+"L’informatique ne t’est pas fermé pour autant !\n"
 "N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 21 ans, tu peux participer à la 27<sup>e</sup> édition"
 
 #: gcc/templates/gcc/index.html:89
@@ -679,7 +680,7 @@ msgid ""
 msgstr ""
 "\n"
 "Le stage dure une semaine pendant laquelle ont lieu différentes activités pédagogiques sur divers sujets tels que introduction à la programmation, réseau, internet et différentes conférences d'intervenantes de l'informatique.\n"
-"Enfin, le week-end se termine par un petit projet faisant appel à la créativité"
+"Enfin, le week-end se termine par un petit projet faisant appel à la créativité."
 
 #: gcc/templates/gcc/index.html:109
 msgid "Figures"
@@ -836,7 +837,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. On apprends à programmer dans un langage."
+"Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. Durant les stages, les participantes utilisent Python, un langage facile à prendre en main et qui a de très nombreuses applications. YouTube par exemple est codé à l'aide de Python !"
 
 #: gcc/templates/gcc/resources.html:39
 msgid "Starting"
@@ -888,7 +889,7 @@ msgstr ""
 "\n"
 "Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.\n"
 "Il a été traduit entièrement en français et est très accessible.\n"
-"Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework."
+"Django est un outil puissant pour le web, et les sites de GCC! ainsi que Prologin utilisent ce framework."
 
 #: gcc/templates/gcc/resources.html:117
 msgid ""
