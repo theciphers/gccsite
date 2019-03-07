@@ -52,7 +52,7 @@ class LoginView(auth.views.LoginView):
 
 @method_decorator([require_POST, csrf_protect, never_cache], name='dispatch')
 class LogoutView(auth.views.LogoutView):
-    next_page = reverse_lazy('index')
+    next_page = reverse_lazy('gcc:index')
 
 
 class ProfileView(DetailView):
