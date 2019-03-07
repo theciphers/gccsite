@@ -1,89 +1,35 @@
-# HTML parser
-beautifulsoup4
-# HTML sanitizer (Markdown escaping)
-bleach
-# For async tasks (sending mails, correcting submissions, etc.)
-# TODO: use celery when 5.0 is out (async keyword support)
-# https://github.com/celery/celery/issues/4500
-git+https://github.com/celery/celery.git
 # Django
 django<3
-# For ordered models (QCM questions, semifinal whishes, etc.)
-django-admin-sortable
-# News / blog
-django-blog-zinnia
-# Breadcrumbs
-django-bootstrap-breadcrumbs>=0.7.0
 # Bootstrap-formatted forms
 django-bootstrap-form>=3.1
 # Bootstrap-formatted forms (other lib) # TODO: find a single good lib
 django-bootstrap3
 # Bootstrap-formatted forms (with powerful layout capabilities)
 django-crispy-forms
-# Content Security Policy, helps prevent XSS & stuff
-# TODO: too restrictive to be used properly
-# django-csp
-# Back-end wrapper for Datatable (jQuery plugin for dynamic table)
-# TODO: use upstream version when it's unfucked
-git+https://github.com/prologin/django-datatable-view.git@prologin
+# Compatibility
+django-compat
 # Debug Toolbar
 django-debug-toolbar
-# Form wizards (they were a Django builtin, but split as of 1.8)
-django-formtools
-# Impersonation framework
-django-hijack
 # NPM static finder
 django-npm
-# Export metrics for prometheus monitoring
-django-prometheus
-# Google Recaptcha/Nocaptcha support
-django-recaptcha
-# Model history tracking
-django-reversion
 # Generate static templates (for 5xx error pages served by nginx, mainly)
 # TODO: use pypi version when 3.0 is released
 git+https://github.com/ojii/django-statictemplate.git@feature/new_django
-# Model tagging support
-django-tagging
 # Model TimezoneField
 django-timezone-field>=2.0rc1
 # Micro mail framework for plaintext/HTML mails
 djmail>=0.10.0
 # Tool to query Geoip services for exam center geo-localization
 geopy
-# Non-sucky template engine
-jinja2
-# XML parsing (eg. corrector communication)
-lxml
-# Markdown support
-markdown>=2.6,<3.0
-# msgpack (camisole results)
-msgpack-python
-# Image manipulation support, previously known as PIL
-pillow>=2.4
 # Postgres database connector
 psycopg2-binary>=2.5
-# Github-flavored Markdown
-py-gfm
-# Code highlighting
-pygments>=2.0.2
-# Vimeo API
-pyvimeo
-# YAML support
-pyyaml
 # HTTP queries
 requests
-# Celery storage & broker for async tasks
-# FIXME: unpin when https://github.com/celery/celery/issues/5175 is fixed
-redis==2.10.6
 # Generic rules/permissions
 rules==1.4
 # Transifex client for translation pull/push
 transifex-client
 # Typing module backport
 typing; python_version < '3.5'
-# ImageMagick wrapper
-wand
-
-# MySQL database connector (for Drupal legacy) (uncomment if needed)
-# mysqlclient
+# Pillow for images
+pillow

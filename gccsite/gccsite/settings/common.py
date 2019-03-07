@@ -61,7 +61,6 @@ INSTALLED_APPS = (
 
 MIDDLEWARE = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -69,7 +68,6 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
     'oauth.middleware.RefreshTokenMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 )
@@ -89,7 +87,6 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                'zinnia.context_processors.version',
             ],
         },
     },

@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 import enum
 import hashlib
-import msgpack
 import os
 import random
 import re
@@ -263,14 +262,6 @@ def translate_format(format_str):
     # single-pass replacement
     rep = {re.escape(k): v for k, v in rep.items()}
     return re.sub("|".join(rep.keys()), lambda m: rep[re.escape(m.group(0))], format_str)
-
-
-def msgpack_loads(data):
-    return msgpack.loads(data, encoding='utf-8')
-
-
-def msgpack_dumps(data):
-    return msgpack.dumps(data, use_bin_type=True)
 
 
 @contextmanager

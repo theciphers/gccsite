@@ -5,7 +5,6 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 from django.utils.safestring import mark_safe
-from captcha.fields import ReCaptchaField
 
 from prologin.models import Gender
 from prologin.utils import _
@@ -52,44 +51,6 @@ class UserProfileForm(forms.ModelForm):
 
     def clean(self):
         return super().clean()
-
-
-class RegisterForm(forms.ModelForm):
-    captcha = ReCaptchaField(label="",
-                             help_text='<small>{}</small>'.format(
-                                 _("Please check the box above and complete the additional tasks if any. "
-                                   "This is required to fight spamming bots on the website.")))
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password', 'allow_mailing', 'captcha')
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['email'].required = True
-
-    def clean_username(self):
-        if User.objects.filter(username__iexact=self.cleaned_data['username']):
-            raise forms.ValidationError(_("This username is already in use. "
-                                          "Please supply a different username."))
-        return self.cleaned_data['username'].strip().lower()
-
-    def clean_email(self):
-        if User.objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError(_("This email address is already in use. "
-                                          "Please supply a different email address."))
-        return self.cleaned_data['email'].strip().lower()
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_active = False
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
-        return user
 
 
 class PasswordResetForm(forms.Form):
