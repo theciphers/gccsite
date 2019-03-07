@@ -136,6 +136,9 @@ EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 PROJECT_ROOT_DIR = os.path.dirname(BASE_DIR)
 
+MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, 'public', 'media')
+MEDIA_URL = '/media/'
+
 STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, 'public', 'static')
 STATIC_URL = '/static/'
 
