@@ -10,7 +10,5 @@ class GCCUserAdmin(UserAdmin):
         (_("Profil"), {'fields': ('gender', 'address', 'postal_code', 'city',
                                   'country', 'phone', 'birthday',
                                   'school_stage',)}),
-        (_("Settings"), {'fields': ('allow_mailing', 'timezone',
-                                    'preferred_locale',
-                                    'preferred_language',)}),
+        (_("Settings"), {'fields': ('allow_mailing', 'timezone')}),
     )
