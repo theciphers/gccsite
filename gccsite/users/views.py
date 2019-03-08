@@ -1,26 +1,17 @@
 from django.conf import settings
 from django.contrib import messages, auth
-from django.http import Http404, HttpResponse
-from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
-from django.template.loader import render_to_string
+from django.http import Http404
+from django.http.response import HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
-from django.views.generic.base import View, RedirectView
-from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFormMixin, FormMixin
-from django.views.generic.list import ListView
-from hmac import compare_digest
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from rules.contrib.views import PermissionRequiredMixin
-from urllib.parse import quote as url_quote
-from wsgiref.util import FileWrapper
 
-from prologin.utils import absolute_site_url
 import users.forms
 import users.models
 
@@ -43,11 +34,6 @@ class AnonymousRequiredMixin:
         if request.user.is_authenticated:
             return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
-
-
-class LoginView(auth.views.LoginView):
-    template_name = 'users/login.html'
-    authentication_form = users.forms.AuthenticationForm
 
 
 @method_decorator([require_POST, csrf_protect, never_cache], name='dispatch')

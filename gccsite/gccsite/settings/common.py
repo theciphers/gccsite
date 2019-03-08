@@ -159,7 +159,7 @@ AUTHENTICATION_BACKENDS = (
 )
 AUTH_USER_MODEL = 'users.GCCUser'
 
-LOGIN_URL = reverse_lazy('users:login')
+LOGIN_URL = reverse_lazy('oauth:autologin')
 LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('gcc:index')
 

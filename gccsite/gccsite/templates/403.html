@@ -8,7 +8,7 @@
     {% if user.is_authenticated %}
         <p>{% blocktrans %}You do not have the permission to access this content.{% endblocktrans %}</p>
     {% else %}
-        {% url 'users:login' as url %}
-        <p>{% blocktrans %}You do not have the permission to access this content. Try to <a href="{{ url }}">sign in</a>.{% endblocktrans %}</p>
+        {% url 'users:autologin' as url %}
+        <p>{% blocktrans %}You do not have the permission to access this content. Try to <a href="{{ url }}">sign in with your Prologin account</a>.{% endblocktrans %}</p>
     {% endif %}
 {% endblock %}

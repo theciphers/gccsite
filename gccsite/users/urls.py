@@ -12,7 +12,6 @@ urlpatterns = [
     # User profile, view and edit
     path('<int:pk>/', include(user_patterns)),
 
-    # Login and logout
-    path('login', views.LoginView.as_view(), name='login'),
+    # Logout (login is fuly handled by oauth)
     path('logout', views.LogoutView.as_view(), name='logout'),
 ]
