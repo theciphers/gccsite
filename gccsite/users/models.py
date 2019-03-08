@@ -33,6 +33,9 @@ class GCCUser(AbstractUser, AddressableModel):
     def upload_seed(instance):
         return 'prologinuser/{}'.format(instance.pk).encode()
 
+    # user have to be imported by the oauth client
+    id = models.IntegerField(primary_key=True)
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 

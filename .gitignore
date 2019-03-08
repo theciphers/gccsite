@@ -7,7 +7,7 @@ gccsite/gccsite/settings/prod.py
 gccsite/locale
 
 .idea/
-venv/
+.venv/
 *.swp
 *.pyc
 *.aux
