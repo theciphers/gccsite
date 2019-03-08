@@ -18,21 +18,23 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('import_file', type=argparse.FileType('r'))
+        parser.add_argument('imported_users_file', type=argparse.FileType('r'))
 
     def handle(self, *args, **options):
         try:
             data = json.loads(options['import_file'].read())
+            imported_users = json.loads(options['imported_users_file'].read())
         except Exception as exception:
-            print('Please specify a valid json file ({})'.format(exception))
+            print('Please specify valid json files ({})'.format(exception))
             sys.exit(1)
 
         try:
-            self.update_database(data)
+            self.update_database(data, imported_users)
         finally:
             with open('changes.log', 'w') as file:
                 file.write(json.dumps(self.logs))
 
-    def update_database(self, data):
+    def update_database(self, data, imported_users):
         #                          _      _   _
         #  _ __   _____      _____| | ___| |_| |_ ___ _ __
         # | '_ \ / _ \ \ /\ / / __| |/ _ \ __| __/ _ \ '__|
@@ -57,55 +59,22 @@ class Command(BaseCommand):
         print('Import Users...')
 
         users = {}
-        self.logs.update({
-            'users': {
-                'added': [],
-                'merged': [],
-                'renamed': []
-            }})
 
         for user_data in data['users']:
             fields = user_data['fields']
 
-            if not fields['email'] or fields['is_staff']:
+            if str(user_data['pk']) not in imported_users['users']['new_pk']:
                 continue
 
-            try:
-                user = GCCUser.objects.get(email=fields['email'])
-                action = 'merged'
-            except GCCUser.DoesNotExist:
-                if GCCUser.objects.filter(username=fields['username']):
-                    print(' - Conflicting username for new user',
-                          fields['username'])
-                    fields['username'] += '-gcc'
-                    action = 'renamed'
-                else:
-                    action = 'added'
-
-                user = GCCUser(username=fields['username'],
-                               email=fields['email'])
-                shared_field = ('password', 'last_login', 'first_name',
-                                'last_name', 'is_active', 'date_joined')
-
-                for field in shared_field:
-                    setattr(user, field, fields[field])
-
-                for profile in data['applications']['profile']:
-                    if profile['fields']['user'] == user_data['pk']:
-                        profile['fields']['postal_code'] = profile['fields']['zipcode']
-                        shared_fields = ('address', 'phone', 'birthday',
-                                         'country', 'city', 'postal_code')
-
-                        for f in shared_fields:
-                            if f == 'phone' and profile['fields'][f] is not None:
-                                profile['fields'][f] = profile['fields'][f][:16]
-
-                            if profile['fields'][f] is not None:
-                                setattr(user, f, profile['fields'][f])
-
-                user.save()
-
-            self.logs['users'][action].append(user.username)
+            new_pk = imported_users['users']['new_pk'][str(user_data['pk'])]
+            user, created = GCCUser.objects.get_or_create(
+                pk=new_pk,
+                defaults={
+                    'username': fields['username'],
+                    'first_name': fields['first_name'],
+                    'last_name': fields['last_name'],
+                    'email': fields['email']
+                })
             users[user_data['pk']] = user
 
         #       _                            __
