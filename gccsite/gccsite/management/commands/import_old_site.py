@@ -5,7 +5,6 @@ import sys
 import pytz
 from django.core.management import BaseCommand
 
-import gcc.models as models
 from users.models import GCCUser
 
 
@@ -71,10 +70,28 @@ class Command(BaseCommand):
                 pk=new_pk,
                 defaults={
                     'username': fields['username'],
-                    'first_name': fields['first_name'],
-                    'last_name': fields['last_name'],
-                    'email': fields['email']
                 })
+
+            shared_field = ('last_login', 'first_name', 'last_name',
+                            'is_active', 'date_joined')
+
+            for field in shared_field:
+                setattr(user, field, fields[field])
+
+            for profile in data['applications']['profile']:
+                if profile['fields']['user'] == user_data['pk']:
+                    profile['fields']['postal_code'] = profile['fields']['zipcode']
+                    shared_fields = ('address', 'phone', 'birthday',
+                                     'country', 'city', 'postal_code')
+
+                    for f in shared_fields:
+                        if f == 'phone' and profile['fields'][f] is not None:
+                            profile['fields'][f] = profile['fields'][f][:16]
+
+                        if profile['fields'][f] is not None:
+                            setattr(user, f, profile['fields'][f])
+
+            user.save()
             users[user_data['pk']] = user
 
         #       _                            __
