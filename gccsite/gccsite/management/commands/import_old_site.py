@@ -5,6 +5,7 @@ import sys
 import pytz
 from django.core.management import BaseCommand
 
+import gcc.models as models
 from users.models import GCCUser
 
 
