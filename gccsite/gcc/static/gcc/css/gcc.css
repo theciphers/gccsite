@@ -89,6 +89,18 @@ footer .legal {
 }
 
 /*
+ * Buttons
+ */
+.btn-primary {
+    background-color: #1d655e;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #227a71;
+}
+
+/*
  * Header
  */
 

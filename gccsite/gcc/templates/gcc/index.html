@@ -1,4 +1,5 @@
 {% extends "gcc/base.html" %}
+{% load bootstrap %}
 {% load static %}
 {% load i18n %}
 
@@ -49,9 +50,9 @@
           </table>
         <p>
         {% if user.is_authenticated %}
-            <a href="application/form/{{last_edition}}" class="btn btn-default btn-block">{% trans 'Register' %}</a>
+            <a href="application/form/{{last_edition}}" class="btn btn-primary btn-lg btn-block">{% trans 'Register' %}</a>
         {% else %}
-            <a href="{% url 'oauth:autologin' %}" class="btn btn-default btn-block">{% trans 'Sign in' %}</a>
+            <a href="{% url 'oauth:autologin' %}" class="btn btn-primary btn-block">{% trans 'Sign in' %}</a>
         {% endif %}
         </p>
         </section>
@@ -113,6 +114,26 @@
         {% endfor %}
 
 
+      </div>
+
+      <div class="col-sm-9">
+        <h2>{% trans 'Get updated!' %}</h2>
+        <p>
+          {% blocktrans %}
+            Subscribe to the newsletter to get updated with the latest news.
+          {% endblocktrans %}
+        </p>
+        <form action="" method="POST" class="form-horizontal">
+          {% csrf_token %}
+          {{ form|bootstrap_horizontal:'col-sm-3' }}
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button class="btn btn-primary" type="submit">
+                <i class="fa fa-key"></i> {% trans "Subscribe" %}
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
 
       <div class="col-sm-9">
