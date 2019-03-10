@@ -5,6 +5,17 @@
     <li><a href="{% url 'gcc:index' %}">{% trans 'Home' %}</a></li>
     <li class="{% active '^/gcc/resources/' %}"><a href="{% url 'gcc:resources' %}">{% trans 'Ressources' %}</a></li>
     <li class="{% active '^/gcc/editions/' %}"><a href="{% url 'gcc:editions' %}">{% trans 'Past editions' %}</a></li>
+    {% if request.user.is_staff %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star"></i> Admin <span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><i class="fa fa-fw fa-wrench"></i> {% trans "Review Candidates" %}</a></li>
+        </ul>
+      </li>
+    {% endif%}
+    <li class="sep"><a>&nbsp;</a></li>
     {% if not user.is_authenticated %}
       <li><a href="{% url 'oauth:autologin' %}">{% trans 'Sign in with Prologin' %}</a></li>
     {% else %}
