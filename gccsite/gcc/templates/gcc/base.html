@@ -43,14 +43,14 @@
       </div>
     </div>
   </div>
- {% endblock super_header %}
-
+  {% endblock super_header %}
 
   {% block super_content %}
   {# Content #}
-  <div class="container">
-    {% block content %}{% endblock %}
-  </div>
+    {% include 'prologin/messages.html' %}
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
   {% endblock super_content %}
 
   {# Footer #}
