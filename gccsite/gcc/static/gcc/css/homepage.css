@@ -69,7 +69,7 @@
 
   .home-jumbo .tl-block .desc:before {
     /* arrow left */
-    top: 2.5em !important;
+    top: 1em !important;
     left: -9px !important;
     margin-left: -9px !important;
     border-top: 9px solid transparent !important;
