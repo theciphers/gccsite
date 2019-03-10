@@ -2,117 +2,77 @@
 {% load static %}
 {% load i18n %}
 
-{% block head %}
+{% block extra_head %}
 <link rel="stylesheet" href="{% static 'gcc/css/editions.css' %}" :>
 {% endblock %}
+
 {% block content %}
-<!-- Intro -->
-<section id="edition-2018" class="wrapper">
-    <div class="title">
-        {% trans "Edition 2018" %}
-    </div>
-    <div class="container edition">
-        <a href="{{url}}" class="poster">
+<div id="edition-history" class="container">
+  <div class="row">
+    <div class="col-sm-3 edition-header">
+      <h1>2018</h1>
       <img src="{% static 'archives/gcc/2018/poster.full.jpg' %}" />
-    </a>
-        <div class="description">
-            <p>
-                {% blocktrans %}
-                This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />
-                Those summer camps had a total of <strong>70 girls</strong> and a new practice on <strong>microcontrolers microbit</strong> is created. With the video games tutorial and some activities with the Lego robots it's a great way to practice the skills learned during the week with creativity and fun !
-                {% endblocktrans %}
-            </p>
-            <div class="carousel">
-                <a href="https://flic.kr/s/aHsmi4bcXd">
-          <img src="{% static 'archives/gcc/2018/photos/01.jpg' %}" />
-          <img src="{% static 'archives/gcc/2018/photos/02.jpg' %}" />
-          <img src="{% static 'archives/gcc/2018/photos/03.jpg' %}" />
-          <img src="{% static 'archives/gcc/2018/photos/04.jpg' %}" />
-        </a>
-            </div>
-        </div>
     </div>
-</section>
-<section id="edition-2017" class="wrapper">
-    <div class="title">
-        {% trans "Edition 2017" %}
+    <div class="col-sm-9 edition-description">
+      <p>
+        {% blocktrans %}
+        This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />
+        Those summer camps had a total of <strong>70 girls</strong> and a new practice on <strong>microcontrolers microbit</strong> is created. With the video games tutorial and some activities with the Lego robots it's a great way to practice the skills learned during the week with creativity and fun !
+        {% endblocktrans %}
+      </p>
     </div>
-    <div class="container edition">
-        <div class="description">
-            <p>
-                {% blocktrans %}
-                In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !
-                {% endblocktrans %}
-            </p>
-            <div class="carousel">
-                <a href="">
-          <img src="{% static 'archives/gcc/2017/photos/01.jpg' %}" />
-          <img src="{% static 'archives/gcc/2017/photos/02.jpg' %}" />
-          <img src="{% static 'archives/gcc/2017/photos/03.jpg' %}" />
-        </a>
-            </div>
-        </div>
-        <a href="{{url}}" class="poster">
-      <img src="{% static 'archives/gcc/2017/poster.full.jpg' %}" class="poster" />
-    </a>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 edition-header">
+      <h1>2017</h1>
+      <img src="{% static 'archives/gcc/2017/poster.full.jpg' %}" />
     </div>
-</section>
-<section id="edition-2016" class="wrapper emph-infos">
-    <div class="title">
-        {% trans "Edition 2016" %}
+    <div class="col-sm-9 edition-description">
+      <p>
+        {% blocktrans %}
+        In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !
+        {% endblocktrans %}
+      </p>
     </div>
-    <div class="container edition">
-        <div class="description">
-            <p>
-                {% blocktrans %}
-                In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.
-                This year a new tutorial was created on <strong>Networks</strong>, where each girls creates it's own chat client !
-                {% endblocktrans %}
-            </p>
-            <div class="carousel">
-                <a href="https://flic.kr/s/aHskCyYBke">
-          <img src="{% static 'archives/gcc/2016/photos/01.jpg' %}" />
-        </a>
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 edition-header">
+      <h1>2016</h1>
     </div>
-</section>
-<section id="edition-2015" class="wrapper emph-infos">
-    <div class="container edition">
-        <div class="title">
-            {% trans "Edition 2015" %}
-        </div>
-        <div class="description">
-            <p>
-                {% blocktrans %}
-                In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.
-                {% endblocktrans %}
-            </p>
-            <div class="carousel">
-                <a href="https://flic.kr/s/ahskjafpwt">
-          <img src="{% static 'archives/gcc/2015/photos/01.jpg' %}" />
-        </a>
-            </div>
-        </div>
+    <div class="col-sm-9 edition-description">
+      <p>
+        {% blocktrans %}
+        In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.
+        This year a new tutorial was created on <strong>Networks</strong>, where each girls creates it's own chat client !
+        {% endblocktrans %}
+      </p>
     </div>
-</section>
-<section id="edition-2014" class="wrapper emph-infos">
-    <div class="container edition">
-        <div class="title">
-            {% trans "Edition 2014" %}
-        </div>
-        <div class="description">
-            <p>
-                {% blocktrans %}
-                This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.
-                Center around algorithmic, we learn to use abstract data structures, for example <strong>graphs</strong>.
-                Among all the participants, two in particular continue to study IT and became organizers as well.
-                {% endblocktrans %}
-            </p>
-            <div class="carousel">
-                <img src="{% static 'archives/gcc/2014/photos/01.jpg' %}" />
-      </div>
-            </div>
-        </div>
-</section>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <h1>2015</h1>
+    </div>
+    <div class="col-sm-9 edition-description">
+      <p>
+        {% blocktrans %}
+        In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.
+        {% endblocktrans %}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <h1>2014</h1>
+    </div>
+    <div class="col-sm-9 edition-description">
+      <p>
+        {% blocktrans %}
+        This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.
+        Center around algorithmic, we learn to use abstract data structures, for example <strong>graphs</strong>.
+        Among all the participants, two in particular continue to study IT and became organizers as well.
+        {% endblocktrans %}
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}
