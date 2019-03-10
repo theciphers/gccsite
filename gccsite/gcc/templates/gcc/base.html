@@ -1,167 +1,82 @@
+{% load i18n staticfiles %}
 {% load static %}
-{% load utils %}
-{% load i18n %}
-{% load navigation %} {# defined in prologin app #}
 
-<!DOCTYPE HTML>
-<!--
-    Escape Velocity by HTML5 UP
-    html5up.net | @ajlkn
-    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-  <head>
-      <title>{% block title %}Girls Can Code!{% endblock %}</title>
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
+  <title>{% block super_title %}{% block title %}{% endblock %} – Girls Can Code!{% endblock %}</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="icon" type="image/png" href="{% static 'gcc/img/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'gcc/css/application.css' %}" />
-    <link rel="stylesheet" href="{% static 'gcc/css/grid.css' %}" />
-    <link rel="stylesheet" href="{% static 'gcc/css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'gcc/css/layout.css' %}" />
-    <link rel="stylesheet" href="{% static 'gcc/css/responsive.css' %}" />
+  {# Google font, Boostrap, FontAwesome #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"/>
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
 
-    {% block head %}{% endblock %}
-  </head>
-  <body>
-    <!-- Header -->
-    <section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage.jpg' %})">
-      <!-- Quick access popup-like frame -->
-      {% block header-popup %}{% endblock %}
 
-      <!-- Logo -->
-      <div class="logo">
-        <h1>
+  {# Custom #}
+  <link rel="stylesheet" type="text/css" href="{% static 'gcc/css/gcc.css' %}"/>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="tex2jax_ignore {% block body_class %}{% endblock %}" {% block body_tag %}{% endblock %}>
+
+  {# Header #}
+  {% block super_header %}
+  <div class="navbar-header">
+    <div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-brand">
           <a href="{% url 'gcc:index' %}">
-            <img src="{% static 'gcc/img/logo.png' %}" />
+            <img src="{% static 'gcc/img/logo.png' %}" height="40" alt="Girls Can Code!">
           </a>
-        </h1>
-        <p>{% trans 'Free computer science summer camps for girls under 18.' %}</p>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-collapse collapse pull-right">
+          {% include "gcc/main-menu.html" %}
+        </div>
       </div>
-
-      <div class="container">
-        {% include "prologin/messages.html" %}
-      </div>
-
-      <!-- Nav -->
-      <nav id="nav">
-        <ul>
-          <li>
-            <a href="{% url 'gcc:index' %}">{% trans 'Home' %}</a>
-          </li>
-          <li class="{% active '^/gcc/resources/' %}">
-            <a href="{% url 'gcc:resources' %}">{% trans 'Ressources' %}</a>
-          </li>
-          <li class="{% active '^/gcc/editions/' %}">
-            <a href="{% url 'gcc:editions' %}">{% trans 'Editions' %}</a>
-          </li>
-          {% if not user.is_authenticated %}
-            <li class="pull-right">
-              <a href="{% url 'oauth:autologin' %}">{% trans 'Sign in with Prologin' %}</a>
-            </li>
-          {% else %}
-            <li class="pull-right">
-              <a>{{ user.username }}</a>
-              <ul style="">
-                <li><a href="{% url 'users:profile' user.id %}"><i class="fa fa-user"></i>{% trans 'My profile' %}</a></li>
-                <li><a href="{% url 'users:edit' user.id %}"><i class="fa fa-cog"></i>{% trans 'Profile & options' %}</a></li>
-                <li><a href="{% url 'gcc:application_summary' user.id %}"><i class="fa fa-pencil-alt"></i>{% trans 'My applications' %}</a></li>
-                <li>
-                    <form method="post" action="{% url 'users:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">{% trans 'Sign out' %}</button>
-                  </form>
-                </li>
-              </ul>
-            </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </section>
+    </div>
+  </div>
+ {% endblock super_header %}
 
 
+  {% block super_content %}
+  {# Content #}
+  <div class="container">
     {% block content %}{% endblock %}
+  </div>
+  {% endblock super_content %}
 
-    <!-- Footer -->
-    <section id="footer" class="wrapper">
-      {% block footer %}{% endblock %}
+  {# Footer #}
+  <footer>
+    <div class="container">
+      {% include "gcc/main-footer.html" %}
+    </div>
+  </footer>
 
-      <div class="container">
-        <div class="title">{% trans 'Contact' %}</div>
-        <section class="feature-list small">
-          <div class="row reg_20rem">
-            <section>
-              <h3 class="icon fa-home">{% trans 'Address' %}</h3>
-              <p>
-                Association Prologin<br />
-                14-15 Rue Voltaire<br />
-                94270 Le Kremlin Bicêtre
-              </p>
-            </section>
-            <section>
-              <h3 class="icon fa-comment">Social</h3>
-              <p>
-                <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
-                <a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
-                <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
-              </p>
-            </section>
-            <section>
-              <h3 class="icon fa-envelope">{% trans 'Mail' %}</h3>
-              <p>
-                <a href="mailto:info@prologin.org">info@prologin.org</a>
-              </p>
-            </section>
-            <section>
-              <h3 class="icon fa-phone">{% trans 'Phone' %}</h3>
-              <p>
-                +331 44 08 01 90
-              </p>
-            </section>
-          </div>
-        </section>
+  {# Scripts #}
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script type="application/javascript">
+  $(function() {
+    $('.modal[role="dialog"]').modal();
+  });
+  </script>
 
-        <div id="change_locale">
-            <h3>{% trans "Change locale" %} <i class=" fa fa-globe"></i></h3>
-            {% get_current_language as LANGUAGE_CODE %}
-            <form action="{% url 'set_language' %}" method="post" id="change-lang-form" class="form-inline">
-              {% csrf_token %}
-              {# <input name="next" type="hidden" value="{{ redirect_to }}"/> #}
-              <select name="language" id="set-language" class="form-control" onchange="$('#change-lang-form').submit();">
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for language in languages %}
-                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-                      selected="selected"{% endif %}>{{ language.name_local.title }}</option>
-                {% endfor %}
-              </select>
-              <noscript><input type="submit" class="btn btn-default" value="{% trans "Apply" %}"/></noscript>
-              {% if request.user.is_authenticated and LANGUAGE_CODE != request.user.preferred_locale %}
-                {% url 'gcc:edit' user.id as user_edit_url %}
-                <p><small class="text-muted">{% blocktrans with url=user_edit_url %}Save your
-        preferred locale in your <a href="{{ url }}#id_preferred_locale">user settings</a>.{% endblocktrans %}</small></p>
-              {% endif %}
-            </form>
-        </div>
-        <div id="copyright">
-          <ul>
-            <li>&copy; Girls Can Code!</li>
-            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scripts -->
-    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'gcc/js/jquery.dropotron.min.js' %}"></script>
-    <script src="{% static 'gcc/js/browser.min.js' %}"></script>
-    <script src="{% static 'gcc/js/breakpoints.min.js' %}"></script>
-    <script src="{% static 'gcc/js/util.js' %}"></script>
-    <script src="{% static 'gcc/js/main.js' %}"></script>
-  </body>
+  {% block extra_script %}{% endblock %}
+  {% if google_analytics_id %}<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '{{ google_analytics_id }}', 'auto');
+  ga('send', 'pageview');
+  </script>{% endif %}
+</body>
 </html>
-
