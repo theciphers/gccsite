@@ -78,8 +78,7 @@
       <h2>{% trans "Latest news" %}</h2>
 
         {% for article in articles %}
-
-        <!--<section class="clearfix news-entry">
+        <section class="clearfix news-entry">
           <h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
           <div class="entry-meta-line text-muted">
             <p class="entry-info">
@@ -110,14 +109,12 @@
               {{ article.html_content|safe }}
             {% endif %}
           </div>
-        </section>-->
+        </section>
 
         {% endfor %}
 
 
-      </div>
 
-      <div class="col-sm-9">
         <h2>{% trans 'Get updated!' %}</h2>
         <p>
           {% blocktrans %}
@@ -135,12 +132,10 @@
             </div>
           </div>
         </form>
-      </div>
 
-      <div class="col-sm-9">
-          <h2>History behind Girls Can Code!</h2>
-      </div>
+        <h2>{% trans 'History behind Girls Can Code!' %}</h2>
 
+      </div>
       </div>
 
   {% endblock content %}

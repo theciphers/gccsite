@@ -41,9 +41,12 @@ INSTALLED_APPS = (
     'bootstrapform',
     'compat',
     'crispy_forms',
+    'django_bootstrap_breadcrumbs',
+    'django_comments',
     'djmail',
     'rules',
     'statictemplate',
+    'tagging',
 
     # GCC apps
     'gccsite',
@@ -51,9 +54,11 @@ INSTALLED_APPS = (
     'centers',
     'users',
     'gcc',
+    'news',
 
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
+    'zinnia',
 
     # Debug Toolbar (will not load if DEBUG = False)
     'debug_toolbar',
@@ -211,3 +216,20 @@ NPM_FILE_PATTERNS = {
     'font-awesome': ['css/*.css', 'fonts/*'],
     'jquery': ['dist/*.js'],
 }
+
+# ZINNIA (newsblog)
+
+HOMEPAGE_ARTICLES = 4
+ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0  # disable comments
+ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0  # disables pingbacks completely
+ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0  # disables trackbacks completely
+ZINNIA_ENTRY_BASE_MODEL = 'news.models.NewsEntry'
+ZINNIA_FEEDS_FORMAT = 'atom'
+ZINNIA_FEEDS_MAX_ITEMS = 20
+ZINNIA_MAIL_COMMENT_AUTHORS = False
+ZINNIA_MARKUP_LANGUAGE = 'markdown'
+ZINNIA_PING_DIRECTORIES = ()
+ZINNIA_PING_EXTERNAL_URLS = False
+ZINNIA_PROTOCOL = 'https'
+ZINNIA_SAVE_PING_DIRECTORIES = False
+ZINNIA_UPLOAD_TO = 'upload/zinnia'

@@ -91,6 +91,10 @@ footer .legal {
 /*
  * Buttons
  */
+a {
+    color: #2ea297ff;
+}
+
 .btn-primary {
     background-color: #1d655e;
     color: #ffffff;

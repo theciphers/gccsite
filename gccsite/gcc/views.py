@@ -1,5 +1,6 @@
 import random
 from datetime import date
+from django.conf import settings
 from django.contrib import auth, messages
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -15,6 +16,7 @@ from gcc.forms import (EmailForm, CombinedApplicantUserForm,
 from gcc.models import (Applicant, Edition, Event, EventWish, SubscriberEmail,
                         Sponsor)
 from prologin.email import send_email
+from zinnia.models import Entry
 
 
 # Editions
@@ -49,10 +51,12 @@ class IndexView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        articles = Entry.published.prefetch_related('authors').all()[:settings.HOMEPAGE_ARTICLES]
         context.update({
             'events': Event.objects.filter(event_end__gt=date.today()),
             'last_edition': Edition.objects.latest(),
-            'sponsors': list(Sponsor.objects.active())
+            'sponsors': list(Sponsor.objects.active()),
+            'articles': articles
         })
         random.shuffle(context['sponsors'])
         return context

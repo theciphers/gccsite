@@ -23,6 +23,9 @@ urlpatterns = [
 
     # Language selector
     path('lang/', include('django.conf.urls.i18n')),
+
+    # News (blog)
+    path('news/', include('news.urls')),
 ]
 
 if settings.DEBUG:
