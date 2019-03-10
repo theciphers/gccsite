@@ -9,11 +9,27 @@
 {% block content %}
 <div id="edition-history" class="container">
   <div class="row">
-    <div class="col-sm-3 edition-header">
+    <div class="col-sm-2 edition-header">
+      <h1>2019</h1>
+      <img src="{% static 'archives/gcc/2019/poster.full.jpg' %}" />
+    </div>
+    <div class="col-sm-10 edition-description">
+      <p>
+        {% blocktrans %}
+        Subscribtions are still open for this edition.
+        {% endblocktrans %}
+      </p>
+      <a class="btn btn-primary btn-lg" href="">
+        {% trans 'Candidate for a summer camp' %}
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 edition-header">
       <h1>2018</h1>
       <img src="{% static 'archives/gcc/2018/poster.full.jpg' %}" />
     </div>
-    <div class="col-sm-9 edition-description">
+    <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
         This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />
@@ -23,11 +39,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-3 edition-header">
+    <div class="col-sm-2 edition-header">
       <h1>2017</h1>
       <img src="{% static 'archives/gcc/2017/poster.full.jpg' %}" />
     </div>
-    <div class="col-sm-9 edition-description">
+    <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
         In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !
@@ -36,10 +52,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-3 edition-header">
+    <div class="col-sm-2 edition-header">
       <h1>2016</h1>
     </div>
-    <div class="col-sm-9 edition-description">
+    <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
         In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.
@@ -49,10 +65,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <h1>2015</h1>
     </div>
-    <div class="col-sm-9 edition-description">
+    <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
         In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.
@@ -61,10 +77,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <h1>2014</h1>
     </div>
-    <div class="col-sm-9 edition-description">
+    <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
         This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.

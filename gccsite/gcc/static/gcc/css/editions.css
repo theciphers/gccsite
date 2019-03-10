@@ -2,6 +2,10 @@
     max-width: 100%;
 }
 
+#edition-history .edition-header {
+    padding-bottom: 40px;
+}
+
 #edition-history .edition-header:after {
     content: "";
     width: 5px;
@@ -12,7 +16,7 @@
 }
 
 #edition-history h1 {
-    padding-top: 30px;
+    padding-top: 40px;
     text-align: right;
 }
 
@@ -24,12 +28,13 @@
     height: 20px;
     background: #1d655e;
     border-radius: 20px;
-    top: 41px;
+    top: 51px;
 }
 
 .edition-description {
-    font-size: 1.2em;
-    padding-top: 30px;
+    font-size: 1.4em;
+    padding-top: 40px;
+    padding-bottom: 40px;
     padding-left: 20px;
     /* min-height: 500px; */
 }
