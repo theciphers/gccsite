@@ -1,5 +1,9 @@
 # Django
 django<3
+# News / blog
+django-blog-zinnia
+# Breadcrumbs
+django-bootstrap-breadcrumbs>=0.7.0
 # Bootstrap-formatted forms
 django-bootstrap-form>=3.1
 # Bootstrap-formatted forms (other lib) # TODO: find a single good lib
