@@ -2,10 +2,12 @@
 {% load static %}
 {% load i18n %}
 
-
 {% block content %}
-<section class="wrapper emph-infos important">
-    <div class="title">{% trans "Train to code" %}</div>
+
+<section class="ressources">
+<div class="row">
+<div class="col-sm-6">
+    <div class="title">{% trans "Learning to program" %}</div>
     <div class="container">
       <p>
         {% blocktrans %}
@@ -14,10 +16,8 @@
         {% endblocktrans %}
       </p>
     </div>
-</section>
 
-<section class="wrapper emph-infos">
-  <div class="title">{% trans "Which language ?" %}</div>
+  <div class="title">{% trans "Which language to begin with ?" %}</div>
     <div class="container">
       <p>
         {% blocktrans %}
@@ -33,48 +33,46 @@
         {% endblocktrans %}
       </p>
     </div>
-</section>
 
-<section class="wrapper">
     <div class="title">{% trans "Starting" %}</div>
 
     <div class="container">
-      <div class="highlight-row">
-        <div class="highlight">
+    <div class="row">
+        <div class="col-xs-3">
           {% with url="http://www.france-ioi.org/" %}
           <a target="_blank" href="{{url}}" class="image featured">
             <img src="{% static 'gcc/img/logo_ioi.png' %}" />
           </a>
-
+        </div>
+        <div class="col-xs-9">
           <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
+          {% endwith %}
           <p>
             {% blocktrans %}
             France-IOI offers a learning platform with exercises organized by level of difficulty, everything accessible completely freely and fully in french !
             {% endblocktrans %}
           </p>
-          <a target="_blank" href="{{url}}" class="button style1">France IOI</a>
-          {% endwith %}
         </div>
-        <div class="highlight">
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
           {% with url="https://www.codecademy.com/fr" %}
           <a target="_blank" href="{{url}}" class="image featured">
             <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
           </a>
-
+        </div>
+        <div class="col-xs-9">
           <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
+          {% endwith %}
           <p>
             {% blocktrans %}
             If you speak a bit of English, Codeacademy is a good resource to start programming.
             {% endblocktrans %}
           </p>
-          <a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a>
-          {% endwith %}
         </div>
     </div>
   </div>
-</section>
 
-<section class="wrapper">
   <div class="title">{% trans "Keep coding"%}</div>
   <div class="container">
     <p>
@@ -86,15 +84,19 @@
     </p>
 
     <div class="feature-list">
-      <section class="row irr_10rem_1fr">
-        {% with url="https://djangogirls.org/" %}
-        <div class="img-container">
-          <a href="{{url}}">
-            <img src="https://djangogirls.org/static/img/global/logo.png" />
-          </a>
+
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="img-container">
+                {% with url="https://djangogirls.org/" %}
+              <a href="{{url}}">
+                <img src="https://djangogirls.org/static/img/global/logo.png" />
+              </a>
+            </div>
         </div>
-        <div>
+        <div class="col-xs-9">
           <h3><a href="{{url}}">Django girls</a></h3>
+          {% endwith %}
           <p>
               {% blocktrans %}
               They have written a tutorial to create a blog in Python thanks to the Django framework.
@@ -103,26 +105,27 @@
               {% endblocktrans %}
           </p>
         </div>
-        {% endwith %}
-      </section>
-      <section class="row irr_10rem_1fr">
-        <div class="img-container">
-          <a href="//prologin.org/">
-            <img src="https://prologin.org/static/img/logo_cube.png" />
-          </a>
-        </div>
-        <div>
-          <h3><a href="//prologin.org/">Prologin</a></h3>
-          <p>
-              {% blocktrans %}
-              It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
-              On the website, you can find archives of the previous years exercises.
-              They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !
-              {% endblocktrans %}
-         </p>
-        </div>
-      </section>
     </div>
+      <div class="row">
+          <div class="col-xs-3">
+              <a href="//prologin.org/">
+                  <img src="https://prologin.org/static/img/logo_cube.png" />
+              </a>
+          </div>
+          <div class="col-xs-9">
+              <h3><a href="//prologin.org/">Prologin</a></h3>
+              <p>
+                  {% blocktrans %}
+                  It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
+                  On the website, you can find archives of the previous years exercises.
+                  They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !
+                  {% endblocktrans %}
+              </p>
+          </div>
+      </div>
   </div>
+  </div>
+</div>
+</div>
 </section>
 {% endblock %}

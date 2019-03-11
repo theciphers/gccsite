@@ -1249,3 +1249,13 @@ table.table-noborder > tbody > tr > td {
 table.table-align-middle > tbody > tr > td {
   vertical-align: middle;
 }
+
+.ressources .title {
+    font-size: 2em;
+}
+
+.ressources img {
+    width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
