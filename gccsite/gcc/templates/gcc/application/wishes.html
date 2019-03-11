@@ -1,4 +1,5 @@
 {% extends "gcc/base.html" %}
+{% load bootstrap %}
 {% load static %}
 {% load i18n %}
 
@@ -10,30 +11,31 @@
 {% endblock %}
 
 {% block content %}
-<section class="wrapper">
-<div class="title">{% trans "Summer camps locations" %}</div>
 <div class="container">
-    <h2>{% trans "Choose my location wishes" %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <center>
-            <input class="halo-button" type="submit" value="{% trans "Confirm my application" %}">
-        </center>
-    </form>
+<h2>{% trans "Choose my location wishes" %}</h2>
+  <form method="post" class="form-horizontal">
+    {% csrf_token %}
+    {{ form|bootstrap_horizontal:'col-md-2' }}
+    <input class="btn btn-primary btn-lg btn-block" type="submit" value="{% trans "Confirm my application" %}">
+  </form>
 </div>
-</section>
-<section class="wrapper">
-    <div class="title">{% trans "Available centers" %}</div>
-    <div class="container">
-        {% for event in events %}
+
+<h2>{% trans "Available centers" %}</h2>
+<div class="container">
+  <div class="row">
+    {% for event in events %}
+      <div class="col-md-6">
         <a href="//prologin.org/center"><h3>{{ event.center.name }}</h3></a>
         <p>
-            {% blocktrans with start=event.event_start end=event.event_end %}From {{start}} to {{end}}{% endblocktrans %}<br />
-            {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
-            {% blocktrans with signup_end=event.signup_end %}Inscription close the {{signup_end}} {% endblocktrans %}
+          {% blocktrans with start=event.event_start end=event.event_end %}
+            From {{start}} to {{end}}
+          {% endblocktrans %}
+          <br />
+          {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
+          {% blocktrans with signup_end=event.signup_end %}Inscription close the {{signup_end}} {% endblocktrans %}
         </p>
-        {% endfor %}
-    </div>
-</section>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

@@ -1,16 +1,12 @@
 {% extends "gcc/base.html" %}
+{% load bootstrap %}
 {% load static %}
 {% load i18n %}
 
 {% block title %}{% trans "GCC! − Application" %}{% endblock %}
 
-{% block head %}
-<link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
-{% endblock %}
-
 {% block content %}
 <section class="wrapper">
-<div class="title">{% trans "Application" %}</div>
 <div class="container">
     {% if user.has_complete_profile_for_application is not True %}
     <div class="alert alert-warning" role="alert">
@@ -18,12 +14,10 @@
     </div>
     {% endif%}
     <h2>{% trans "Application Form" %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <center>
-            <input class="halo-button" type="submit" value="{%trans "Validate and select my wishes" %}">
-        </center>
+    <form method="post" class="form-horizontal">
+      {% csrf_token %}
+      {{ form|bootstrap_horizontal:'col-sm-3' }}
+      <input class="btn btn-lg btn-primary btn-block" type="submit" value="{%trans "Validate and select my wishes" %}">
     </form>
 </div>
 </section>
