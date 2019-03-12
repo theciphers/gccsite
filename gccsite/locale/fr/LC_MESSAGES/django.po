@@ -2,24 +2,25 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # Thibault Allançon <tallancon@gmail.com>, 2019
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2019
-# 
+# Rémi Dupré <remim.dupre@gmail.com>, 2019
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-06 22:42+0100\n"
+"POT-Creation-Date: 2019-03-13 00:26+0100\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
-"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>, 2019\n"
+"Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: centers/admin.py:34
@@ -54,7 +55,7 @@ msgstr "Autre"
 msgid "Manager"
 msgstr "Responsable"
 
-#: centers/models.py:87 gcc/templates/gcc/base.html:93
+#: centers/models.py:87
 msgid "Contact"
 msgstr "Contact"
 
@@ -82,8 +83,7 @@ msgstr "Plein format"
 msgid "Active"
 msgstr "Actif"
 
-#: gcc/forms.py:20 gcc/templates/gcc/users/profile.html:56
-#: users/templates/users/profile.html:54
+#: gcc/forms.py:20 users/templates/users/profile.html:56
 msgid "Email address"
 msgstr "Adresse e-mail"
 
@@ -107,7 +107,7 @@ msgstr "<em>Je m'identifie comme une fille/femme</em>"
 msgid "<em>I identify as boy/man.</em>"
 msgstr "<em>Je m'identifie comme un garçon/homme.</em>"
 
-#: gcc/forms.py:128 prologin/models.py:51 users/forms.py:61
+#: gcc/forms.py:128 prologin/models.py:51 users/forms.py:40
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -117,8 +117,8 @@ msgid ""
 "engages its responsibility to supervise you during the summer camps."
 msgstr ""
 "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons "
-"légales : l'association engage sa responsabilité pour vous encadrer lors des"
-" stages."
+"légales : l'association engage sa responsabilité pour vous encadrer lors des "
+"stages."
 
 #: gcc/forms.py:137
 msgid ""
@@ -136,8 +136,8 @@ msgstr "Format&nbsp;: %(format)s"
 #: gcc/forms.py:146
 #, python-format
 msgid ""
-"You can modify or review all your personal information on your <a "
-"href=\"%(url)s\">profile page</a>."
+"You can modify or review all your personal information on your <a href="
+"\"%(url)s\">profile page</a>."
 msgstr ""
 "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a "
 "href=\"%(url)s\">page de profil</a>."
@@ -149,8 +149,8 @@ msgstr "Optionnel."
 #: gcc/forms.py:156
 msgid "You cannot participate if you don't identify as a girl/woman."
 msgstr ""
-"Vous ne pouvez pas participer si vous ne vous identifiez pas comme une "
-"fille/femme."
+"Vous ne pouvez pas participer si vous ne vous identifiez pas comme une fille/"
+"femme."
 
 #: gcc/forms.py:183
 msgid "1st choice"
@@ -164,16 +164,12 @@ msgstr "Deuxième choix"
 msgid "3rd choice"
 msgstr "Troisième choix"
 
-#: gcc/templates/gcc/application/form.html:5
-#: gcc/templates/gcc/application/wishes.html:5
+#: gcc/templates/gcc/application/form.html:6
+#: gcc/templates/gcc/application/wishes.html:6
 msgid "GCC! − Application"
 msgstr "GCC! - Inscription"
 
 #: gcc/templates/gcc/application/form.html:13
-msgid "Application"
-msgstr "Inscription"
-
-#: gcc/templates/gcc/application/form.html:17
 #: gcc/templates/gcc/application/summary.html:112
 #: gcc/templates/gcc/application/validation.html:17
 msgid ""
@@ -183,11 +179,11 @@ msgstr ""
 "Il manque plusieurs informations nécessaires, vous ne pourrez pas valider "
 "votre candidature."
 
-#: gcc/templates/gcc/application/form.html:20
+#: gcc/templates/gcc/application/form.html:16
 msgid "Application Form"
 msgstr "Formulaire d'Inscription"
 
-#: gcc/templates/gcc/application/form.html:25
+#: gcc/templates/gcc/application/form.html:20
 msgid "Validate and select my wishes"
 msgstr "Valider et classer mes choix."
 
@@ -261,8 +257,7 @@ msgid " Date joined"
 msgstr " Date d'inscription"
 
 #: gcc/templates/gcc/application/summary.html:57
-#: gcc/templates/gcc/users/profile.html:80
-#: users/templates/users/profile.html:78
+#: users/templates/users/profile.html:80
 msgid "Member for"
 msgstr "Membre depuis"
 
@@ -275,8 +270,7 @@ msgid "Sadly you did not apply yet for the current edition..."
 msgstr "Vous n'avez pas encore participé au stage cette année."
 
 #: gcc/templates/gcc/application/summary.html:83
-#: gcc/templates/gcc/base.html:141
-#: gccsite/templates/prologin/main-footer.html:65
+#: gcc/templates/gcc/main-footer.html:44
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -346,420 +340,298 @@ msgstr ""
 "Soyez prudente, après cela vous ne pourrez plus modifier vos réponses ni "
 "l'ordre de vos préférences."
 
-#: gcc/templates/gcc/application/wishes.html:14
-msgid "Summer camps locations"
-msgstr "Lieux de stage"
-
-#: gcc/templates/gcc/application/wishes.html:16
+#: gcc/templates/gcc/application/wishes.html:15
 msgid "Choose my location wishes"
 msgstr "Choisir mes lieux de stage"
 
-#: gcc/templates/gcc/application/wishes.html:21
+#: gcc/templates/gcc/application/wishes.html:19
 msgid "Confirm my application"
 msgstr "Confirmer ma candidature"
 
-#: gcc/templates/gcc/application/wishes.html:27
+#: gcc/templates/gcc/application/wishes.html:23
 msgid "Available centers"
 msgstr "Tous les centres"
 
-#: gcc/templates/gcc/application/wishes.html:32
+#: gcc/templates/gcc/application/wishes.html:30
 #, python-format
-msgid "From %(start)s to %(end)s"
-msgstr "Du %(start)s au %(end)s"
+msgid ""
+"\n"
+"            From %(start)s to %(end)s\n"
+"          "
+msgstr ""
+"\n"
+"Du %(start)s au %(end)s"
 
-#: gcc/templates/gcc/application/wishes.html:34
+#: gcc/templates/gcc/application/wishes.html:35
 #, python-format
 msgid "Inscription close the %(signup_end)s "
 msgstr "L'inscription se termine le %(signup_end)s "
 
-#: gcc/templates/gcc/base.html:42
-msgid "Free computer science summer camps for girls under 18."
-msgstr "Stage d'informatique gratuit pour les collégiennes et lycéennes."
-
-#: gcc/templates/gcc/base.html:53
-msgid "Home"
-msgstr "Accueil"
-
-#: gcc/templates/gcc/base.html:56
-msgid "Ressources"
-msgstr "Ressources"
-
-#: gcc/templates/gcc/base.html:59
-msgid "Editions"
-msgstr "Édition"
-
-#: gcc/templates/gcc/base.html:63
-msgid "Sign in with Prologin"
-msgstr "Se connecter via Prologin"
-
-#: gcc/templates/gcc/base.html:69 gccsite/templates/prologin/main-menu.html:42
-msgid "My profile"
-msgstr "Mon profil"
-
-#: gcc/templates/gcc/base.html:70
-msgid "Profile & options"
-msgstr "Profil &amp; options"
-
-#: gcc/templates/gcc/base.html:71
-msgid "My applications"
-msgstr "Mes candidatures"
-
-#: gcc/templates/gcc/base.html:75 gccsite/templates/prologin/main-menu.html:45
-msgid "Sign out"
-msgstr "Déconnexion"
-
-#: gcc/templates/gcc/base.html:97 prologin/models.py:54
-msgid "Address"
-msgstr "Adresse"
-
-#: gcc/templates/gcc/base.html:113
-msgid "Mail"
-msgstr "E-mail"
-
-#: gcc/templates/gcc/base.html:119 users/models.py:44
-msgid "Phone"
-msgstr "Téléphone"
-
-#: gcc/templates/gcc/base.html:128
-#: gccsite/templates/prologin/main-footer.html:52
-msgid "Change locale"
-msgstr "Changer la langue"
-
-#: gcc/templates/gcc/base.html:144
-#, python-format
-msgid ""
-"Save your\n"
-"        preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user settings</a>."
-msgstr ""
-"Sauvegardez votre langue préférée dans vos <a "
-"href=\"%(url)s#id_preferred_locale\">paramètres</a>."
-
-#: gcc/templates/gcc/editions.html:12
-msgid "Edition 2018"
-msgstr "Édition 2018"
+#: gcc/templates/gcc/editions.html:5
+msgid "Past Editions"
+msgstr "Éditions Passées"
 
 #: gcc/templates/gcc/editions.html:20
 msgid ""
 "\n"
-"                This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />\n"
-"                Those summer camps had a total of <strong>70 girls</strong> and a new practice on <strong>microcontrolers microbit</strong> is created. With the video games tutorial and some activities with the Lego robots it's a great way to practice the skills learned during the week with creativity and fun !\n"
-"                "
+"        Subscriptions are still open for this edition.\n"
+"        "
 msgstr ""
 "\n"
-"Cette année, l'organisation d’un stage Girls Can Code! à <strong>Nantes</strong> est délégué à l’association Adn-ouest Atlantic 2020. Prologin quant à elle organise à nouveau les stages de <strong>Paris</strong> et <strong>Lyon</strong>.<br />\n"
-"Ces stages qui accueillent au total <strong>70 participantes</strong> voient l’arrivée d’un TP sur les <strong>microcontrôleurs microbit</strong> qui, avec le TP jeux vidéo, donnent la possibilité d’exprimer sa créativité."
+"Les inscriptions sont encore ouvertes pour cette édition"
 
-#: gcc/templates/gcc/editions.html:38
-msgid "Edition 2017"
-msgstr "Édition 2017"
+#: gcc/templates/gcc/editions.html:25
+msgid "Candidate for a summer camp"
+msgstr "Candidater pour un stage"
 
-#: gcc/templates/gcc/editions.html:43
+#: gcc/templates/gcc/editions.html:36
 msgid ""
 "\n"
-"                In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !\n"
-"                "
+"        This year, the organization of a Girls Can Code! at <strong>Nantes</"
+"strong> was delegated to the organization Adn-ouest Atlantic 2020. "
+"Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> "
+"and <strong>Lyon</strong>.<br />\n"
+"        Those summer camps had a total of <strong>70 girls</strong> and a "
+"new practice on <strong>microcontrolers microbit</strong> is created. With "
+"the video games tutorial and some activities with the Lego robots it's a "
+"great way to practice the skills learned during the week with creativity and "
+"fun !\n"
+"        "
 msgstr ""
 "\n"
-"En 2017, Prologin se lance un grand défi, l’organisation de 3 stages Girls Can Code!, un à <strong>Bordeaux</strong> en juillet et deux autres à <strong>Paris</strong> et <strong>Lyon</strong> en parallèle pendant la dernière semaine d'août. Ils ont réuni un total de <strong>52 participantes</strong> !"
+"Cette année, l'organisation d’un stage Girls Can Code! à <strong>Nantes</"
+"strong> est délégué à l’association Adn-ouest Atlantic 2020. Prologin quant "
+"à elle organise à nouveau les stages de <strong>Paris</strong> et "
+"<strong>Lyon</strong>.<br />\n"
+"Ces stages qui accueillent au total <strong>70 participantes</strong> voient "
+"l’arrivée d’un TP sur les <strong>microcontrôleurs microbit</strong> qui, "
+"avec le TP jeux vidéo, donnent la possibilité d’exprimer sa créativité."
 
-#: gcc/templates/gcc/editions.html:62
-msgid "Edition 2016"
-msgstr "Édition 2016"
-
-#: gcc/templates/gcc/editions.html:67
+#: gcc/templates/gcc/editions.html:61
 msgid ""
 "\n"
-"                In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.\n"
-"                This year a new tutorial was created on <strong>Networks</strong>, where each girls creates it's own chat client !\n"
-"                "
+"        In 2017, Prologin challenges itself to organize 3 Girls Can Code "
+"summer camps! One at <strong>Bordeaux</strong> in July and two others at "
+"<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end "
+"of august. They received a total of <strong>52 participants</strong> !\n"
+"        "
 msgstr ""
 "\n"
-"Les <strong>18 participantes</strong> avaient cette année des niveaux très hétéroclites, le stage s’est donc organisé par groupes de niveaux.\n"
-"Le stage a vu l’arrivée d’un <strong>TP réseau</strong> qui consiste en la création d'un petit client de messagerie."
+"En 2017, Prologin se lance un grand défi, l’organisation de 3 stages Girls "
+"Can Code!, un à <strong>Bordeaux</strong> en juillet et deux autres à "
+"<strong>Paris</strong> et <strong>Lyon</strong> en parallèle pendant la "
+"dernière semaine d'août. Ils ont réuni un total de <strong>52 participantes</"
+"strong> !"
 
 #: gcc/templates/gcc/editions.html:83
-msgid "Edition 2015"
-msgstr "Édition 2015"
-
-#: gcc/templates/gcc/editions.html:87
 msgid ""
 "\n"
-"                In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.\n"
-"                "
+"        In 2016,the  <strong>18 girls</strong> had very different levels, so "
+"the camp was split in small groups.\n"
+"        This year a new tutorial was created on <strong>Networks</strong>, "
+"where each girls creates it's own chat client !\n"
+"        "
 msgstr ""
 "\n"
-"En 2015, c’est <strong>12 filles</strong> qui ont pris part à un stage qui initie pour la première fois à des sujets sur le <strong>web</strong>, la création d’un petit <strong>jeux vidéo</strong> avec la bibliothèque pygame ou encore sur l’os <strong>linux</strong>."
+"En 2016, les <strong>18 participantes</strong> avaient des niveaux très "
+"hétéroclytes, le stage s’est donc organisé par groupes de niveaux.\n"
+"Le stage a vu l’arrivée d’un <strong>TP réseau</strong> qui consiste en la "
+"création d'un petit client de messagerie."
 
-#: gcc/templates/gcc/editions.html:102
-msgid "Edition 2014"
-msgstr "Édition 2014"
-
-#: gcc/templates/gcc/editions.html:106
+#: gcc/templates/gcc/editions.html:104
 msgid ""
 "\n"
-"                This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.\n"
-"                Center around algorithmic, we learn to use abstract data structures, for example <strong>graphs</strong>.\n"
-"                Among all the participants, two in particular continue to study IT and became organizers as well.\n"
-"                "
+"        In 2015, there was <strong>12 girls</strong> taking part to the "
+"summer camps which for the first time as tutorials on <strong>web "
+"programming</strong>, and a small tutorial on <strong>video game creation</"
+"strong> with the Pygame library and even an introduction to  <strong>Linux</"
+"strong>.\n"
+"        "
 msgstr ""
 "\n"
-"Ce premier stage a accueilli <strong>10 participantes</strong> pendant 5 jours d'initiation à la programmation.\n"
-"Centré autour de l'algorithmique, on y a appris à manipuler des structures de données abstraites, comme par exemples les <strong>graphes</strong>.\n"
-"Parmi les participantes, deux en particulier ont poursuivi leurs études dans l'informatique et sont devenues organisatrices des stages !"
+"En 2015, c’est <strong>12 filles</strong> qui ont pris part à un stage qui "
+"initie pour la première fois à des sujets sur le <strong>web</strong>, la "
+"création d’un petit <strong>jeux vidéo</strong> avec la bibliothèque pygame "
+"ou encore sur l’os <strong>linux</strong>."
 
-#: gcc/templates/gcc/index.html:6
-msgid "The Summer Camps"
-msgstr "Le Stage"
-
-#: gcc/templates/gcc/index.html:9
+#: gcc/templates/gcc/editions.html:124
 msgid ""
 "\n"
-"            The Girls Can Code! Summer camp is an initiation week to programming for\n"
-"            teenage girls.\n"
-"            "
+"        This first summer camp hosted <strong>10 participants</strong> for 5 "
+"days to introduce to them to programming.\n"
+"        Center around algorithmic, we learn to use abstract data structures, "
+"for example <strong>graphs</strong>.\n"
+"        Among all the participants, two in particular continue to study IT "
+"and became organizers as well.\n"
+"        "
 msgstr ""
 "\n"
-"Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les collégiennes et lycéennes."
+"Ce premier stage a accueilli <strong>10 participantes</strong> pendant 5 "
+"jours d'initiation à la programmation.\n"
+"Ce premier stage a accueilli <strong>10 participantes</strong> pendant 5 "
+"jours d'initiation à la programmation.\n"
+"Parmi les participantes, deux en particulier ont poursuivi leurs études dans "
+"l'informatique et sont devenues organisatrices des stages !"
 
-#: gcc/templates/gcc/index.html:16
-msgid "Next Summer Camps"
+#: gcc/templates/gcc/index.html:6 gcc/templates/gcc/main-footer.html:9
+#: gcc/templates/gcc/main-menu.html:5
+msgid "Home"
+msgstr "Accueil"
+
+#: gcc/templates/gcc/index.html:17
+msgid "Girls Can Code! computer science summer camps for girls under 18."
+msgstr ""
+"Girls Can Code!, le stage d'informatique pour les collégiennes et lycéennes."
+
+#: gcc/templates/gcc/index.html:18
+msgid ""
+"In Middle or High school? Apply for the Girls Can Code summer camps! "
+"Registration is free."
+msgstr ""
+"Au collège ou au lycée ? Inscris toi au stage Girls Can Code! dès "
+"maintenant, l'inscription est gratuite !"
+
+#: gcc/templates/gcc/index.html:40
+msgid "Up-comming summer camps"
 msgstr "Prochains stages"
 
-#: gcc/templates/gcc/index.html:19
+#: gcc/templates/gcc/index.html:46
 msgid "the week of"
 msgstr "la semaine du"
 
-#: gcc/templates/gcc/index.html:24
-msgid "To register"
-msgstr "Pour vous inscrire"
-
-#: gcc/templates/gcc/index.html:26
-msgid "For girls without an high school diploma"
-msgstr "Être une fille encore non bachelière"
-
-#: gcc/templates/gcc/index.html:27
-msgid "For European Union or Swiss inhabitants"
-msgstr "Être un ressortissant de l'Union européenne ou de la Suisse"
-
-#: gcc/templates/gcc/index.html:28
-msgid "Complete the application form"
-msgstr "Remplir le formulaire de candidature"
-
-#: gcc/templates/gcc/index.html:31 gcc/templates/gcc/users/register.html:17
-#: gccsite/templates/prologin/main-menu.html:53
-#: users/templates/users/register.html:7
-#: users/templates/users/register.html:10
-#: users/templates/users/register.html:15
-#: users/templates/users/register.html:23
+#: gcc/templates/gcc/index.html:54
 msgid "Register"
 msgstr "S'inscrire"
 
-#: gcc/templates/gcc/index.html:33 gcc/templates/gcc/users/login.html:17
-#: gccsite/templates/prologin/main-menu.html:50
-#: users/templates/users/login.html:7 users/templates/users/login.html:10
-#: users/templates/users/login.html:26
+#: gcc/templates/gcc/index.html:56
 msgid "Sign in"
 msgstr "Connexion"
 
-#: gcc/templates/gcc/index.html:37
+#: gcc/templates/gcc/index.html:61
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: gcc/templates/gcc/index.html:78
+msgid "Latest news"
+msgstr "Dernières news"
+
+#: gcc/templates/gcc/index.html:87
+#: news/templates/zinnia/_entry_detail_base.html:19
+msgid "Written by"
+msgstr "Rédigé par"
+
+#: gcc/templates/gcc/index.html:91
+#: news/templates/zinnia/_entry_detail_base.html:23
+#, python-format
+msgid "Show all %(author)s's entries"
+msgstr "Afficher toutes les entrées de %(author)s"
+
+#: gcc/templates/gcc/index.html:93
+msgid "on"
+msgstr "sur"
+
+#: gcc/templates/gcc/index.html:95
+msgid "Written on"
+msgstr "Écrit sur"
+
+#: gcc/templates/gcc/index.html:118
+msgid "Get updated!"
+msgstr "Rester informé !"
+
+#: gcc/templates/gcc/index.html:120
 msgid ""
 "\n"
-"                We learn the fundamentals of programming with the Python language, and things to start your own small project !\n"
-"                <br /><br />\n"
-"                Internships are free and organized by volunteers and by the Prologin association.\n"
-"                "
+"            Subscribe to the newsletter to get updated with the latest "
+"news.\n"
+"          "
 msgstr ""
 "\n"
-"On y apprend les bases de la programmation en Python, et de quoi commencer son propre projet !\n"
-"Les stages sont gratuits et les repas offerts aux participantes."
+"S'inscrire à la newsletter pour être informé des nouveautés."
 
-#: gcc/templates/gcc/index.html:47
-msgid "More informations"
-msgstr "Plus d'informations"
+#: gcc/templates/gcc/index.html:130
+msgid "Subscribe"
+msgstr "S'inscrire"
 
-#: gcc/templates/gcc/index.html:51
-msgid "Everything you have to know about the summer camp"
-msgstr "Tout ce qu'il faut savoir sur le stage"
+#: gcc/templates/gcc/index.html:136
+msgid "History behind Girls Can Code!"
+msgstr "Petit historique de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:52
-msgid "For all other question, contact us"
-msgstr "Pour toute autre question, contactez-nous"
-
-#: gcc/templates/gcc/index.html:56
-msgid "Prerequisites"
-msgstr "Prérequis"
-
-#: gcc/templates/gcc/index.html:58
-msgid ""
-"\n"
-"                        The summer camp's goal is to adapt to each of you thus you do not have to have a minimal level in IT before the summer camp.\n"
-"                        Beside, go take a look to\n"
-"                        "
-msgstr ""
-"\n"
-"Le stage a pour but de s’adapter au niveau de chacune donc inutile d’avoir un niveau minimum en informatique avant le stage.\n"
-"Par contre si tu veux savoir dans quoi tu te lances avant le stage, n'hésite pas à faire un tour sur"
-
-#: gcc/templates/gcc/index.html:62
-msgid "some resources"
-msgstr "quelques ressources"
-
-#: gcc/templates/gcc/index.html:63
-msgid ""
-"\n"
-"                        to peek a look at what's coming !\n"
-"                        "
-msgstr ""
-"\n"
-"que nous recommandons pour commencer !"
-
-#: gcc/templates/gcc/index.html:69
-msgid "Free internship"
-msgstr "Stage gratuit"
-
-#: gcc/templates/gcc/index.html:71
-msgid ""
-"\n"
-"                        Internships are free and meals are provided.\n"
-"                        The association does not provide any accommodation or transportation to the stage place.\n"
-"                        But if you have any financial issues, send us a mail to\n"
-"                        "
-msgstr ""
-"\n"
-"Les stages sont gratuits et les repas offerts aux participantes.\n"
-"L'hébergement et le transport jusqu'au lieu du stage ne sont pas pris en charge par l’association.\n"
-"Mais si des questions financières t’empêcheraient de participer au stage, écris-nous à"
-
-#: gcc/templates/gcc/index.html:77
-msgid ""
-"\n"
-"                        and we will talk about a possible scholarship.\n"
-"                        "
-msgstr ""
-"\n"
-"et nous discuterons de l’attribution éventuelle d’une bourse."
-
-#: gcc/templates/gcc/index.html:83
-msgid "For those who cannot apply"
-msgstr "Pour celles et ceux qui ne peuvent pas s'inscrire"
-
-#: gcc/templates/gcc/index.html:85
-msgid ""
-"\n"
-"                        The IT is not closed so far !\n"
-"                        Do not hesitate to discover the <ref> recommended resources to start<ref> and if you are less than 21 years old, you can take part to the 27<sup>th</sup> edition\n"
-"                                "
-msgstr ""
-"\n"
-"L’informatique ne t’est pas fermé pour autant !\n"
-"N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 21 ans, tu peux participer à la 27<sup>e</sup> édition"
-
-#: gcc/templates/gcc/index.html:89
-msgid "of the Prologin contest"
-msgstr "du concours Prologin"
-
-#: gcc/templates/gcc/index.html:90
-msgid ""
-"\n"
-"                                The first online qualification stage is now open.\n"
-"                                "
-msgstr ""
-"\n"
-"La première phase de qualification en ligne est ouverte."
-
-#: gcc/templates/gcc/index.html:96
-msgid "The program"
-msgstr "Le programme"
-
-#: gcc/templates/gcc/index.html:98
-msgid ""
-"\n"
-"                        Internship last one week during which there is some practical courses on diverse subjects(Python introduction, networks, web), and some conferences where the women speakers work in IT.\n"
-"                        Finally, the week ends with a small project where creativity is inferred\n"
-"                        "
-msgstr ""
-"\n"
-"Le stage dure une semaine pendant laquelle ont lieu différentes activités pédagogiques sur divers sujets tels que introduction à la programmation, réseau, internet et différentes conférences d'intervenantes de l'informatique.\n"
-"Enfin, le week-end se termine par un petit projet faisant appel à la créativité."
-
-#: gcc/templates/gcc/index.html:109
-msgid "Figures"
-msgstr "Chiffres"
-
-#: gcc/templates/gcc/index.html:117
+#: gcc/templates/gcc/index.html:141
 msgid "Parity in IT"
 msgstr "Parité en informatique"
 
-#: gcc/templates/gcc/index.html:119
+#: gcc/templates/gcc/index.html:143
 msgid ""
 "\n"
-"                    Girls Can Code! was created to promote girls to take a place in this masculine field despite stereotypes.\n"
+"                    Girls Can Code! was created to promote girls to take a "
+"place in this masculine field despite stereotypes.\n"
 "                    "
 msgstr ""
 "\n"
-"Girls Can Code! a été créé dans le but d'encourager des filles à s'essayer à l'informatique malgré le manque de femmes et les stéréotypes dans le domaine."
+"Girls Can Code! a été créé dans le but d'encourager des filles à s'essayer à "
+"l'informatique malgré le manque de femmes et les stéréotypes dans le domaine."
 
-#: gcc/templates/gcc/index.html:123 gcc/templates/gcc/index.html:138
+#: gcc/templates/gcc/index.html:147 gcc/templates/gcc/index.html:158
+#: gcc/templates/gcc/index.html:168
+msgid "Learn more"
+msgstr "En savoir plus"
+
 #: gcc/templates/gcc/index.html:152
-#: gccsite/templates/prologin/main-footer.html:17
-msgid "More"
-msgstr "En plus"
+msgid "Girls Can Code past editions!"
+msgstr "Les dernières éditions de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:131
-msgid "Previous Girls Can Code editions!"
-msgstr "Précédentes éditions de Girls Can Code!"
-
-#: gcc/templates/gcc/index.html:134
+#: gcc/templates/gcc/index.html:154
 msgid ""
 "\n"
-"                    The first ever Girls Can Code! edition was in 2014, therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.\n"
+"                    The first ever Girls Can Code! edition was in 2014, "
+"therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.\n"
 "                    "
 msgstr ""
 "\n"
-"La toute première édition de Girls Can Code! a eu lieu en 2014, donc l'édition de 2019 sera la 6<sup>ème</sup>."
+"La toute première édition de Girls Can Code! a eu lieu en 2014, donc "
+"l'édition de 2019 sera la 6<sup>ème</sup>."
 
-#: gcc/templates/gcc/index.html:145
-msgid "Prologin, an association created in 1991"
+#: gcc/templates/gcc/index.html:162
+msgid "Prologin, an association since in 1991"
 msgstr "Prologin, une association créée en 1991"
 
-#: gcc/templates/gcc/index.html:148
+#: gcc/templates/gcc/index.html:164
 msgid ""
 "\n"
-"                    The Prologin association was created in 1991 to plan the national computer contest, and run since 2014 the Girls Can Code! summer camp.\n"
+"                    The Prologin association organizes the national computer "
+"contest since 1991, and runs since 2014 the Girls Can Code! summer camps.\n"
 "                    "
 msgstr ""
 "\n"
-"L'association Prologin a été créée en 1991 pour organiser le concours éponyme, elle organise également les stages GCC! depuis 2014."
+"L'association Prologin organise le concours national d'informatique éponyme "
+"depuis 1991 mais organise également les stages Girls Can Code! depuis 2014."
 
-#: gcc/templates/gcc/index.html:158
-msgid "Our sponsors"
-msgstr "Nos sponsors"
-
-#: gcc/templates/gcc/index.html:161
+#: gcc/templates/gcc/index/beginners.html:12
 msgid ""
 "\n"
-"            We would like to thanks our sponsors without whom summer camps would not happen.\n"
-"            "
+"                  Summer camps for beginners, no prerequisites.\n"
+"                "
 msgstr ""
 "\n"
-"Nous souhaitons remercier nos sponsors, sans lesquels les stages ne pourraient pas être organisés."
+"Stages d'informatique pour les débutants, sans prérequis."
 
-#: gcc/templates/gcc/index.html:180
-msgid "Any question ?"
-msgstr "Des questions ?"
-
-#: gcc/templates/gcc/index.html:182
+#: gcc/templates/gcc/index/free.html:12
 msgid ""
 "\n"
-"            Do not hesitate to contact us.\n"
-"            "
+"                Free summer camp organized by student volunteers!\n"
+"              "
 msgstr ""
 "\n"
-"N'hésitez pas à nous contacter."
+"Stages d'informatique gratuits organisés par des étudiants bénévoles !"
 
-#: gcc/templates/gcc/index.html:193
-msgid "S'inscrire à la newsletter"
-msgstr "S'inscrire à la newsletter"
+#: gcc/templates/gcc/index/projects.html:12
+msgid ""
+"\n"
+"                  Finish by creating your very own project.</p>\n"
+"                "
+msgstr ""
+"\n"
+"Termine par la création de ton propre projet."
 
 #: gcc/templates/gcc/mails/subscribe.body.text.html:8
 #, python-format
@@ -786,11 +658,13 @@ msgstr ""
 "\n"
 "Merci de votre inscription sur la mailing list de GCC!.\n"
 "\n"
-"Si vous voulez vous désinscrire de la newsletter, veuillez ouvrir le lien qui suit dans votre navigateur :\n"
+"Si vous voulez vous désinscrire de la newsletter, veuillez ouvrir le lien "
+"qui suit dans votre navigateur :\n"
 "\n"
 "%(baseurl)s%(unsubscribe_url)s\n"
 "\n"
-"Si vous avez une question, veuillez nous contacter par E-mail à l'adresse suivante:\n"
+"Si vous avez une question, veuillez nous contacter par E-mail à l'adresse "
+"suivante:\n"
 " %(contactmail)s.\n"
 "\n"
 "-- \n"
@@ -800,429 +674,264 @@ msgstr ""
 msgid "Subscription the newsletter of GCC!"
 msgstr "Inscription à la newsletter de GCC!"
 
-#: gcc/templates/gcc/resources.html:8
-msgid "Train to code"
-msgstr "S'entraîner"
+#: gcc/templates/gcc/main-footer.html:7
+msgid "Girls Can Code!"
+msgstr "Girls Can Code!"
+
+#: gcc/templates/gcc/main-footer.html:10 gcc/templates/gcc/main-menu.html:6
+msgid "Ressources"
+msgstr "Ressources"
+
+#: gcc/templates/gcc/main-footer.html:11 gcc/templates/gcc/main-menu.html:7
+msgid "Past editions"
+msgstr "Éditions passées"
+
+#: gcc/templates/gcc/main-footer.html:17
+msgid "Girls Can Code! on Facebook"
+msgstr "Girls Can Code! sur Facebook"
+
+#: gcc/templates/gcc/main-footer.html:23
+msgid "Prologin on Twitter"
+msgstr "Prologin sur Twitter"
+
+#: gcc/templates/gcc/main-footer.html:31
+msgid "Change locale"
+msgstr "Changer la langue"
+
+#: gcc/templates/gcc/main-footer.html:47
+#, python-format
+msgid ""
+"Save your\n"
+"preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user "
+"settings</a>."
+msgstr ""
+"Sauvegardez votre langue préférée dans vos <a href="
+"\"%(url)s#id_preferred_locale\">paramètres</a>."
+
+#: gcc/templates/gcc/main-menu.html:12
+msgid "Django administration"
+msgstr "Administration de Django"
+
+#: gcc/templates/gcc/main-menu.html:14
+msgid "Review Candidates"
+msgstr "Review des candidatures"
+
+#: gcc/templates/gcc/main-menu.html:20
+msgid "Sign in with Prologin"
+msgstr "Se connecter via Prologin"
+
+#: gcc/templates/gcc/main-menu.html:25
+msgid "My profile"
+msgstr "Mon profil"
+
+#: gcc/templates/gcc/main-menu.html:26
+msgid "Profile & options"
+msgstr "Profil &amp; options"
+
+#: gcc/templates/gcc/main-menu.html:27
+msgid "My applications"
+msgstr "Mes candidatures"
+
+#: gcc/templates/gcc/main-menu.html:31
+msgid "Sign out"
+msgstr "Déconnexion"
+
+#: gcc/templates/gcc/messages.html:13
+#: gccsite/templates/prologin/messages.html:13
+msgid "Close"
+msgstr "Fermer"
+
+#: gcc/templates/gcc/resources.html:5
+msgid "Resources"
+msgstr "Ressources"
 
 #: gcc/templates/gcc/resources.html:11
+msgid "Learning to program"
+msgstr "Apprendre à programmer"
+
+#: gcc/templates/gcc/resources.html:13
 msgid ""
 "\n"
-"        Many resources are available on the internet to start coding, but it is sometime hard not to get lost in this ocean of informations.\n"
-"        We detail here some interesting resources to start learning.\n"
-"        "
+"    Many resources are available on the internet to start coding, but it is "
+"sometime hard not to get lost in this ocean of informations.\n"
+"    We detail here some interesting resources to start learning.\n"
+"    "
 msgstr ""
 "\n"
-"Beaucoup de ressources sont disponibles sur Internet pour te permettre de découvrir l’informatique, mais il est parfois difficile de s'orienter face à la quantité d'informations."
+"Beaucoup de ressources sont disponibles sur Internet pour te permettre de "
+"découvrir l’informatique, mais il est parfois difficile de s'orienter face à "
+"la quantité d'informations.\n"
+"Nous détaillons ici quelques ressources particulièrement intéressantes pour "
+"débuter et s'entraîner."
 
-#: gcc/templates/gcc/resources.html:20
-msgid "Which language ?"
-msgstr "Quel langage ?"
+#: gcc/templates/gcc/resources.html:19
+msgid "Which language to begin with ?"
+msgstr "Avec quel langage commencer ?"
 
-#: gcc/templates/gcc/resources.html:23
+#: gcc/templates/gcc/resources.html:21
 msgid ""
 "\n"
-"        When coding, we describe information that the machine will execute. To be able interact with the machine, we need to choose the language we will write in.\n"
-"        There are many existing languages, each with their specificities.\n"
-"        "
+"    When coding, we describe information that the machine will execute. To "
+"be able interact with the machine, we need to choose the language we will "
+"write in.\n"
+"    There are many existing languages, each with their specificities.\n"
+"    "
 msgstr ""
 "\n"
-"Coder consiste à décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler."
+"Coder consiste à décrire des opérations que la machine exécutera, et pour "
+"communiquer avec la machine on doit choisir au préalable dans quel langage "
+"on va lui parler.\n"
+"Coder consiste à décrire des opérations que la machine exécutera, et pour "
+"communiquer avec la machine on doit choisir au préalable dans quel langage "
+"on va lui parler."
 
-#: gcc/templates/gcc/resources.html:29
+#: gcc/templates/gcc/resources.html:27
 msgid ""
 "\n"
-"        It's important to know in which language we want to start programming in when starting because we learn to program in a language.\n"
-"        During the summer camps we mainly teach Python, which we recommend to start.\n"
-"        It's an easy language to start with (compared to other...) and it has many uses. YouTube for example is coded in Python.\n"
-"        "
+"    It's important to know in which language we want to start programming in "
+"when starting because we learn to program in a language.\n"
+"    During the summer camps we mainly teach Python, which we recommend to "
+"start.\n"
+"    It's an easy language to start with (compared to other...) and it has "
+"many uses. YouTube for example is coded in Python.\n"
+"    "
 msgstr ""
 "\n"
-"Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. Durant les stages, les participantes utilisent Python, un langage facile à prendre en main et qui a de très nombreuses applications. YouTube par exemple est codé à l'aide de Python !"
+"Il est important de savoir dans quel langage on souhaite commencer à "
+"programmer avant de se lancer. On apprends à programmer dans un langage.\n"
+"Pendant les stages nous enseignons principalement le Python, que nous "
+"recommandons pour débuter.\n"
+"C’est un langage assez facile à prendre en main (comparé à d’autres...) et "
+"qui a de nombreuses utilisations. Il est par exemple utilisé dans Youtube."
 
-#: gcc/templates/gcc/resources.html:39
+#: gcc/templates/gcc/resources.html:34
 msgid "Starting"
 msgstr "Débuter"
 
-#: gcc/templates/gcc/resources.html:51
+#: gcc/templates/gcc/resources.html:47
 msgid ""
 "\n"
-"            France-IOI offers a learning platform with exercises organized by level of difficulty, everything accessible completely freely and fully in french !\n"
+"            France-IOI offers a learning platform with exercises organized "
+"by level of difficulty, everything accessible completely freely and fully in "
+"french !\n"
 "            "
 msgstr ""
 "\n"
-"France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !"
+"France-IOI offre une plateforme d'apprentissage avec des exercices répartis "
+"par niveaux, le tout gratuitement et entièrement en français !"
 
-#: gcc/templates/gcc/resources.html:66
+#: gcc/templates/gcc/resources.html:64
 msgid ""
 "\n"
-"            If you speak a bit of English, Codeacademy is a good resource to start programming.\n"
+"            If you speak a bit of English, Codeacademy is a good resource to "
+"start programming.\n"
 "            "
 msgstr ""
 "\n"
-"Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation."
+"Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te "
+"lancer dans la programmation."
 
-#: gcc/templates/gcc/resources.html:78
+#: gcc/templates/gcc/resources.html:71
 msgid "Keep coding"
 msgstr "Continuer à coder"
 
-#: gcc/templates/gcc/resources.html:81
+#: gcc/templates/gcc/resources.html:73
 msgid ""
 "\n"
-"        The good thing when learning to program, is that it can be used in many ways, to do plenty of things\n"
-"        There are a lot of sub domain or application in computer science, and to keep coding, it's more fun to find something we really like\n"
-"        Here are some examples:\n"
-"        "
+"            The good thing when learning to program, is that it can be used "
+"in many ways, to do plenty of things\n"
+"            There are a lot of sub domain or application in computer "
+"science, and to keep coding, it's more fun to find something we really like\n"
+"            Here are some examples:\n"
+"            "
 msgstr ""
 "\n"
-"L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.\n"
-"Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.\n"
+"L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en "
+"faire ce qu’on veut.\n"
+"Il y a beaucoup de sous domaines et d'applications en informatique, et pour "
+"continuer à coder, c’est motivant de trouver quelque chose qui nous plait.\n"
 "Voici quelques exemples :"
 
-#: gcc/templates/gcc/resources.html:99
+#: gcc/templates/gcc/resources.html:92
 msgid ""
 "\n"
-"              They have written a tutorial to create a blog in Python thanks to the Django framework.\n"
-"              It has been entirely translated in french and is very accessible.\n"
-"              Django is a very powerful tool for web platforms. Both the GCC! and Prologin websites use Django.\n"
-"              "
+"                  They have written a tutorial to create a blog in Python "
+"thanks to the Django framework.\n"
+"                  It has been entirely translated in french and is very "
+"accessible.\n"
+"                  Django is a very powerful tool for web platforms. Both the "
+"GCC! and Prologin websites use Django.\n"
+"                  "
 msgstr ""
 "\n"
-"Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.\n"
+"Elles ont écrit un tutoriel pour la création d’un blog en Python avec le "
+"framework Django.\n"
 "Il a été traduit entièrement en français et est très accessible.\n"
-"Django est un outil puissant pour le web, et les sites de GCC! ainsi que Prologin utilisent ce framework."
+"Django est un outil très puissant pour le web. Les sites de GCC! et Prologin "
+"utilisent d’ailleurs ce framework."
 
-#: gcc/templates/gcc/resources.html:117
+#: gcc/templates/gcc/resources.html:111
 msgid ""
 "\n"
-"              It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.\n"
-"              On the website, you can find archives of the previous years exercises.\n"
-"              They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !\n"
-"              "
+"                  It's the name of the organization that organize the Girls "
+"Can Code! camps but i's also a computer science contest for people under 21 "
+"years old.\n"
+"                  On the website, you can find archives of the previous "
+"years exercises.\n"
+"                  They are small exercises that give a entry and expect a "
+"precise answer, and it's your task to code the program giving the expected "
+"answer !\n"
+"                  "
 msgstr ""
 "\n"
-"C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.\n"
-"Sur son site, tu peux trouver les archives des exercices des années précédentes.\n"
-"Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !"
+"C’est le nom de l’association qui organise les stages mais aussi un concours "
+"d’informatique destiné aux jeunes de moins de 21 ans.\n"
+"Sur son site, tu peux trouver les archives des exercices des années "
+"précédentes.\n"
+"Ce sont des petits problèmes qui donnent une entrée et demandent une réponse "
+"précise, c’est à toi d’écrire le programme qui trouve la réponse !"
 
-#: gcc/templates/gcc/users/as_staff_warning.html:3
-#: users/templates/users/as_staff_warning.html:3
-msgid ""
-"Heads up! You are editing another user's information, as a staff member. "
-"Take extra care."
-msgstr ""
-"Attention ! Vous modifiez les informations d'un autre membre, en votre "
-"qualité de membre d'équipe. Restez concentré."
-
-#: gcc/templates/gcc/users/delete.html:4 gcc/templates/gcc/users/delete.html:8
-#: users/templates/users/delete-confirm.html:12
-#: users/templates/users/delete-confirm.html:15
-#, python-format
-msgid "Delete %(username)s account"
-msgstr "Supprimer le compte de %(username)s"
-
-#: gcc/templates/gcc/users/delete.html:9
-#: users/templates/users/delete-confirm.html:17
-msgid "Are you sure you want to delete your account?"
-msgstr "Voulez-vous vraiment supprimer votre compte ?"
-
-#: gcc/templates/gcc/users/delete.html:10
-#: users/templates/users/delete-confirm.html:18
-msgid "This will delete all your personal information, including:"
-msgstr ""
-"Cela aura pour effet de supprimer toutes vos données personnelles, "
-"notamment&nbsp;:"
-
-#: gcc/templates/gcc/users/delete.html:12
-#: users/templates/users/delete-confirm.html:20
-msgid "the codes you submitted during training and contest"
-msgstr ""
-"les codes que vous avez soumis en entraînement et pendant les épreuves"
-
-#: gcc/templates/gcc/users/delete.html:13
-#: users/templates/users/delete-confirm.html:21
-msgid "your forum messages"
-msgstr "vos messages sur les forums"
-
-#: gcc/templates/gcc/users/delete.html:14
-#: users/templates/users/delete-confirm.html:22
-msgid "your participation history in the contest"
-msgstr "votre historique de participation au concours"
-
-#: gcc/templates/gcc/users/delete.html:17
-msgid ""
-"\n"
-"            This action <strong>cannot be reverted</strong>, in compliance with GDPR article 17. You will be logged out\n"
-"            immediately after clicking the button below. To proceed, provide your username and password and confirm.\n"
-"            "
-msgstr ""
-"\n"
-"Cette action <strong>ne peut pas être annulée</strong>, conformément l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom d'utilisateur, votre mot de passe et confirmez."
-
-#: gcc/templates/gcc/users/delete.html:27
-#: users/templates/users/delete-confirm.html:36
-msgid "Delete and log out"
-msgstr "Supprimer et déconnecter"
-
-#: gcc/templates/gcc/users/edit.html:5 gcc/templates/gcc/users/edit.html:13
-#: users/templates/users/edit.html:12 users/templates/users/edit.html:15
-#, python-format
-msgid "Editing %(username)s's profile"
-msgstr "Modification du profil de %(username)s"
-
-#: gcc/templates/gcc/users/edit.html:15 users/templates/users/edit.html:19
-msgid "Change password"
-msgstr "Modifier le mot de passe"
-
-#: gcc/templates/gcc/users/edit.html:16 users/templates/users/edit.html:20
-msgid ""
-"Don't forget to click “Save” at the bottom when you are done making changes."
-msgstr ""
-"N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
-"terminé vos modifications."
-
-#: gcc/templates/gcc/users/edit.html:20 users/templates/users/edit.html:25
-#: users/templates/users/edit_password.html:25
-msgid "Save"
-msgstr "Enregistrer"
-
-#: gcc/templates/gcc/users/edit_password.html:4
-#: gcc/templates/gcc/users/edit_password.html:9
-#: users/templates/users/edit_password.html:13
-#: users/templates/users/edit_password.html:16
-#, python-format
-msgid "Editing %(username)s's password"
-msgstr "Modification du mot de passe de %(username)s"
-
-#: gcc/templates/gcc/users/edit_password.html:16
-msgid " Save"
-msgstr "Enregistrer"
-
-#: gcc/templates/gcc/users/login.html:4
-msgid "GCC! − Sign in"
-msgstr "GCC! - Connexion"
-
-#: gcc/templates/gcc/users/login.html:7
-msgid "Sign in to your"
-msgstr "Connectez vous à votre"
-
-#: gcc/templates/gcc/users/login.html:7
-msgid "account"
-msgstr "compte"
-
-#: gcc/templates/gcc/users/profile.html:10
-msgid "GCC! - Profile"
-msgstr "GCC! - Profil"
-
-#: gcc/templates/gcc/users/profile.html:17
-#: users/templates/users/profile.html:15
-msgid "<em>not provided</em>"
-msgstr "<em>non renseigné</em>"
-
-#: gcc/templates/gcc/users/profile.html:21
-#: users/templates/users/profile.html:19
-msgid "Edit profile"
-msgstr "Modifier le profil"
-
-#: gcc/templates/gcc/users/profile.html:31
-#: users/templates/users/profile.html:29
-#, python-format
-msgid "%(username)s's profile picture"
-msgstr "Photo de profil de %(username)s"
-
-#: gcc/templates/gcc/users/profile.html:36
-#: users/templates/users/profile.html:34
-#, python-format
-msgid "%(username)s's staff picture"
-msgstr "Photo de profil d'équipe de %(username)s"
-
-#: gcc/templates/gcc/users/profile.html:43
-#: users/templates/users/profile.html:41
-msgid "Full name"
-msgstr "Nom complet"
-
-#: gcc/templates/gcc/users/profile.html:50
-#: users/templates/users/profile.html:48
-msgid "Phone number"
-msgstr "Téléphone"
-
-#: gcc/templates/gcc/users/profile.html:62 users/models.py:46
-#: users/templates/users/profile.html:60
-msgid "Birth day"
-msgstr "Date de naissance"
-
-#: gcc/templates/gcc/users/profile.html:68
-#: users/templates/users/profile.html:66
-msgid "Postal address"
-msgstr "Adresse postale"
-
-#: gcc/templates/gcc/users/profile.html:78
-#: users/templates/users/profile.html:76
-msgid "Date joined"
-msgstr "Date d'inscription"
-
-#: gcc/templates/gcc/users/profile.html:88
-#: users/templates/users/profile.html:86
-msgid "Contest involvment"
-msgstr "Participation au concours"
-
-#: gcc/templates/gcc/users/profile.html:102
-#: users/templates/users/profile.html:100
-msgid "See archives"
-msgstr "Voir les archives"
-
-#: gcc/templates/gcc/users/profile.html:108
-#: users/templates/users/profile.html:106
-msgid "Completed the qualification step"
-msgstr "A complété l'étape de qualification"
-
-#: gcc/templates/gcc/users/profile.html:111
-#: users/templates/users/profile.html:109
-msgid "Selected for regional events"
-msgstr "Sélectionné pour les épreuves régionales"
-
-#: gcc/templates/gcc/users/profile.html:113
-#: users/templates/users/profile.html:111
-msgid "Abandoned the regional events"
-msgstr "S'est désisté avant l'épreuve régionale"
-
-#: gcc/templates/gcc/users/profile.html:116
-#: users/templates/users/profile.html:114
-msgid "Competed in the regional events"
-msgstr "A participé aux épreuves régionales"
-
-#: gcc/templates/gcc/users/profile.html:118
-#: users/templates/users/profile.html:116
-msgid "Selected for the final"
-msgstr "Sélectionné en finale"
-
-#: gcc/templates/gcc/users/profile.html:131
-#: users/templates/users/profile.html:129
-#, python-format
-msgid "Download final home (tar.gz, %(size)s)"
-msgstr "Télécharger la “home” (tar.gz, %(size)s)"
-
-#: gcc/templates/gcc/users/profile.html:141
-#: users/templates/users/profile.html:139
-#, python-format
-msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
-msgstr ""
-"Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
-
-#: gcc/templates/gcc/users/profile.html:153
-#: users/templates/users/profile.html:151
-msgid "Latest authored news entries"
-msgstr "Dernières actualités publiées"
-
-#: gcc/templates/gcc/users/profile.html:166
-#: users/templates/users/profile.html:164
-msgid "Staff roles"
-msgstr "Rôles dans l'équipe"
-
-#: gcc/templates/gcc/users/profile.html:170
-#: users/templates/users/profile.html:168
-#, python-format
-msgid ""
-"%(year)s ⋅\n"
-"                %(role)s"
-msgstr "%(year)s ⋅ %(role)s"
-
-#: gcc/templates/gcc/users/profile.html:183
-#: users/templates/users/profile.html:181
-msgid "Account management"
-msgstr "Gestion du compte"
-
-#: gcc/templates/gcc/users/profile.html:192
-#: users/templates/users/profile.html:190
-msgid "Export your personal data"
-msgstr "Exporter vos données personnelles"
-
-#: gcc/templates/gcc/users/profile.html:196
-#: users/templates/users/profile.html:194
-msgid ""
-"\n"
-"            You can download an archive containing all your personal data, as\n"
-"            provided by your Right to data portability (Art. 20 of GDPR).\n"
-"            "
-msgstr ""
-"\n"
-"Vous pouvez télécharger une archive contenant toutes vos données personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
-
-#: gcc/templates/gcc/users/profile.html:215
-#: users/templates/users/profile.html:213
-msgid "Delete your account"
-msgstr "Supprimer votre compte"
-
-#: gcc/templates/gcc/users/profile.html:219
-#: users/templates/users/profile.html:217
-msgid ""
-"\n"
-"          You can delete your account and all associated personal data, as\n"
-"          provided by your Right to erasure (Art. 17 of GDPR).\n"
-"          "
-msgstr ""
-"\n"
-"Vous pouvez supprimer votre compte et toutes les données personnelles associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
-
-#: gcc/templates/gcc/users/profile.html:224
-#: users/templates/users/profile.html:222
-msgid ""
-"\n"
-"              You cannot delete your account while participating to the\n"
-"              contest. If needed, contact the staff.\n"
-"            "
-msgstr ""
-"\n"
-"Vous ne pouvez pas supprimer votre compte alors que vous participez au concours. Si besoin, contactez l'équipe."
-
-#: gcc/templates/gcc/users/register.html:4
-msgid "GCC! − Register"
-msgstr "GCC! - Inscription"
-
-#: gcc/templates/gcc/users/register.html:7
-msgid "Register to "
-msgstr "S'inscrire à"
-
-#: gcc/views.py:41
+#: gcc/views.py:43
 msgid "Subscription succeeded"
 msgstr "Inscription réussie"
 
-#: gcc/views.py:46
+#: gcc/views.py:48
 msgid "Subscription failed: already subscribed"
 msgstr "L'inscription a échoué: vous êtes déjà inscrit"
 
-#: gcc/views.py:81
+#: gcc/views.py:85
 msgid "Successfully unsubscribed from newsletter."
 msgstr "Désinscription de la newsletter réussie."
 
-#: gcc/views.py:85
+#: gcc/views.py:89
 msgid "Failed to unsubscribe: wrong token."
 msgstr "La désinscription a échoué: mauvais token."
 
-#: gcc/views.py:89
+#: gcc/views.py:93
 msgid "Failed to unsubscribe: unregistered address"
 msgstr "La désinscription a échoué: adresse non enregistrée."
 
-#: gcc/views.py:147
+#: gcc/views.py:151
 msgid "Failed to validate your application, your profile is incomplete."
 msgstr "Impossible de valider votre inscription, votre profil est incomplet."
 
-#: gcc/views.py:155
+#: gcc/views.py:159
 msgid "Successfully validated your application."
 msgstr "Inscription validée avec succès."
 
-#: gcc/views.py:181
+#: gcc/views.py:185
 msgid ""
 "Your application has already been validated, if you really want to change "
 "something contact us by email."
 msgstr ""
-"Votre inscription est déjà validée, veuillez nous contacter par mail si vous"
-" devez changer quelque-chose."
+"Votre inscription est déjà validée, veuillez nous contacter par mail si vous "
+"devez changer quelque-chose."
 
-#: gccsite/settings/common.py:120
+#: gccsite/settings/common.py:111
 msgid "English"
 msgstr "Anglais"
 
-#: gccsite/settings/common.py:121
+#: gccsite/settings/common.py:112
 msgid "French"
 msgstr "Français"
 
@@ -1237,11 +946,11 @@ msgstr "Vous n'avez pas l'autorisation d'accéder à ce contenu."
 #: gccsite/templates/403.html:12
 #, python-format
 msgid ""
-"You do not have the permission to access this content. Try to <a "
-"href=\"%(url)s\">sign in</a>."
+"You do not have the permission to access this content. Try to <a href="
+"\"%(url)s\">sign in with your Prologin account</a>."
 msgstr ""
-"Vous n'avez pas l'autorisation d'accéder à ce contenu. Essayez de <a "
-"href=\"%(url)s\">vous connecter</a>."
+"Vous n'avez pas la permission d'accéder à ce contenu. <a href=\"%(url)s"
+"\">Essayez de vous inscrire avec votre compte Prologin</a>."
 
 #: gccsite/templates/404.html:8
 msgid "The resource you asked for does not longer exist, or never has."
@@ -1275,10 +984,7 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: gccsite/templates/503.html:54 gccsite/templates/prologin/base.html:31
-#: gccsite/templates/prologin/base.html:47
-#: gccsite/templates/prologin/base.html:90
-#: gccsite/templates/prologin/main-footer.html:6
+#: gccsite/templates/503.html:54
 msgid "Prologin"
 msgstr "Prologin"
 
@@ -1288,8 +994,8 @@ msgstr "Prologin subit actuellement une courte maintenance"
 
 #: gccsite/templates/503.html:69
 msgid ""
-"We are doing internal maintenance operations for which we have to temporally"
-" shut down access to the website."
+"We are doing internal maintenance operations for which we have to temporally "
+"shut down access to the website."
 msgstr ""
 "Nous réalisons des opérations de maintenance internes qui nous obligent à "
 "couper temporairement l'accès au site web."
@@ -1311,146 +1017,6 @@ msgstr "Erreur %(number)s"
 #, python-format
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
-
-#: gccsite/templates/prologin/base.html:29
-msgctxt "Twitter message, LESS THAN 140 CHARS"
-msgid ""
-"Prologin is a computer science contest, introducing students to the world of"
-" programming and algorithms with exciting challenges."
-msgstr ""
-"Prologin, le concours d'informatique : faire découvrir la programmation et "
-"l'algorithmique aux étudiants grâce à des challenges excitants !"
-
-#: gccsite/templates/prologin/base.html:32
-msgid "Prologin, the French National Computer Science Contest"
-msgstr "Prologin, le concours national d'informatique"
-
-#: gccsite/templates/prologin/base.html:53
-msgid "Latest blog articles"
-msgstr "Dernières actualités"
-
-#: gccsite/templates/prologin/base.html:121
-msgid "No user matching query"
-msgstr "Aucun utilisateur correspondant"
-
-#: gccsite/templates/prologin/main-footer.html:8
-msgid "The organization"
-msgstr "L'association"
-
-#: gccsite/templates/prologin/main-footer.html:9
-msgid "Contribute"
-msgstr "Contribuer"
-
-#: gccsite/templates/prologin/main-footer.html:10
-msgid "Contact us"
-msgstr "Contactez-nous"
-
-#: gccsite/templates/prologin/main-footer.html:12
-#: gccsite/templates/prologin/main-footer.html:27
-msgid "Contest rules"
-msgstr "Règlement"
-
-#: gccsite/templates/prologin/main-footer.html:13
-msgid "Report a bug on the website"
-msgstr "Signaler un problème sur le site"
-
-#: gccsite/templates/prologin/main-footer.html:19
-msgid "Press kit"
-msgstr "Kit de presse"
-
-#: gccsite/templates/prologin/main-footer.html:25
-msgid "Terms"
-msgstr "Conditions"
-
-#: gccsite/templates/prologin/main-footer.html:30
-msgid "Stay tuned!"
-msgstr "Suivez nous !"
-
-#: gccsite/templates/prologin/main-footer.html:31
-msgid "Prologin news Atom stream"
-msgstr "Flux Atom des actualités Prologin"
-
-#: gccsite/templates/prologin/main-footer.html:38
-msgid "Prologin on Facebook"
-msgstr "Prologin sur Facebook"
-
-#: gccsite/templates/prologin/main-footer.html:44
-msgid "Prologin on Twitter"
-msgstr "Prologin sur Twitter"
-
-#: gccsite/templates/prologin/main-footer.html:68
-#, python-format
-msgid ""
-"Save your\n"
-"preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user settings</a>."
-msgstr ""
-"Sauvegardez votre langue préférée dans vos <a "
-"href=\"%(url)s#id_preferred_locale\">paramètres</a>."
-
-#: gccsite/templates/prologin/main-menu.html:6
-msgid "Participate"
-msgstr "Participer"
-
-#: gccsite/templates/prologin/main-menu.html:8
-msgid "Discover"
-msgstr "Découvrir"
-
-#: gccsite/templates/prologin/main-menu.html:9
-msgid "Train"
-msgstr "S'entraîner"
-
-#: gccsite/templates/prologin/main-menu.html:10
-msgid "Archives"
-msgstr "Archives"
-
-#: gccsite/templates/prologin/main-menu.html:11
-msgid "Forums"
-msgstr "Forums"
-
-#: gccsite/templates/prologin/main-menu.html:14
-msgid "Admin"
-msgstr "Admin"
-
-#: gccsite/templates/prologin/main-menu.html:16
-msgid "Django administration"
-msgstr "Administration de Django"
-
-#: gccsite/templates/prologin/main-menu.html:19
-msgid "Correction"
-msgstr "Correction"
-
-#: gccsite/templates/prologin/main-menu.html:21
-msgid "Documents"
-msgstr "Documents"
-
-#: gccsite/templates/prologin/main-menu.html:23
-msgid "Mailing"
-msgstr "Mailing"
-
-#: gccsite/templates/prologin/main-menu.html:30
-msgid "Search users"
-msgstr "Chercher des utilisateurs"
-
-#: gccsite/templates/prologin/main-menu.html:43
-msgid "Profile &amp; settings"
-msgstr "Profil &amp; options"
-
-#: gccsite/templates/prologin/messages.html:13
-msgid "Close"
-msgstr "Fermer"
-
-#: gccsite/templates/prologin/stub-impersonate-warning.html:7
-msgid "Exit session"
-msgstr "Terminer la session"
-
-#: gccsite/templates/prologin/stub-impersonate-warning.html:10
-#, python-format
-msgid ""
-"You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
-"        focused."
-msgstr ""
-"Vous naviguez actuellement sous l'identité de <strong>%(user)s</strong>. "
-"Restez alerte."
 
 #: gccsite/templates/stub_pagination.html:7
 msgid "First"
@@ -1483,6 +1049,312 @@ msgctxt "File size unit"
 msgid "bytes"
 msgstr "octets"
 
+#: news/templates/zinnia/_entry_detail_base.html:25
+msgctxt "Written by <user> *on* <date>"
+msgid "on"
+msgstr "sur"
+
+#: news/templates/zinnia/_entry_detail_base.html:27
+msgctxt "*Written on* <date>"
+msgid "Written on"
+msgstr "Écrit sur"
+
+#: news/templates/zinnia/_entry_detail_base.html:37
+msgid "Last update on"
+msgstr "Dernière mise à jour sur"
+
+#: news/templates/zinnia/_entry_detail_base.html:86
+#, python-format
+msgid "%(percent)s%% of %(object)s still remains to read."
+msgstr "%(percent)s%% sur %(object)s encore à lire."
+
+#: news/templates/zinnia/_entry_detail_base.html:88
+msgid "Continue reading"
+msgstr "Poursuivre la lecture"
+
+#: news/templates/zinnia/_entry_detail_base.html:100
+msgid "Tags:"
+msgstr "Tags:"
+
+#: news/templates/zinnia/_entry_detail_base.html:103
+#, python-format
+msgid "Show all entries tagged by %(tag)s"
+msgstr "Afficher toutes les entrées ayant pour tag %(tag)s"
+
+#: news/templates/zinnia/_entry_detail_base.html:106
+msgid "No tags"
+msgstr "Pas de tag"
+
+#: news/templates/zinnia/_entry_detail_base.html:112
+msgid "Persistent URL:"
+msgstr "URL permanente:"
+
+#: news/templates/zinnia/_entry_detail_base.html:114
+#, python-format
+msgid "Short URL to %(object)s"
+msgstr "URL raccourcie pour %(object)s"
+
+#: news/templates/zinnia/base.html:13
+msgid "RSS feed of last entries"
+msgstr "Flux RSS de la dernière"
+
+#: news/templates/zinnia/base.html:14
+msgid "RSS feed of last discussions"
+msgstr "Flux RSS de la dernière discussion"
+
+#: news/templates/zinnia/entry_archive.html:5
+#: news/templates/zinnia/entry_archive.html:7
+msgid "Latest entries"
+msgstr "Dernières entrées"
+
+#: news/templates/zinnia/entry_archive.html:17
+msgid "Yearly archives"
+msgstr "Archives annuelles"
+
+#: news/templates/zinnia/entry_archive_day.html:5
+#: news/templates/zinnia/entry_archive_day.html:7
+#: news/templates/zinnia/entry_archive_day.html:12
+#: news/templates/zinnia/entry_archive_day.html:29
+#: news/templates/zinnia/entry_archive_month.html:4
+#: news/templates/zinnia/entry_archive_month.html:6
+#: news/templates/zinnia/entry_archive_month.html:11
+#: news/templates/zinnia/entry_archive_month.html:39
+#: news/templates/zinnia/entry_archive_today.html:23
+#: news/templates/zinnia/entry_archive_week.html:45
+#: news/templates/zinnia/entry_archive_year.html:4
+#: news/templates/zinnia/entry_archive_year.html:6
+#: news/templates/zinnia/entry_archive_year.html:11
+msgid "Archives"
+msgstr "Archives"
+
+#: news/templates/zinnia/entry_archive_day.html:19
+#: news/templates/zinnia/entry_archive_today.html:18
+msgid "Previous day"
+msgstr "Jour précédent"
+
+#: news/templates/zinnia/entry_archive_day.html:24
+msgid "Next day"
+msgstr "Jour suivant"
+
+#: news/templates/zinnia/entry_archive_day.html:36
+#: news/templates/zinnia/entry_archive_week.html:31
+#: news/templates/zinnia/entry_archive_week.html:38
+#, python-format
+msgid "Week %(week_number)s of %(year)s"
+msgstr "La semaine du %(week_number)s %(year)s"
+
+#: news/templates/zinnia/entry_archive_month.html:16
+#: news/templates/zinnia/entry_archive_week.html:18
+msgid "Daily archives"
+msgstr "Archives quotidiennes"
+
+#: news/templates/zinnia/entry_archive_month.html:29
+msgid "Previous month"
+msgstr "Mois précédent"
+
+#: news/templates/zinnia/entry_archive_month.html:34
+msgid "Next month"
+msgstr "Mois suivant"
+
+#: news/templates/zinnia/entry_archive_today.html:4
+#: news/templates/zinnia/entry_archive_today.html:6
+#: news/templates/zinnia/entry_archive_today.html:11
+msgid "Today archives"
+msgstr "Archive du jour"
+
+#: news/templates/zinnia/entry_archive_week.html:5
+#: news/templates/zinnia/entry_archive_week.html:7
+#: news/templates/zinnia/entry_archive_week.html:12
+#, python-format
+msgid "Archives week %(week_number)s of %(year)s"
+msgstr "Archive de la semaine du %(week_number)s %(year)s"
+
+#: news/templates/zinnia/entry_archive_year.html:15
+msgid "Monthly archives"
+msgstr "Archives mensuelles"
+
+#: news/templates/zinnia/entry_archive_year.html:27
+msgid "Previous year"
+msgstr "Année précédente"
+
+#: news/templates/zinnia/entry_archive_year.html:32
+msgid "Next year"
+msgstr "Année suivante"
+
+#: news/templates/zinnia/entry_detail_base.html:22
+msgid "RSS feed of discussions on"
+msgstr "Flux RSS des discussions sur"
+
+#: news/templates/zinnia/entry_detail_base.html:24
+msgid "RSS feed of comments on"
+msgstr "Flux RSS des discussions sur"
+
+#: news/templates/zinnia/entry_detail_base.html:26
+msgid "RSS feed of pingbacks on"
+msgstr "Flux RSS  des pingbacks sur"
+
+#: news/templates/zinnia/entry_detail_base.html:28
+msgid "RSS feed of trackbacks on"
+msgstr "Flux RSS des trackbacks sur"
+
+#: news/templates/zinnia/entry_detail_base.html:52
+msgid "Next entry"
+msgstr "Saisie suivante"
+
+#: news/templates/zinnia/entry_detail_base.html:66
+msgid "Previous entry"
+msgstr "Saisie précédente"
+
+#: news/templates/zinnia/entry_detail_base.html:80
+msgid "Related entries"
+msgstr "Saisies liées"
+
+#: news/templates/zinnia/entry_detail_base.html:94
+msgid "Similar entries"
+msgstr "Saisies similaires"
+
+#: news/templates/zinnia/entry_detail_base.html:103
+msgid "Pingbacks"
+msgstr "Pingbacks"
+
+#: news/templates/zinnia/entry_detail_base.html:114
+#: news/templates/zinnia/entry_detail_base.html:158
+msgctxt "on date"
+msgid "on"
+msgstr "sur"
+
+#: news/templates/zinnia/entry_detail_base.html:120
+msgid "Direct link to this pingback"
+msgstr "Lien direct vers ce pingback"
+
+#: news/templates/zinnia/entry_detail_base.html:136
+msgid "Pingbacks are open."
+msgstr "Les pingbacks sont ouverts."
+
+#: news/templates/zinnia/entry_detail_base.html:138
+msgid "Pingbacks are closed."
+msgstr "Les pingbacks sont fermés."
+
+#: news/templates/zinnia/entry_detail_base.html:147
+msgid "Trackbacks"
+msgstr "Trackbacks"
+
+#: news/templates/zinnia/entry_detail_base.html:164
+msgid "Direct link to this trackback"
+msgstr "Lien direct vers ce trackback"
+
+#: news/templates/zinnia/entry_detail_base.html:182
+msgid "Trackback URL"
+msgstr "URL du trackback"
+
+#: news/templates/zinnia/entry_detail_base.html:206
+#: news/templates/zinnia/entry_detail_base.html:207
+msgid "Edit the entry"
+msgstr "Éditer l'entrée"
+
+#: news/templates/zinnia/entry_list.html:10
+#, python-format
+msgid "The latest entries categorized under %(object)s"
+msgstr "La dernière entrée catégorisée sous %(object)s"
+
+#: news/templates/zinnia/entry_list.html:15
+#, python-format
+msgid "The latest entries tagged with %(object)s"
+msgstr "La dernière entrée taguée par %(object)s"
+
+#: news/templates/zinnia/entry_list.html:19
+#, python-format
+msgid "The latest entries by %(object)s"
+msgstr "Les dernières entrées par %(object)s"
+
+#: news/templates/zinnia/entry_list.html:24
+#, python-format
+msgid "page %(object)s"
+msgstr "page %(object)s"
+
+#: news/templates/zinnia/entry_list.html:28
+#, python-format
+msgid "Category %(object)s"
+msgstr "Catégorie %(object)s"
+
+#: news/templates/zinnia/entry_list.html:32
+#, python-format
+msgid "Tag %(object)s"
+msgstr "Tag %(object)s"
+
+#: news/templates/zinnia/entry_list.html:36
+#, python-format
+msgid "Author %(object)s"
+msgstr "Auteur %(object)s"
+
+#: news/templates/zinnia/entry_list.html:41
+#, python-format
+msgid "Page %(object)s"
+msgstr "Page %(object)s"
+
+#: news/templates/zinnia/entry_list.html:46
+#: news/templates/zinnia/entry_list.html:49
+#: news/templates/zinnia/entry_list.html:52
+#: news/templates/zinnia/entry_list.html:67
+#: news/templates/zinnia/entry_list.html:68
+#: news/templates/zinnia/entry_list.html:76
+#: news/templates/zinnia/entry_list.html:77
+#, python-format
+msgid "RSS feed of %(object)s"
+msgstr "Flux RSS de %(object)s"
+
+#: news/templates/zinnia/entry_list.html:62
+#, python-format
+msgid "Category archives: %(category)s"
+msgstr "Catégorie d'archives: %(category)s"
+
+#: news/templates/zinnia/entry_list.html:74
+#, python-format
+msgid "Tag archives: %(tag)s"
+msgstr "Tag d'archives: %(tag)s"
+
+#: news/templates/zinnia/entry_list.html:100
+msgid "No entries yet."
+msgstr "Pas encore d'entrée."
+
+#: news/templates/zinnia/entry_list.html:119
+#: news/templates/zinnia/entry_list.html:120
+msgid "Edit the category"
+msgstr "Éditer la catégorie"
+
+#: news/templates/zinnia/entry_list.html:126
+#: news/templates/zinnia/entry_list.html:127
+msgid "Edit the tag"
+msgstr "Éditer le tag"
+
+#: news/templates/zinnia/entry_list.html:133
+#: news/templates/zinnia/entry_list.html:134
+msgid "Edit the author"
+msgstr "Éditer l'auteur"
+
+#: news/templates/zinnia/tags/pagination.html:7
+#, python-format
+msgid "Page %(current_page)s of %(total_page)s"
+msgstr "Page %(current_page)s sur %(total_page)s"
+
+#: news/templates/zinnia/tags/pagination.html:15
+msgid "More recent entries"
+msgstr "Entrées les plus récentes"
+
+#: news/templates/zinnia/tags/pagination.html:25
+#: news/templates/zinnia/tags/pagination.html:38
+#: news/templates/zinnia/tags/pagination.html:52
+msgid "Entries page"
+msgstr "Page d'entrées"
+
+#: news/templates/zinnia/tags/pagination.html:61
+msgid "Older entries"
+msgstr "Entrées plus anciennes"
+
+#: news/templatetags/news_tags.py:10
+msgid "News"
+msgstr "News"
+
 #: prologin/models.py:11
 msgid "Male"
 msgstr "Homme"
@@ -1494,6 +1366,10 @@ msgstr "Femme"
 #: prologin/models.py:51
 msgid "Gender"
 msgstr "Genre"
+
+#: prologin/models.py:54
+msgid "Address"
+msgstr "Adresse"
 
 #: prologin/models.py:55
 msgid "Postal code"
@@ -1507,15 +1383,15 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/utils/__init__.py:260
+#: prologin/utils/__init__.py:259
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:261
+#: prologin/utils/__init__.py:260
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:262
+#: prologin/utils/__init__.py:261
 msgid "day"
 msgstr "jour"
 
@@ -1535,72 +1411,31 @@ msgstr "Profil"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:42
+#: users/forms.py:36
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous qu'on parle de vous ?"
 
-#: users/forms.py:51
-#, python-format
-msgid "%(year)s final home"
-msgstr "“home” de la finale %(year)s "
-
-#: users/forms.py:59
+#: users/forms.py:38
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:60
+#: users/forms.py:39
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:68
-msgid ""
-"You can not change your details during the contest. If there is an important"
-" change you want to make, please contact the staff."
-msgstr ""
-"Vous ne pouvez pas modifier vos informations pendant le concours. Si vous "
-"devez effectuer un changement, veuillez contacter l'équipe."
-
-#: users/forms.py:76
-msgid "Public homes"
-msgstr "“Homes” publiques"
-
-#: users/forms.py:79
-msgid "Checked editions will make the files available for download to anyone."
-msgstr ""
-"Les éditions cochées rendront vos fichiers téléchargeables par tout le "
-"monde."
-
-#: users/forms.py:105
-msgid ""
-"Please check the box above and complete the additional tasks if any. This is"
-" required to fight spamming bots on the website."
-msgstr ""
-"Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations "
-"supplémentaires. Cela permet de se prémunir des robots."
-
-#: users/forms.py:121
-msgid "This username is already in use. Please supply a different username."
-msgstr "Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre."
-
-#: users/forms.py:127
-msgid ""
-"This email address is already in use. Please supply a different email "
-"address."
-msgstr "Cette adresse e-mail est déjà utilisée. Merci d'en choisir une autre."
-
-#: users/forms.py:141
+#: users/forms.py:57
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:142
+#: users/forms.py:58
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/forms.py:148
+#: users/forms.py:64
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou e-mail"
 
-#: users/forms.py:149
+#: users/forms.py:65
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
@@ -1608,23 +1443,23 @@ msgstr ""
 "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de "
 "différence entre majuscules et minuscules."
 
-#: users/forms.py:151
+#: users/forms.py:67
 msgid "Please enter a correct username (or email) and password."
 msgstr ""
 "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe "
 "corrects."
 
-#: users/forms.py:156
+#: users/forms.py:72
 msgid "Your username"
 msgstr "Votre nom d'utilisateur"
 
-#: users/forms.py:157
+#: users/forms.py:73
 msgid "Type your username to confirm you know what you are doing."
 msgstr ""
 "Saisissez votre nom d'utilisateur pour confirmer que vous réalisez ce que "
 "vous allez faire."
 
-#: users/forms.py:176
+#: users/forms.py:92
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
@@ -1668,15 +1503,23 @@ msgstr "Bac+6 et au delà"
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:42
+#: users/models.py:45
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:49
+#: users/models.py:47
+msgid "Phone"
+msgstr "Téléphone"
+
+#: users/models.py:49 users/templates/users/profile.html:62
+msgid "Birth day"
+msgstr "Date de naissance"
+
+#: users/models.py:52
 msgid "Allow Girls Can Code! to send me emails"
 msgstr "Autoriser Girls Can Code! à m'envoyer des e-mails."
 
-#: users/models.py:50
+#: users/models.py:53
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
@@ -1684,23 +1527,20 @@ msgstr ""
 "Nous n'envoyons des e-mails que pour vous informer du déroulement du "
 "concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:53
+#: users/models.py:56
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:56
+#: users/models.py:59
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:58
+#: users/models.py:61
 msgid "Locale"
 msgstr "Langue"
 
 #: users/templates/registration/password_reset_confirm.html:7
 #: users/templates/users/delete-confirm.html:7
-#: users/templates/users/edit.html:7
-#: users/templates/users/edit_password.html:7
-#: users/templates/users/profile.html:7
 #: users/templates/users/unsubscribe.html:9
 msgid "Members"
 msgstr "Membres"
@@ -1721,59 +1561,108 @@ msgstr "Veuillez entrer votre mot de passe deux fois pour confirmation"
 msgid "Change my password"
 msgstr "Changer mon mot de passe"
 
+#: users/templates/users/as_staff_warning.html:3
+msgid ""
+"Heads up! You are editing another user's information, as a staff member. "
+"Take extra care."
+msgstr ""
+"Attention ! Vous modifiez les informations d'un autre membre, en votre "
+"qualité de membre d'équipe. Restez concentré."
+
+#: users/templates/users/delete-confirm.html:12
+#: users/templates/users/delete-confirm.html:15
+#: users/templates/users/delete.html:4 users/templates/users/delete.html:8
+#, python-format
+msgid "Delete %(username)s account"
+msgstr "Supprimer le compte de %(username)s"
+
+#: users/templates/users/delete-confirm.html:17
+#: users/templates/users/delete.html:9
+msgid "Are you sure you want to delete your account?"
+msgstr "Voulez-vous vraiment supprimer votre compte ?"
+
+#: users/templates/users/delete-confirm.html:18
+#: users/templates/users/delete.html:10
+msgid "This will delete all your personal information, including:"
+msgstr ""
+"Cela aura pour effet de supprimer toutes vos données personnelles, "
+"notamment&nbsp;:"
+
+#: users/templates/users/delete-confirm.html:20
+#: users/templates/users/delete.html:12
+msgid "the codes you submitted during training and contest"
+msgstr "les codes que vous avez soumis en entraînement et pendant les épreuves"
+
+#: users/templates/users/delete-confirm.html:21
+#: users/templates/users/delete.html:13
+msgid "your forum messages"
+msgstr "vos messages sur les forums"
+
+#: users/templates/users/delete-confirm.html:22
+#: users/templates/users/delete.html:14
+msgid "your participation history in the contest"
+msgstr "votre historique de participation au concours"
+
 #: users/templates/users/delete-confirm.html:25
 msgid ""
 "\n"
-"    This action <strong>cannot be reverted</strong>, in compliance with GDPR article 17. You will be logged out\n"
-"    immediately after clicking the button below. To proceed, provide your username and password and confirm.\n"
+"    This action <strong>cannot be reverted</strong>, in compliance with GDPR "
+"article 17. You will be logged out\n"
+"    immediately after clicking the button below. To proceed, provide your "
+"username and password and confirm.\n"
 "    "
 msgstr ""
 "\n"
-"Cette action <strong>ne peut pas être annulée</strong>, conformément l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom d'utilisateur, votre mot de passe et confirmez."
+"Cette action <strong>ne peut pas être annulée</strong>, conformément "
+"l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir "
+"cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom "
+"d'utilisateur, votre mot de passe et confirmez."
 
-#: users/templates/users/edit.html:9
-#: users/templates/users/edit_password.html:9
-msgid "Edit"
-msgstr "Modifier"
+#: users/templates/users/delete-confirm.html:36
+#: users/templates/users/delete.html:27
+msgid "Delete and log out"
+msgstr "Supprimer et déconnecter"
 
-#: users/templates/users/edit_password.html:10
-msgid "Password"
-msgstr "Mot de passe"
-
-#: users/templates/users/login.html:16
-msgid "Sign in with your credentials"
-msgstr "Connexion"
-
-#: users/templates/users/login.html:32
-msgid "Need an account?"
-msgstr "Vous n'avez pas encore de compte&nbsp;?"
-
-#: users/templates/users/login.html:34
+#: users/templates/users/delete.html:17
 msgid ""
-"You can create a new account anytime. It's free, you just need an email\n"
-"        address."
+"\n"
+"            This action <strong>cannot be reverted</strong>, in compliance "
+"with GDPR article 17. You will be logged out\n"
+"            immediately after clicking the button below. To proceed, provide "
+"your username and password and confirm.\n"
+"            "
 msgstr ""
-"Vous pouvez créer un compte à tout moment. C'est gratuit, vous avez "
-"uniquement besoin d'une adresse e-mail."
+"\n"
+"Cette action <strong>ne peut pas être annulée</strong>, conformément "
+"l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir "
+"cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom "
+"d'utilisateur, votre mot de passe et confirmez."
 
-#: users/templates/users/login.html:38
-msgid "Register now"
-msgstr "S'inscrire"
+#: users/templates/users/edit.html:5 users/templates/users/edit.html:13
+#, python-format
+msgid "Editing %(username)s's profile"
+msgstr "Modification du profil de %(username)s"
 
-#: users/templates/users/login.html:40
-msgid "Forgot your password?"
-msgstr "Mot de passe oublié&nbsp;?"
-
-#: users/templates/users/login.html:41
-msgid "No worries. We can send you an email to reset your password."
+#: users/templates/users/edit.html:16
+msgid ""
+"Don't forget to click “Save” at the bottom when you are done making changes."
 msgstr ""
-"Pas de souci. Nous pouvons vous envoyer un e-mail pour réinitialiser votre "
-"mot de passe."
+"N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
+"terminé vos modifications."
 
-#: users/templates/users/login.html:42
-#: users/templates/users/password_reset.html:20
-msgid "Reset password"
-msgstr "Réinitialiser mon mot de passe"
+#: users/templates/users/edit.html:20
+msgid "Save"
+msgstr "Enregistrer"
+
+#: users/templates/users/edit_password.html:4
+#: users/templates/users/edit_password.html:9
+#, python-format
+msgid "Editing %(username)s's password"
+msgstr "Modification du mot de passe de %(username)s"
+
+#: users/templates/users/edit_password.html:16
+msgid " Save"
+msgstr "Enregistrer"
 
 #: users/templates/users/mails/activation.body.text.html:5
 #, python-format
@@ -1798,15 +1687,18 @@ msgstr ""
 "\n"
 "Bonjour %(username)s !\n"
 "\n"
-"Merci de votre inscription à Prologin. Pour finaliser l'inscription, vous devez activer votre compte.\n"
+"Merci de votre inscription à Prologin. Pour finaliser l'inscription, vous "
+"devez activer votre compte.\n"
 "\n"
 "Veuillez ouvrir le lien qui suit dans votre navigateur :\n"
 "\n"
 "%(url)s\n"
 "\n"
-"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n"
+"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre "
+"d'adresse de votre navigateur.\n"
 "\n"
-"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n"
+"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse "
+"%(contactmail)s.\n"
 "\n"
 "-- \n"
 "L'équipe Prologin\n"
@@ -1845,17 +1737,25 @@ msgstr ""
 "\n"
 "Bonjour %(username)s !\n"
 "\n"
-"Quelqu'un a demandé de réinitialiser votre mot de passe sur le site de Prologin. Si vous avez effectivement formulé cette requête, veuillez ouvrir le lien qui suit dans votre navigateur :\n"
+"Quelqu'un a demandé de réinitialiser votre mot de passe sur le site de "
+"Prologin. Si vous avez effectivement formulé cette requête, veuillez ouvrir "
+"le lien qui suit dans votre navigateur :\n"
 "\n"
 "%(url)s\n"
 "\n"
-"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n"
+"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre "
+"d'adresse de votre navigateur.\n"
 "\n"
-"Si vous n'avez pas pas demandé cette réinitialisation, cela signifie qu'un utilisateur malveillant tente d'accéder à votre compte. Ne cliquez pas sur le lien ci-dessus, ignorez cet e-mail voire supprimez-le.\n"
+"Si vous n'avez pas pas demandé cette réinitialisation, cela signifie qu'un "
+"utilisateur malveillant tente d'accéder à votre compte. Ne cliquez pas sur "
+"le lien ci-dessus, ignorez cet e-mail voire supprimez-le.\n"
 "\n"
-"Si vous continuez à recevoir ce genre de demandes non sollicitées, merci d'entrer en contact avec l'équipe Prologin en nous envoyant un e-mail à l'adresse ci-dessous.\n"
+"Si vous continuez à recevoir ce genre de demandes non sollicitées, merci "
+"d'entrer en contact avec l'équipe Prologin en nous envoyant un e-mail à "
+"l'adresse ci-dessous.\n"
 "\n"
-"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n"
+"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse "
+"%(contactmail)s.\n"
 "\n"
 "-- \n"
 "L'équipe Prologin\n"
@@ -1877,18 +1777,147 @@ msgstr ""
 "Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous "
 "enverrons par email la procédure pour en définir un nouveau."
 
-#: users/templates/users/profile.html:11
-#, python-format
-msgid "%(username)s"
-msgstr "%(username)s"
+#: users/templates/users/password_reset.html:20
+msgid "Reset password"
+msgstr "Réinitialiser mon mot de passe"
 
-#: users/templates/users/register.html:16
-msgid ""
-"Please choose a username. You must use a valid email address, as you will "
-"receive a message to confirm your registration."
+#: users/templates/users/profile.html:10
+msgid "GCC! - Profile"
+msgstr "GCC! - Profil"
+
+#: users/templates/users/profile.html:17
+msgid "<em>not provided</em>"
+msgstr "<em>non renseigné</em>"
+
+#: users/templates/users/profile.html:21
+msgid "Edit profile"
+msgstr "Modifier le profil"
+
+#: users/templates/users/profile.html:31
+#, python-format
+msgid "%(username)s's profile picture"
+msgstr "Photo de profil de %(username)s"
+
+#: users/templates/users/profile.html:36
+#, python-format
+msgid "%(username)s's staff picture"
+msgstr "Photo de profil d'équipe de %(username)s"
+
+#: users/templates/users/profile.html:43
+msgid "Full name"
+msgstr "Nom complet"
+
+#: users/templates/users/profile.html:50
+msgid "Phone number"
+msgstr "Téléphone"
+
+#: users/templates/users/profile.html:68
+msgid "Postal address"
+msgstr "Adresse postale"
+
+#: users/templates/users/profile.html:78
+msgid "Date joined"
+msgstr "Date d'inscription"
+
+#: users/templates/users/profile.html:88
+msgid "Contest involvment"
+msgstr "Participation au concours"
+
+#: users/templates/users/profile.html:102
+msgid "See archives"
+msgstr "Voir les archives"
+
+#: users/templates/users/profile.html:108
+msgid "Completed the qualification step"
+msgstr "A complété l'étape de qualification"
+
+#: users/templates/users/profile.html:111
+msgid "Selected for regional events"
+msgstr "Sélectionné pour les épreuves régionales"
+
+#: users/templates/users/profile.html:113
+msgid "Abandoned the regional events"
+msgstr "S'est désisté avant l'épreuve régionale"
+
+#: users/templates/users/profile.html:116
+msgid "Competed in the regional events"
+msgstr "A participé aux épreuves régionales"
+
+#: users/templates/users/profile.html:118
+msgid "Selected for the final"
+msgstr "Sélectionné en finale"
+
+#: users/templates/users/profile.html:131
+#, python-format
+msgid "Download final home (tar.gz, %(size)s)"
+msgstr "Télécharger la “home” (tar.gz, %(size)s)"
+
+#: users/templates/users/profile.html:141
+#, python-format
+msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
 msgstr ""
-"Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail "
-"valide, vous recevrez un message pour confirmer votre inscription."
+"Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
+
+#: users/templates/users/profile.html:153
+msgid "Latest authored news entries"
+msgstr "Dernières actualités publiées"
+
+#: users/templates/users/profile.html:166
+msgid "Staff roles"
+msgstr "Rôles dans l'équipe"
+
+#: users/templates/users/profile.html:170
+#, python-format
+msgid ""
+"%(year)s ⋅\n"
+"                %(role)s"
+msgstr "%(year)s ⋅ %(role)s"
+
+#: users/templates/users/profile.html:184
+msgid "Account management"
+msgstr "Gestion du compte"
+
+#: users/templates/users/profile.html:193
+msgid "Export your personal data"
+msgstr "Exporter vos données personnelles"
+
+#: users/templates/users/profile.html:197
+msgid ""
+"\n"
+"            You can download an archive containing all your personal data, "
+"as\n"
+"            provided by your Right to data portability (Art. 20 of GDPR).\n"
+"            "
+msgstr ""
+"\n"
+"Vous pouvez télécharger une archive contenant toutes vos données "
+"personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
+
+#: users/templates/users/profile.html:216
+msgid "Delete your account"
+msgstr "Supprimer votre compte"
+
+#: users/templates/users/profile.html:220
+msgid ""
+"\n"
+"          You can delete your account and all associated personal data, as\n"
+"          provided by your Right to erasure (Art. 17 of GDPR).\n"
+"          "
+msgstr ""
+"\n"
+"Vous pouvez supprimer votre compte et toutes les données personnelles "
+"associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
+
+#: users/templates/users/profile.html:225
+msgid ""
+"\n"
+"              You cannot delete your account while participating to the\n"
+"              contest. If needed, contact the staff.\n"
+"            "
+msgstr ""
+"\n"
+"Vous ne pouvez pas supprimer votre compte alors que vous participez au "
+"concours. Si besoin, contactez l'équipe."
 
 #: users/templates/users/stub-search-result.html:10
 msgid "Edit in admin"
@@ -1943,8 +1972,8 @@ msgid ""
 "    already been unsubscribed. You will receive no further e-mails from\n"
 "    Prologin."
 msgstr ""
-"<code>%(email)s</code> a déjà été désinscrit. Vous ne recevrez plus "
-"d'e-mails de Prologin."
+"<code>%(email)s</code> a déjà été désinscrit. Vous ne recevrez plus d'e-"
+"mails de Prologin."
 
 #: users/templates/users/unsubscribe_confirm.html:10
 msgid ""
@@ -1952,7 +1981,7 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:99
+#: users/views.py:78
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
