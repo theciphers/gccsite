@@ -134,7 +134,40 @@
         </form>
 
         <h2>{% trans 'History behind Girls Can Code!' %}</h2>
-
+         <div class="row highlight-row">
+            <div class="col-sm-12 col-md-4 highlight">
+                {% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
+                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" /> </div>
+                <h4><a href="{{url}}">{% trans 'Parity in IT' %}</a></h4>
+                <p>
+                    {% blocktrans %}
+                    Girls Can Code! was created to promote girls to take a place in this masculine field despite stereotypes.
+                    {% endblocktrans %}
+                </p>
+                <a href="{{url}}" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
+                {% endwith %}
+            </div>
+            <div class="col-sm-12 col-md-4 highlight">
+                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /> </div>
+                <h4><a href="{% url 'gcc:editions' %}">{% trans 'Girls Can Code past editions!' %}</a></h4>
+                <p>
+                    {% blocktrans %}
+                    The first ever Girls Can Code! edition was in 2014, therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.
+                    {% endblocktrans %}
+                </p>
+                <a href="{% url 'gcc:editions' %}" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
+            </div>
+            <div class="col-sm-12 col-md-4 highlight">
+                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /> </div>
+                <h4><a href="//prologin.org/">{% trans 'Prologin, an association since in 1991' %}</a></h4>
+                <p>
+                    {% blocktrans %}
+                    The Prologin association organizes the national computer contest since 1991, and runs since 2014 the Girls Can Code! summer camps.
+                    {% endblocktrans %}
+                </p>
+                <a href="//prologin.org/" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
+            </div>
+        </div>
       </div>
       </div>
 
