@@ -1,3 +1,12 @@
+/**
+ * Theme
+ */
+* {
+    --primary: #1d655e;
+    --primary-light: #288e84;
+    --primary-lighter: #34b7aa;
+}
+
 /*
  * Page layout
  */
@@ -92,16 +101,16 @@ footer .legal {
  * Buttons
  */
 a {
-    color: #2ea297ff;
+    color: var(--primary-light);
 }
 
 .btn-primary {
-    background-color: #1d655e;
+    background-color: var(--primary);
     color: #ffffff;
 }
 
 .btn-primary:hover {
-    background-color: #227a71;
+    background-color: var(--primary-light);
 }
 
 /*
@@ -112,7 +121,7 @@ a {
   min-height: 90px;
   background: none;
   border: none;
-  background: #1d655e;
+  background: var(--primary);
   border-radius: 0;
 }
 
@@ -156,7 +165,7 @@ a {
 
 .navbar-default .navbar-toggle:focus,
 .navbar-default .navbar-toggle:hover {
-  background-color: #227a71;
+  background-color: var(--primary-lighter);
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
@@ -213,7 +222,7 @@ a {
 
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-    background: #227a71;
+    background: var(--primary-lighter);
   }
 
   .navbar-collapse.collapsing, .navbar-collapse.in {
@@ -245,7 +254,7 @@ a {
 .navbar-default .navbar-nav > .open > a:focus,
 .navbar-default .navbar-nav > .open > a:hover {
   color: #fefefe;
-  background-color: #227a71;
+  background-color: var(--primary-light);
 }
 
 .navbar-default .dropdown-menu {
@@ -260,7 +269,7 @@ a {
 }
 
 .navbar-default .dropdown-menu li a:hover, .navbar-default .dropdown-menu li button:hover {
-  background: #227a71;
+  background: var(--primary-lighter);
   color: #fefefe;
 }
 
@@ -274,12 +283,12 @@ a {
 
 .breadcrumb > li > a,
 .breadcrumb > li > a:visited {
-  color: #737ab9;
+  color: var(--primary-lighter);
   text-shadow: none;
 }
 
 .breadcrumb > li + li:before {
-  color: #737ab9;
+  color: var(--primary-light);
   content: "\203a";
 }
 
@@ -290,7 +299,7 @@ a {
 #menu-title, #login-title {
   margin-bottom: 0;
   padding: 5px;
-  background-color: #202b66;
+  background-color: var(--primary);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-align: center;
@@ -298,7 +307,7 @@ a {
 }
 
 #main-menu, #login-wrapper {
-  border: 1px solid #202b66;
+  border: 1px solid var(--primary);
 }
 
 #login-wrapper {

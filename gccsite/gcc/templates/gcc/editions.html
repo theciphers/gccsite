@@ -2,6 +2,8 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}{% trans 'Past Editions' %}{% endblock %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'gcc/css/editions.css' %}" :>
 {% endblock %}
@@ -16,7 +18,7 @@
     <div class="col-sm-10 edition-description">
       <p>
         {% blocktrans %}
-        Subscribtions are still open for this edition.
+        Subscriptions are still open for this edition.
         {% endblocktrans %}
       </p>
       <a class="btn btn-primary btn-lg" href="/application/form/2019">

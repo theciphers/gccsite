@@ -1,6 +1,6 @@
 .home-jumbo {
   margin-top: -20px;
-  background: #1d655e;
+  background: var(--primary);
   color: #fefefe;
   padding: 0 0 3em;
   position: relative;
@@ -74,12 +74,12 @@
     margin-left: -9px !important;
     border-top: 9px solid transparent !important;
     border-bottom: 9px solid transparent !important;
-    border-right: 9px solid #2ea297ff !important;
+    border-right: 9px solid var(--primary-light) !important;
   }
 }
 
 .home-jumbo .line {
-  border-bottom: 4px solid #2ea297ff;
+  border-bottom: 4px solid var(--primary-light);
   position: absolute;
   top: 0;
   width: 100%;
@@ -92,7 +92,7 @@
   margin-left: -27px;
   font-size: 27px;
   padding: 0 6px;
-  color: #2ea297ff;
+  color: var(--primary-light);
 }
 
 .home-jumbo .tl-block {
@@ -127,7 +127,7 @@
   margin-left: -9px;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
-  border-bottom: 9px solid #2ea297ff;
+  border-bottom: 9px solid var(--primary-light);
   position: absolute;
 }
 
@@ -135,7 +135,7 @@
   position: relative;
   text-align: left;
   border-radius: 3px;
-  background: #2ea297ff;
+  background: var(--primary-light);
   color: #efefef;
   padding: 1em;
   font-size: 0.92em;
