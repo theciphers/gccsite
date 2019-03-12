@@ -576,6 +576,8 @@ input[type=checkbox].task-list-item-checkbox {
 .sponsor {
   width: 100%;
   max-width: 220px;
+  max-height: 100px;
+  object-fit: contain;
 }
 
 .problem .progress-bar {
