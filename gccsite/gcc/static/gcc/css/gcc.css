@@ -1268,3 +1268,15 @@ table.table-align-middle > tbody > tr > td {
     max-height: 100px;
     object-fit: contain;
 }
+
+/*
+ * Highlights
+ */
+.highlight-horizontal {
+    display: flex;
+    align-items: center;
+}
+
+.highlight-horizontal a {
+    height: 100%;
+}
