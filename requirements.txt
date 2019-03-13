@@ -2,6 +2,7 @@
 django<3
 # News / blog
 django-blog-zinnia
+markdown
 # Breadcrumbs
 django-bootstrap-breadcrumbs>=0.7.0
 # Bootstrap-formatted forms
