@@ -125,16 +125,28 @@ a {
   border-radius: 0;
 }
 
-.navbar-default .navbar-brand {
-  height: 90px;
-  padding: 15px 0;
-  line-height: 1;
-  font-size: 1.6em;
+.navbar-default .navbar-brand img {
+  height: 40px;
 }
 
-.navbar-default .navbar-brand small {
-  font-size: 0.6em;
-  display: block;
+@media (max-width: 992px) {
+  .navbar-default .navbar-brand {
+     padding: 10px 0;
+  }
+
+  .navbar-default .navbar-brand img {
+      height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-default .navbar-brand {
+     padding: 20px 0;
+  }
+
+  .navbar-default .navbar-brand img {
+      height: 30px;
+  }
 }
 
 .navbar-default .navbar-brand a, .navbar-default .navbar-brand a:visited {
@@ -177,7 +189,7 @@ a {
   box-shadow: none;
 }
 
-@media (min-width: 970px) {
+@media (min-width: 992px) {
   .navbar-default .navbar-nav {
     margin-top: 19px;
   }
