@@ -1,5 +1,7 @@
 # Django
 django<3
+# For ordered models (Form questions)
+django-admin-sortable
 # News / blog
 django-blog-zinnia
 markdown

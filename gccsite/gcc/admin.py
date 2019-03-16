@@ -1,3 +1,4 @@
+from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,9 +7,17 @@ from gcc.models import (Answer, Applicant, ApplicantLabel, Corrector, Edition,
                         Sponsor)
 
 
-admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question, Form,
+
+admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question,
                      EventWish])
 
+class QuestionInline(SortableTabularInline):
+    model = Form.question_list.through
+    extra = 1
+
+@admin.register(Form)
+class FormAdmin(NonSortableParentAdmin):
+    inlines = [QuestionInline]
 
 @admin.register(Applicant)
 class ApplicationAdmin(admin.ModelAdmin):

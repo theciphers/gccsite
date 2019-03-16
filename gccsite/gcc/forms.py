@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
 from gcc.models import (Answer, AnswerTypes, Applicant, ApplicantStatusTypes,
-                        Event, EventWish)
+                        Event, EventWish, QuestionForForm)
 
 from prologin import utils
 from prologin.utils.multiforms import MultiForm
@@ -36,8 +36,11 @@ def build_dynamic_form(form, user, edition):
             self.edition = edition
             self.form = form
 
-            # Add fields to the form
-            self.questions = self.form.question_list.all()
+            # Add fields to the form, query directly on the jointure in order
+            # to take the ordering into account
+            self.questions = (
+                joined.question
+                for joined in QuestionForForm.objects.filter(form=form))
 
             for question in self.questions:
                 # set basic fields parameters

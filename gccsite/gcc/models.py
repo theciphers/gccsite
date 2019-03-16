@@ -1,8 +1,6 @@
-
 import hashlib
 import os
 from datetime import date
-
 from django.db import models
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
@@ -10,6 +8,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
+from adminsortable.models import SortableMixin
 
 from centers.models import Center
 from prologin.models import AddressableModel, ContactModel, EnumField
@@ -203,7 +202,8 @@ class Form(models.Model):
     # Name of the form
     name = models.CharField(max_length=64)
     # List of question
-    question_list = models.ManyToManyField('Question')
+    question_list = models.ManyToManyField('Question',
+                                           through='QuestionForForm')
 
     def __str__(self):
         return self.name
@@ -235,6 +235,15 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class QuestionForForm(SortableMixin):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    form = models.ForeignKey(Form, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['order']
 
 
 class Answer(models.Model):
