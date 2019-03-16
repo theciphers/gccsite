@@ -76,7 +76,7 @@ class Event(models.Model):
                                     null=True)
 
     def __str__(self):
-        return str(self.event_start) + ' ' + str(self.center)
+        return self.event_start.strftime('%Y-%m-%d')+ ' - ' + self.event_start.strftime('%Y-%m-%d') + ' ' + str(self.center)
 
     def short_description(self):
         return '{name} – {start} – {end}'.format(
