@@ -49,6 +49,7 @@ urlpatterns = [
     path('application/', include(APPLICATION_PATTERNS)),
     path('newsletter/', include(NEWSLETTER_PATTERNS)),
     path('resources/', views.RessourcesView.as_view(), name='resources'),
+    path('privacy/', views.PrivacyView.as_view(), name='privacy'),
 
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(),

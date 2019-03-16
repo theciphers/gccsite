@@ -1294,3 +1294,12 @@ table.table-align-middle > tbody > tr > td {
 .highlight-horizontal a {
     height: 100%;
 }
+
+.application_form p {
+    margin: 10px;
+    color: gray;
+}
+
+.privacy p {
+    margin: 10px;
+}

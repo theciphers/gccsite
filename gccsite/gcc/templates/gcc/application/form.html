@@ -17,8 +17,20 @@
     <form method="post" class="form-horizontal">
       {% csrf_token %}
       {{ form|bootstrap_horizontal:'col-sm-3' }}
+      <section class="application_form">
+          <p>{% trans "I consent to the processing of my data by Prologin."%}</p>
+      </section>
       <input class="btn btn-lg btn-primary btn-block" type="submit" value="{%trans "Validate and select my wishes" %}">
     </form>
+    <section class="application_form">
+        <p>
+            {% url 'gcc:privacy' as url_privacy %}
+            {% blocktrans with url=url_privacy %}
+            The GCC! summer camps are managed by the Prologin association, acting as Data Controller. Answers collected by this form allow us to prepare the summer camps: content customization, dietary constraints, etc.<br>
+            To learn more about your data management and your rights, please <a href="{{url}}">see our dedicated page</a>.
+            {% endblocktrans %}
+        </p>
+    </section>
 </div>
 </section>
 {% endblock %}
