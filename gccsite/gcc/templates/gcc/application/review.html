@@ -59,7 +59,7 @@
                   <ul class="list-group">
                     {% for wish in applicant.eventwish_set.all %}
                       <li class="list-group-item">
-                        <span class="badge">{{wish.get_status_display}}</span>
+                        <span class="badge {% if wish.status == 0 %}badge-warning{% elif wish.status == 1%}badge-default{% elif wish.status == 2 %}badge-danger{% else %}badge-success{% endif %}">{{wish.get_status_display}}</span>
                         <h4 class="list-group-item-heading">{{wish.order}}. {{wish.event.center}}</h4>
                         <p class="list-group-item-text">{{wish.event.event_start}}</p>
                       </li>
