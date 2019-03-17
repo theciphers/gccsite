@@ -8,7 +8,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
+from django.utils.translation import ugettext_noop
 from adminsortable.models import SortableMixin
+
 
 from centers.models import Center
 from prologin.models import AddressableModel, ContactModel, EnumField
@@ -103,6 +105,7 @@ class ApplicantLabel(models.Model):
         return self.display
 
 
+@ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
     incomplete  = 0  # the candidate hasn't finished her registration yet
     pending     = 1  # the candidate finished here registration
@@ -110,6 +113,13 @@ class ApplicantStatusTypes(ChoiceEnum):
     selected    = 3  # the candidate has been selected for participation
     accepted    = 4  # the candidate has been assigned to an event and emailed
     confirmed   = 5  # the candidate confirmed her participation
+
+    ugettext_noop('incomplete')
+    ugettext_noop('pending')
+    ugettext_noop('rejected')
+    ugettext_noop('selected')
+    ugettext_noop('accepted')
+    ugettext_noop('confirmed')
 
 
 class Applicant(models.Model):
@@ -173,19 +183,31 @@ class Applicant(models.Model):
 class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    status = EnumField(ApplicantStatusTypes, db_index=True, blank=True,
+                       default=ApplicantStatusTypes.pending.value)
+
     # Priority defined by the candidate to express his preferred event
     # The lower the order is, the more important is the choice
     order = models.IntegerField(default=1)
 
-    class Meta:
-        ordering = ('order', )
-        unique_together = (('applicant', 'event'), )
+    def default_status_for_migration(self):
+        if self.order != 1 and self.applicant.status not in [
+                ApplicantStatusTypes.pending.value,
+                ApplicantStatusTypes.incomplete.value,
+                ApplicantStatusTypes.selected.value]:
+            return ApplicantStatusTypes.rejected.value
+
+        return self.applicant.status
 
     def __str__(self):
         return '{} for {}'.format(
             str(self.applicant),
             str(self.event)
         )
+
+    class Meta:
+        ordering = ('order', )
+        unique_together = (('applicant', 'event'), )
 
 
 @ChoiceEnum.labels(str.capitalize)
