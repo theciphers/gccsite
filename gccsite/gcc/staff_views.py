@@ -20,6 +20,9 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         """
         event = get_object_or_404(Event, pk=kwargs['event'])
         applicants = Applicant.objects.filter(assignation_wishes=event)
+        applicants = applicants.prefetch_related(
+            'user', 'answers', 'answers__question', 'eventwish_set',
+            'eventwish_set__event', 'labels')
 
         #TODO: remove redundancy
         assert event.edition.year == kwargs['edition']
