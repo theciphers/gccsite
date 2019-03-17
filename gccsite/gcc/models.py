@@ -114,12 +114,16 @@ class ApplicantStatusTypes(ChoiceEnum):
     accepted    = 4  # the candidate has been assigned to an event and emailed
     confirmed   = 5  # the candidate confirmed her participation
 
-    ugettext_noop('incomplete')
-    ugettext_noop('pending')
-    ugettext_noop('rejected')
-    ugettext_noop('selected')
-    ugettext_noop('accepted')
-    ugettext_noop('confirmed')
+# Increasing order of status, for example, if the wishes of a candidate have
+# separate status, the greatest one is displayed
+STATUS_ORDER = [
+    ApplicantStatusTypes.incomplete.value,
+    ApplicantStatusTypes.pending.value,
+    ApplicantStatusTypes.rejected.value,
+    ApplicantStatusTypes.selected.value,
+    ApplicantStatusTypes.accepted.value,
+    ApplicantStatusTypes.confirmed.value,
+]
 
 
 class Applicant(models.Model):
@@ -133,8 +137,6 @@ class Applicant(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
-    status = EnumField(ApplicantStatusTypes, db_index=True, blank=True,
-                       default=ApplicantStatusTypes.incomplete.value)
 
     # Wishes of the candidate
     assignation_wishes = models.ManyToManyField(
@@ -147,8 +149,15 @@ class Applicant(models.Model):
     # Review of the application
     labels = models.ManyToManyField(ApplicantLabel, blank=True)
 
-    def __str__(self):
-        return str(self.user) + '@' + str(self.edition)
+    @property
+    def status(self):
+        wishes_status = set(wish.status for wish in self.assignation_wishes.all())
+
+        for wish_status in reversed(STATUS_ORDER):
+            if wish_status in wishes_status:
+                return wish_status
+
+        return ApplicantStatusTypes.incomplete.value
 
     def list_of_assignation_wishes(self):
         return [event for event in self.assignation_wishes.all()]
@@ -170,11 +179,15 @@ class Applicant(models.Model):
 
         return applicant
 
+    def __str__(self):
+        return str(self.user) + '@' + str(self.edition)
+
     class AlreadyLocked(Exception):
         """
         This exception is raised if a new application is submitted for an user
         who has already been accepted or rejected this year.
         """
+        pass
 
     class Meta:
         unique_together = (('user', 'edition'), )
@@ -189,15 +202,6 @@ class EventWish(models.Model):
     # Priority defined by the candidate to express his preferred event
     # The lower the order is, the more important is the choice
     order = models.IntegerField(default=1)
-
-    def default_status_for_migration(self):
-        if self.order != 1 and self.applicant.status not in [
-                ApplicantStatusTypes.pending.value,
-                ApplicantStatusTypes.incomplete.value,
-                ApplicantStatusTypes.selected.value]:
-            return ApplicantStatusTypes.rejected.value
-
-        return self.applicant.status
 
     def __str__(self):
         return '{} for {}'.format(
