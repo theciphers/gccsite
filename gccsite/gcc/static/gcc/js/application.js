@@ -2,13 +2,13 @@ const applicants = document.getElementsByClassName('applicant-head');
 
 function goToApplicant(applicant) {
     // Unfold an applicant's description, and scroll down toward its position
-    applicant.classList.add('selected');
+    applicant.show();
 
     // Scroll to get out of the header
     setTimeout(function() {
-        applicant.scrollIntoView();
-        let scrolledY = window.scrollY;
-        window.scroll(0, scrolledY - 10);
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(applicant.prev()).offset().top
+        }, 0);
     }, 1);
 }
 
@@ -20,8 +20,8 @@ const url_parts = document.URL.split('#');
 
 if (url_parts.length > 1) {
     const focused_id = url_parts[1];
-    const focused_el = document.getElementById(focused_id);
-    goToApplicant(focused_el);
+    const focused_el = $('#' + focused_id);
+    goToApplicant(focused_el.next());
 }
 
 /**
@@ -29,12 +29,8 @@ if (url_parts.length > 1) {
  */
 for (let i = 0 ; i < applicants.length ; i++) {
     applicants[i].addEventListener('click', (event) => {
-        const applicant = applicants[i].parentElement;
-
-        if (applicant.classList.contains('selected'))
-            applicant.classList.remove('selected');
-        else
-            applicant.classList.add('selected');
+        const applicant = $(applicants[i]).next();
+        applicant.toggle();
     });
 }
 
@@ -44,7 +40,7 @@ for (let i = 0 ; i < applicants.length ; i++) {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape')
         for (let i = 0 ; i < applicants.length ; i++)
-            applicants[i].parentElement.classList.remove('selected');
+            $(applicants[i]).next().hide();
 });
 
 /**
@@ -57,13 +53,13 @@ document.addEventListener('keydown', (event) => {
         let last_opened = -1;
 
         for (let i = 0 ; i < applicants.length ; i++)
-            if (applicants[i].parentElement.classList.contains('selected'))
+            if ($(applicants[i]).next().is(':visible'))
                 last_opened = i;
 
         if (last_opened != -1)
-            applicants[last_opened].parentElement.classList.remove('selected');
+            $(applicants[last_opened]).next().hide();
         if (last_opened != applicants.length - 1)
-            goToApplicant(applicants[last_opened + 1].parentElement);
+            goToApplicant($(applicants[last_opened + 1]).next());
     }
 });
 
@@ -77,12 +73,19 @@ document.addEventListener('keydown', (event) => {
         let last_opened = applicants.length;
 
         for (let i = applicants.length-1 ; i >= 0 ; i--)
-            if (applicants[i].parentElement.classList.contains('selected'))
+            if ($(applicants[i]).next().is(':visible'))
                 last_opened = i;
 
         if (last_opened != applicants.length)
-            applicants[last_opened].parentElement.classList.remove('selected');
+            $(applicants[last_opened]).next().hide();
         if (last_opened != 0)
-            goToApplicant(applicants[last_opened - 1].parentElement);
+            goToApplicant($(applicants[last_opened - 1]).next());
     }
+});
+
+/**
+ * Enable dropdowns
+ */
+$('.dropdown-toggle').on('click', function(event) {
+    $(`.dropdown-menu[aria-labelledby="${event.target.id}"]`).toggle();
 });

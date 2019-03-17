@@ -2,87 +2,96 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "GCC! − Applications" %}{% endblock %}
+{% block title %}{% trans "Applications" %}{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static " gcc/css/application.css"%}"> {% endblock %}
 
 {% block content %} <section class="wrapper">
-<div class="title"> {% trans "Review" %} </div>
 <div class="container">
-    <h3>
-        {% blocktrans with edition=event.edition %}Candidates for {{event.short_description}} (edition {{edition}}){% endblocktrans %}
-      </h3>
-    <ul class="applicant-list">
+  <h3>
+      {% blocktrans with edition=event.edition %}Candidates for {{event.short_description}} (edition {{edition}}){% endblocktrans %}
+    </h3>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Previously candidate</th>
+          <th>Labels</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for applicant in applicants %}
-        <li id="applicant-{{applicant.pk}}">
-            <div class="applicant-head">
-                <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
-                <div class="labeladd-dropdown">
-                    <div class="labeladd-btn">+</div>
-                    <div class="labeladd-dropdown-content">
-                        {% for label in labels %}
-                        <a href="{% url 'gcc:add_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{ label }}</a>
-                        {% endfor %}
-                    </div>
+          <tr class="applicant-head" id="applicant-{{applicant.pk}}">
+            <td>
+              <strong>
+                <span class="first-name">{{applicant.user.first_name}}</span>
+                <span class="last-name">{{applicant.user.last_name}}</span>
+              </strong>
+            </td>
+            <td>Yes</td>
+            <td>
+              {% for label in applicant.labels.all %}
+                <span class="label label-default label-xs"><a href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
+              {% endfor %}
+            </td>
+            <td>Accepted (<a href="#">cancel</a>)</td>
+          </tr>
+          <tr style="display: none">
+            <td colspan="4">
+              <div class="row">
+                <div class="col-md-6">
+                  <h3>{% trans "Profile of" %} {{applicant.user.first_name}} {{applicant.user.last_name}}</h3>
+                  <dl class="dl-horizontal">
+                    <dt>{% trans 'login/nickname' %}</dt>
+                    <dd>{{applicant.user.username}}</dd>
+                    <dt>{% trans 'email' %}</dt>
+                    <dd>{{applicant.user.email}}</dd>
+                    <dt>{% trans 'birthday' %}</dt>
+                    <dd>{{applicant.user.birthday}}</dd>
+                    <dt>{% trans 'participations' %}</dt>
+                    <dd>None</dd>
+                  </dl>
                 </div>
-                <span class="label-list">
-                {% for label in applicant.labels.all %}
-                  <a class="label" href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">
-                    {{ label }}
-                  </a>
-                {% endfor %}
-              </span>
-            </div>
-            <div class="detail">
-                <div class="detail-section">
-                    <a class="btn" href="#">{% trans "View complete profile" %}</a>
-                    <a class="btn" href="#">{% trans "Reject all" %}</a>
+                <div class="col-md-6">
+                  <ul class="list-group">
+                    {% for wish in applicant.eventwish_set.all %}
+                      <li class="list-group-item">
+                        <span class="badge">pending</span>
+                        <h4 class="list-group-item-heading">{{wish.order}}. {{wish.event.center}}</h4>
+                        <p class="list-group-item-text">{{wish.event.event_start}}</p>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </div>
-                <div class="detail-section">
-                    <h3>{% trans "Profile" %}</h3>
-                    <table class="recap">
-                        <tr>
-                            <td>{% trans "email" %}</td>
-                            <td>{{ applicant.user.email }}</td>
-                        </tr>
-                        <tr>
-                            <td>{% trans "birthdate" %}</td>
-                            <td>{{ applicant.user.birthday }}</td>
-                        </tr>
-                        <tr>
-                            <td>{% trans "previous participations" %}</td>
-                            <td>None</td>
-                        </tr>
-                    </table>
-                </div>:
-                <div class="detail-section">
-                    <h3>Events</h3>
-                    <ul style="list-style: decimal;">
-                        {% for wish in applicant.eventwish_set.all %}
-                        <li>
-                            <span>{{ wish.event.center }} <small>{{ wish.event.event_start }}</small></span>
-                            <span style="float:right">
-                        <a class="btn btn-little" href="#">accept</a>
-                        <a class="btn btn-little" href="#">reject</a>
-                      </span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="detail-section">
-                    <h3>Form</h3>
-                    <div class="question">
-                        {% for answer in applicant.answers.all %}
-                        <h5>{{ answer.question }}</h5>
-                        <p>
-                            {{ answer }}
-                        </p>
-                        {% endfor %}
-                    </div>
-                </div>
-        </li>
+              </div>
+              <div>
+                <h3>Form</h3>
+                <dl class="dl-vertical">
+                  {% for answer in applicant.answers.all %}
+                   <dt>{{answer.question}}</dd>
+                   <dd>{{answer}}</dt>
+                  {% endfor %}
+                </dl>
+                <h3>
+                  Add a label:
+                  {% for label in labels %}
+                    <span class="label label-default"><a href="{% url 'gcc:add_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
+                  {% endfor %}
+                </h3>
+              </div>
+            </td>
+          </tr>
         {% endfor %}
-    </ul>
+      </tbody>
+    </table>
+  </div>
 </div>
 </section>
-<script src="{% static "gcc/js/application.js"%}"> </script> {% endblock %}
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static "gcc/js/application.js"%}"> </script>
+{% endblock %}
