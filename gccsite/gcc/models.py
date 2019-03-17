@@ -197,7 +197,7 @@ class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     status = EnumField(ApplicantStatusTypes, db_index=True, blank=True,
-                       default=ApplicantStatusTypes.pending.value)
+                       default=ApplicantStatusTypes.incomplete.value)
 
     # Priority defined by the candidate to express his preferred event
     # The lower the order is, the more important is the choice
