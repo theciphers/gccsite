@@ -139,10 +139,12 @@ class Applicant(models.Model):
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
 
     # Wishes of the candidate
+    # TODO: Rename as assignation_event is deprecated
     assignation_wishes = models.ManyToManyField(
         Event, through='EventWish', related_name='applicants', blank=True)
 
     # Wishes she is accepted to
+    # TODO: Deprecated (use wish-specific status)
     assignation_event = models.ManyToManyField(
         Event, related_name='assigned_applicants', blank=True)
 
@@ -151,7 +153,7 @@ class Applicant(models.Model):
 
     @property
     def status(self):
-        wishes_status = set(wish.status for wish in self.assignation_wishes.all())
+        wishes_status = set(wish.status for wish in self.eventwish_set.all())
 
         for wish_status in reversed(STATUS_ORDER):
             if wish_status in wishes_status:
