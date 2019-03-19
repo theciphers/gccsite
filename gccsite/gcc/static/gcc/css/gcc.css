@@ -1331,6 +1331,11 @@ table.table-align-middle > tbody > tr > td {
     color: inherit;
 }
 
+.list-group > .list-group-item.highlighted {
+    border-left: 5px solid var(--primary-light);
+    padding-left: 10px;  /* 5px less than default */
+}
+
 /**
  * Add colored badges
  */
