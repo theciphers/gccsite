@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'djmail',
-    'rules',
+    'rules.apps.AutodiscoverRulesConfig',
     'statictemplate',
     'tagging',
 
@@ -160,8 +160,8 @@ SESSION_COOKIE_NAME = 'sessionid_gcc'
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
     'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 AUTH_USER_MODEL = 'users.GCCUser'
 
