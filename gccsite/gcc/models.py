@@ -167,6 +167,12 @@ class Applicant(models.Model):
     def list_of_assignation_event(self):
         return [event for event in self.assignation_event.all()]
 
+    def validate_current_wishes(self):
+        for wish in self.eventwish_set.all():
+            if wish.status == ApplicantStatusTypes.incomplete.value:
+                wish.status = ApplicantStatusTypes.pending.value
+                wish.save()
+
     @staticmethod
     def for_user_and_edition(user, edition):
         """

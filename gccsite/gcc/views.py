@@ -157,10 +157,9 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
                 _("Failed to validate your application, "
                   "your profile is incomplete."))
         else:
-            application = Applicant.objects.get(user=self.request.user,
-                                                edition=kwargs['edition'])
-            application.status = 1
-            application.save()
+            applicant = Applicant.objects.get(user=self.request.user,
+                                              edition=kwargs['edition'])
+            applicant.validate_current_wishes()
             messages.add_message(request, messages.SUCCESS,
                                  _('Successfully validated your application.'))
 

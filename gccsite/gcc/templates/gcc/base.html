@@ -47,8 +47,8 @@
 
   {% block super_content %}
   {# Content #}
-    {% include 'prologin/messages.html' %}
     <div class="container">
+      {% include 'prologin/messages.html' %}
       {% block content %}{% endblock %}
     </div>
   {% endblock super_content %}
