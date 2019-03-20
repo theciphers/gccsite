@@ -38,9 +38,9 @@ def build_dynamic_form(form, user, edition):
 
             # Add fields to the form, query directly on the jointure in order
             # to take the ordering into account
-            self.questions = (
+            self.questions = [
                 joined.question
-                for joined in QuestionForForm.objects.filter(form=form))
+                for joined in QuestionForForm.objects.filter(form=form)]
 
             for question in self.questions:
                 # set basic fields parameters
