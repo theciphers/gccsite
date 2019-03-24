@@ -180,20 +180,20 @@ class ApplicationFormView(FormView):
 
     def dispatch(self, request, *args, **kwargs):
         # redirect if already validated for this year.
-        try:
-            application = Applicant.objects.get(user=self.request.user,
-                                                edition=kwargs['edition'])
+        if request.user.is_anonymous:
+            return super().dispatch(request, *args, **kwargs)
 
-            if application.status != 0:
-                messages.add_message(
-                    request, messages.ERROR,
-                    _('Your application has already been validated, if you '
-                      'really want to change something contact us by email.'))
-                return HttpResponseRedirect(reverse(
-                    'gcc:application_summary',
-                    kwargs={'pk': self.request.user.pk}))
-        except Applicant.DoesNotExist:
-            pass
+        applicant = get_object_or_404(Applicant, user=self.request.user,
+                                      edition=kwargs['edition'])
+
+        if applicant.status != 0:
+            messages.add_message(
+                request, messages.ERROR,
+                _('Your application has already been validated, if you '
+                  'really want to change something contact us by email.'))
+            return HttpResponseRedirect(reverse(
+                'gcc:application_summary',
+                kwargs={'pk': self.request.user.pk}))
 
         return super().dispatch(request, *args, **kwargs)
 
