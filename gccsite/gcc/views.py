@@ -170,7 +170,7 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
             'gcc:application_summary', kwargs={'pk': self.request.user.pk}))
 
 
-class ApplicationFormView(FormView):
+class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
     template_name = 'gcc/application/form.html'
     form_class = CombinedApplicantUserForm
 
@@ -183,8 +183,8 @@ class ApplicationFormView(FormView):
         if request.user.is_anonymous:
             return super().dispatch(request, *args, **kwargs)
 
-        applicant = get_object_or_404(Applicant, user=self.request.user,
-                                      edition=kwargs['edition'])
+        edition = get_object_or_404(Edition, year=kwargs['edition'])
+        applicant = Applicant.for_user_and_edition(self.request.user, edition)
 
         if applicant.status != 0:
             messages.add_message(
