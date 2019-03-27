@@ -5,7 +5,7 @@ MANAGE = cd $(DIR) && PYTHONWARNINGS=once ./manage.py
 REGIONAL_MANAGE = cd $(DIR) && DJANGO_SETTINGS_MODULE=prologin.settings.semifinal_dev ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
-PORT = 8000
+PORT = 8001
 SMTP_HOST = 127.0.0.1
 SMTP_PORT = 1025
 SMTP_LAG = 0

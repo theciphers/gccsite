@@ -7,6 +7,8 @@ SECRET_KEY = 'CHANGEME'
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
+SESSION_COOKIE_NAME = 'sessionid_gcc'
+
 ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost', 'testserver']
 INTERNAL_IPS = ALLOWED_HOSTS
 
@@ -15,6 +17,7 @@ SITE_HOST = "localhost:8001"
 # Repository paths
 ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
 
+# OAuth client
 OAUTH_ENDPOINT = 'http://localhost:8000/user/auth'
 OAUTH_SECRET = 'CHANGEME'
 
