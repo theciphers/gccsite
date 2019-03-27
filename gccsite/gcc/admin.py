@@ -1,15 +1,15 @@
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
+from django.db.models import Q
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from gcc.models import (Answer, Applicant, ApplicantLabel, Corrector, Edition,
-                        Event, EventWish, Form, Question, SubscriberEmail,
-                        Sponsor)
+from gcc.models import (Answer, Applicant, ApplicantLabel, ApplicantStatusTypes,
+                        Corrector, Edition, Event, EventWish, Form, Question,
+                        SubscriberEmail, Sponsor)
 
 
 
-admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question,
-                     EventWish])
+admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question])
 
 class QuestionInline(SortableTabularInline):
     model = Form.question_list.through
@@ -19,9 +19,38 @@ class QuestionInline(SortableTabularInline):
 class FormAdmin(NonSortableParentAdmin):
     inlines = [QuestionInline]
 
+class EventWishesInline(admin.TabularInline):
+    model = EventWish
+
+class ApplicationStatusFilter(admin.SimpleListFilter):
+    title = _('status')
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        return ((str(item.value), name)
+                for name, item in ApplicantStatusTypes.__members__.items())
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+
+        if int(self.value()) == ApplicantStatusTypes.incomplete.value:
+            return queryset.filter(Q(eventwish__status=0) | Q(eventwish=None))
+
+        return queryset.filter(eventwish__status=0)
+
 @admin.register(Applicant)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'edition', 'status')
+    Applicant.get_status_display.short_description = _('status')
+
+    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'user__email')
+    list_display = ('user', 'edition', 'get_status_display')
+    list_filter = ('edition', ApplicationStatusFilter, 'assignation_wishes__center')
+    readonly_fields = ('user', 'edition')
+    fieldsets = (
+        (None, {'fields': ('user', 'edition', )}),
+        (_('Review'), {'fields': ('labels', )}))
+    inlines = [EventWishesInline]
 
 
 @admin.register(Corrector)

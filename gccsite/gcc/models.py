@@ -161,6 +161,9 @@ class Applicant(models.Model):
 
         return ApplicantStatusTypes.incomplete.value
 
+    def get_status_display(self):
+        return ApplicantStatusTypes(self.status).name
+
     def list_of_assignation_wishes(self):
         return [event for event in self.assignation_wishes.all()]
 
