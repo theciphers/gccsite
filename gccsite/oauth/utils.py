@@ -7,7 +7,7 @@ from oauth import models
 
 
 # List of user attributes that are updated from the oauth endpoint
-USER_SYNC_KEYS = ['username', 'is_superuser', 'is_staff']
+USER_SYNC_KEYS = ['username', 'is_superuser', 'is_staff', 'email']
 
 
 def gen_auth_state():
