@@ -77,7 +77,7 @@ class GCCUser(AbstractUser, AddressableModel):
         return self.has_complete_address() and all((self.first_name,
                                                     self.last_name, self.email,
                                                     self.gender, self.birthday,
-                                                    self.phone, self.birthday))
+                                                    self.phone))
 
     def get_absolute_url(self):
         return reverse('users:profile', args=[self.pk])

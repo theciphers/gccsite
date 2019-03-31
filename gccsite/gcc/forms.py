@@ -111,7 +111,7 @@ class ApplicantUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ('first_name', 'last_name', 'birthday', 'gender', 'address',
                   'postal_code', 'city', 'country', 'phone', 'school_stage')
-        optional_fields = ('phone', 'school_stage')
+        optional_fields = ('school_stage',)
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
             'gender': forms.RadioSelect(),
