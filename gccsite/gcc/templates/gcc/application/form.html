@@ -8,11 +8,11 @@
 {% block content %}
 <section class="wrapper">
 <div class="container">
-    {% if user.has_complete_profile_for_application is not True %}
+    {% if not applicant.has_complete_application %}
     <div class="alert alert-warning" role="alert">
         {% trans "You are missing some key information, you won't be able to validate your application !" %}
     </div>
-    {% endif%}
+    {% endif %}
     <h2>{% trans "Application Form" %}</h2>
     <form method="post" class="form-horizontal">
       {% csrf_token %}

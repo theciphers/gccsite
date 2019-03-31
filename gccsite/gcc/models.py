@@ -170,6 +170,15 @@ class Applicant(models.Model):
     def list_of_assignation_event(self):
         return [event for event in self.assignation_event.all()]
 
+    def has_complete_application(self):
+        # TODO: optimize requests and use a more relyable check than answers
+        # count: if a question is removed, answers to this questions could be
+        # counted
+        max_answers = Edition.current().signup_form.question_list.all().count()
+        return (self.user.has_complete_profile()
+                and self.answers.all().count() >= max_answers
+                and all(answer.response for answer in self.answers.all()))
+
     def validate_current_wishes(self):
         for wish in self.eventwish_set.all():
             if wish.status == ApplicantStatusTypes.incomplete.value:

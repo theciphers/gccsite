@@ -143,6 +143,14 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
             raise Http404()
         return result
 
+    # TODO: remove redondancy of get
+    def get_context_data(self, **kwargs):
+        applicant = get_object_or_404(Applicant, user=self.request.user,
+                                      edition=self.kwargs['edition'])
+        context = super().get_context_data(**kwargs)
+        context['applicant'] = applicant
+        return context
+
     def get_success_url(self):
         return reverse(
             'gcc:application_summary',
@@ -151,14 +159,14 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
 
-        if not self.request.user.has_complete_profile_for_application():
-            messages.add_message(
-                request, messages.ERROR,
-                _("Failed to validate your application, "
-                  "your profile is incomplete."))
+        applicant = get_object_or_404(Applicant, user=self.request.user,
+                                      edition=kwargs['edition'])
+
+        if not applicant.has_complete_application():
+            messages.add_message(request, messages.ERROR,
+                                 _('Failed to validate your application, your '
+                                   'profile is incomplete.'))
         else:
-            applicant = Applicant.objects.get(user=self.request.user,
-                                              edition=kwargs['edition'])
             applicant.validate_current_wishes()
             messages.add_message(request, messages.SUCCESS,
                                  _('Successfully validated your application.'))
@@ -196,6 +204,13 @@ class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
                 kwargs={'pk': self.request.user.pk}))
 
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['applicant'] = get_object_or_404(
+            Applicant, edition__year=self.kwargs['edition'],
+            user=self.request.user)
+        return context
 
     def get_object(self, queryset=None):
         # available from prologin.middleware.ContestMiddleware
