@@ -11,7 +11,7 @@
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
           <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
           <li class="divider"></li>
-          <li><a href="#"><i class="fa fa-fw fa-wrench"></i> {% trans "Review Candidates" %}</a></li>
+          <li><a href="{% url 'gcc:application_review_index' %}"><i class="fa fa-fw fa-wrench"></i> {% trans "Review Candidates" %}</a></li>
         </ul>
       </li>
     {% endif%}

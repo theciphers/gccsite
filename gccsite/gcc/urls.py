@@ -13,7 +13,7 @@ NEWSLETTER_PATTERNS = [
 ]
 
 APPLICATION_PATTERNS = [
-    path('review/index/',
+    path('review/',
          staff_views.ApplicationReviewIndexView.as_view(),
          name='application_review_index'),
     path('review/<int:edition>/<int:event>/',
