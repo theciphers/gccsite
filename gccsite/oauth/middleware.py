@@ -28,7 +28,7 @@ class RefreshTokenMiddleware(MiddlewareMixin):
                       'client_id': settings.OAUTH_CLIENT_ID,
                       'client_secret': settings.OAUTH_SECRET})
         except:
-            return HttpResponseRedirect(reverse('autologin'))
+            return HttpResponseRedirect(reverse('oauth:autologin'))
 
         if not handle_oauth_response(request, res):
-            return HttpResponseRedirect(reverse('autologin'))
+            return HttpResponseRedirect(reverse('oauth:autologin'))
