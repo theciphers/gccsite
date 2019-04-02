@@ -160,8 +160,8 @@ SESSION_COOKIE_NAME = 'sessionid_gcc'
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
-    'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'rules.permissions.ObjectPermissionBackend',
 )
 AUTH_USER_MODEL = 'users.GCCUser'
 

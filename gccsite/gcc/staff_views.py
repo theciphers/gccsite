@@ -1,3 +1,4 @@
+import rules
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
@@ -7,7 +8,7 @@ from gcc.models import Event, Applicant, ApplicantLabel
 
 
 class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
-    permission_required = 'gcc.is_staff'
+    permission_required = 'gcc.can_review'
     template_name = "gcc/application/review_index.html"
 
     def get_context_data(self, **kwargs):

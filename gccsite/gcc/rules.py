@@ -17,4 +17,5 @@ def can_review_event(user, event):
     return Corrector.objects.filter(event=event, user=user).exists()
 
 rules.add_perm('gcc.can_edit_application_labels', can_edit_application_labels)
+rules.add_perm('gcc.can_review', rules.is_staff)
 rules.add_perm('gcc.can_review_event', can_review_event)
