@@ -13,34 +13,30 @@ NEWSLETTER_PATTERNS = [
 ]
 
 APPLICATION_PATTERNS = [
-    path(
-        'review/<int:edition>/<int:event>/',
-        staff_views.ApplicationReviewView.as_view(),
-        name='application_review'),
-    path(
-        'validation/<int:pk>/<int:edition>/',
-        views.ApplicationValidationView.as_view(),
-        name='application_validation'),
-    path(
-        'form/<int:edition>/',
-        views.ApplicationFormView.as_view(),
-        name='application_form'),
-    path(
-        'wishes/<int:edition>/',
-        views.ApplicationWishesView.as_view(),
-        name='application_wishes'),
-    path(
-        'summary/<int:pk>/',
-        views.ApplicationSummaryView.as_view(),
-        name='application_summary'),
-    path(
-        'label_remove/<int:event>/<int:applicant>/<int:label>/',
-        staff_views.ApplicationRemoveLabelView.as_view(),
-        name='delete_applicant_label'),
-    path(
-        'label_add/<int:event>/<int:applicant>/<int:label>/',
-        staff_views.ApplicationAddLabelView.as_view(),
-        name='add_applicant_label'),
+    path('review/index/',
+         staff_views.ApplicationReviewIndexView.as_view(),
+         name='application_review_index'),
+    path('review/<int:edition>/<int:event>/',
+         staff_views.ApplicationReviewView.as_view(),
+         name='application_review'),
+    path('validation/<int:pk>/<int:edition>/',
+         views.ApplicationValidationView.as_view(),
+         name='application_validation'),
+    path('form/<int:edition>/',
+         views.ApplicationFormView.as_view(),
+         name='application_form'),
+    path('wishes/<int:edition>/',
+         views.ApplicationWishesView.as_view(),
+         name='application_wishes'),
+    path('summary/<int:pk>/',
+         views.ApplicationSummaryView.as_view(),
+         name='application_summary'),
+    path('label_remove/<int:event>/<int:applicant>/<int:label>/',
+         staff_views.ApplicationRemoveLabelView.as_view(),
+         name='delete_applicant_label'),
+    path('label_add/<int:event>/<int:applicant>/<int:label>/',
+         staff_views.ApplicationAddLabelView.as_view(),
+         name='add_applicant_label'),
 ]
 
 urlpatterns = [

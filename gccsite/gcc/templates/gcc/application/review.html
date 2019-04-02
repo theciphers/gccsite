@@ -9,8 +9,10 @@
 {% block content %} <section class="wrapper">
 <div class="container">
   <h3>
-      {% blocktrans with edition=event.edition %}Candidates for {{event.short_description}} (edition {{edition}}){% endblocktrans %}
-    </h3>
+    {% blocktrans with event=event.short_description %}
+      Candidates for {{ event }} (edition {{ edition }})
+    {% endblocktrans %}
+  </h3>
 
   <div class="table-responsive">
     <table class="table table-hover">

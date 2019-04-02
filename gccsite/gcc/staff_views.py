@@ -6,6 +6,21 @@ from rules.contrib.views import PermissionRequiredMixin
 from gcc.models import Event, Applicant, ApplicantLabel
 
 
+class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'gcc.is_staff'
+    template_name = "gcc/application/review_index.html"
+
+    def get_context_data(self, **kwargs):
+        """
+        Extract the list of users who have an application this year and list
+        their applications in the same object.
+        """
+        context = super().get_context_data(**kwargs)
+        context['events'] = Event.objects.all().prefetch_related(
+            'center', 'edition').order_by('edition')
+        return context
+
+
 class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
     permission_required = 'gcc.can_review_event'
     template_name = "gcc/application/review.html"

@@ -25,6 +25,7 @@ from zinnia.models import Entry
 class EditionsView(TemplateView):
     template_name = "gcc/editions.html"
 
+
 # Privacy
 
 
