@@ -29,7 +29,7 @@
       {% endwith %}
       {% for event in group.list|dictsort:'event_start' %}
         <tr>
-          <td>{% trans 'Long Internship' %}</td>
+          <td>{% trans 'Long Summer Camp' %}</td>
           <td>{{ event.center.name }} <span class="text-muted">{{ event.event_start|date:"SHORT_DATE_FORMAT" }}</span></td>
           <td>
             {% has_perm 'gcc.can_review_event' request.user event as can_review %}
