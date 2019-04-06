@@ -3,11 +3,13 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from timezone_field import TimeZoneField
 
 from prologin.models import (AddressableModel, GenderField, EnumField,
                              ChoiceEnum)
+from gcc.models import Applicant, ApplicantStatusTypes
 
 
 class EducationStage(ChoiceEnum):
@@ -60,6 +62,12 @@ class GCCUser(AbstractUser, AddressableModel):
     preferred_locale = models.CharField(
         max_length=8, blank=True, verbose_name=_("Locale"),
         choices=settings.LANGUAGES)
+
+    @cached_property
+    def participations_count(self):
+        applicants = Applicant.objects.filter(user=self)
+        return sum((applicant.status == ApplicantStatusTypes.confirmed.value)
+                   for applicant in applicants)
 
     @property
     def unsubscribe_token(self):

@@ -38,7 +38,13 @@
                 <span class="last-name">{{applicant.user.last_name}}</span>
               </strong>
             </td>
-            <td>Yes</td>
+            <td>
+              {% if applicant.user.participations_count == 0 %}
+                No
+              {% else %}
+                {{ applicant.user.participations_count }}
+              {% endif %}
+            </td>
             <td>
               {% for label in applicant.labels.all %}
                 <span class="label label-default label-xs"><a href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
