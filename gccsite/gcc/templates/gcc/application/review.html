@@ -24,7 +24,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Previously candidate</th>
+          <th>Participations count</th>
           <th>Labels</th>
           <th>Status</th>
         </tr>
@@ -42,7 +42,7 @@
               {% if applicant.user.participations_count == 0 %}
                 No
               {% else %}
-                {{ applicant.user.participations_count }}
+                {{ applicant.user.participations_count }} participations
               {% endif %}
             </td>
             <td>
@@ -50,7 +50,7 @@
                 <span class="label label-default label-xs"><a href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
               {% endfor %}
             </td>
-            <td>Accepted (<a href="#">cancel</a>)</td>
+            <td>{{ applicant.get_status_display }}</td>
           </tr>
           <tr style="display: none">
             <td colspan="4">
