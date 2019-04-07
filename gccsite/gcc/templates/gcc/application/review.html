@@ -3,8 +3,9 @@
 {% load i18n %}
 
 {% block title %}{% trans "Applications" %}{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/application.css"%}"> {% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "gcc/css/application.css"%}">
+{% endblock %}
 
 {% block content %} <section class="wrapper">
 <div class="container">
@@ -46,8 +47,8 @@
               {% endif %}
             </td>
             <td>
-              {% for label in applicant.labels.all %}
-                <span class="label label-default label-xs"><a href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
+              {% for label in labels %}
+                <span class="remove-label label label-default label-xs" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label not in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
               {% endfor %}
             </td>
             <td>{{ applicant.get_status_display }}</td>
@@ -91,7 +92,7 @@
                 <h3>
                   Add a label:
                   {% for label in labels %}
-                    <span class="label label-default"><a href="{% url 'gcc:add_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{label}}</a></span>
+                    <span class="add-label label label-default" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
                   {% endfor %}
                 </h3>
               </div>

@@ -89,3 +89,46 @@ document.addEventListener('keydown', (event) => {
 $('.dropdown-toggle').on('click', function(event) {
     $(`.dropdown-menu[aria-labelledby="${event.target.id}"]`).toggle();
 });
+
+
+/**
+ * Handle labels
+ */
+
+$('.remove-label').on('click', function (event) {
+    event.stopPropagation();
+
+    const applicant_id = $(event.target).attr('for-applicant');
+    const event_id = $(event.target).attr('for-event');
+    const label_id = $(event.target).attr('for-label');
+    const url = `/application/label_remove/${event_id}/${applicant_id}/${label_id}`;
+
+    $.getJSON(url, function(data) {
+        if (data['status'] == 'ok') {
+            $(`.label[for-applicant=${applicant_id}][for-label=${label_id}][for-event=${event_id}]`).hide();
+            $(`.add-label[for-applicant=${applicant_id}][for-label=${label_id}][for-event=${event_id}]`).show();
+        }
+        else {
+            console.error('error:', data);
+        }
+    })
+})
+
+$('.add-label').on('click', function (event) {
+    event.stopPropagation();
+
+    const applicant_id = $(event.target).attr('for-applicant');
+    const event_id = $(event.target).attr('for-event');
+    const label_id = $(event.target).attr('for-label');
+    const url = `/application/label_add/${event_id}/${applicant_id}/${label_id}`;
+
+    $.getJSON(url, function(data) {
+        if (data['status'] == 'ok') {
+            $(`.label[for-applicant=${applicant_id}][for-label=${label_id}][for-event=${event_id}]`).show();
+            $(`.add-label[for-applicant=${applicant_id}][for-label=${label_id}][for-event=${event_id}]`).hide();
+        }
+        else {
+            console.error('error:', data);
+        }
+    })
+})

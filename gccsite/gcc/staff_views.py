@@ -1,7 +1,7 @@
-import rules
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
-from django.views.generic import RedirectView, TemplateView
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import View, TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
 from gcc.models import Event, Applicant, ApplicantLabel
@@ -52,74 +52,75 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         return context
 
 
-class ApplicationRemoveLabelView(PermissionRequiredMixin, RedirectView):
+class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
     """
     Remove a label attached to an applicant and redirect to specified event's
     review page.
     """
     permission_required = 'gcc.can_edit_application_labels'
 
-
-    def __init__(self, **kwargs):
-        self.event = None
-        self.applicant = None
-        self.label = None
-        super(ApplicationRemoveLabelView, self).__init__(**kwargs)
-
     def get_permission_object(self):
         return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
 
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse(
-            'gcc:application_review',
-            kwargs={
-                'edition': self.applicant.edition.pk,
-                'event': self.event.pk
-            }
-        ) + '#applicant-{}'.format(self.applicant.pk)
-
     def get(self, request, *args, **kwargs):
-        self.event = get_object_or_404(Event, pk=kwargs['event'])
-        self.applicant = get_object_or_404(Applicant, pk=kwargs['applicant'])
-        self.label = get_object_or_404(ApplicantLabel, pk=kwargs['label'])
+        try:
+            applicant = Applicant.objects.get(pk=kwargs['applicant'])
+            label = ApplicantLabel.objects.get(pk=kwargs['label'])
+        except Applicant.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'reason': _('applicant does not exist')})
+        except ApplicantLabel.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'reason': _('label does not exist')})
 
         if self.has_permission():
-            self.applicant.labels.remove(self.label)
+            if label not in applicant.labels.all():
+                return JsonResponse({
+                    'status': 'error',
+                    'reason': 'label not applied'})
 
-        return super().get(request, *args, **kwargs)
+            applicant.labels.remove(label)
+            return JsonResponse({'status': 'ok'})
+
+        return JsonResponse({
+            'status': 'error',
+            'reason': _('not allowed')})
 
 
-class ApplicationAddLabelView(PermissionRequiredMixin, RedirectView):
+class ApplicationAddLabelView(PermissionRequiredMixin, View):
     """
     Attach a label to an applicant and redirect to specified event's review
     page.
     """
     permission_required = 'gcc.can_edit_application_labels'
 
-    def __init__(self, **kwargs):
-        self.event = None
-        self.applicant = None
-        self.label = None
-        super(ApplicationAddLabelView, self).__init__(**kwargs)
-
     def get_permission_object(self):
         return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
 
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse(
-            'gcc:application_review',
-            kwargs={
-                'edition': self.applicant.edition.pk,
-                'event': self.event.pk
-            }
-        ) + '#applicant-{}'.format(self.applicant.pk)
-
     def get(self, request, *args, **kwargs):
-        self.event = get_object_or_404(Event, pk=kwargs['event'])
-        self.applicant = get_object_or_404(Applicant, pk=kwargs['applicant'])
-        self.label = get_object_or_404(ApplicantLabel, pk=kwargs['label'])
+        try:
+            applicant = Applicant.objects.get(pk=kwargs['applicant'])
+            label = ApplicantLabel.objects.get(pk=kwargs['label'])
+        except Applicant.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'reason': _('applicant does not exist')})
+        except ApplicantLabel.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'reason': _('label does not exist')})
 
         if self.has_permission():
-            self.applicant.labels.add(self.label)
+            if label in applicant.labels.all():
+                return JsonResponse({
+                    'status': 'error',
+                    'reason': 'label already applied'})
 
-        return super().get(request, *args, **kwargs)
+            applicant.labels.add(label)
+            return JsonResponse({'status': 'ok'})
+
+        return JsonResponse({
+            'status': 'error',
+            'reason': _('not allowed')})

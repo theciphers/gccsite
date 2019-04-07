@@ -1,191 +1,23 @@
-/* review list for applications */
-
-.event-wish-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.event-wish-list li {
-  display: inline-block;
-  padding: 2px 7px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  position: relative;
-  margin-right: 20px;
-}
-
-.event-wish-list li:not(:last-child):after {
-  position: absolute;
-  right: -17px;
-  content: " > ";
-}
-
-.applicant-list > li {
-    list-style: none;
-    display: block;
-    padding: 8px;
-    color: #555;
-}
-
-.applicant-list > li:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.applicant-list > li:not(.selected) {
-    margin: 0 4px 0 4px;
-}
-
-.applicant-list > li.selected {
-    margin: 10px 0 10px 0;
-    box-shadow: grey 0px 0px 5px 0px;
-}
-
-.applicant-list .applicant-head {
+.applicant-head {
     cursor: pointer;
-    font-weight: bold;
-    color: #005a5a;
 }
 
-.applicant-list > li:not(.selected) > .detail {
-    display: none;
+.add-label {
+    cursor: pointer;
 }
 
-.applicant-list > li.selected > .detail {
-    display: block;
-    margin: 8px 8px -8px 0;
-    padding: 8px;
-    font-size: 14px;
-}
-
-.applicant-list .detail-section h3 {
-    font-size: 14px;
-    overflow: hidden;
-    margin: 8px 0 5px -5px;
-}
-
-.applicant-list .detail-section h3:after {
-    content: '';
+.remove-label {
+    cursor: pointer;
     display: inline-block;
-    width: 100%;
-    margin-right: -100%;
-    margin-left: 10px;
-    height: 4px;
-    border-top: 1px solid #005a5a;
 }
 
-.applicant-list .detail-section {
-    margin-left: 10px;
+.remove-label:hover {
+    color: rgba(255, 255, 255, 0.3);
 }
 
-.applicant-list .btn {
-    display: inline-block;
-    padding: 8px;
-    margin: 2px 5px 2px 5px;
-    line-height: 1em;
-    text-decoration: none;
-    background-color: #3f434b;
-    color: lightgrey;
-}
-
-.applicant-list .btn-little {
-    font-size: 8px;
-    padding: 5px;
-    margin: 0 0 0 1px;
-    border-radius: 3px;
-}
-
-/* List of labels displayed on the right */
-
-.applicant-list .label-list {
-    float: right;
-    vertical-align: middle;
-}
-
-.applicant-list .label {
-    display: inline-block;
-    font-size: 12px;
-    border-radius: 9px;
-    padding: 7px;
-    line-height: 1em;
-    background: #005a5a;
-    color: lightgrey;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    margin: auto;
-}
-
-.applicant-list .label:hover::after {
-    content: "🗙";
+.remove-label:hover:before {
+    content: "⨉ ";
     position: absolute;
-    right: 0;
-    width: 100%;
-    margin-right: 5px;
-    font-size: 10px;
-    text-align: right;
-    vertical-align: middle;
-    display: inline-block;
-    background: linear-gradient(0.25turn, rgba(0,0,0,0), #005a5a);
-}
-
-/* Form */
-
-.applicant-list h5 {
-    font-size: 13px;
-    color: #005a5a;
-    margin: 0 0 5px;
-}
-
-.applicant-list p {
-    margin: 5px 5px 5px 10px;
-}
-
-/* Dropdown menu to add labels */
-
-.applicant-list li:not(.selected) .labeladd-btn {
-    display: none;
-}
-
-.labeladd-btn {
-    color: #005a5a;
-    font-size: 12px;
-    float: right;
-    margin-left:  5px;
-    line-height: 1em;
-    padding: 6px;
-    border: 1px dotted #005a5a;
-    border-radius: 10px;
-}
-
-.labeladd-dropdown {
-    display: inline-block;
-    position: relative;
-    float: right;
-}
-
-.labeladd-dropdown-content {
-    position: absolute;
-    z-index: 10;
-    right: 0;
-    display: none;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.labeladd-dropdown-content a {
     color: white;
-    padding: 3px 5px;
-    font-size: 9pt;
-    text-decoration: none;
-    display: block;
-    min-width: 100px;
-    background-color: rgba(0, 90, 90, 0.95);
 }
 
-.labeladd-dropdown-content a:hover {
-    background-color: black;
-}
-
-.labeladd-dropdown:hover .labeladd-dropdown-content {
-    display: block;
-}
