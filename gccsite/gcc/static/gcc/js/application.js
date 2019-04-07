@@ -132,3 +132,40 @@ $('.add-label').on('click', function (event) {
         }
     })
 })
+
+/**
+ * Handle wish updates
+ */
+$('.update-wish').on('click', function (event) {
+    event.stopPropagation();
+
+    const wish_id = $(event.target).attr('for-wish');
+    const new_status = $(event.target).attr('new-status');
+    const url = `/application/update_wish/${wish_id}/${new_status}/`;
+
+    $.getJSON(url, function(data) {
+        if (data['status'] == 'ok') {
+            const applicant = data['applicant'];
+            const elem = $(`#wish-${wish_id}`);
+            elem.find('.update-wish').hide();
+
+            // Update buttons
+            if (new_status == 1)
+                elem.find('.update-wish:not([new-status="1"])').show();
+            else
+                elem.find('.update-wish[new-status="1"]').show();
+
+            // Update badge
+            elem.find('.badge').hide();
+            elem.find(`.badge[status=${new_status}]`).show();
+
+            // Update applicant status
+            console.log(applicant);
+            $(`#applicant-${applicant} .applicant-status`).text(data['applicant-status']);
+        }
+        else {
+            console.error('error:', data);
+        }
+    })
+})
+

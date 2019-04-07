@@ -21,3 +21,13 @@
     color: white;
 }
 
+.wish-actions {
+    position: absolute;
+    top: 3em;
+    right: 15px;
+    font-size: 12px;
+}
+
+.update-wish {
+    cursor: pointer;
+}

@@ -4,7 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import View, TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
-from gcc.models import Event, Applicant, ApplicantLabel
+from gcc.models import (Applicant, ApplicantLabel, ApplicantStatusTypes, Event,
+                        EventWish)
 
 
 class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
@@ -53,10 +54,6 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
 
 
 class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
-    """
-    Remove a label attached to an applicant and redirect to specified event's
-    review page.
-    """
     permission_required = 'gcc.can_edit_application_labels'
 
     def get_permission_object(self):
@@ -67,33 +64,25 @@ class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
             label = ApplicantLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
-            return JsonResponse({
-                'status': 'error',
-                'reason': _('applicant does not exist')})
+            return JsonResponse({'status': 'error',
+                                 'reason': _('applicant does not exist')})
         except ApplicantLabel.DoesNotExist:
-            return JsonResponse({
-                'status': 'error',
-                'reason': _('label does not exist')})
+            return JsonResponse({'status': 'error',
+                                 'reason': _('label does not exist')})
 
-        if self.has_permission():
-            if label not in applicant.labels.all():
-                return JsonResponse({
-                    'status': 'error',
-                    'reason': 'label not applied'})
+        if not self.has_permission():
+            return JsonResponse({'status': 'error',
+                                 'reason': _('not allowed')})
 
-            applicant.labels.remove(label)
-            return JsonResponse({'status': 'ok'})
+        if label not in applicant.labels.all():
+            return JsonResponse({'status': 'error',
+                                 'reason': 'label not applied'})
 
-        return JsonResponse({
-            'status': 'error',
-            'reason': _('not allowed')})
+        applicant.labels.remove(label)
+        return JsonResponse({'status': 'ok'})
 
 
 class ApplicationAddLabelView(PermissionRequiredMixin, View):
-    """
-    Attach a label to an applicant and redirect to specified event's review
-    page.
-    """
     permission_required = 'gcc.can_edit_application_labels'
 
     def get_permission_object(self):
@@ -104,23 +93,49 @@ class ApplicationAddLabelView(PermissionRequiredMixin, View):
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
             label = ApplicantLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
-            return JsonResponse({
-                'status': 'error',
-                'reason': _('applicant does not exist')})
+            return JsonResponse({'status': 'error',
+                                 'reason': _('applicant does not exist')})
         except ApplicantLabel.DoesNotExist:
-            return JsonResponse({
-                'status': 'error',
-                'reason': _('label does not exist')})
+            return JsonResponse({'status': 'error',
+                                 'reason': _('label does not exist')})
 
-        if self.has_permission():
-            if label in applicant.labels.all():
-                return JsonResponse({
-                    'status': 'error',
-                    'reason': 'label already applied'})
+        if not self.has_permission():
+            return JsonResponse({'status': 'error',
+                                 'reason': _('not allowed')})
 
-            applicant.labels.add(label)
-            return JsonResponse({'status': 'ok'})
+        if label in applicant.labels.all():
+            return JsonResponse({'status': 'error',
+                                 'reason': 'label already applied'})
 
+        applicant.labels.add(label)
+        return JsonResponse({'status': 'ok'})
+
+
+class UpdateWish(PermissionRequiredMixin, View):
+    permission_required = 'gcc.can_accept_wish'
+
+    def get_permission_object(self):
+        return get_object_or_404(EventWish, pk=self.kwargs['wish'])
+
+    def get(self, request, *args, **kwargs):
+        try:
+            wish = EventWish.objects.get(pk=kwargs['wish'])
+            status = kwargs['status']
+        except EventWish.DoesNotExist:
+            return JsonResponse({'status': 'error',
+                                 'reason': _('wish does not exist')})
+
+        if not self.has_permission():
+            return JsonResponse({'status': 'error',
+                                 'reason': _('not allowed')})
+
+        if wish.status == status:
+            return JsonResponse({'status': 'error',
+                                 'reason': 'wish already accepted'})
+
+        wish.status = status
+        wish.save()
         return JsonResponse({
-            'status': 'error',
-            'reason': _('not allowed')})
+            'status': 'ok',
+            'applicant': wish.applicant.pk,
+            'applicant-status': wish.applicant.get_status_display()})

@@ -37,6 +37,9 @@ APPLICATION_PATTERNS = [
     path('label_add/<int:event>/<int:applicant>/<int:label>/',
          staff_views.ApplicationAddLabelView.as_view(),
          name='add_applicant_label'),
+    path('update_wish/<int:wish>/<int:status>/',
+         staff_views.UpdateWish.as_view(),
+         name='update_wish')
 ]
 
 urlpatterns = [
