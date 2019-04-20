@@ -177,7 +177,7 @@ class Applicant(models.Model):
         max_answers = Edition.current().signup_form.question_list.all().count()
         return (self.user.has_complete_profile()
                 and self.answers.all().count() >= max_answers
-                and all(answer.response for answer in self.answers.all()))
+                and all(answer.is_valid() for answer in self.answers.all()))
 
     def validate_current_wishes(self):
         for wish in self.eventwish_set.all():
@@ -297,6 +297,16 @@ class Answer(models.Model):
                                   on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
+
+    def is_valid(self):
+        '''
+        Check if an answer is valid, a checkbox with required beeing true must
+        be checked, and other kind of fields must necessary be filled.
+        '''
+        if self.question.response_type == AnswerTypes.boolean.value:
+            return not self.question.required or self.response
+
+        return bool(self.response)
 
     def __str__(self):
         if self.question.response_type == AnswerTypes.multichoice.value:
