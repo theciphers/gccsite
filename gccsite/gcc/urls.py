@@ -47,6 +47,7 @@ urlpatterns = [
 
     path('application/', include(APPLICATION_PATTERNS)),
     path('newsletter/', include(NEWSLETTER_PATTERNS)),
+    path('learn/', views.LearnMoreView.as_view(), name='learn_more'),
     path('resources/', views.RessourcesView.as_view(), name='resources'),
     path('privacy/', views.PrivacyView.as_view(), name='privacy'),
 

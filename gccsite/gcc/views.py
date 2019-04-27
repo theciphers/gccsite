@@ -68,9 +68,14 @@ class IndexView(FormView):
         random.shuffle(context['sponsors'])
         return context
 
+# Ressources, Learn More
+
 
 class RessourcesView(TemplateView):
     template_name = "gcc/resources.html"
+
+class LearnMoreView(TemplateView):
+    template_name = "gcc/learn_more.html"
 
 
 # Newsletter
