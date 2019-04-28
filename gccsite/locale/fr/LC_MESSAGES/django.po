@@ -6,18 +6,18 @@
 # Translators:
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2019
 # marcerisson <marc.schmitt@prologin.org>, 2019
-# Rémi Dupré <remim.dupre@gmail.com>, 2019
-# Thibault Allançon <tallancon@gmail.com>, 2019
 # Garance Gourdel <garance.gourdel@prologin.org>, 2019
+# Thibault Allançon <tallancon@gmail.com>, 2019
+# Rémi Dupré <remim.dupre@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-16 12:25+0100\n"
+"POT-Creation-Date: 2019-04-28 18:20+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
-"Last-Translator: Garance Gourdel <garance.gourdel@prologin.org>, 2019\n"
+"Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr "Géolocaliser les centres sélectionnés"
 msgid "Normalize selected center addresses"
 msgstr "Normaliser les adresses des centres sélectionnés"
 
-#: centers/models.py:22
+#: centers/models.py:22 gcc/templates/gcc/application/review_index.html:21
 msgid "Center"
 msgstr "Centre"
 
@@ -49,7 +49,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:26 users/models.py:23
+#: centers/models.py:26 users/models.py:25
 msgid "Other"
 msgstr "Autre"
 
@@ -81,7 +81,15 @@ msgstr "Montrer"
 msgid "Full map"
 msgstr "Plein format"
 
-#: gcc/admin.py:49
+#: gcc/admin.py:41 gcc/admin.py:61
+msgid "status"
+msgstr "status"
+
+#: gcc/admin.py:69 gcc/templates/gcc/application/review_index.html:3
+msgid "Review"
+msgstr "Sélection"
+
+#: gcc/admin.py:112
 msgid "Active"
 msgstr "Actif"
 
@@ -89,11 +97,11 @@ msgstr "Actif"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: gcc/forms.py:119
+#: gcc/forms.py:122
 msgid "How do you identify?"
 msgstr "Comment identifiez-vous ?"
 
-#: gcc/forms.py:121
+#: gcc/forms.py:124
 msgid ""
 "You have to identify as a girl/woman to apply to the Girls Can Code! summer "
 "camps."
@@ -101,19 +109,19 @@ msgstr ""
 "Vous devez vous identifier comme une fille/femme pour vous inscrire à un "
 "stage Girls Can Code!."
 
-#: gcc/forms.py:125
+#: gcc/forms.py:128
 msgid "<em>I identify as girl/woman.</em>"
 msgstr "<em>Je m'identifie comme une fille/femme.</em>"
 
-#: gcc/forms.py:127
+#: gcc/forms.py:130
 msgid "<em>I identify as boy/man.</em>"
 msgstr "<em>Je m'identifie comme un garçon/homme.</em>"
 
-#: gcc/forms.py:128 prologin/models.py:51 users/forms.py:40
+#: gcc/forms.py:131 prologin/models.py:51 users/forms.py:40
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
-#: gcc/forms.py:133
+#: gcc/forms.py:136
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the summer camps."
@@ -122,7 +130,7 @@ msgstr ""
 "légales, car l'association engage sa responsabilité pour vous encadrer lors "
 "des stages."
 
-#: gcc/forms.py:137
+#: gcc/forms.py:140
 msgid ""
 "We will send the invitation to the summer camps at this address, so make "
 "sure it's valid."
@@ -130,12 +138,12 @@ msgstr ""
 "Nous enverrons la convocation aux stages à cette adresse, assurez-vous "
 "qu'elle soit correcte."
 
-#: gcc/forms.py:139
+#: gcc/forms.py:142
 #, python-format
 msgid "Format: %(format)s"
 msgstr "Format&nbsp;: %(format)s"
 
-#: gcc/forms.py:146
+#: gcc/forms.py:149
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
@@ -144,27 +152,43 @@ msgstr ""
 "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a "
 "href=\"%(url)s\">page de profil</a>."
 
-#: gcc/forms.py:150
+#: gcc/forms.py:153
 msgid "Optional."
 msgstr "Optionnel."
 
-#: gcc/forms.py:156
+#: gcc/forms.py:159
 msgid "You cannot participate if you don't identify as a girl/woman."
 msgstr ""
 "Vous ne pouvez pas participer si vous ne vous identifiez pas comme une "
 "fille/femme."
 
-#: gcc/forms.py:183
+#: gcc/forms.py:186
 msgid "1st choice"
 msgstr "Premier choix"
 
-#: gcc/forms.py:184
+#: gcc/forms.py:187
 msgid "2nd choice"
 msgstr "Deuxième choix"
 
-#: gcc/forms.py:185
+#: gcc/forms.py:188
 msgid "3rd choice"
 msgstr "Troisième choix"
+
+#: gcc/staff_views.py:68 gcc/staff_views.py:97
+msgid "applicant does not exist"
+msgstr "le candidat n'existe pas"
+
+#: gcc/staff_views.py:71 gcc/staff_views.py:100
+msgid "label does not exist"
+msgstr "le label n'existe pas"
+
+#: gcc/staff_views.py:75 gcc/staff_views.py:104 gcc/staff_views.py:130
+msgid "not allowed"
+msgstr "non autorisé"
+
+#: gcc/staff_views.py:126
+msgid "wish does not exist"
+msgstr "le vœux n’existe pas"
 
 #: gcc/templates/gcc/application/form.html:6
 #: gcc/templates/gcc/application/wishes.html:6
@@ -172,8 +196,8 @@ msgid "GCC! − Application"
 msgstr "GCC! - Candidature"
 
 #: gcc/templates/gcc/application/form.html:13
-#: gcc/templates/gcc/application/summary.html:112
-#: gcc/templates/gcc/application/validation.html:17
+#: gcc/templates/gcc/application/summary.html:108
+#: gcc/templates/gcc/application/validation.html:14
 msgid ""
 "You are missing some key information, you won't be able to validate your "
 "application !"
@@ -207,141 +231,195 @@ msgstr ""
 "Pour en savoir plus sur la gestion de tes données et tes droits, <a href=\"%(url)s\">consulte notre page dédiée</a>."
 
 #: gcc/templates/gcc/application/review.html:5
-msgid "GCC! − Applications"
-msgstr "GCC! - Candidatures"
-
-#: gcc/templates/gcc/application/review.html:10
-msgid "Review"
-msgstr "Sélection"
+msgid "Applications"
+msgstr "Candidatures"
 
 #: gcc/templates/gcc/application/review.html:13
 #, python-format
-msgid "Candidates for %(event.short_description)s (edition %(edition)s)"
-msgstr "Candidates pour %(event.short_description)s (edition %(edition)s)"
+msgid ""
+"\n"
+"      Candidates for %(event)s (edition %(edition)s)\n"
+"    "
+msgstr ""
+"\n"
+"Candidatures pour %(event)s (édition %(edition)s)"
 
-#: gcc/templates/gcc/application/review.html:38
-msgid "View complete profile"
-msgstr "Voir le profil complet"
+#: gcc/templates/gcc/application/review.html:18
+msgid ""
+"\n"
+"      ↓↑ to browse among applicants, &lt;escape&gt; to close all expanded applications.\n"
+"    "
+msgstr ""
+"\n"
+"↓↑ pour parcourir les candidatures, &lt;escape&gt; pour fermer toutes les applications ouvertes."
 
-#: gcc/templates/gcc/application/review.html:39
-msgid "Reject all"
-msgstr "Tout refuser"
+#: gcc/templates/gcc/application/review.html:59
+msgid "Profile of"
+msgstr "Profil de"
 
-#: gcc/templates/gcc/application/review.html:42
-msgid "Profile"
-msgstr "Profil"
+#: gcc/templates/gcc/application/review.html:61
+msgid "login/nickname"
+msgstr "identifiant/pseudonyme"
 
-#: gcc/templates/gcc/application/review.html:45
+#: gcc/templates/gcc/application/review.html:63
 msgid "email"
 msgstr "E-mail"
 
-#: gcc/templates/gcc/application/review.html:49
-msgid "birthdate"
-msgstr "Date de naissance"
+#: gcc/templates/gcc/application/review.html:65
+msgid "birthday"
+msgstr "anniversaire"
 
-#: gcc/templates/gcc/application/review.html:53
-msgid "previous participations"
-msgstr "Précédentes participations"
+#: gcc/templates/gcc/application/review.html:67
+msgid "participations"
+msgstr "participations"
+
+#: gcc/templates/gcc/application/review.html:77
+msgid "incomplete"
+msgstr "incomplet"
+
+#: gcc/templates/gcc/application/review.html:78
+msgid "pending"
+msgstr "en attente"
+
+#: gcc/templates/gcc/application/review.html:79
+msgid "rejected"
+msgstr "rejetée"
+
+#: gcc/templates/gcc/application/review.html:80
+msgid "selected"
+msgstr "sélectionnée"
+
+#: gcc/templates/gcc/application/review.html:81
+msgid "accepted"
+msgstr "acceptée"
+
+#: gcc/templates/gcc/application/review.html:82
+msgid "confirmed"
+msgstr "confirmé"
+
+#: gcc/templates/gcc/application/review.html:87
+msgid "select"
+msgstr "sélectionner"
+
+#: gcc/templates/gcc/application/review.html:88
+msgid "reject"
+msgstr "rejeter"
+
+#: gcc/templates/gcc/application/review.html:89
+msgid "cancel"
+msgstr "annuler"
+
+#: gcc/templates/gcc/application/review_index.html:9
+msgid "Review index"
+msgstr "Index de review"
+
+#: gcc/templates/gcc/application/review_index.html:21
+msgid "Event"
+msgstr "Évènement"
+
+#: gcc/templates/gcc/application/review_index.html:32
+msgid "Long Summer Camp"
+msgstr "Stage Long"
+
+#: gcc/templates/gcc/application/review_index.html:37
+msgid "Browse"
+msgstr "Parcourir"
 
 #: gcc/templates/gcc/application/summary.html:10
 msgid "GCC! − Summary"
 msgstr "GCC! - Résumé"
 
-#: gcc/templates/gcc/application/summary.html:15
-msgid "Summary of applications"
-msgstr "Résumé des candidatures"
-
-#: gcc/templates/gcc/application/summary.html:21
+#: gcc/templates/gcc/application/summary.html:17
 msgid " Full name"
 msgstr "Nom complet"
 
-#: gcc/templates/gcc/application/summary.html:28
+#: gcc/templates/gcc/application/summary.html:24
 msgid " Phone number"
 msgstr "Téléphone"
 
-#: gcc/templates/gcc/application/summary.html:34
+#: gcc/templates/gcc/application/summary.html:30
 msgid " Email address"
 msgstr " Adresse e-mail"
 
-#: gcc/templates/gcc/application/summary.html:40
+#: gcc/templates/gcc/application/summary.html:36
 msgid " Birth day"
 msgstr " Date de naissance"
 
-#: gcc/templates/gcc/application/summary.html:46
+#: gcc/templates/gcc/application/summary.html:42
 msgid " Postal address"
 msgstr " Adresse postale"
 
-#: gcc/templates/gcc/application/summary.html:55
+#: gcc/templates/gcc/application/summary.html:51
 msgid " Date joined"
 msgstr " Date d'inscription"
 
-#: gcc/templates/gcc/application/summary.html:57
+#: gcc/templates/gcc/application/summary.html:53
 #: users/templates/users/profile.html:80
 msgid "Member for"
 msgstr "Membre depuis"
 
-#: gcc/templates/gcc/application/summary.html:68
+#: gcc/templates/gcc/application/summary.html:64
 msgid "Edition"
 msgstr "Édition"
 
-#: gcc/templates/gcc/application/summary.html:78
+#: gcc/templates/gcc/application/summary.html:74
 msgid "Sadly you did not apply yet for the current edition..."
 msgstr ""
 "Malheureusement, vous ne vous êtes pas encore inscrite à l'édition de cette "
 "année..."
 
-#: gcc/templates/gcc/application/summary.html:83
-#: gcc/templates/gcc/main-footer.html:44
+#: gcc/templates/gcc/application/summary.html:79
+#: gcc/templates/gcc/main-footer.html:45
 msgid "Apply"
 msgstr "Candidater"
 
-#: gcc/templates/gcc/application/summary.html:101
+#: gcc/templates/gcc/application/summary.html:97
 msgid "Edit application"
 msgstr "Modifier la candidature"
 
-#: gcc/templates/gcc/application/summary.html:130
+#: gcc/templates/gcc/application/summary.html:126
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: gcc/templates/gcc/application/summary.html:134
-#: gcc/templates/gcc/application/validation.html:23
+#: gcc/templates/gcc/application/summary.html:130
+#: gcc/templates/gcc/application/validation.html:20
 msgid "Validate application"
 msgstr "Enregistrer la candidature"
 
-#: gcc/templates/gcc/application/summary.html:140
+#: gcc/templates/gcc/application/summary.html:136
 msgid "Pending"
 msgstr "En attente"
 
-#: gcc/templates/gcc/application/summary.html:143
+#: gcc/templates/gcc/application/summary.html:139
 msgid "Rejected"
 msgstr "Refusée"
 
-#: gcc/templates/gcc/application/summary.html:146
+#: gcc/templates/gcc/application/summary.html:142
 msgid "Selected"
 msgstr "Selectionnée"
 
-#: gcc/templates/gcc/application/summary.html:147
+#: gcc/templates/gcc/application/summary.html:143
 msgid "You will soon receive your assignation."
 msgstr "Nous vous assignerons bientôt à un centre."
 
-#: gcc/templates/gcc/application/summary.html:150
+#: gcc/templates/gcc/application/summary.html:146
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: gcc/templates/gcc/application/summary.html:151
-#: gcc/templates/gcc/application/summary.html:161
+#: gcc/templates/gcc/application/summary.html:147
+#: gcc/templates/gcc/application/summary.html:157
 msgid "You have been assigned to:"
 msgstr "Vous avez été assigné à :"
 
-#: gcc/templates/gcc/application/summary.html:157
+#: gcc/templates/gcc/application/summary.html:153
 msgid "Please confirm your venue."
 msgstr "Veuillez confirmer votre présence."
 
-#: gcc/templates/gcc/application/summary.html:160
+#: gcc/templates/gcc/application/summary.html:156
 msgid "Confirmed"
 msgstr "Confirmée"
 
-#: gcc/templates/gcc/application/summary.html:167
+#: gcc/templates/gcc/application/summary.html:163
 msgid "And you confirmed your venue, see you there!"
 msgstr "Votre présence a été confirmée, rendez-vous au stage !"
 
@@ -349,11 +427,7 @@ msgstr "Votre présence a été confirmée, rendez-vous au stage !"
 msgid "GCC! − Validation"
 msgstr "GCC! - Validation"
 
-#: gcc/templates/gcc/application/validation.html:13
-msgid "Validate your application"
-msgstr "Enregistrer votre participation"
-
-#: gcc/templates/gcc/application/validation.html:20
+#: gcc/templates/gcc/application/validation.html:17
 msgid ""
 "Be careful after this you won't be able to change your answers or event "
 "wishes."
@@ -402,10 +476,16 @@ msgstr ""
 "Les inscriptions sont encore ouvertes pour cette édition."
 
 #: gcc/templates/gcc/editions.html:25
-msgid "Candidate for a summer camp"
-msgstr "Candidater pour un stage"
+#: gcc/templates/gcc/registration_widget.html:19
+msgid "Register"
+msgstr "S'inscrire"
 
-#: gcc/templates/gcc/editions.html:36
+#: gcc/templates/gcc/editions.html:27
+#: gcc/templates/gcc/registration_widget.html:21
+msgid "Sign in"
+msgstr "Connexion"
+
+#: gcc/templates/gcc/editions.html:38
 msgid ""
 "\n"
 "        This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />\n"
@@ -416,7 +496,7 @@ msgstr ""
 "Cette année, l'organisation d’un stage Girls Can Code! à <strong>Nantes</strong> est délégué à l’association Adn-ouest Atlantic 2020. Prologin quant à elle organise à nouveau les stages de <strong>Paris</strong> et <strong>Lyon</strong>.<br />\n"
 "Ces stages qui accueillent au total <strong>70 participantes</strong> voient l’arrivée d’un TP sur les <strong>microcontrôleurs microbit</strong> qui, avec le TP jeux vidéo, donnent la possibilité d’exprimer sa créativité."
 
-#: gcc/templates/gcc/editions.html:61
+#: gcc/templates/gcc/editions.html:63
 msgid ""
 "\n"
 "        In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at <strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !\n"
@@ -425,7 +505,7 @@ msgstr ""
 "\n"
 "En 2017, Prologin se lance un grand défi, l’organisation de 3 stages Girls Can Code!, un à <strong>Bordeaux</strong> en juillet et deux autres à <strong>Paris</strong> et <strong>Lyon</strong> en parallèle pendant la dernière semaine d'août. Ils ont réuni un total de <strong>52 participantes</strong> !"
 
-#: gcc/templates/gcc/editions.html:83
+#: gcc/templates/gcc/editions.html:85
 msgid ""
 "\n"
 "        In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.\n"
@@ -436,7 +516,7 @@ msgstr ""
 "En 2016, les <strong>18 participantes</strong> avaient des niveaux très hétéroclytes, le stage s’est donc organisé par groupes de niveaux.\n"
 "Le stage a vu l’arrivée d’un <strong>TP réseau</strong> qui consiste en la création d'un petit client de messagerie."
 
-#: gcc/templates/gcc/editions.html:104
+#: gcc/templates/gcc/editions.html:106
 msgid ""
 "\n"
 "        In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.\n"
@@ -445,7 +525,7 @@ msgstr ""
 "\n"
 "En 2015, c’est 12 filles qui ont pris part à un stage qui initie pour la première fois à des sujets sur le <strong>web</strong>, la création d’un petit <strong>jeu vidéo</strong> avec la<strong></strong> bibliothèque pygame ou encore sur l’os <strong>linux</strong>."
 
-#: gcc/templates/gcc/editions.html:124
+#: gcc/templates/gcc/editions.html:126
 msgid ""
 "\n"
 "        This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.\n"
@@ -475,54 +555,42 @@ msgstr ""
 "Au collège ou au lycée ? Inscris toi au stage Girls Can Code! dès "
 "maintenant, l'inscription est gratuite !"
 
-#: gcc/templates/gcc/index.html:40
-msgid "Up-comming summer camps"
-msgstr "Prochains stages"
+#: gcc/templates/gcc/index.html:33
+msgid "Learn More"
+msgstr "En Savoir Plus"
 
-#: gcc/templates/gcc/index.html:46
-msgid "the week of"
-msgstr "la semaine du"
-
-#: gcc/templates/gcc/index.html:54
-msgid "Register"
-msgstr "S'inscrire"
-
-#: gcc/templates/gcc/index.html:56
-msgid "Sign in"
-msgstr "Connexion"
-
-#: gcc/templates/gcc/index.html:61
+#: gcc/templates/gcc/index.html:50
 msgid "Sponsors"
 msgstr "Sponsors"
 
-#: gcc/templates/gcc/index.html:78
+#: gcc/templates/gcc/index.html:68
 msgid "Latest news"
 msgstr "Dernières news"
 
-#: gcc/templates/gcc/index.html:87
+#: gcc/templates/gcc/index.html:77
 #: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: gcc/templates/gcc/index.html:91
+#: gcc/templates/gcc/index.html:81
 #: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Afficher toutes les entrées de %(author)s"
 
-#: gcc/templates/gcc/index.html:93
+#: gcc/templates/gcc/index.html:83
 msgid "on"
 msgstr "le"
 
-#: gcc/templates/gcc/index.html:95
+#: gcc/templates/gcc/index.html:85
 msgid "Written on"
 msgstr "Écrit le"
 
-#: gcc/templates/gcc/index.html:118
+#: gcc/templates/gcc/index.html:106
 msgid "Get updated!"
 msgstr "Rester informé !"
 
-#: gcc/templates/gcc/index.html:120
+#: gcc/templates/gcc/index.html:108
 msgid ""
 "\n"
 "            Subscribe to the newsletter to get updated with the latest news.\n"
@@ -531,19 +599,19 @@ msgstr ""
 "\n"
 "S'inscrire à la newsletter pour être informé des nouveautés."
 
-#: gcc/templates/gcc/index.html:130
+#: gcc/templates/gcc/index.html:118
 msgid "Subscribe"
 msgstr "S'inscrire"
 
-#: gcc/templates/gcc/index.html:136
+#: gcc/templates/gcc/index.html:124
 msgid "History behind Girls Can Code!"
 msgstr "Petit historique de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:142
+#: gcc/templates/gcc/index.html:130
 msgid "Parity in IT"
 msgstr "Parité en informatique"
 
-#: gcc/templates/gcc/index.html:144
+#: gcc/templates/gcc/index.html:132
 msgid ""
 "\n"
 "                    Girls Can Code! was created to promote girls to take a place in this masculine field despite stereotypes.\n"
@@ -552,16 +620,16 @@ msgstr ""
 "\n"
 "Girls Can Code! a été créé dans le but d'encourager des filles à s'essayer à l'informatique malgré le manque de femmes et les stéréotypes dans le domaine."
 
-#: gcc/templates/gcc/index.html:148 gcc/templates/gcc/index.html:161
-#: gcc/templates/gcc/index.html:173
+#: gcc/templates/gcc/index.html:136 gcc/templates/gcc/index.html:149
+#: gcc/templates/gcc/index.html:161
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: gcc/templates/gcc/index.html:155
+#: gcc/templates/gcc/index.html:143
 msgid "Girls Can Code past editions!"
 msgstr "Les dernières éditions de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:157
+#: gcc/templates/gcc/index.html:145
 msgid ""
 "\n"
 "                    The first ever Girls Can Code! edition was in 2014, therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.\n"
@@ -570,11 +638,11 @@ msgstr ""
 "\n"
 "La toute première édition de Girls Can Code! a eu lieu en 2014, donc l'édition de 2019 sera la 6<sup>ème</sup>."
 
-#: gcc/templates/gcc/index.html:167
+#: gcc/templates/gcc/index.html:155
 msgid "Prologin, an association since in 1991"
 msgstr "Prologin, une association créée en 1991"
 
-#: gcc/templates/gcc/index.html:169
+#: gcc/templates/gcc/index.html:157
 msgid ""
 "\n"
 "                    The Prologin association organizes the national computer contest since 1991, and runs since 2014 the Girls Can Code! summer camps.\n"
@@ -609,6 +677,106 @@ msgid ""
 msgstr ""
 "\n"
 "Termine par la création de ton propre projet."
+
+#: gcc/templates/gcc/learn_more.html:6
+msgid "Main Informations"
+msgstr "L'Essentiel"
+
+#: gcc/templates/gcc/learn_more.html:14
+msgid "Content of the Summer Camps"
+msgstr "Contenu des stages"
+
+#: gcc/templates/gcc/learn_more.html:16
+msgid ""
+"The summer camps lasts for one week and mainly consist of practical exercises.\n"
+"    The week starts with an initiation to the Python programming language, and then some\n"
+"    introductive tutorials about several subdomains of informatics like network or web design.\n"
+"    Finally, the week ends with a personal project, that can be chosen among several main topics:\n"
+"    video game, robotics or microcontroller."
+msgstr ""
+"Les stages durent une semaine et sont constitués majoritairement de travaux "
+"pratiques. La semaine commence par une initiation au Python, puis des TP de "
+"découverte de certains domaines comme le réseau ou le web. Enfin, la semaine"
+" se termine par la création d'un projet personnel, au choix entre un petit "
+"jeu vidéo, de la robotique ou de la programmation sur microcontrôleur. "
+
+#: gcc/templates/gcc/learn_more.html:23
+msgid "The Schedule"
+msgstr "Le planning"
+
+#: gcc/templates/gcc/learn_more.html:25
+msgid ""
+"Here is a typical schedule of a GCC! week. Notice that the attendees can arrive\n"
+"    between 9 am and 9:30 am and can leave at between 18 pm and 19 am."
+msgstr ""
+"Voici un programme type, en particulier, remarquez que les participantes "
+"peuvent arriver entre 9h et 9h30 puis être récupérées le soir entre 18h à "
+"19h."
+
+#: gcc/templates/gcc/learn_more.html:32
+msgid "Academic Level"
+msgstr "Niveau scolaire"
+
+#: gcc/templates/gcc/learn_more.html:34
+msgid ""
+"We accept girls attending to secondary school are higher, the difficulty of the\n"
+"    internship aims at adapting to the knowledge of all participants."
+msgstr ""
+"Nous acceptons les participantes à partir de la 6<sup>ème</sup> et le stage "
+"est adapté au niveau de chacune."
+
+#: gcc/templates/gcc/learn_more.html:38
+msgid "Grants"
+msgstr "Les bourses"
+
+#: gcc/templates/gcc/learn_more.html:40
+msgid ""
+"Prologin can attribute grants for some of the participants. Specifically,\n"
+"    Prologin can pay back the costs of the transport and housing for participants, thus they need\n"
+"    to keep their receipts."
+msgstr ""
+"L’association Prologin peut attribuer, sous condition de ressources, des "
+"bourses à des participantes. Concrètement, Prologin remboursera, sur "
+"présentation de factures, les frais engagés par la participante pour le "
+"transport et/ou l’hébergement. Les réservations restent à la charge des "
+"participantes."
+
+#: gcc/templates/gcc/learn_more.html:45
+msgid ""
+"To candidate for a grant you need to send an email to bourse2019@prologin.org and\n"
+"  specify the following informations:"
+msgstr ""
+"Pour candidater à une bourse pour un des stages, il vous faut envoyer un "
+"mail à l’adresse bourse2019@prologin.org en précisant :"
+
+#: gcc/templates/gcc/learn_more.html:48
+msgid "first and last name of the participant"
+msgstr "les nom et prénom de la participante,"
+
+#: gcc/templates/gcc/learn_more.html:49
+msgid ""
+"whether you need this grant for the travel, the housing or both\n"
+"      "
+msgstr ""
+"si vous souhaitez une bourse pour le déplacement seulement, pour "
+"l’hébergement seulement ou pour les deux,"
+
+#: gcc/templates/gcc/learn_more.html:51
+msgid "a proof of address"
+msgstr "joindre un justificatif de domicile,"
+
+#: gcc/templates/gcc/learn_more.html:52
+msgid "a your last tax notice"
+msgstr "joindre également votre dernier avis d’imposition."
+
+#: gcc/templates/gcc/learn_more.html:59
+#, python-format
+msgid ""
+"Please take some time reading our article about privacy:\n"
+"    <a href=\"%(privacy_url)s\">%(SITE_HOST)s%(privacy_url)s</a>"
+msgstr ""
+"Prenez un moment pour lire notre page dédiée à la protection de la vie privée :\n"
+"<a href=\"%(privacy_url)s\">%(SITE_HOST)s%(privacy_url)s</a>"
 
 #: gcc/templates/gcc/mails/subscribe.body.text.html:8
 #, python-format
@@ -661,19 +829,23 @@ msgstr "Ressources"
 msgid "Past editions"
 msgstr "Éditions passées"
 
-#: gcc/templates/gcc/main-footer.html:17
+#: gcc/templates/gcc/main-footer.html:12
+msgid "Privacy"
+msgstr "Vie privée"
+
+#: gcc/templates/gcc/main-footer.html:18
 msgid "Girls Can Code! on Facebook"
 msgstr "Girls Can Code! sur Facebook"
 
-#: gcc/templates/gcc/main-footer.html:23
+#: gcc/templates/gcc/main-footer.html:24
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: gcc/templates/gcc/main-footer.html:31
+#: gcc/templates/gcc/main-footer.html:32
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: gcc/templates/gcc/main-footer.html:47
+#: gcc/templates/gcc/main-footer.html:48
 #, python-format
 msgid ""
 "Save your\n"
@@ -941,6 +1113,14 @@ msgstr ""
 "</div>\n"
 "</section>\n"
 
+#: gcc/templates/gcc/registration_widget.html:5
+msgid "Up-comming summer camps"
+msgstr "Prochains stages"
+
+#: gcc/templates/gcc/registration_widget.html:11
+msgid "the week of"
+msgstr "la semaine du"
+
 #: gcc/templates/gcc/resources.html:5
 msgid "Resources"
 msgstr "Ressources"
@@ -1051,35 +1231,35 @@ msgstr ""
 "Sur son site, tu peux trouver les archives des exercices des années précédentes.\n"
 "Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !"
 
-#: gcc/views.py:49
+#: gcc/views.py:50
 msgid "Subscription succeeded"
 msgstr "Inscription réussie"
 
-#: gcc/views.py:54
+#: gcc/views.py:55
 msgid "Subscription failed: already subscribed"
 msgstr "L'inscription a échoué: vous êtes déjà inscrit"
 
-#: gcc/views.py:91
+#: gcc/views.py:105
 msgid "Successfully unsubscribed from newsletter."
 msgstr "Désinscription de la newsletter réussie."
 
-#: gcc/views.py:95
+#: gcc/views.py:109
 msgid "Failed to unsubscribe: wrong token."
 msgstr "La désinscription a échoué: mauvais token."
 
-#: gcc/views.py:99
+#: gcc/views.py:113
 msgid "Failed to unsubscribe: unregistered address"
 msgstr "La désinscription a échoué: adresse non enregistrée."
 
-#: gcc/views.py:157
+#: gcc/views.py:181
 msgid "Failed to validate your application, your profile is incomplete."
 msgstr "Impossible de valider votre inscription, votre profil est incomplet."
 
-#: gcc/views.py:165
+#: gcc/views.py:186
 msgid "Successfully validated your application."
 msgstr "Inscription validée avec succès."
 
-#: gcc/views.py:191
+#: gcc/views.py:214
 msgid ""
 "Your application has already been validated, if you really want to change "
 "something contact us by email."
@@ -1087,11 +1267,11 @@ msgstr ""
 "Votre inscription est déjà validée, veuillez nous contacter par mail si vous"
 " devez changer quelque-chose."
 
-#: gccsite/settings/common.py:111
+#: gccsite/settings/common.py:112
 msgid "English"
 msgstr "Anglais"
 
-#: gccsite/settings/common.py:112
+#: gccsite/settings/common.py:113
 msgid "French"
 msgstr "Français"
 
@@ -1623,63 +1803,63 @@ msgstr ""
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
-#: users/models.py:14
+#: users/models.py:16
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:15
+#: users/models.py:17
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:16
+#: users/models.py:18
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:17
+#: users/models.py:19
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:18
+#: users/models.py:20
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:19
+#: users/models.py:21
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:20
+#: users/models.py:22
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:21
+#: users/models.py:23
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:22
+#: users/models.py:24
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:24
+#: users/models.py:26
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:45
+#: users/models.py:47
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:47
+#: users/models.py:49
 msgid "Phone"
 msgstr "Téléphone"
 
-#: users/models.py:49 users/templates/users/profile.html:62
+#: users/models.py:51 users/templates/users/profile.html:62
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:52
+#: users/models.py:54
 msgid "Allow Girls Can Code! to send me emails"
 msgstr "Autoriser Girls Can Code! à m'envoyer des e-mails."
 
-#: users/models.py:53
+#: users/models.py:55
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
@@ -1687,15 +1867,15 @@ msgstr ""
 "Nous n'envoyons des e-mails que pour vous informer du déroulement du "
 "concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:56
+#: users/models.py:58
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:59
+#: users/models.py:61
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:61
+#: users/models.py:63
 msgid "Locale"
 msgstr "Langue"
 
