@@ -5,6 +5,8 @@
     --primary: #1d655e;
     --primary-light: #288e84;
     --primary-lighter: #34b7aa;
+    --primary-dark: #1c5f58;
+    --primary-darker: #123f3b;
 }
 
 /*
@@ -106,11 +108,24 @@ a {
 
 .btn-primary {
     background-color: var(--primary);
+    border-color: var(--primary-dark);
     color: #ffffff;
 }
 
 .btn-primary:hover {
     background-color: var(--primary-light);
+    border-color: var(--primary);
+}
+
+.jumbotron .btn-primary {
+    color: white;
+    border-color: var(--primary-darker);
+    background-color: var(--primary-darker);
+    vertical-align: middle;
+}
+
+.jumbotron .btn-primary:hover {
+    background-color: var(--primary-dark);
 }
 
 /*
