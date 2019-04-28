@@ -81,7 +81,8 @@ class LearnMoreView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'events': Event.objects.filter(event_end__gt=date.today()),
-            'last_edition': Edition.objects.latest(),})
+            'last_edition': Edition.objects.latest(),
+            'SITE_HOST': settings.SITE_HOST,})
         return context
 
 

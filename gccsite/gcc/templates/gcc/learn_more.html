@@ -51,5 +51,13 @@
     <li>{% blocktrans %}a proof of address{% endblocktrans %}</li>
     <li>{% blocktrans %}a your last tax notice{% endblocktrans %}</li>
   </ul>
+
+  <br />
+
+  <p>
+    {% url 'gcc:privacy' as privacy_url %}
+    {% blocktrans %}Please take some time reading our article about privacy:
+    <a href="{{privacy_url}}">{{SITE_HOST}}{{privacy_url}}</a>{% endblocktrans %}
+  </p>
 </div>
 {% endblock %}
