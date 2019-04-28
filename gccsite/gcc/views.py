@@ -77,6 +77,13 @@ class RessourcesView(TemplateView):
 class LearnMoreView(TemplateView):
     template_name = "gcc/learn_more.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'events': Event.objects.filter(event_end__gt=date.today()),
+            'last_edition': Edition.objects.latest(),})
+        return context
+
 
 # Newsletter
 

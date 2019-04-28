@@ -6,8 +6,12 @@
 {% block title %}{% trans 'Main Informations' %}{% endblock %}
 
 {% block content %}
-<div class="container col-md-8 col-md-offset-2">
-  <h3>{% trans 'Content of the summer camps' %}</h3>
+<div class="col-sm-3">
+  {% include 'gcc/registration_widget.html' %}
+</div>
+
+<div class="container col-md-9">
+  <h2>{% trans 'Content of the summer camps' %}</h2>
   <p>
     {% blocktrans %}The summer camps lasts for one week and mainly consist of practical exercises.
     The week starts with an initiation to the Python programming language, and then some
@@ -16,7 +20,7 @@
     video game, robotics or microcontroller.{% endblocktrans %}
   </p>
 
-  <h3>{% trans 'The schedule' %}</h3>
+  <h2>{% trans 'The schedule' %}</h2>
   <p>
     {% blocktrans %}Here is a typical schedule of a GCC! week. Notice that the attendees can arrive
     between 9 am and 9:30 am and can leave at between 18 pm and 19 am.{% endblocktrans %}
@@ -25,13 +29,13 @@
     <img alt="Typical Schedule of a GCC! Week" src="{% static 'gcc/img/schedule.svg' %}" />
   </a>
 
-  <h3>{% trans 'Academic level' %}</h3>
+  <h2>{% trans 'Academic level' %}</h2>
   <p>
     {% blocktrans %}We accept girls attending to secondary school are higher, the difficulty of the
     internship aims at adapting to the knowledge of all participants.{% endblocktrans %}
   </p>
 
-  <h3>{% trans 'Grants' %}</h3>
+  <h2>{% trans 'Grants' %}</h2>
   <p>
     {% blocktrans %}Prologin can attribute grants for some of the participants. Specifically,
     Prologin can pay back the costs of the transport and housing for participants, thus they need
