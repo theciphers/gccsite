@@ -1,5 +1,6 @@
 import random
-from datetime import date
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib import auth, messages
 from django.http import Http404, HttpResponseRedirect
@@ -9,15 +10,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
-from rules.contrib.views import PermissionRequiredMixin
 
-from gcc.forms import (EmailForm, CombinedApplicantUserForm,
-                       ApplicationWishesForm)
-from gcc.models import (Applicant, Edition, Event, EventWish, SubscriberEmail,
-                        Sponsor)
+from gcc.forms import (ApplicationWishesForm, CombinedApplicantUserForm,
+                       EmailForm)
+from gcc.models import (Applicant, Edition, Event, EventWish, Sponsor,
+                        SubscriberEmail)
 from prologin.email import send_email
+from rules.contrib.views import PermissionRequiredMixin
 from zinnia.models import Entry
-
 
 # Editions
 
@@ -58,9 +58,10 @@ class IndexView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        articles = Entry.published.prefetch_related('authors').all()[:settings.HOMEPAGE_ARTICLES]
+        articles = Entry.published.prefetch_related(
+            'authors').all()[:settings.HOMEPAGE_ARTICLES]
         context.update({
-            'events': Event.objects.filter(event_end__gt=date.today()),
+            'events': Event.objects.filter(event_end__gt=datetime.now()),
             'last_edition': Edition.objects.latest(),
             'sponsors': list(Sponsor.objects.active()),
             'articles': articles
@@ -74,15 +75,16 @@ class IndexView(FormView):
 class RessourcesView(TemplateView):
     template_name = "gcc/resources.html"
 
+
 class LearnMoreView(TemplateView):
     template_name = "gcc/learn_more.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'events': Event.objects.filter(event_end__gt=date.today()),
+            'events': Event.objects.filter(event_end__gt=datetime.now()),
             'last_edition': Edition.objects.latest(),
-            'SITE_HOST': settings.SITE_HOST,})
+            'SITE_HOST': settings.SITE_HOST, })
         return context
 
 
@@ -286,7 +288,7 @@ class ApplicationWishesView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(
-            signup_start__lt=date.today(), signup_end__gt=date.today(),
+            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
             edition=self.kwargs['edition'])
         return context
 
