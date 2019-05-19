@@ -1,15 +1,16 @@
 import hashlib
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from timezone_field import TimeZoneField
 
-from prologin.models import (AddressableModel, GenderField, EnumField,
-                             ChoiceEnum)
 from gcc.models import Applicant, ApplicantStatusTypes
+from prologin.models import (AddressableModel, ChoiceEnum, EnumField,
+                             GenderField)
+from timezone_field import TimeZoneField
 
 
 class EducationStage(ChoiceEnum):
@@ -42,23 +43,30 @@ class GCCUser(AbstractUser, AddressableModel):
     REQUIRED_FIELDS = ['email']
 
     gender = GenderField(blank=True, null=True, db_index=True)
+
     school_stage = EnumField(
         EducationStage, null=True, db_index=True, blank=True,
         verbose_name=_("Educational stage"))
+
     phone = models.CharField(
         max_length=16, blank=True, verbose_name=_("Phone"))
+
     birthday = models.DateField(
         blank=True, null=True, verbose_name=_("Birth day"))
+
     allow_mailing = models.BooleanField(
         default=True, blank=True, db_index=True,
         verbose_name=_("Allow Girls Can Code! to send me emails"),
-        help_text=_("We only mail you to provide useful information "
-                    "during the various stages of the contest. "
-                    "We hate spam as much as you do!"))
+        help_text=_("We only mail you to provide useful information during the "
+                    "various stages of the contest. We hate spam as much as "
+                    "you do!"))
+
     signature = models.TextField(blank=True, verbose_name=_("Signature"))
+
     timezone = TimeZoneField(
         default=settings.TIME_ZONE,
         verbose_name=_("Time zone"))
+
     preferred_locale = models.CharField(
         max_length=8, blank=True, verbose_name=_("Locale"),
         choices=settings.LANGUAGES)

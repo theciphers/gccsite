@@ -90,7 +90,6 @@ $('.dropdown-toggle').on('click', function(event) {
     $(`.dropdown-menu[aria-labelledby="${event.target.id}"]`).toggle();
 });
 
-
 /**
  * Handle labels
  */
@@ -160,8 +159,10 @@ $('.update-wish').on('click', function (event) {
             elem.find(`.badge[status=${new_status}]`).show();
 
             // Update applicant status
-            console.log(applicant);
             $(`#applicant-${applicant} .applicant-status`).text(data['applicant-status']);
+
+            // Update acceptables counter
+            $(".acceptables-counter").text(data['nb_acceptable_applicants']);
         }
         else {
             console.error('error:', data);

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
-from gcc import views, staff_views
 
+from gcc import staff_views, views
 
 app_name = 'gcc'
 
@@ -39,7 +39,13 @@ APPLICATION_PATTERNS = [
          name='add_applicant_label'),
     path('update_wish/<int:wish>/<int:status>/',
          staff_views.UpdateWish.as_view(),
-         name='update_wish')
+         name='update_wish'),
+    path('accept_all/<int:event>/',
+         staff_views.ApplicationAcceptView.as_view(),
+         name='accept_all'),
+    path('accept_all_send/<int:event>/',
+         staff_views.ApplicationAcceptSendView.as_view(),
+         name='accept_all_send'),
 ]
 
 urlpatterns = [

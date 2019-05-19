@@ -1,17 +1,17 @@
 import hashlib
 import os
 from datetime import date
-from django.db import models
+
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db import models
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_noop
+
 from adminsortable.models import SortableMixin
-
-
 from centers.models import Center
 from prologin.models import AddressableModel, ContactModel, EnumField
 from prologin.utils import ChoiceEnum, upload_path
@@ -78,7 +78,7 @@ class Event(models.Model):
                                     null=True)
 
     def __str__(self):
-        return self.event_start.strftime('%Y-%m-%d')+ ' - ' + self.event_start.strftime('%Y-%m-%d') + ' ' + str(self.center)
+        return self.event_start.strftime('%Y-%m-%d') + ' - ' + self.event_start.strftime('%Y-%m-%d') + ' ' + str(self.center)
 
     def short_description(self):
         return '{name} – {start} to {end}'.format(
@@ -107,12 +107,13 @@ class ApplicantLabel(models.Model):
 
 @ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
-    incomplete  = 0  # the candidate hasn't finished her registration yet
-    pending     = 1  # the candidate finished here registration
-    rejected    = 2  # the candidate's application has been rejected
-    selected    = 3  # the candidate has been selected for participation
-    accepted    = 4  # the candidate has been assigned to an event and emailed
-    confirmed   = 5  # the candidate confirmed her participation
+    incomplete = 0  # the candidate hasn't finished her registration yet
+    pending = 1  # the candidate finished here registration
+    rejected = 2  # the candidate's application has been rejected
+    selected = 3  # the candidate has been selected for participation
+    accepted = 4  # the candidate has been assigned to an event and emailed
+    confirmed = 5  # the candidate confirmed her participation
+
 
 # Increasing order of status, for example, if the wishes of a candidate have
 # separate status, the greatest one is displayed
@@ -184,6 +185,16 @@ class Applicant(models.Model):
             if wish.status == ApplicantStatusTypes.incomplete.value:
                 wish.status = ApplicantStatusTypes.pending.value
                 wish.save()
+
+    @staticmethod
+    def acceptable_applicants_for(event):
+        """
+        List the applicants which are waiting to be accepted (ie. in the state
+        `selected`).
+        """
+        acceptable_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.selected.value)
+        return [wish.applicant for wish in acceptable_wishes]
 
     @staticmethod
     def for_user_and_edition(user, edition):
@@ -286,7 +297,8 @@ class Question(models.Model):
 class QuestionForForm(SortableMixin):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     form = models.ForeignKey(Form, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
 
     class Meta:
         ordering = ['order']

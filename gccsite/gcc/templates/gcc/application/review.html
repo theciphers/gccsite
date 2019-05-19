@@ -7,117 +7,130 @@
 <link rel="stylesheet" href="{% static "gcc/css/application.css"%}">
 {% endblock %}
 
-{% block content %} <section class="wrapper">
-<div class="container">
-  <h3>
-    {% blocktrans with event=event.short_description %}
-      Candidates for {{ event }} (edition {{ edition }})
-    {% endblocktrans %}
-  </h3>
-  <p>
-    <small>{% blocktrans %}
-      ↓↑ to browse among applicants, &lt;escape&gt; to close all expanded applications.
-    {% endblocktrans %}</small>
-  </p>
+{% block content %}
+  <section class="wrapper">
+    <div class="container">
+      <h3>
+        {% blocktrans with event=event.short_description %}
+          Candidates for {{ event }} (edition {{ edition }})
+        {% endblocktrans %}
+      </h3>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Participations count</th>
-        <th>Labels</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for applicant in applicants %}
-        <tr class="applicant-head" id="applicant-{{applicant.pk}}">
-          <td>
-            <strong>
-              <span class="first-name">{{applicant.user.first_name}}</span>
-              <span class="last-name">{{applicant.user.last_name}}</span>
-            </strong>
-          </td>
-          <td>
-            {% if applicant.user.participations_count == 0 %}
-              No
-            {% else %}
-              {{ applicant.user.participations_count }} participations
-            {% endif %}
-          </td>
-          <td>
-            {% for label in labels %}
-              <span class="remove-label label label-default label-xs" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label not in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
-            {% endfor %}
-          </td>
-          <td class="applicant-status">{{ applicant.get_status_display }}</td>
-        </tr>
-        <tr style="display: none">
-          <td colspan="4">
-            <div class="row">
-              <div class="col-md-6">
-                <h3>{% trans "Profile of" %} {{applicant.user.first_name}} {{applicant.user.last_name}}</h3>
-                <dl class="dl-horizontal">
-                  <dt>{% trans 'login/nickname' %}</dt>
-                  <dd>{{applicant.user.username}}</dd>
-                  <dt>{% trans 'email' %}</dt>
-                  <dd>{{applicant.user.email}}</dd>
-                  <dt>{% trans 'birthday' %}</dt>
-                  <dd>{{applicant.user.birthday}}</dd>
-                  <dt>{% trans 'participations' %}</dt>
-                  <dd>None</dd>
-                </dl>
-              </div>
-              <div class="col-md-6">
-                <ul class="list-group">
-                  {% for wish in applicant.eventwish_set.all %}
-                  <li id="wish-{{wish.pk}}" class="list-group-item {% if wish.event == event %} highlighted {% endif %}">
-                      {% comment %} Status badges {% endcomment %}
-                      <span status="0" class="badge badge-warning" {% if wish.status != 0 %}style="display: none;"{% endif %}>{% trans 'incomplete' %}</span>
-                      <span status="1" class="badge badge-default" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'pending' %}</span>
-                      <span status="2" class="badge badge-danger" {% if wish.status != 2 %}style="display: none;"{% endif %}>{% trans 'rejected' %}</span>
-                      <span status="3" class="badge badge-success" {% if wish.status != 3 %}style="display: none;"{% endif %}>{% trans 'selected' %}</span>
-                      <span status="4" class="badge badge-warning" {% if wish.status != 4 %}style="display: none;"{% endif %}>{% trans 'accepted' %}</span>
-                      <span status="5" class="badge badge-success" {% if wish.status != 5 %}style="display: none;"{% endif %}>{% trans 'confirmed' %}</span>
+      <p>
+        <a class="btn btn-success" href="{% url 'gcc:accept_all' event=event.pk %}">
+          {% blocktrans with nb_acceptables|pluralize as plural and nb_acceptables as nb_acceptables%}
+            Accept
+            <span class="acceptables-counter">{{ nb_acceptables }}</span>
+            candidate{{ plural }}
+          {% endblocktrans %}
+        </a>
+      </p>
 
-                      {% has_perm 'gcc:can_accept_wish' request.user wish as can_accept %}
-                      {% if can_accept %}
-                        <span class="wish-actions">
-                          <span class="update-wish" new-status="3" for-wish="{{wish.pk}}" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'select' %}</span>
-                          <span class="update-wish" new-status="2" for-wish="{{wish.pk}}" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'reject' %}</span>
-                          <span class="update-wish" new-status="1" for-wish="{{wish.pk}}" {% if wish.status != 2 and wish.status != 3 %}style="display: none;"{% endif %}>{% trans 'cancel' %}</span>
-                        </span>
-                      {% endif %}
+      <p>
+        <small>
+          {% blocktrans %}↓↑ to browse among applicants, &lt;escape&gt; to
+          close all expanded applications.{% endblocktrans %}
+        </small>
+      </p>
 
-                      <h4 class="list-group-item-heading">{{wish.order}}. {{wish.event.center}}</h4>
-                      <p class="list-group-item-text">{{wish.event.event_start}}</p>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h3>Form</h3>
-              <dl class="dl-vertical">
-                {% for answer in applicant.answers.all %}
-                 <dt>{{answer.question}}</dd>
-                 <dd>{{answer}}</dt>
-                {% endfor %}
-              </dl>
-              <h3>
-                Add a label:
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Participations count</th>
+            <th>Labels</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for applicant in applicants %}
+            <tr class="applicant-head" id="applicant-{{applicant.pk}}">
+              <td>
+                <strong>
+                  <span class="first-name">{{applicant.user.first_name}}</span>
+                  <span class="last-name">{{applicant.user.last_name}}</span>
+                </strong>
+              </td>
+              <td>
+                {% if applicant.user.participations_count == 0 %}
+                  No
+                {% else %}
+                  {{ applicant.user.participations_count }} participations
+                {% endif %}
+              </td>
+              <td>
                 {% for label in labels %}
-                  <span class="add-label label label-default" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
+                  <span class="remove-label label label-default label-xs" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label not in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
                 {% endfor %}
-              </h3>
-            </div>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-</section>
+              </td>
+              <td class="applicant-status">{{ applicant.get_status_display }}</td>
+            </tr>
+            <tr style="display: none">
+              <td colspan="4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h3>{% trans "Profile of" %} {{applicant.user.first_name}} {{applicant.user.last_name}}</h3>
+                    <dl class="dl-horizontal">
+                      <dt>{% trans 'login/nickname' %}</dt>
+                      <dd>{{applicant.user.username}}</dd>
+                      <dt>{% trans 'email' %}</dt>
+                      <dd>{{applicant.user.email}}</dd>
+                      <dt>{% trans 'birthday' %}</dt>
+                      <dd>{{applicant.user.birthday}}</dd>
+                      <dt>{% trans 'participations' %}</dt>
+                      <dd>None</dd>
+                    </dl>
+                  </div>
+                  <div class="col-md-6">
+                    <ul class="list-group">
+                      {% for wish in applicant.eventwish_set.all %}
+                      <li id="wish-{{wish.pk}}" class="list-group-item {% if wish.event == event %} highlighted {% endif %}">
+                          {% comment %} Status badges {% endcomment %}
+                          <span status="0" class="badge badge-warning" {% if wish.status != 0 %}style="display: none;"{% endif %}>{% trans 'incomplete' %}</span>
+                          <span status="1" class="badge badge-default" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'pending' %}</span>
+                          <span status="2" class="badge badge-danger" {% if wish.status != 2 %}style="display: none;"{% endif %}>{% trans 'rejected' %}</span>
+                          <span status="3" class="badge badge-success" {% if wish.status != 3 %}style="display: none;"{% endif %}>{% trans 'selected' %}</span>
+                          <span status="4" class="badge badge-warning" {% if wish.status != 4 %}style="display: none;"{% endif %}>{% trans 'accepted' %}</span>
+                          <span status="5" class="badge badge-success" {% if wish.status != 5 %}style="display: none;"{% endif %}>{% trans 'confirmed' %}</span>
+
+                          {% has_perm 'gcc:can_accept_wish' request.user wish as can_accept %}
+                          {% if can_accept %}
+                            <span class="wish-actions">
+                              <span class="update-wish" new-status="3" for-wish="{{wish.pk}}" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'select' %}</span>
+                              <span class="update-wish" new-status="2" for-wish="{{wish.pk}}" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'reject' %}</span>
+                              <span class="update-wish" new-status="1" for-wish="{{wish.pk}}" {% if wish.status != 2 and wish.status != 3 %}style="display: none;"{% endif %}>{% trans 'cancel' %}</span>
+                            </span>
+                          {% endif %}
+
+                          <h4 class="list-group-item-heading">{{wish.order}}. {{wish.event.center}}</h4>
+                          <p class="list-group-item-text">{{wish.event.event_start}}</p>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <h3>Form</h3>
+                  <dl class="dl-vertical">
+                    {% for answer in applicant.answers.all %}
+                     <dt>{{answer.question}}</dd>
+                     <dd>{{answer}}</dt>
+                    {% endfor %}
+                  </dl>
+                  <h3>
+                    Add a label:
+                    {% for label in labels %}
+                      <span class="add-label label label-default" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
+                    {% endfor %}
+                  </h3>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
 {% endblock %}
 
 {% block extra_script %}

@@ -1,11 +1,12 @@
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import View, TemplateView
-from rules.contrib.views import PermissionRequiredMixin
+from django.views.generic import RedirectView, TemplateView, View
 
 from gcc.models import (Applicant, ApplicantLabel, ApplicantStatusTypes, Event,
                         EventWish)
+from rules.contrib.views import PermissionRequiredMixin
 
 
 class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
@@ -40,17 +41,79 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         applicants = applicants.prefetch_related(
             'user', 'answers', 'answers__question', 'eventwish_set',
             'eventwish_set__event', 'labels')
+        acceptable_applicants = Applicant.acceptable_applicants_for(event)
 
-        #TODO: remove redundancy
+        # TODO: remove redundancy
         assert event.edition.year == kwargs['edition']
 
         context = super().get_context_data(**kwargs)
         context.update({
             'applicants': applicants,
             'event': event,
-            'labels': ApplicantLabel.objects.all()
+            'labels': ApplicantLabel.objects.all(),
+            'nb_acceptables': len(acceptable_applicants)
         })
         return context
+
+#      _                      _        _   _
+#     / \   ___ ___ ___ _ __ | |_ __ _| |_(_) ___  _ __  ___
+#    / _ \ / __/ __/ _ \ '_ \| __/ _` | __| |/ _ \| '_ \/ __|
+#   / ___ \ (_| (_|  __/ |_) | || (_| | |_| | (_) | | | \__ \
+#  /_/   \_\___\___\___| .__/ \__\__,_|\__|_|\___/|_| |_|___/
+#                      |_|
+
+
+class ApplicationAcceptView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'gcc.can_review_event'
+    template_name = 'gcc/application/accept.html'
+
+    def get_permission_object(self):
+        return get_object_or_404(Event, pk=self.kwargs['event'])
+
+    def get_context_data(self, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        applicants = Applicant.acceptable_applicants_for(event)
+
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'applicants': applicants,
+            'event': event, })
+        return context
+
+
+class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
+    permission_required = 'gcc.can_review_event'
+
+    def get_redirect_url(self, *args, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        return reverse('gcc:application_review', kwargs={'edition': event.edition,
+                                                         'event': event.pk})
+
+    def get(self, request, *args, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        acceptables = Applicant.acceptable_applicants_for(event)
+
+        for applicant in acceptables:
+            try:
+                # TODO: add attachments
+                #  send_email(...)
+
+                applicant.status = ApplicantStatusTypes.accepted.value
+                applicant.save()
+            except exp:
+                print('Failed to accept {}: {}'.format(applicant.username, exp))
+
+        return super().get(request, *args, **kwargs)
+
+
+#  __        ___     _                  ___     _          _          _
+#  \ \      / (_)___| |__   ___  ___   ( _ )   | |    __ _| |__   ___| |___
+#   \ \ /\ / /| / __| '_ \ / _ \/ __|  / _ \/\ | |   / _` | '_ \ / _ \ / __|
+#    \ V  V / | \__ \ | | |  __/\__ \ | (_>  < | |__| (_| | |_) |  __/ \__ \
+#     \_/\_/  |_|___/_| |_|\___||___/  \___/\/ |_____\__,_|_.__/ \___|_|___/
+
+# Following views provide a Rest API to interact with status and labels of the
+# candidates.
 
 
 class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
@@ -132,10 +195,12 @@ class UpdateWish(PermissionRequiredMixin, View):
         if wish.status == status:
             return JsonResponse({'status': 'error',
                                  'reason': 'wish already accepted'})
-
         wish.status = status
         wish.save()
+
+        nb_acceptables = len(Applicant.acceptable_applicants_for(wish.event))
         return JsonResponse({
             'status': 'ok',
             'applicant': wish.applicant.pk,
-            'applicant-status': wish.applicant.get_status_display()})
+            'applicant-status': wish.applicant.get_status_display(),
+            'nb_acceptable_applicants': nb_acceptables, })
