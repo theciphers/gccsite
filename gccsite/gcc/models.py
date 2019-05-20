@@ -108,7 +108,7 @@ class ApplicantLabel(models.Model):
 @ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
     incomplete = 0  # the candidate hasn't finished her registration yet
-    pending = 1  # the candidate finished here registration
+    pending = 1  # the candidate finished her registration
     rejected = 2  # the candidate's application has been rejected
     selected = 3  # the candidate has been selected for participation
     accepted = 4  # the candidate has been assigned to an event and emailed
@@ -119,8 +119,8 @@ class ApplicantStatusTypes(ChoiceEnum):
 # separate status, the greatest one is displayed
 STATUS_ORDER = [
     ApplicantStatusTypes.incomplete.value,
-    ApplicantStatusTypes.pending.value,
     ApplicantStatusTypes.rejected.value,
+    ApplicantStatusTypes.pending.value,
     ApplicantStatusTypes.selected.value,
     ApplicantStatusTypes.accepted.value,
     ApplicantStatusTypes.confirmed.value,

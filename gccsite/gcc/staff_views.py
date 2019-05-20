@@ -96,12 +96,13 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
         for applicant in acceptables:
             try:
                 # TODO: add attachments
-                #  send_email(...)
+                # send_email(...)
 
-                applicant.status = ApplicantStatusTypes.accepted.value
-                applicant.save()
-            except exp:
-                print('Failed to accept {}: {}'.format(applicant.username, exp))
+                wish = get_object_or_404(EventWish, applicant=applicant, event=event)
+                wish.status = ApplicantStatusTypes.accepted.value
+                wish.save()
+            except Exception as exp:
+                print('Failed to accept {}: {}'.format(applicant.user.username, exp))
 
         return super().get(request, *args, **kwargs)
 

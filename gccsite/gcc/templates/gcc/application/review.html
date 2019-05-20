@@ -18,7 +18,7 @@
 
       <p>
         <a class="btn btn-success" href="{% url 'gcc:accept_all' event=event.pk %}">
-          {% blocktrans with nb_acceptables|pluralize as plural and nb_acceptables as nb_acceptables%}
+          {% blocktrans with nb_acceptables|pluralize as plural and nb_acceptables as nb_acceptables %}
             Accept
             <span class="acceptables-counter">{{ nb_acceptables }}</span>
             candidate{{ plural }}

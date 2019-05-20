@@ -13,8 +13,8 @@ from django.views.generic.edit import FormView
 
 from gcc.forms import (ApplicationWishesForm, CombinedApplicantUserForm,
                        EmailForm)
-from gcc.models import (Applicant, Edition, Event, EventWish, Sponsor,
-                        SubscriberEmail)
+from gcc.models import (Applicant, ApplicantStatusTypes, Edition, Event,
+                        EventWish, Sponsor, SubscriberEmail)
 from prologin.email import send_email
 from rules.contrib.views import PermissionRequiredMixin
 from zinnia.models import Entry
@@ -295,3 +295,25 @@ class ApplicationWishesView(FormView):
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
         return super().form_valid(form)
+
+class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
+    permission_required = 'users.edit'
+
+    def get_redirect_url(self, *args, **kwargs):
+        wish = get_object_or_404(EventWish, pk=kwargs['wish'])
+        return reverse('gcc:application_summary',
+                       kwargs={'pk': wish.applicant.user.pk})
+
+    def get(self, request, *args, **kwargs):
+        if self.has_permission():
+            wish = get_object_or_404(EventWish, pk=kwargs['wish'])
+
+            if wish.status == ApplicantStatusTypes.accepted.value:
+                wish.status = ApplicantStatusTypes.confirmed.value
+                wish.save()
+                messages.add_message(
+                    self.request,
+                    messages.SUCCESS,
+                    _('Confirmation completed, thank you for your help!'))
+
+        return super().get(request, *args, **kwargs)
