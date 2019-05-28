@@ -1,8 +1,12 @@
+from django.conf import settings
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView, View
+from prologin.email import send_email
+
 
 from gcc.models import (Applicant, ApplicantLabel, ApplicantStatusTypes, Event,
                         EventWish)
@@ -94,15 +98,33 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
         acceptables = Applicant.acceptable_applicants_for(event)
 
         for applicant in acceptables:
-            try:
-                # TODO: add attachments
-                # send_email(...)
+            wish = get_object_or_404(
+                EventWish, applicant=applicant, event=event)
 
-                wish = get_object_or_404(EventWish, applicant=applicant, event=event)
+            try:
+                def catch_attachment(path):
+                    return open(staticfiles_storage.path(path)).read()
+
+                attachments = (
+                    ('autorisation-participation.pdf', catch_attachment(
+                        'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
+                    ('planning.pdf', catch_attachment(
+                        'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
+                )
+
+                send_email(
+                    'gcc/accept',
+                    applicant.user.email,
+                    {'applicant': applicant,
+                     'event': event,
+                     'confirm_url': reverse('gcc:confirm', kwargs={'wish': wish.pk})},
+                    attachments)
+
                 wish.status = ApplicantStatusTypes.accepted.value
                 wish.save()
             except Exception as exp:
-                print('Failed to accept {}: {}'.format(applicant.user.username, exp))
+                print('Failed to accept {}: {}'.format(
+                    applicant.user.username, exp))
 
         return super().get(request, *args, **kwargs)
 
