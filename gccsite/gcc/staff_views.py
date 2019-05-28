@@ -1,4 +1,7 @@
+import sys
+import os
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -103,28 +106,33 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
 
             try:
                 def catch_attachment(path):
-                    return open(staticfiles_storage.path(path)).read()
+                    return open(staticfiles_storage.path(path), 'rb').read()
 
                 attachments = (
                     ('autorisation-participation.pdf', catch_attachment(
                         'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
                     ('planning.pdf', catch_attachment(
-                        'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
+                        'gcc/attachments/planning.pdf'), 'application/pdf'),
                 )
 
                 send_email(
-                    'gcc/accept',
+                    'gcc/mails/accept',
                     applicant.user.email,
                     {'applicant': applicant,
                      'event': event,
-                     'confirm_url': reverse('gcc:confirm', kwargs={'wish': wish.pk})},
+                     'confirm_url': 'https://' + settings.SITE_HOST + reverse('gcc:confirm', kwargs={'wish': wish.pk})},
                     attachments)
 
                 wish.status = ApplicantStatusTypes.accepted.value
                 wish.save()
             except Exception as exp:
-                print('Failed to accept {}: {}'.format(
-                    applicant.user.username, exp))
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                messages.add_message(
+                    self.request,
+                    messages.SUCCESS,
+                    'Failed to accept: {}: {} ({}:{})'.format(
+                        applicant.user.username, exp, fname, exc_tb.tb_lineno))
 
         return super().get(request, *args, **kwargs)
 
