@@ -113,6 +113,10 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                         'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
                     ('planning.pdf', catch_attachment(
                         'gcc/attachments/planning.pdf'), 'application/pdf'),
+                    ('droits-image.pdf',
+                     catch_attachment('gcc/attachments/droits-image.pdf'), 'application/pdf'),
+                    ('fiche-sanitaire.pdf',
+                     catch_attachment('gcc/attachments/fiche-sanitaire.pdf'), 'application/pdf'),
                 )
 
                 send_email(

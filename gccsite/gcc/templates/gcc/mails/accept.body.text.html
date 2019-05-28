@@ -2,17 +2,17 @@ Bonjour {{applicant.user.first_name}} {{applicant.user.last_name}},
 
 Après étude des candidatures, nous avons le plaisir de t’informer que tu as été
 sélectionnée pour participer au stage « Girls Can Code! » à {{event.center}},
-du {{event.event_start|date:"D d M"}} au {{event.event_end|date "D d M"}}!
+du {{event.event_start|date:"l j F"}} au {{event.event_end|date:"l j F"}}!
 
 Tu peux maintenant confirmer ta venue au stage depuis le site:
 {{confirm_url}}
 
-Nous te donnons donc rendez-vous le {{event.date_start|date "D d M"}} à 10h à
+Nous te donnons donc rendez-vous le {{event.date_start|date:"l j F"}} à 11h à
 {{event.center.name}}:
 
-    {{event.center.address}}
-    {{event.center.postal_code}}, {{event.center.city}}
-    {{event.center.country}}
+{{event.center.address}}
+{{event.center.postal_code}}, {{event.center.city}}
+{{event.center.country}}
 
 N’oublies pas que l’hébergement n’est pas pris en charge par l’association
 Prologin. Les petits-déjeuners, déjeuners sont en revanche pris en charge ainsi
