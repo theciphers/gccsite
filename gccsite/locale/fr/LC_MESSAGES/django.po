@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-22 13:27+0200\n"
+"POT-Creation-Date: 2019-05-28 14:14+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -49,7 +49,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:26 users/models.py:25
+#: centers/models.py:26 users/models.py:26
 msgid "Other"
 msgstr "Autre"
 
@@ -174,21 +174,62 @@ msgstr "Deuxième choix"
 msgid "3rd choice"
 msgstr "Troisième choix"
 
-#: gcc/staff_views.py:68 gcc/staff_views.py:97
+#: gcc/staff_views.py:166 gcc/staff_views.py:195
 msgid "applicant does not exist"
 msgstr "le candidat n'existe pas"
 
-#: gcc/staff_views.py:71 gcc/staff_views.py:100
+#: gcc/staff_views.py:169 gcc/staff_views.py:198
 msgid "label does not exist"
 msgstr "le label n'existe pas"
 
-#: gcc/staff_views.py:75 gcc/staff_views.py:104 gcc/staff_views.py:130
+#: gcc/staff_views.py:173 gcc/staff_views.py:202 gcc/staff_views.py:228
 msgid "not allowed"
 msgstr "non autorisé"
 
-#: gcc/staff_views.py:126
+#: gcc/staff_views.py:224
 msgid "wish does not exist"
 msgstr "le vœux n’existe pas"
+
+#: gcc/templates/gcc/application/accept.html:4
+msgid "Accept candidates"
+msgstr "Accepter la candidature"
+
+#: gcc/templates/gcc/application/accept.html:10
+#, python-format
+msgid ""
+"\n"
+"          Accept the candidate for %(event)s?\n"
+"        "
+msgid_plural ""
+"\n"
+"          Accept all the %(nb_applicants)s candidates for %(event)s?\n"
+"        "
+msgstr[0] ""
+"\n"
+"Accepter la candidate pour %(event)s ?"
+msgstr[1] ""
+"\n"
+"Accepter les %(nb_applicants)s candidates pour %(event)s ?"
+
+#: gcc/templates/gcc/application/accept.html:17
+msgid ""
+"As soon as you accepted the candidates, they will receive\n"
+"        an email to notify them that they are selected for the event, and "
+"asking\n"
+"        them to confirm their venue."
+msgstr ""
+"Dès que vous accepterez les candidates, elles recevront\n"
+"un email pour les informer qu'elles ont été sélectionnées pour l’événement, "
+"et leur\n"
+"demandant de confirmer leur participation."
+
+#: gcc/templates/gcc/application/accept.html:22
+msgid "Go On"
+msgstr "C'est parti !"
+
+#: gcc/templates/gcc/application/accept.html:26
+msgid "Concerned candidates"
+msgstr "Candidates concernées"
 
 #: gcc/templates/gcc/application/form.html:6
 #: gcc/templates/gcc/application/wishes.html:6
@@ -242,80 +283,90 @@ msgstr ""
 msgid "Applications"
 msgstr "Candidatures"
 
-#: gcc/templates/gcc/application/review.html:13
+#: gcc/templates/gcc/application/review.html:14
 #, python-format
 msgid ""
 "\n"
-"      Candidates for %(event)s (edition %(edition)s)\n"
-"    "
+"          Candidates for %(event)s (edition %(edition)s)\n"
+"        "
 msgstr ""
 "\n"
-"Candidatures pour %(event)s (édition %(edition)s)"
+"Candidates pour %(event)s (édition %(edition)s)"
 
-#: gcc/templates/gcc/application/review.html:18
+#: gcc/templates/gcc/application/review.html:21
+#, python-format
 msgid ""
 "\n"
-"      ↓↑ to browse among applicants, &lt;escape&gt; to close all expanded "
-"applications.\n"
-"    "
+"            Accept\n"
+"            <span class=\"acceptables-counter\">%(nb_acceptables)s</span>\n"
+"            candidate%(plural)s\n"
+"          "
 msgstr ""
 "\n"
-"↓↑ pour parcourir les candidatures, &lt;escape&gt; pour fermer toutes les "
-"applications ouvertes."
+"Accepter <span class=\"acceptables-counter\">%(nb_acceptables)s</span> "
+"candidate%(plural)s"
 
-#: gcc/templates/gcc/application/review.html:59
+#: gcc/templates/gcc/application/review.html:31
+msgid ""
+"↓↑ to browse among applicants, &lt;escape&gt; to\n"
+"          close all expanded applications."
+msgstr ""
+"↓↑ pour parcourir les candidates, &lt;escape&gt; pour fermer toutes les "
+"candidatures ouvertes."
+
+#: gcc/templates/gcc/application/review.html:72
 msgid "Profile of"
 msgstr "Profil de"
 
-#: gcc/templates/gcc/application/review.html:61
+#: gcc/templates/gcc/application/review.html:74
 msgid "login/nickname"
 msgstr "identifiant/pseudonyme"
 
-#: gcc/templates/gcc/application/review.html:63
+#: gcc/templates/gcc/application/review.html:76
 msgid "email"
 msgstr "E-mail"
 
-#: gcc/templates/gcc/application/review.html:65
+#: gcc/templates/gcc/application/review.html:78
 msgid "birthday"
 msgstr "anniversaire"
 
-#: gcc/templates/gcc/application/review.html:67
+#: gcc/templates/gcc/application/review.html:80
 msgid "participations"
 msgstr "participations"
 
-#: gcc/templates/gcc/application/review.html:77
+#: gcc/templates/gcc/application/review.html:90
 msgid "incomplete"
 msgstr "incomplet"
 
-#: gcc/templates/gcc/application/review.html:78
+#: gcc/templates/gcc/application/review.html:91
 msgid "pending"
 msgstr "en attente"
 
-#: gcc/templates/gcc/application/review.html:79
+#: gcc/templates/gcc/application/review.html:92
 msgid "rejected"
 msgstr "rejetée"
 
-#: gcc/templates/gcc/application/review.html:80
+#: gcc/templates/gcc/application/review.html:93
 msgid "selected"
 msgstr "sélectionnée"
 
-#: gcc/templates/gcc/application/review.html:81
+#: gcc/templates/gcc/application/review.html:94
 msgid "accepted"
 msgstr "acceptée"
 
-#: gcc/templates/gcc/application/review.html:82
+#: gcc/templates/gcc/application/review.html:95
 msgid "confirmed"
 msgstr "confirmé"
 
-#: gcc/templates/gcc/application/review.html:87
+#: gcc/templates/gcc/application/review.html:100
 msgid "select"
 msgstr "sélectionner"
 
-#: gcc/templates/gcc/application/review.html:88
+#: gcc/templates/gcc/application/review.html:101
 msgid "reject"
 msgstr "rejeter"
 
-#: gcc/templates/gcc/application/review.html:89
+#: gcc/templates/gcc/application/review.html:102
 msgid "cancel"
 msgstr "annuler"
 
@@ -335,104 +386,103 @@ msgstr "Stage Long"
 msgid "Browse"
 msgstr "Parcourir"
 
-#: gcc/templates/gcc/application/summary.html:10
+#: gcc/templates/gcc/application/summary.html:9
 msgid "GCC! − Summary"
 msgstr "GCC! - Résumé"
 
-#: gcc/templates/gcc/application/summary.html:17
+#: gcc/templates/gcc/application/summary.html:16
 msgid " Full name"
 msgstr "Nom complet"
 
-#: gcc/templates/gcc/application/summary.html:24
+#: gcc/templates/gcc/application/summary.html:23
 msgid " Phone number"
 msgstr "Téléphone"
 
-#: gcc/templates/gcc/application/summary.html:30
+#: gcc/templates/gcc/application/summary.html:29
 msgid " Email address"
 msgstr " Adresse e-mail"
 
-#: gcc/templates/gcc/application/summary.html:36
+#: gcc/templates/gcc/application/summary.html:35
 msgid " Birth day"
 msgstr " Date de naissance"
 
-#: gcc/templates/gcc/application/summary.html:42
+#: gcc/templates/gcc/application/summary.html:41
 msgid " Postal address"
 msgstr " Adresse postale"
 
-#: gcc/templates/gcc/application/summary.html:51
+#: gcc/templates/gcc/application/summary.html:50
 msgid " Date joined"
 msgstr " Date d'inscription"
 
-#: gcc/templates/gcc/application/summary.html:53
+#: gcc/templates/gcc/application/summary.html:52
 #: users/templates/users/profile.html:80
 msgid "Member for"
 msgstr "Membre depuis"
 
-#: gcc/templates/gcc/application/summary.html:64
+#: gcc/templates/gcc/application/summary.html:60
 msgid "Edition"
 msgstr "Édition"
 
-#: gcc/templates/gcc/application/summary.html:74
+#: gcc/templates/gcc/application/summary.html:67
 msgid "Sadly you did not apply yet for the current edition..."
 msgstr ""
 "Malheureusement, vous ne vous êtes pas encore inscrite à l'édition de cette "
 "année..."
 
-#: gcc/templates/gcc/application/summary.html:79
+#: gcc/templates/gcc/application/summary.html:72
 #: gcc/templates/gcc/editions.html:26 gcc/templates/gcc/main-footer.html:45
 #: gcc/templates/gcc/registration_widget.html:20
 msgid "Apply"
 msgstr "Candidater"
 
-#: gcc/templates/gcc/application/summary.html:97
+#: gcc/templates/gcc/application/summary.html:91
 msgid "Edit application"
 msgstr "Modifier la candidature"
 
-#: gcc/templates/gcc/application/summary.html:126
-msgid "Incomplete"
-msgstr "Incomplet"
+#: gcc/templates/gcc/application/summary.html:105
+msgid "My informations"
+msgstr "Mes informations"
 
-#: gcc/templates/gcc/application/summary.html:130
-#: gcc/templates/gcc/application/validation.html:20
-msgid "Validate application"
-msgstr "Enregistrer la candidature"
+#: gcc/templates/gcc/application/summary.html:120
+#: gcc/templates/gcc/main-menu.html:27
+msgid "My applications"
+msgstr "Mes candidatures"
 
-#: gcc/templates/gcc/application/summary.html:136
-msgid "Pending"
-msgstr "En attente"
+#: gcc/templates/gcc/application/summary.html:131
+msgid "Confirm my venue"
+msgstr "Confirmer ma participation"
 
 #: gcc/templates/gcc/application/summary.html:139
-msgid "Rejected"
-msgstr "Refusée"
-
-#: gcc/templates/gcc/application/summary.html:142
-msgid "Selected"
-msgstr "Selectionnée"
+msgid "Status"
+msgstr "Status"
 
 #: gcc/templates/gcc/application/summary.html:143
+msgid "Please validate your applications."
+msgstr "Merci de valider votre candidature."
+
+#: gcc/templates/gcc/application/summary.html:145
+msgid "Subscriptions are not opened yet for this year."
+msgstr "Les inscriptions ne sont pas encore ouvertes pour cette année."
+
+#: gcc/templates/gcc/application/summary.html:148
 msgid "You will soon receive your assignation."
 msgstr "Nous vous assignerons bientôt à un centre."
 
-#: gcc/templates/gcc/application/summary.html:146
-msgid "Accepted"
-msgstr "Acceptée"
+#: gcc/templates/gcc/application/summary.html:150
+msgid "You have been assigned to an event, please confirm your venue."
+msgstr ""
+"Vous avez été assignée à un évènement, veuillez confirmer votre "
+"participation."
 
-#: gcc/templates/gcc/application/summary.html:147
-#: gcc/templates/gcc/application/summary.html:157
-msgid "You have been assigned to:"
-msgstr "Vous avez été assigné à :"
+#: gcc/templates/gcc/application/summary.html:152
+msgid "Your venue has been confirmed!"
+msgstr "Votre participation a été confirmée !"
 
-#: gcc/templates/gcc/application/summary.html:153
-msgid "Please confirm your venue."
-msgstr "Veuillez confirmer votre présence."
-
-#: gcc/templates/gcc/application/summary.html:156
-msgid "Confirmed"
-msgstr "Confirmée"
-
-#: gcc/templates/gcc/application/summary.html:163
-msgid "And you confirmed your venue, see you there!"
-msgstr "Votre présence a été confirmée, rendez-vous au stage !"
+#: gcc/templates/gcc/application/summary.html:154
+msgid "Please wait while we review and update your application!"
+msgstr ""
+"Veuillez attendre que nous mettions à jours votre candidature, un email vous "
+"sera alors envoyé."
 
 #: gcc/templates/gcc/application/validation.html:5
 msgid "GCC! − Validation"
@@ -445,6 +495,10 @@ msgid ""
 msgstr ""
 "Soyez prudente, après cela vous ne pourrez plus modifier vos réponses ni "
 "l'ordre de vos préférences."
+
+#: gcc/templates/gcc/application/validation.html:20
+msgid "Validate application"
+msgstr "Enregistrer la candidature"
 
 #: gcc/templates/gcc/application/wishes.html:15
 msgid "Choose my location wishes"
@@ -933,10 +987,6 @@ msgstr "Mon profil"
 #: gcc/templates/gcc/main-menu.html:26
 msgid "Profile & options"
 msgstr "Profil &amp; options"
-
-#: gcc/templates/gcc/main-menu.html:27
-msgid "My applications"
-msgstr "Mes candidatures"
 
 #: gcc/templates/gcc/main-menu.html:31
 msgid "Sign out"
@@ -1445,6 +1495,10 @@ msgid ""
 msgstr ""
 "Votre inscription est déjà validée, veuillez nous contacter par mail si vous "
 "devez changer quelque-chose."
+
+#: gcc/views.py:317
+msgid "Confirmation completed, thank you for your help!"
+msgstr "Candidature confirmée, merci de votre aide !"
 
 #: gccsite/settings/common.py:112
 msgid "English"
@@ -1982,63 +2036,63 @@ msgstr ""
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
-#: users/models.py:16
+#: users/models.py:17
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:17
+#: users/models.py:18
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:18
+#: users/models.py:19
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:19
+#: users/models.py:20
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:20
+#: users/models.py:21
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:21
+#: users/models.py:22
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:22
+#: users/models.py:23
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:23
+#: users/models.py:24
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:24
+#: users/models.py:25
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:26
+#: users/models.py:27
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:47
+#: users/models.py:49
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:49
+#: users/models.py:52
 msgid "Phone"
 msgstr "Téléphone"
 
-#: users/models.py:51 users/templates/users/profile.html:62
+#: users/models.py:55 users/templates/users/profile.html:62
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:54
+#: users/models.py:59
 msgid "Allow Girls Can Code! to send me emails"
 msgstr "Autoriser Girls Can Code! à m'envoyer des e-mails."
 
-#: users/models.py:55
+#: users/models.py:60
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
@@ -2046,15 +2100,15 @@ msgstr ""
 "Nous n'envoyons des e-mails que pour vous informer du déroulement du "
 "concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:58
+#: users/models.py:64
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:61
+#: users/models.py:68
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:63
+#: users/models.py:71
 msgid "Locale"
 msgstr "Langue"
 
