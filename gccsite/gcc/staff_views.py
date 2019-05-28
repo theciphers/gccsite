@@ -11,8 +11,8 @@ from django.views.generic import RedirectView, TemplateView, View
 from prologin.email import send_email
 
 
-from gcc.models import (Applicant, ApplicantLabel, ApplicantStatusTypes, Event,
-                        EventWish)
+from gcc.models import (Answer, Applicant, ApplicantLabel, ApplicantStatusTypes,
+                        Event, EventWish)
 from rules.contrib.views import PermissionRequiredMixin
 
 
@@ -119,13 +119,21 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                      catch_attachment('gcc/attachments/fiche-sanitaire.pdf'), 'application/pdf'),
                 )
 
-                send_email(
-                    'gcc/mails/accept',
-                    applicant.user.email,
-                    {'applicant': applicant,
-                     'event': event,
-                     'confirm_url': 'https://' + settings.SITE_HOST + reverse('gcc:confirm', kwargs={'wish': wish.pk})},
-                    attachments)
+                # TODO: CRITICAL: this is hardcoded pk of parent's email
+                parent_email = Answer.objects.get(
+                    applicant=applicant, question__pk=17).response
+
+                for dest in [applicant.user.email, parent_email]:
+                    confirm_url = 'https://' + settings.SITE_HOST + \
+                        reverse('gcc:confirm', kwargs={'wish': wish.pk})
+
+                    send_email(
+                        'gcc/mails/accept',
+                        dest,
+                        {'applicant': applicant,
+                         'event': event,
+                         'confirm_url': confirm_url},
+                        attachments)
 
                 wish.status = ApplicantStatusTypes.accepted.value
                 wish.save()
@@ -134,7 +142,7 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 messages.add_message(
                     self.request,
-                    messages.SUCCESS,
+                    messages.ERROR,
                     'Failed to accept: {}: {} ({}:{})'.format(
                         applicant.user.username, exp, fname, exc_tb.tb_lineno))
 
