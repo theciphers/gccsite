@@ -15,6 +15,7 @@ class QuestionInline(SortableTabularInline):
     model = models.Form.question_list.through
     extra = 1
 
+
 @admin.register(models.Form)
 class FormAdmin(NonSortableParentAdmin):
     inlines = [QuestionInline]
@@ -32,8 +33,7 @@ class AnswersInline(admin.TabularInline):
         return str(obj)
 
     model = models.Answer
-    fields = readonly_fields = ['question', 'answer']
-    can_delete = False
+    can_delete = True
     extra = 0
 
 
@@ -63,7 +63,8 @@ class ApplicationAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__first_name', 'user__last_name',
                      'user__email']
     list_display = ['user', 'edition', 'get_status_display']
-    list_filter = ['edition', ApplicationStatusFilter, 'assignation_wishes__center']
+    list_filter = ['edition', ApplicationStatusFilter,
+                   'assignation_wishes__center']
     readonly_fields = ['user', 'edition']
     fieldsets = [(None, {'fields': ['user', 'edition']}),
                  (_('Review'), {'fields': ['labels']})]
