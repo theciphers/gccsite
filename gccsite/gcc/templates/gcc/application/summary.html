@@ -91,6 +91,13 @@
                                     <i class="fa fa-pencil"></i> {% trans "Edit application" %}
                                   </a>
                                 </td>
+                                {% if applicant.edition.subscription_is_open %}
+                                  <td class="text-right">
+                                    <a  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}" class="btn btn-default btn-xs">
+                                      <i class="fa fa-save"></i> {% trans "Validate application" %}
+                                    </a>
+                                  </td>
+                                {% endif %}
                               {% else %}
                                 <span class="badge {{ applicant.status|status_badge }} pull-right">
                                   {{ applicant.get_status_display}}
