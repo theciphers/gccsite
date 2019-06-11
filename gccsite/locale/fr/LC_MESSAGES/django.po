@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-28 14:14+0200\n"
+"POT-Creation-Date: 2019-06-11 19:56+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -85,11 +85,11 @@ msgstr "Plein format"
 msgid "status"
 msgstr "status"
 
-#: gcc/admin.py:69 gcc/templates/gcc/application/review_index.html:3
+#: gcc/admin.py:70 gcc/templates/gcc/application/review_index.html:3
 msgid "Review"
 msgstr "Sélection"
 
-#: gcc/admin.py:112
+#: gcc/admin.py:113
 msgid "Active"
 msgstr "Actif"
 
@@ -174,19 +174,19 @@ msgstr "Deuxième choix"
 msgid "3rd choice"
 msgstr "Troisième choix"
 
-#: gcc/staff_views.py:166 gcc/staff_views.py:195
+#: gcc/staff_views.py:174 gcc/staff_views.py:203
 msgid "applicant does not exist"
 msgstr "le candidat n'existe pas"
 
-#: gcc/staff_views.py:169 gcc/staff_views.py:198
+#: gcc/staff_views.py:177 gcc/staff_views.py:206
 msgid "label does not exist"
 msgstr "le label n'existe pas"
 
-#: gcc/staff_views.py:173 gcc/staff_views.py:202 gcc/staff_views.py:228
+#: gcc/staff_views.py:181 gcc/staff_views.py:210 gcc/staff_views.py:236
 msgid "not allowed"
 msgstr "non autorisé"
 
-#: gcc/staff_views.py:224
+#: gcc/staff_views.py:232
 msgid "wish does not exist"
 msgstr "le vœux n’existe pas"
 
@@ -237,7 +237,7 @@ msgid "GCC! − Application"
 msgstr "GCC! - Candidature"
 
 #: gcc/templates/gcc/application/form.html:13
-#: gcc/templates/gcc/application/summary.html:108
+#: gcc/templates/gcc/application/summary.html:115
 #: gcc/templates/gcc/application/validation.html:14
 msgid ""
 "You are missing some key information, you won't be able to validate your "
@@ -439,46 +439,51 @@ msgstr "Candidater"
 msgid "Edit application"
 msgstr "Modifier la candidature"
 
-#: gcc/templates/gcc/application/summary.html:105
+#: gcc/templates/gcc/application/summary.html:97
+#: gcc/templates/gcc/application/validation.html:20
+msgid "Validate application"
+msgstr "Enregistrer la candidature"
+
+#: gcc/templates/gcc/application/summary.html:112
 msgid "My informations"
 msgstr "Mes informations"
 
-#: gcc/templates/gcc/application/summary.html:120
+#: gcc/templates/gcc/application/summary.html:127
 #: gcc/templates/gcc/main-menu.html:27
 msgid "My applications"
 msgstr "Mes candidatures"
 
-#: gcc/templates/gcc/application/summary.html:131
+#: gcc/templates/gcc/application/summary.html:138
 msgid "Confirm my venue"
 msgstr "Confirmer ma participation"
 
-#: gcc/templates/gcc/application/summary.html:139
+#: gcc/templates/gcc/application/summary.html:146
 msgid "Status"
 msgstr "Status"
 
-#: gcc/templates/gcc/application/summary.html:143
+#: gcc/templates/gcc/application/summary.html:150
 msgid "Please validate your applications."
 msgstr "Merci de valider votre candidature."
 
-#: gcc/templates/gcc/application/summary.html:145
+#: gcc/templates/gcc/application/summary.html:152
 msgid "Subscriptions are not opened yet for this year."
 msgstr "Les inscriptions ne sont pas encore ouvertes pour cette année."
 
-#: gcc/templates/gcc/application/summary.html:148
+#: gcc/templates/gcc/application/summary.html:155
 msgid "You will soon receive your assignation."
 msgstr "Nous vous assignerons bientôt à un centre."
 
-#: gcc/templates/gcc/application/summary.html:150
+#: gcc/templates/gcc/application/summary.html:157
 msgid "You have been assigned to an event, please confirm your venue."
 msgstr ""
 "Vous avez été assignée à un évènement, veuillez confirmer votre "
 "participation."
 
-#: gcc/templates/gcc/application/summary.html:152
+#: gcc/templates/gcc/application/summary.html:159
 msgid "Your venue has been confirmed!"
 msgstr "Votre participation a été confirmée !"
 
-#: gcc/templates/gcc/application/summary.html:154
+#: gcc/templates/gcc/application/summary.html:161
 msgid "Please wait while we review and update your application!"
 msgstr ""
 "Veuillez attendre que nous mettions à jours votre candidature, un email vous "
@@ -495,10 +500,6 @@ msgid ""
 msgstr ""
 "Soyez prudente, après cela vous ne pourrez plus modifier vos réponses ni "
 "l'ordre de vos préférences."
-
-#: gcc/templates/gcc/application/validation.html:20
-msgid "Validate application"
-msgstr "Enregistrer la candidature"
 
 #: gcc/templates/gcc/application/wishes.html:15
 msgid "Choose my location wishes"
@@ -662,30 +663,34 @@ msgstr "Sponsors"
 msgid "Latest news"
 msgstr "Dernières news"
 
-#: gcc/templates/gcc/index.html:78
+#: gcc/templates/gcc/index.html:70 gcc/templates/gcc/index.html:108
+msgid "Browse all news"
+msgstr "Consulter toutes les actualités"
+
+#: gcc/templates/gcc/index.html:79
 #: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: gcc/templates/gcc/index.html:82
+#: gcc/templates/gcc/index.html:83
 #: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Afficher toutes les entrées de %(author)s"
 
-#: gcc/templates/gcc/index.html:84
+#: gcc/templates/gcc/index.html:85
 msgid "on"
 msgstr "le"
 
-#: gcc/templates/gcc/index.html:86
+#: gcc/templates/gcc/index.html:87
 msgid "Written on"
 msgstr "Écrit le"
 
-#: gcc/templates/gcc/index.html:107
+#: gcc/templates/gcc/index.html:110
 msgid "Get updated!"
 msgstr "Rester informé !"
 
-#: gcc/templates/gcc/index.html:109
+#: gcc/templates/gcc/index.html:112
 msgid ""
 "\n"
 "            Subscribe to the newsletter to get updated with the latest "
@@ -695,19 +700,19 @@ msgstr ""
 "\n"
 "S'inscrire à la newsletter pour être informé des nouveautés."
 
-#: gcc/templates/gcc/index.html:119
+#: gcc/templates/gcc/index.html:122
 msgid "Subscribe"
 msgstr "S'inscrire"
 
-#: gcc/templates/gcc/index.html:125
+#: gcc/templates/gcc/index.html:128
 msgid "History behind Girls Can Code!"
 msgstr "Petit historique de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:131
+#: gcc/templates/gcc/index.html:134
 msgid "Parity in IT"
 msgstr "Parité en informatique"
 
-#: gcc/templates/gcc/index.html:133
+#: gcc/templates/gcc/index.html:136
 msgid ""
 "\n"
 "                    Girls Can Code! was created to promote girls to take a "
@@ -718,16 +723,16 @@ msgstr ""
 "Girls Can Code! a été créé dans le but d'encourager des filles à s'essayer à "
 "l'informatique malgré le manque de femmes et les stéréotypes dans le domaine."
 
-#: gcc/templates/gcc/index.html:137 gcc/templates/gcc/index.html:150
-#: gcc/templates/gcc/index.html:162
+#: gcc/templates/gcc/index.html:140 gcc/templates/gcc/index.html:153
+#: gcc/templates/gcc/index.html:165
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: gcc/templates/gcc/index.html:144
+#: gcc/templates/gcc/index.html:147
 msgid "Girls Can Code past editions!"
 msgstr "Les dernières éditions de Girls Can Code!"
 
-#: gcc/templates/gcc/index.html:146
+#: gcc/templates/gcc/index.html:149
 msgid ""
 "\n"
 "                    The first ever Girls Can Code! edition was in 2014, "
@@ -738,11 +743,11 @@ msgstr ""
 "La toute première édition de Girls Can Code! a eu lieu en 2014, donc "
 "l'édition de 2019 sera la 6<sup>ème</sup>."
 
-#: gcc/templates/gcc/index.html:156
+#: gcc/templates/gcc/index.html:159
 msgid "Prologin, an association since in 1991"
 msgstr "Prologin, une association créée en 1991"
 
-#: gcc/templates/gcc/index.html:158
+#: gcc/templates/gcc/index.html:161
 msgid ""
 "\n"
 "                    The Prologin association organizes the national computer "
