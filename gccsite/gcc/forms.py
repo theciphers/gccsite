@@ -14,6 +14,7 @@ from prologin import utils
 from prologin.utils.multiforms import MultiForm
 from prologin.models import Gender
 
+
 class EmailForm(forms.Form):
     # See here for why 254 max
     # http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
@@ -46,7 +47,7 @@ def build_dynamic_form(form, user, edition):
                 # set basic fields parameters
                 basic_args = {
                     'label': question.question,
-                    'required': question.required,
+                    'required': question.always_required,
                     'help_text': question.comment,
                 }
                 field_id = self.question_field_name(question.pk)
@@ -80,7 +81,6 @@ def build_dynamic_form(form, user, edition):
                             for choice in question.meta['choices'].keys()
                         ], **basic_args)
 
-
         def save(self):
             """
             Saves all filled fields for the applicant defined by the user and
@@ -105,6 +105,7 @@ def build_dynamic_form(form, user, edition):
                     answer.save()
 
     return DynamicForm
+
 
 class ApplicantUserForm(forms.ModelForm):
     class Meta:
@@ -179,6 +180,7 @@ class CombinedApplicantUserForm(MultiForm):
     def save(self):
         self.forms['user'].save()
         self.forms['editionform'].save()
+
 
 class ApplicationWishesForm(forms.Form):
     """Select the top three events a candidate wants to participate in."""

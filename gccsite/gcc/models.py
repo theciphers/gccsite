@@ -78,7 +78,9 @@ class Event(models.Model):
                                     null=True)
 
     def __str__(self):
-        return self.event_start.strftime('%Y-%m-%d') + ' - ' + self.event_start.strftime('%Y-%m-%d') + ' ' + str(self.center)
+        return (self.event_start.strftime('%Y-%m-%d') + ' - '
+                + self.event_start.strftime('%Y-%m-%d') + ' '
+                + str(self.center))
 
     def short_description(self):
         return '{name} – {start} to {end}'.format(
@@ -172,13 +174,20 @@ class Applicant(models.Model):
         return [event for event in self.assignation_event.all()]
 
     def has_complete_application(self):
-        # TODO: optimize requests and use a more relyable check than answers
-        # count: if a question is removed, answers to this questions could be
-        # counted
-        max_answers = Edition.current().signup_form.question_list.all().count()
-        return (self.user.has_complete_profile()
-                and self.answers.all().count() >= max_answers
-                and all(answer.is_valid() for answer in self.answers.all()))
+        # TODO: optimize requests
+        if not self.user.has_complete_profile():
+            return False
+
+        questions = Edition.current().signup_form.question_list.all()
+        for question in questions:
+            try:
+                answer = Answer.objects.get(applicant=self, question=question)
+                if not answer.is_valid():
+                    return False
+            except Answer.DoesNotExist:
+                return question.finaly_required
+
+        return True
 
     def validate_current_wishes(self):
         for wish in self.eventwish_set.all():
@@ -285,8 +294,14 @@ class Question(models.Model):
     comment = models.TextField(blank=True)
     # How to represent the answer
     response_type = EnumField(AnswerTypes)
-    # Wether the answer is mandatory or not
-    required = models.BooleanField(default=False)
+
+    # If set to true, the applicant will need to fill this field in order to
+    # save his application.
+    always_required = models.BooleanField(default=False)
+    # If set to true, the applicant will need to fill this field in order to
+    # validate his application.
+    finaly_required = models.BooleanField(default=True)
+
     # Some extra constraints on the answer
     meta = JSONField(encoder=DjangoJSONEncoder, default=dict, null=True)
 
@@ -315,8 +330,8 @@ class Answer(models.Model):
         Check if an answer is valid, a checkbox with required beeing true must
         be checked, and other kind of fields must necessary be filled.
         '''
-        if self.question.response_type == AnswerTypes.boolean.value:
-            return not self.question.required or self.response
+        if not self.question.finaly_required:
+            return True
 
         return bool(self.response)
 
