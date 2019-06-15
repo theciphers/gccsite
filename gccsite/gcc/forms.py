@@ -46,7 +46,7 @@ def build_dynamic_form(form, user, edition):
             for question in self.questions:
                 # set basic fields parameters
                 basic_args = {
-                    'label': question.question,
+                    'label': str(question),
                     'required': question.always_required,
                     'help_text': question.comment,
                 }

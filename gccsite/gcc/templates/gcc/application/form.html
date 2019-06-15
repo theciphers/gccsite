@@ -24,12 +24,18 @@
     </form>
     <section class="application_form">
         <p>
-            {% url 'gcc:privacy' as url_privacy %}
-            {% blocktrans with url=url_privacy %}
-            The GCC! summer camps are managed by the Prologin association, acting as Data Controller. Answers collected by this form allow us to prepare the summer camps: content customization, dietary constraints, etc.<br>
-            To learn more about your data management and your rights, please <a href="{{url}}">see our dedicated page</a>.
-            {% endblocktrans %}
+          {% url 'gcc:privacy' as url_privacy %}
+          {% blocktrans with url=url_privacy %} The GCC! summer camps are
+          managed by the Prologin association, acting as Data Controller.
+          Answers collected by this form allow us to prepare the summer camps:
+          content customization, dietary constraints, etc.<br>
+          To learn more about your data management and your rights, please
+          <a href="{{url}}">see our dedicated page</a>. {% endblocktrans %}
         </p>
+    </section>
+    <section>
+      {% blocktrans %} (*) This field will be required to validate your
+      application. {% endblocktrans%}
     </section>
 </div>
 </section>

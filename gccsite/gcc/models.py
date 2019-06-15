@@ -306,7 +306,12 @@ class Question(models.Model):
     meta = JSONField(encoder=DjangoJSONEncoder, default=dict, null=True)
 
     def __str__(self):
-        return self.question
+        ret = self.question
+
+        if self.finaly_required:
+            ret += ' (*)'
+
+        return ret
 
 
 class QuestionForForm(SortableMixin):

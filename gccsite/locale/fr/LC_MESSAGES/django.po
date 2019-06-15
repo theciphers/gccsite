@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 19:56+0200\n"
+"POT-Creation-Date: 2019-06-15 16:28+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -93,15 +93,15 @@ msgstr "Sélection"
 msgid "Active"
 msgstr "Actif"
 
-#: gcc/forms.py:20 users/templates/users/profile.html:56
+#: gcc/forms.py:21 users/templates/users/profile.html:56
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: gcc/forms.py:122
+#: gcc/forms.py:123
 msgid "How do you identify?"
-msgstr "Comment identifiez-vous ?"
+msgstr "Comment t'identifies-tu ?"
 
-#: gcc/forms.py:124
+#: gcc/forms.py:125
 msgid ""
 "You have to identify as a girl/woman to apply to the Girls Can Code! summer "
 "camps."
@@ -109,19 +109,19 @@ msgstr ""
 "Vous devez vous identifier comme une fille/femme pour vous inscrire à un "
 "stage Girls Can Code!."
 
-#: gcc/forms.py:128
+#: gcc/forms.py:129
 msgid "<em>I identify as girl/woman.</em>"
 msgstr "<em>Je m'identifie comme une fille/femme.</em>"
 
-#: gcc/forms.py:130
+#: gcc/forms.py:131
 msgid "<em>I identify as boy/man.</em>"
 msgstr "<em>Je m'identifie comme un garçon/homme.</em>"
 
-#: gcc/forms.py:131 prologin/models.py:51 users/forms.py:40
+#: gcc/forms.py:132 prologin/models.py:51 users/forms.py:40
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
-#: gcc/forms.py:136
+#: gcc/forms.py:137
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the summer camps."
@@ -130,7 +130,7 @@ msgstr ""
 "légales, car l'association engage sa responsabilité pour vous encadrer lors "
 "des stages."
 
-#: gcc/forms.py:140
+#: gcc/forms.py:141
 msgid ""
 "We will send the invitation to the summer camps at this address, so make "
 "sure it's valid."
@@ -138,12 +138,12 @@ msgstr ""
 "Nous enverrons la convocation aux stages à cette adresse, assurez-vous "
 "qu'elle soit correcte."
 
-#: gcc/forms.py:142
+#: gcc/forms.py:143
 #, python-format
 msgid "Format: %(format)s"
 msgstr "Format&nbsp;: %(format)s"
 
-#: gcc/forms.py:149
+#: gcc/forms.py:150
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a href="
@@ -152,25 +152,25 @@ msgstr ""
 "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a "
 "href=\"%(url)s\">page de profil</a>."
 
-#: gcc/forms.py:153
+#: gcc/forms.py:154
 msgid "Optional."
 msgstr "Optionnel."
 
-#: gcc/forms.py:159
+#: gcc/forms.py:160
 msgid "You cannot participate if you don't identify as a girl/woman."
 msgstr ""
 "Vous ne pouvez pas participer si vous ne vous identifiez pas comme une fille/"
 "femme."
 
-#: gcc/forms.py:186
+#: gcc/forms.py:188
 msgid "1st choice"
 msgstr "Premier choix"
 
-#: gcc/forms.py:187
+#: gcc/forms.py:189
 msgid "2nd choice"
 msgstr "Deuxième choix"
 
-#: gcc/forms.py:188
+#: gcc/forms.py:190
 msgid "3rd choice"
 msgstr "Troisième choix"
 
@@ -262,22 +262,26 @@ msgstr "Valider et classer mes choix"
 #: gcc/templates/gcc/application/form.html:28
 #, python-format
 msgid ""
-"\n"
-"            The GCC! summer camps are managed by the Prologin association, "
-"acting as Data Controller. Answers collected by this form allow us to "
-"prepare the summer camps: content customization, dietary constraints, etc."
-"<br>\n"
-"            To learn more about your data management and your rights, please "
-"<a href=\"%(url)s\">see our dedicated page</a>.\n"
-"            "
+" The GCC! summer camps are\n"
+"          managed by the Prologin association, acting as Data Controller.\n"
+"          Answers collected by this form allow us to prepare the summer "
+"camps:\n"
+"          content customization, dietary constraints, etc.<br>\n"
+"          To learn more about your data management and your rights, please\n"
+"          <a href=\"%(url)s\">see our dedicated page</a>. "
 msgstr ""
-"\n"
 "Les stages GCC! sont gérés par l'association Prologin, qui agit comme "
 "Responsable de traitement. Les réponses collectées ici nous permettent "
 "d'organiser les stages : adaptation du contenu pédagogique, prise en compte "
 "des contraintes alimentaires, etc.<br>\n"
 "Pour en savoir plus sur la gestion de tes données et tes droits, <a href="
-"\"%(url)s\">consulte notre page dédiée</a>."
+"\"%(url)s\">consultes notre page dédiée</a>."
+
+#: gcc/templates/gcc/application/form.html:37
+msgid ""
+" (*) This field will be required to validate your\n"
+"      application. "
+msgstr "(*) Ce champ est requis pour pouvoir valider ta candidature."
 
 #: gcc/templates/gcc/application/review.html:5
 msgid "Applications"
