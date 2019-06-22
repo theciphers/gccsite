@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-15 16:28+0200\n"
+"POT-Creation-Date: 2019-06-22 13:25+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -174,19 +174,19 @@ msgstr "Deuxième choix"
 msgid "3rd choice"
 msgstr "Troisième choix"
 
-#: gcc/staff_views.py:174 gcc/staff_views.py:203
+#: gcc/staff_views.py:186 gcc/staff_views.py:215
 msgid "applicant does not exist"
 msgstr "le candidat n'existe pas"
 
-#: gcc/staff_views.py:177 gcc/staff_views.py:206
+#: gcc/staff_views.py:189 gcc/staff_views.py:218
 msgid "label does not exist"
 msgstr "le label n'existe pas"
 
-#: gcc/staff_views.py:181 gcc/staff_views.py:210 gcc/staff_views.py:236
+#: gcc/staff_views.py:193 gcc/staff_views.py:222 gcc/staff_views.py:248
 msgid "not allowed"
 msgstr "non autorisé"
 
-#: gcc/staff_views.py:232
+#: gcc/staff_views.py:244
 msgid "wish does not exist"
 msgstr "le vœux n’existe pas"
 
@@ -283,11 +283,11 @@ msgid ""
 "      application. "
 msgstr "(*) Ce champ est requis pour pouvoir valider ta candidature."
 
-#: gcc/templates/gcc/application/review.html:5
+#: gcc/templates/gcc/application/review.html:6
 msgid "Applications"
 msgstr "Candidatures"
 
-#: gcc/templates/gcc/application/review.html:14
+#: gcc/templates/gcc/application/review.html:15
 #, python-format
 msgid ""
 "\n"
@@ -297,7 +297,7 @@ msgstr ""
 "\n"
 "Candidates pour %(event)s (édition %(edition)s)"
 
-#: gcc/templates/gcc/application/review.html:21
+#: gcc/templates/gcc/application/review.html:22
 #, python-format
 msgid ""
 "\n"
@@ -310,7 +310,7 @@ msgstr ""
 "Accepter <span class=\"acceptables-counter\">%(nb_acceptables)s</span> "
 "candidate%(plural)s"
 
-#: gcc/templates/gcc/application/review.html:31
+#: gcc/templates/gcc/application/review.html:32
 msgid ""
 "↓↑ to browse among applicants, &lt;escape&gt; to\n"
 "          close all expanded applications."
@@ -318,59 +318,70 @@ msgstr ""
 "↓↑ pour parcourir les candidates, &lt;escape&gt; pour fermer toutes les "
 "candidatures ouvertes."
 
-#: gcc/templates/gcc/application/review.html:72
+#: gcc/templates/gcc/application/review.html:50
+#, python-format
+msgid ""
+"Candidates with event\n"
+"                as %(order)s choice "
+msgstr "Candidates ayant cet évènement en %(order)s choix"
+
+#: gcc/templates/gcc/application/review.html:62
+msgid "None"
+msgstr "Aucune"
+
+#: gcc/templates/gcc/application/review.html:78
 msgid "Profile of"
 msgstr "Profil de"
 
-#: gcc/templates/gcc/application/review.html:74
+#: gcc/templates/gcc/application/review.html:80
 msgid "login/nickname"
 msgstr "identifiant/pseudonyme"
 
-#: gcc/templates/gcc/application/review.html:76
+#: gcc/templates/gcc/application/review.html:82
 msgid "email"
 msgstr "E-mail"
 
-#: gcc/templates/gcc/application/review.html:78
+#: gcc/templates/gcc/application/review.html:84
 msgid "birthday"
 msgstr "anniversaire"
 
-#: gcc/templates/gcc/application/review.html:80
+#: gcc/templates/gcc/application/review.html:86
 msgid "participations"
 msgstr "participations"
 
-#: gcc/templates/gcc/application/review.html:90
+#: gcc/templates/gcc/application/review.html:96
 msgid "incomplete"
 msgstr "incomplet"
 
-#: gcc/templates/gcc/application/review.html:91
+#: gcc/templates/gcc/application/review.html:97
 msgid "pending"
 msgstr "en attente"
 
-#: gcc/templates/gcc/application/review.html:92
+#: gcc/templates/gcc/application/review.html:98
 msgid "rejected"
 msgstr "rejetée"
 
-#: gcc/templates/gcc/application/review.html:93
+#: gcc/templates/gcc/application/review.html:99
 msgid "selected"
 msgstr "sélectionnée"
 
-#: gcc/templates/gcc/application/review.html:94
+#: gcc/templates/gcc/application/review.html:100
 msgid "accepted"
 msgstr "acceptée"
 
-#: gcc/templates/gcc/application/review.html:95
+#: gcc/templates/gcc/application/review.html:101
 msgid "confirmed"
 msgstr "confirmé"
 
-#: gcc/templates/gcc/application/review.html:100
+#: gcc/templates/gcc/application/review.html:106
 msgid "select"
 msgstr "sélectionner"
 
-#: gcc/templates/gcc/application/review.html:101
+#: gcc/templates/gcc/application/review.html:107
 msgid "reject"
 msgstr "rejeter"
 
-#: gcc/templates/gcc/application/review.html:102
+#: gcc/templates/gcc/application/review.html:108
 msgid "cancel"
 msgstr "annuler"
 

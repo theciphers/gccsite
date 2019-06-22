@@ -50,12 +50,24 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
             'eventwish_set__event', 'labels')
         acceptable_applicants = Applicant.acceptable_applicants_for(event)
 
+        # Group applicants by choice order
+        grouped_applicants = dict()
+
+        for applicant in applicants:
+            order = EventWish.objects.get(
+                applicant=applicant, event=event).order
+
+            if order not in grouped_applicants:
+                grouped_applicants[order] = []
+
+            grouped_applicants[order].append(applicant)
+
         # TODO: remove redundancy
         assert event.edition.year == kwargs['edition']
 
         context = super().get_context_data(**kwargs)
         context.update({
-            'applicants': applicants,
+            'grouped_applicants': sorted(grouped_applicants.items()),
             'event': event,
             'labels': ApplicantLabel.objects.all(),
             'nb_acceptables': len(acceptable_applicants)
