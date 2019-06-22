@@ -72,9 +72,9 @@
 
 .photos-view {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 5px -5px;
-
 }
 
 .photos-view img {
