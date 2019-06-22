@@ -62,12 +62,18 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
 
             grouped_applicants[order].append(applicant)
 
+        for group in grouped_applicants.values():
+            group.sort(key=lambda applicant: (applicant.user.last_name.upper(),
+                                              applicant.user.first_name.upper()))
+
+        grouped_applicants = sorted(grouped_applicants.items())
+
         # TODO: remove redundancy
         assert event.edition.year == kwargs['edition']
 
         context = super().get_context_data(**kwargs)
         context.update({
-            'grouped_applicants': sorted(grouped_applicants.items()),
+            'grouped_applicants': grouped_applicants,
             'event': event,
             'labels': ApplicantLabel.objects.all(),
             'nb_acceptables': len(acceptable_applicants)

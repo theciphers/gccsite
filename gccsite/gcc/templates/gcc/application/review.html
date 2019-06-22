@@ -54,8 +54,8 @@
             {% for applicant in applicants %}
               <tr class="applicant-head" id="applicant-{{applicant.pk}}">
                 <td>
-                  <span class="first-name">{{applicant.user.first_name}}</span>
                   <span class="last-name">{{applicant.user.last_name}}</span>
+                  <span class="first-name">{{applicant.user.first_name}}</span>
                 </td>
                 <td>
                   {% if applicant.user.participations_count == 0 %}
