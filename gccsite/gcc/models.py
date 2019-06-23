@@ -164,6 +164,17 @@ class Applicant(models.Model):
 
         return ApplicantStatusTypes.incomplete.value
 
+    def get_current_answers(self):
+        questions = Edition.current().signup_form.question_list.all()
+        answer_set = []
+        for question in questions:
+            try:
+                answer = Answer.objects.get(applicant=self, question=question)
+                answer_set.append((question, answer))
+            except Answer.DoesNotExist:
+                continue
+        return answer_set
+
     def get_status_display(self):
         return ApplicantStatusTypes(self.status).name
 

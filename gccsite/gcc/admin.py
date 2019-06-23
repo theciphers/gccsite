@@ -96,7 +96,7 @@ class ApplicationStatusFilter(admin.SimpleListFilter):
 
 
 @admin.register(models.Applicant)
-class ApplicationAdmin(admin.ModelAdmin):
+class ApplicationAdmin(admin.ModelAdmin, ExportCsvMixin):
     models.Applicant.get_status_display.short_description = _('status')
 
     search_fields = ['user__username', 'user__first_name', 'user__last_name',
@@ -109,6 +109,9 @@ class ApplicationAdmin(admin.ModelAdmin):
                  (_('Review'), {'fields': ['labels']})]
     inlines = (EventWishesInline, AnswersInline)
 
+    export_fields = ['user__username', 'user__first_name', 'user__last_name',
+                     'user__email', 'get_current_answers()', 'labels', ]
+    actions = ["export_as_csv"]
 
 # -- Event
 
