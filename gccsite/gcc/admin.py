@@ -1,4 +1,7 @@
+import csv
+
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
+from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +10,42 @@ import gcc.models as models
 
 
 admin.site.register([models.ApplicantLabel, models.Edition])
+
+# -- Mixins
+
+"""
+Snippet from https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
+
+Exports data into CSV, useful for giving data back to users and exploiting big amount of datas in dedicated softs
+"""
+class ExportCsvMixin:
+    def export_as_csv(self, request, queryset):
+
+        meta = self.model._meta
+        field_names = [field for field in self.export_fields]
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            current_row = []
+            for field in field_names:
+                separations = field.split('__')
+                current_object = obj
+                for attribute in separations:
+                    if attribute[-2:] == '()':
+                        current_object = getattr(current_object, attribute[:-2])()
+                    else:
+                        current_object = getattr(current_object, attribute)
+
+                current_row.append(current_object)
+            row = writer.writerow(current_row)
+
+        return response
+
+    export_as_csv.short_description = "Export selected as csv"
 
 
 # -- Forms
