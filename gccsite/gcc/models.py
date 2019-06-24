@@ -169,7 +169,9 @@ class Applicant(models.Model):
         """
             Return the names of the exported data
         """
-        export_fields = ["Username", "First Name", "Last Name", "Email"]
+        export_fields = [
+            "Username", "First Name", "Last Name", "Email", "Edition"
+        ]
         questions = Edition.current().signup_form.question_list.all()
         for question in questions:
             export_fields.append(str(question))
@@ -181,21 +183,24 @@ class Applicant(models.Model):
             Return an array of data to be converted to csv
         """
 
-        export_datas = [
-            self.user.username,
-            self.user.first_name,
-            self.user.last_name,
-            self.user.email,
-        ]
+        export_datas = {
+            "Username" : self.user.username,
+            "First name" : self.user.first_name,
+            "Last name" : self.user.last_name,
+            "Email" : self.user.email,
+            "Edition" : str(self.edition),
+            "Labels" : str(self.labels)
+        }
 
-        questions = Edition.current().signup_form.question_list.all()
-        answer_set = []
+        questions = self.edition.signup_form.question_list.all()
+        
         for question in questions:
             try:
                 answer = Answer.objects.get(applicant=self, question=question)
-                export_datas.append(str(answer))
+                export_datas[str(question)] = str(answer)
             except Answer.DoesNotExist:
-                export_datas.append("(empty)")
+                export_datas[str(question)] = "(empty)"
+    
         return export_datas
 
     def get_status_display(self):
