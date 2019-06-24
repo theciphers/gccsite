@@ -27,6 +27,9 @@ class ExportCsvMixin:
         mod = self.model
         meta = mod._meta
         fieldnames = []
+
+        all_keys = set()
+
         datas = []
 
         # check all the cols names and perform SQL queries
@@ -34,8 +37,9 @@ class ExportCsvMixin:
             data = obj.get_export_data()
             datas.append(data)
             for key in data:
-                if key not in fieldnames:
+                if key not in all_keys:
                     fieldnames.append(key)
+                    all_keys.add(key)
 
         # create the response
         response = HttpResponse(content_type='text/csv')
