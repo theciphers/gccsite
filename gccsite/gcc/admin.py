@@ -16,7 +16,7 @@ admin.site.register([models.ApplicantLabel, models.Edition])
 """
 Snippet from https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
 
-Exports data into CSV, useful for giving data back to users and exploiting big 
+Exports data into CSV, useful for giving data back to users and exploiting big
 amount of datas in dedicated softs
 
 The model must implement get_export_data methods
@@ -26,7 +26,7 @@ class ExportCsvMixin:
 
         mod = self.model
         meta = mod._meta
-        fieldnames = set()
+        fieldnames = []
         datas = []
 
         # check all the cols names and perform SQL queries
@@ -34,7 +34,8 @@ class ExportCsvMixin:
             data = obj.get_export_data()
             datas.append(data)
             for key in data:
-                fieldnames.add(key)
+                if key not in fieldnames:
+                    fieldnames.append(key)
 
         # create the response
         response = HttpResponse(content_type='text/csv')

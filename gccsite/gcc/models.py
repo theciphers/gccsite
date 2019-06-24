@@ -1,5 +1,6 @@
 import hashlib
 import os
+from collections import OrderedDict
 from datetime import date
 
 from django.conf import settings
@@ -183,24 +184,23 @@ class Applicant(models.Model):
             Return an array of data to be converted to csv
         """
 
-        export_datas = {
-            "Username" : self.user.username,
-            "First name" : self.user.first_name,
-            "Last name" : self.user.last_name,
-            "Email" : self.user.email,
-            "Edition" : str(self.edition),
-            "Labels" : str(self.labels)
-        }
+        export_datas = OrderedDict()
+        export_datas["Username"] = self.user.username
+        export_datas["First name"] = self.user.first_name
+        export_datas["Last name"] = self.user.last_name
+        export_datas["Email"] = self.user.email
+        export_datas["Edition"] = str(self.edition)
+        export_datas["Labels"] = str(self.labels)
 
         questions = self.edition.signup_form.question_list.all()
-        
+
         for question in questions:
             try:
                 answer = Answer.objects.get(applicant=self, question=question)
                 export_datas[str(question)] = str(answer)
             except Answer.DoesNotExist:
                 export_datas[str(question)] = "(empty)"
-    
+
         return export_datas
 
     def get_status_display(self):
