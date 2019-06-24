@@ -16,13 +16,18 @@ admin.site.register([models.ApplicantLabel, models.Edition])
 """
 Snippet from https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
 
-Exports data into CSV, useful for giving data back to users and exploiting big amount of datas in dedicated softs
+Exports data into CSV, useful for giving data back to users and exploiting big 
+amount of datas in dedicated softs
+
+The model must implement get_export_titles and get_export_data methods
 """
 class ExportCsvMixin:
     def export_as_csv(self, request, queryset):
 
-        meta = self.model._meta
-        field_names = [field for field in self.export_fields]
+        mod = self.model
+        meta = mod._meta
+        field_names = mod.get_export_fields()
+
 
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
@@ -30,18 +35,8 @@ class ExportCsvMixin:
 
         writer.writerow(field_names)
         for obj in queryset:
-            current_row = []
-            for field in field_names:
-                separations = field.split('__')
-                current_object = obj
-                for attribute in separations:
-                    if attribute[-2:] == '()':
-                        current_object = getattr(current_object, attribute[:-2])()
-                    else:
-                        current_object = getattr(current_object, attribute)
-
-                current_row.append(current_object)
-            row = writer.writerow(current_row)
+            row = obj.get_export_data()
+            row = writer.writerow(row)
 
         return response
 
@@ -109,8 +104,6 @@ class ApplicationAdmin(admin.ModelAdmin, ExportCsvMixin):
                  (_('Review'), {'fields': ['labels']})]
     inlines = (EventWishesInline, AnswersInline)
 
-    export_fields = ['user__username', 'user__first_name', 'user__last_name',
-                     'user__email', 'get_current_answers()', 'labels', ]
     actions = ["export_as_csv"]
 
 # -- Event

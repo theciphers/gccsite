@@ -164,16 +164,39 @@ class Applicant(models.Model):
 
         return ApplicantStatusTypes.incomplete.value
 
-    def get_current_answers(self):
+    @staticmethod
+    def get_export_fields():
+        """
+            Return the names of the exported data
+        """
+        export_fields = ["Username", "First Name", "Last Name", "Email"]
+        questions = Edition.current().signup_form.question_list.all()
+        for question in questions:
+            export_fields.append(str(question))
+        export_fields.append("labels")
+        return export_fields
+
+    def get_export_data(self):
+        """
+            Return an array of data to be converted to csv
+        """
+
+        export_datas = [
+            self.user.username,
+            self.user.first_name,
+            self.user.last_name,
+            self.user.email,
+        ]
+
         questions = Edition.current().signup_form.question_list.all()
         answer_set = []
         for question in questions:
             try:
                 answer = Answer.objects.get(applicant=self, question=question)
-                answer_set.append((question, answer))
+                export_datas.append(str(answer))
             except Answer.DoesNotExist:
-                continue
-        return answer_set
+                export_datas.append("(empty)")
+        return export_datas
 
     def get_status_display(self):
         return ApplicantStatusTypes(self.status).name
