@@ -99,7 +99,7 @@ class ApplicationStatusFilter(admin.SimpleListFilter):
             return queryset.filter(
                 Q(eventwish__status=0) | Q(eventwish=None)).distinct()
 
-        return queryset.filter(eventwish__status=0)
+        return queryset.filter(eventwish__status=self.value())
 
 
 @admin.register(models.Applicant)
