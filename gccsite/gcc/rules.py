@@ -14,8 +14,7 @@ def can_edit_application_labels(user, applicant):
 
 @rules.predicate
 def can_accept_wish(user, wish):
-    return Corrector.objects.filter(
-        corrector__user=user, applicant=wish.applicant).exist()
+    return can_review_event(user, wish.event)
 
 @rules.predicate
 def can_review_event(user, event):
