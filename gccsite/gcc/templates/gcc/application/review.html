@@ -99,7 +99,7 @@
                             <span status="4" class="badge badge-warning" {% if wish.status != 4 %}style="display: none;"{% endif %}>{% trans 'accepted' %}</span>
                             <span status="5" class="badge badge-success" {% if wish.status != 5 %}style="display: none;"{% endif %}>{% trans 'confirmed' %}</span>
 
-                            {% has_perm 'gcc:can_accept_wish' request.user wish as can_accept %}
+                            {% has_perm 'gcc:can_accept_wish' request.user wish.event as can_accept %}
                             {% if can_accept %}
                               <span class="wish-actions">
                                 <span class="update-wish" new-status="3" for-wish="{{wish.pk}}" {% if wish.status != 1 %}style="display: none;"{% endif %}>{% trans 'select' %}</span>
