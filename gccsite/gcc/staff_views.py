@@ -114,6 +114,9 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
         return reverse('gcc:application_review', kwargs={'edition': event.edition,
                                                          'event': event.pk})
 
+    def get_permission_object(self):
+        return get_object_or_404(Event, pk=self.kwargs['event'])
+
     def get(self, request, *args, **kwargs):
         event = get_object_or_404(Event, pk=kwargs['event'])
         acceptables = Applicant.acceptable_applicants_for(event)
