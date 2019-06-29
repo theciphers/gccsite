@@ -165,20 +165,6 @@ class Applicant(models.Model):
 
         return ApplicantStatusTypes.incomplete.value
 
-    @staticmethod
-    def get_export_fields():
-        """
-            Return the names of the exported data
-        """
-        export_fields = [
-            "Username", "First Name", "Last Name", "Email", "Edition"
-        ]
-        questions = Edition.current().signup_form.question_list.all()
-        for question in questions:
-            export_fields.append(str(question))
-        export_fields.append("labels")
-        return export_fields
-
     def get_export_data(self):
         """
             Return an array of data to be converted to csv
