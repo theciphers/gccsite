@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView, View
 from prologin.email import send_email
+from django.utils.text import slugify
 
 
 from gcc.models import (Answer, Applicant, ApplicantLabel, ApplicantStatusTypes,
@@ -128,16 +129,21 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
             try:
                 def catch_attachment(path):
                     return open(staticfiles_storage.path(path), 'rb').read()
+                    
+                event_center = str(event.center)
+                event_date = event.event_start.strftime('%Y-%m-%d')
+
+                event_name = slugify(event_center + '-' + event_date)
 
                 attachments = (
                     ('autorisation-participation.pdf', catch_attachment(
-                        'gcc/attachments/autorisation-participation.pdf'), 'application/pdf'),
+                        'gcc/attachments/autorisation-participation-' + event_name + '.pdf'), 'application/pdf'),
                     ('planning.pdf', catch_attachment(
-                        'gcc/attachments/planning.pdf'), 'application/pdf'),
+                        'gcc/attachments/planning-' + event_name + '.pdf'), 'application/pdf'),
                     ('droits-image.pdf',
-                     catch_attachment('gcc/attachments/droits-image.pdf'), 'application/pdf'),
+                     catch_attachment('gcc/attachments/droits-image-' + event_name + '.pdf'), 'application/pdf'),
                     ('fiche-sanitaire.pdf',
-                     catch_attachment('gcc/attachments/fiche-sanitaire.pdf'), 'application/pdf'),
+                     catch_attachment('gcc/attachments/fiche-sanitaire-' + event_name + '.pdf'), 'application/pdf'),
                 )
 
                 # TODO: CRITICAL: this is hardcoded pk of parent's email
