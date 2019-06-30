@@ -231,6 +231,26 @@ class Applicant(models.Model):
         return [wish.applicant for wish in acceptable_wishes]
 
     @staticmethod
+    def accepted_applicants_for(event):
+        """
+        List the applicants which are waiting to be accepted (ie. in the state
+        `selected`).
+        """
+        accepted_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.accepted.value)
+        return [wish.applicant for wish in accepted_wishes]
+
+    @staticmethod
+    def confirmed_applicants_for(event):
+        """
+        List the applicants which are waiting to be accepted (ie. in the state
+        `selected`).
+        """
+        confirmed_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.confirmed.value)
+        return [wish.applicant for wish in confirmed_wishes]
+
+    @staticmethod
     def for_user_and_edition(user, edition):
         """
         Get applicant object corresponding to an user for given edition. If no

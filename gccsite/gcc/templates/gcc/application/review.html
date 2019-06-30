@@ -28,6 +28,12 @@
         </a>
       </p>
 
+      <h4>
+          {% blocktrans with nb_confirmed|pluralize as plural_confirmed and nb_accepted|pluralize as plural_accepted and nb_confirmed as nb_confirmed and nb_accepted as nb_accepted %}
+          {{nb_confirmed}} participant{{plural_confirmed}} confirmed and {{nb_accepted}} participant{{plural_accepted}} did not confirm yet.
+          {% endblocktrans %}
+      </h4>
+
       <p>
         <small>
           {% blocktrans %}↓↑ to browse among applicants, &lt;escape&gt; to

@@ -79,6 +79,10 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
             'labels': ApplicantLabel.objects.all(),
             'nb_acceptables': len(acceptable_applicants)
         })
+
+        context['nb_accepted'] = len(Applicant.accepted_applicants_for(event))
+        context['nb_confirmed'] = len(Applicant.confirmed_applicants_for(event))
+
         return context
 
 #      _                      _        _   _
