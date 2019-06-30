@@ -45,13 +45,13 @@ INSTALLED_APPS = (
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'djmail',
+    'proloauth_client',
     'rules.apps.AutodiscoverRulesConfig',
     'statictemplate',
     'tagging',
 
     # GCC apps
     'gccsite',
-    'oauth',
     'centers',
     'users',
     'gcc',
@@ -74,7 +74,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'oauth.middleware.RefreshTokenMiddleware',
+    'proloauth_client.middleware.RefreshTokenMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 )
 
@@ -165,7 +165,7 @@ AUTHENTICATION_BACKENDS = (
 )
 AUTH_USER_MODEL = 'users.GCCUser'
 
-LOGIN_URL = reverse_lazy('oauth:autologin')
+LOGIN_URL = reverse_lazy('proloauth_client:autologin')
 LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('gcc:index')
 

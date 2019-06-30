@@ -1,42 +1,26 @@
-# Django
-django<3
-# For ordered models (Form questions)
 django-admin-sortable
-# News / blog
 django-blog-zinnia
-markdown
-# Breadcrumbs
 django-bootstrap-breadcrumbs>=0.7.0
-# Bootstrap-formatted forms
 django-bootstrap-form>=3.1
-# Bootstrap-formatted forms (other lib) # TODO: find a single good lib
 django-bootstrap3
-# Bootstrap-formatted forms (with powerful layout capabilities)
-django-crispy-forms
-# Compatibility
 django-compat
-# Debug Toolbar
+django-crispy-forms
 django-debug-toolbar
-# NPM static finder
 django-npm
-# Generate static templates (for 5xx error pages served by nginx, mainly)
-# TODO: use pypi version when 3.0 is released
-git+https://github.com/ojii/django-statictemplate.git@feature/new_django
-# Model TimezoneField
+django-statictemplate
 django-timezone-field>=2.0rc1
-# Micro mail framework for plaintext/HTML mails
+django<3
 djmail>=0.10.0
-# Tool to query Geoip services for exam center geo-localization
 geopy
-# Postgres database connector
-psycopg2-binary>=2.5
-# HTTP queries
-requests
-# Generic rules/permissions
-rules==1.4
-# Transifex client for translation pull/push
-transifex-client
-# Typing module backport
-typing; python_version < '3.5'
-# Pillow for images
+markdown
 pillow
+psycopg2-binary>=2.5
+requests
+rules==1.4
+transifex-client
+typing; python_version < '3.5'
+
+#git+https://github.com/ojii/django-statictemplate.git@feature/new_django
+
+# From Prologin
+git+https://github.com/prologin/django-oauth

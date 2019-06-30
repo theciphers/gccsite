@@ -16,7 +16,9 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='users')),
 
     # Oauth
-    path('user/auth/', include('oauth.urls', namespace='oauth')),
+    path('user/auth/',
+         include('proloauth_client.urls',
+         namespace='proloauth_client')),
 
     # Built-in Django admin
     path('admin/', admin.site.urls),
