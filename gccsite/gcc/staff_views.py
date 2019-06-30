@@ -28,7 +28,7 @@ class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
         """
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.all().prefetch_related(
-            'center', 'edition').order_by('edition')
+            'center', 'edition').order_by('edition', 'event_start')
         return context
 
 
@@ -129,7 +129,7 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
             try:
                 def catch_attachment(path):
                     return open(staticfiles_storage.path(path), 'rb').read()
-                    
+
                 event_center = str(event.center)
                 event_date = event.event_start.strftime('%Y-%m-%d')
 

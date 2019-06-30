@@ -196,7 +196,7 @@ class ApplicationWishesForm(forms.Form):
         events = Event.objects.filter(
             signup_start__lt=date.today(),
             signup_end__gt=date.today(),
-            edition=edition)
+            edition=edition).order_by('event_start')
         events_selection = \
             [(None, '')] + [(event.pk, str(event)) for event in events]
 

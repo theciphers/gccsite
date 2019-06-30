@@ -61,11 +61,13 @@ class IndexView(FormView):
         articles = Entry.published.prefetch_related(
             'authors').all()[:settings.HOMEPAGE_ARTICLES]
         context.update({
-            'events': Event.objects.filter(event_end__gt=datetime.now()),
             'last_edition': Edition.objects.latest(),
             'sponsors': list(Sponsor.objects.active()),
             'articles': articles
         })
+        context['events'] = Event.objects.filter(
+            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
+            edition=context['last_edition']).order_by('event_start')
         random.shuffle(context['sponsors'])
         return context
 
@@ -82,9 +84,11 @@ class LearnMoreView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'events': Event.objects.filter(event_end__gt=datetime.now()),
             'last_edition': Edition.objects.latest(),
             'SITE_HOST': settings.SITE_HOST, })
+        context['events'] = Event.objects.filter(
+            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
+            edition=context['last_edition']).order_by('event_start')
         return context
 
 
@@ -289,7 +293,7 @@ class ApplicationWishesView(FormView):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(
             signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
-            edition=self.kwargs['edition'])
+            edition=self.kwargs['edition']).order_by('event_start')
         return context
 
     def form_valid(self, form):
