@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-22 13:25+0200\n"
+"POT-Creation-Date: 2019-06-30 18:56+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -81,15 +81,15 @@ msgstr "Montrer"
 msgid "Full map"
 msgstr "Plein format"
 
-#: gcc/admin.py:41 gcc/admin.py:61
+#: gcc/admin.py:87 gcc/admin.py:107
 msgid "status"
 msgstr "status"
 
-#: gcc/admin.py:70 gcc/templates/gcc/application/review_index.html:3
+#: gcc/admin.py:116 gcc/templates/gcc/application/review_index.html:3
 msgid "Review"
 msgstr "Sélection"
 
-#: gcc/admin.py:113
+#: gcc/admin.py:160
 msgid "Active"
 msgstr "Actif"
 
@@ -174,19 +174,19 @@ msgstr "Deuxième choix"
 msgid "3rd choice"
 msgstr "Troisième choix"
 
-#: gcc/staff_views.py:186 gcc/staff_views.py:215
+#: gcc/staff_views.py:201 gcc/staff_views.py:230
 msgid "applicant does not exist"
 msgstr "le candidat n'existe pas"
 
-#: gcc/staff_views.py:189 gcc/staff_views.py:218
+#: gcc/staff_views.py:204 gcc/staff_views.py:233
 msgid "label does not exist"
 msgstr "le label n'existe pas"
 
-#: gcc/staff_views.py:193 gcc/staff_views.py:222 gcc/staff_views.py:248
+#: gcc/staff_views.py:208 gcc/staff_views.py:237 gcc/staff_views.py:263
 msgid "not allowed"
 msgstr "non autorisé"
 
-#: gcc/staff_views.py:244
+#: gcc/staff_views.py:259
 msgid "wish does not exist"
 msgstr "le vœux n’existe pas"
 
@@ -270,24 +270,24 @@ msgid ""
 "          To learn more about your data management and your rights, please\n"
 "          <a href=\"%(url)s\">see our dedicated page</a>. "
 msgstr ""
-"Les stages GCC! sont gérés par l'association Prologin, qui agit comme "
-"Responsable de traitement. Les réponses collectées ici nous permettent "
-"d'organiser les stages : adaptation du contenu pédagogique, prise en compte "
-"des contraintes alimentaires, etc.<br>\n"
-"Pour en savoir plus sur la gestion de tes données et tes droits, <a href="
-"\"%(url)s\">consultes notre page dédiée</a>."
+"Les stages GCC! sont organisés par l'association Prologin, qui agit en tant "
+"que contrôleur de données. Les réponses collectées dans ce formulaire nous "
+"permettent de préparer les stages: personnalisation du contenu, restrictions "
+"alimentaires, etc...<br>\n"
+"Pour en apprendre plus à propos de notre gestion des données et de vos "
+"droits, <a href=\"%(url)s\">consultez notre page dédiée</a>."
 
 #: gcc/templates/gcc/application/form.html:37
 msgid ""
 " (*) This field will be required to validate your\n"
 "      application. "
-msgstr "(*) Ce champ est requis pour pouvoir valider ta candidature."
+msgstr "(*) Ce champ est requis pour valider votre inscription."
 
-#: gcc/templates/gcc/application/review.html:6
+#: gcc/templates/gcc/application/review.html:7
 msgid "Applications"
 msgstr "Candidatures"
 
-#: gcc/templates/gcc/application/review.html:15
+#: gcc/templates/gcc/application/review.html:16
 #, python-format
 msgid ""
 "\n"
@@ -297,7 +297,7 @@ msgstr ""
 "\n"
 "Candidates pour %(event)s (édition %(edition)s)"
 
-#: gcc/templates/gcc/application/review.html:22
+#: gcc/templates/gcc/application/review.html:23
 #, python-format
 msgid ""
 "\n"
@@ -310,7 +310,7 @@ msgstr ""
 "Accepter <span class=\"acceptables-counter\">%(nb_acceptables)s</span> "
 "candidate%(plural)s"
 
-#: gcc/templates/gcc/application/review.html:32
+#: gcc/templates/gcc/application/review.html:33
 msgid ""
 "↓↑ to browse among applicants, &lt;escape&gt; to\n"
 "          close all expanded applications."
@@ -318,70 +318,70 @@ msgstr ""
 "↓↑ pour parcourir les candidates, &lt;escape&gt; pour fermer toutes les "
 "candidatures ouvertes."
 
-#: gcc/templates/gcc/application/review.html:50
+#: gcc/templates/gcc/application/review.html:51
 #, python-format
 msgid ""
 "Candidates with event\n"
 "                as %(order)s choice "
-msgstr "Candidates ayant cet évènement en %(order)s choix"
+msgstr "Les candidates ayant l'évènement en %(order)s choix"
 
-#: gcc/templates/gcc/application/review.html:62
+#: gcc/templates/gcc/application/review.html:63
 msgid "None"
-msgstr "Aucune"
+msgstr "Aucun"
 
-#: gcc/templates/gcc/application/review.html:78
+#: gcc/templates/gcc/application/review.html:79
 msgid "Profile of"
 msgstr "Profil de"
 
-#: gcc/templates/gcc/application/review.html:80
+#: gcc/templates/gcc/application/review.html:81
 msgid "login/nickname"
 msgstr "identifiant/pseudonyme"
 
-#: gcc/templates/gcc/application/review.html:82
+#: gcc/templates/gcc/application/review.html:83
 msgid "email"
 msgstr "E-mail"
 
-#: gcc/templates/gcc/application/review.html:84
+#: gcc/templates/gcc/application/review.html:85
 msgid "birthday"
 msgstr "anniversaire"
 
-#: gcc/templates/gcc/application/review.html:86
+#: gcc/templates/gcc/application/review.html:87
 msgid "participations"
 msgstr "participations"
 
-#: gcc/templates/gcc/application/review.html:96
+#: gcc/templates/gcc/application/review.html:97
 msgid "incomplete"
 msgstr "incomplet"
 
-#: gcc/templates/gcc/application/review.html:97
+#: gcc/templates/gcc/application/review.html:98
 msgid "pending"
 msgstr "en attente"
 
-#: gcc/templates/gcc/application/review.html:98
+#: gcc/templates/gcc/application/review.html:99
 msgid "rejected"
 msgstr "rejetée"
 
-#: gcc/templates/gcc/application/review.html:99
+#: gcc/templates/gcc/application/review.html:100
 msgid "selected"
 msgstr "sélectionnée"
 
-#: gcc/templates/gcc/application/review.html:100
+#: gcc/templates/gcc/application/review.html:101
 msgid "accepted"
 msgstr "acceptée"
 
-#: gcc/templates/gcc/application/review.html:101
+#: gcc/templates/gcc/application/review.html:102
 msgid "confirmed"
 msgstr "confirmé"
 
-#: gcc/templates/gcc/application/review.html:106
+#: gcc/templates/gcc/application/review.html:107
 msgid "select"
 msgstr "sélectionner"
 
-#: gcc/templates/gcc/application/review.html:107
+#: gcc/templates/gcc/application/review.html:108
 msgid "reject"
 msgstr "rejeter"
 
-#: gcc/templates/gcc/application/review.html:108
+#: gcc/templates/gcc/application/review.html:109
 msgid "cancel"
 msgstr "annuler"
 
@@ -446,7 +446,7 @@ msgstr ""
 
 #: gcc/templates/gcc/application/summary.html:72
 #: gcc/templates/gcc/editions.html:26 gcc/templates/gcc/main-footer.html:45
-#: gcc/templates/gcc/registration_widget.html:20
+#: gcc/templates/gcc/registration_widget.html:23
 msgid "Apply"
 msgstr "Candidater"
 
@@ -557,7 +557,7 @@ msgstr ""
 "Les inscriptions sont encore ouvertes pour cette édition."
 
 #: gcc/templates/gcc/editions.html:30
-#: gcc/templates/gcc/registration_widget.html:22
+#: gcc/templates/gcc/registration_widget.html:25
 msgid "Sign in and apply"
 msgstr "Me connecter et candidater"
 
@@ -1326,12 +1326,16 @@ msgstr ""
 "</section>\n"
 
 #: gcc/templates/gcc/registration_widget.html:5
-msgid "Up-comming summer camps"
-msgstr "Prochains stages"
+msgid "Summer camps open for registration"
+msgstr "Stages ayant leurs inscriptions ouvertes"
 
-#: gcc/templates/gcc/registration_widget.html:11
-msgid "the week of"
-msgstr "la semaine du"
+#: gcc/templates/gcc/registration_widget.html:12
+#, python-format
+msgid ""
+"\n"
+"              from the %(start)s to the %(end)s\n"
+"              "
+msgstr ""
 
 #: gcc/templates/gcc/resources.html:5
 msgid "Resources"
@@ -1488,27 +1492,27 @@ msgstr "Inscription réussie"
 msgid "Subscription failed: already subscribed"
 msgstr "L'inscription a échoué: vous êtes déjà inscrit"
 
-#: gcc/views.py:107
+#: gcc/views.py:111
 msgid "Successfully unsubscribed from newsletter."
 msgstr "Désinscription de la newsletter réussie."
 
-#: gcc/views.py:111
+#: gcc/views.py:115
 msgid "Failed to unsubscribe: wrong token."
 msgstr "La désinscription a échoué: mauvais token."
 
-#: gcc/views.py:115
+#: gcc/views.py:119
 msgid "Failed to unsubscribe: unregistered address"
 msgstr "La désinscription a échoué: adresse non enregistrée."
 
-#: gcc/views.py:183
+#: gcc/views.py:187
 msgid "Failed to validate your application, your profile is incomplete."
 msgstr "Impossible de valider votre inscription, votre profil est incomplet."
 
-#: gcc/views.py:188
+#: gcc/views.py:192
 msgid "Successfully validated your application."
 msgstr "Inscription validée avec succès."
 
-#: gcc/views.py:216
+#: gcc/views.py:220
 msgid ""
 "Your application has already been validated, if you really want to change "
 "something contact us by email."
@@ -1516,7 +1520,7 @@ msgstr ""
 "Votre inscription est déjà validée, veuillez nous contacter par mail si vous "
 "devez changer quelque-chose."
 
-#: gcc/views.py:317
+#: gcc/views.py:321
 msgid "Confirmation completed, thank you for your help!"
 msgstr "Candidature confirmée, merci de votre aide !"
 
