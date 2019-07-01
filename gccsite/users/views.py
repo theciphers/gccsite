@@ -52,8 +52,9 @@ class ProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
-        context['see_private'] = (self.request.user == shown_user or
-                                  self.request.user.is_staff)
+        context['see_private'] = (
+            self.request.user == shown_user or self.request.user.is_staff
+        )
         return context
 
     def get(self, request, *args, **kwargs):
@@ -88,6 +89,7 @@ class PasswordFormMixin:
     'instance' kwarg.  “Because fuck logic, that's why.”
         — Django
     """
+
     form_class = auth.forms.PasswordChangeForm
 
     def get_form_kwargs(self):

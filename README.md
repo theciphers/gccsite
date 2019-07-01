@@ -17,6 +17,7 @@ Table of Contents
 * [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Hacking on the website](#hacking-on-the-website)
+* [Contributing](#Contributing)
 * [Troubleshooting](#troubleshooting)
 
 Installation
@@ -135,6 +136,26 @@ Every time you need to work on the website:
     make runserver
     ```
 
+Contributing
+----------------------
+In order to contribute, please follow this guide
+
+ 1. Create a branch for the issue/functionnality you wish to implement
+ 2. Commit all your changes in the new branch and then create a Merge Request
+ 3. Format the code as follows
+
+#### Formatting
+
+All of the python codebase needs to be formatted using [black](https://github.com/python/black)
+by running `black .` at the root of the project before any commit.
+
+You can automate the process by installing the recommended pre-commit hooks:
+
+```bash
+pip install -r requirements-dev.txt
+pre-commit install
+```
+
 ### Translations
 
 The website user-facing strings are internationalized through Django's internal
@@ -157,20 +178,4 @@ make tx-pull tx-push
 make tx-pull
 # Commit
 git commit gccsite/locale -m 'locale: update for <feature>'
-```
-
-
-Contributing
-------------
-
-#### Formatting
-
-All of the python codebase needs to be formatted using [black](https://github.com/python/black)
-by running `black .` at the root of the project before any commit.
-
-You can automate the process by installing the recommended pre-commit hooks:
-
-```bash
-pip install -r requirements-dev.txt
-pre-commit install
 ```

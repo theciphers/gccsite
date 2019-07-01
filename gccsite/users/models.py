@@ -11,8 +11,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from gcc.models import Applicant, ApplicantStatusTypes
-from prologin.models import (AddressableModel, ChoiceEnum, EnumField,
-                             GenderField)
+from prologin.models import (
+    AddressableModel,
+    ChoiceEnum,
+    EnumField,
+    GenderField,
+)
 from timezone_field import TimeZoneField
 
 
@@ -48,37 +52,53 @@ class GCCUser(AbstractUser, AddressableModel):
     gender = GenderField(blank=True, null=True, db_index=True)
 
     school_stage = EnumField(
-        EducationStage, null=True, db_index=True, blank=True,
-        verbose_name=_("Educational stage"))
+        EducationStage,
+        null=True,
+        db_index=True,
+        blank=True,
+        verbose_name=_("Educational stage"),
+    )
 
     phone = models.CharField(
-        max_length=16, blank=True, verbose_name=_("Phone"))
+        max_length=16, blank=True, verbose_name=_("Phone")
+    )
 
     birthday = models.DateField(
-        blank=True, null=True, verbose_name=_("Birth day"))
+        blank=True, null=True, verbose_name=_("Birth day")
+    )
 
     allow_mailing = models.BooleanField(
-        default=True, blank=True, db_index=True,
+        default=True,
+        blank=True,
+        db_index=True,
         verbose_name=_("Allow Girls Can Code! to send me emails"),
-        help_text=_("We only mail you to provide useful information during the "
-                    "various stages of the contest. We hate spam as much as "
-                    "you do!"))
+        help_text=_(
+            "We only mail you to provide useful information during the "
+            "various stages of the contest. We hate spam as much as "
+            "you do!"
+        ),
+    )
 
     signature = models.TextField(blank=True, verbose_name=_("Signature"))
 
     timezone = TimeZoneField(
-        default=settings.TIME_ZONE,
-        verbose_name=_("Time zone"))
+        default=settings.TIME_ZONE, verbose_name=_("Time zone")
+    )
 
     preferred_locale = models.CharField(
-        max_length=8, blank=True, verbose_name=_("Locale"),
-        choices=settings.LANGUAGES)
+        max_length=8,
+        blank=True,
+        verbose_name=_("Locale"),
+        choices=settings.LANGUAGES,
+    )
 
     @cached_property
     def participations_count(self):
         applicants = Applicant.objects.filter(user=self)
-        return sum((applicant.status == ApplicantStatusTypes.confirmed.value)
-                   for applicant in applicants)
+        return sum(
+            (applicant.status == ApplicantStatusTypes.confirmed.value)
+            for applicant in applicants
+        )
 
     @property
     def unsubscribe_token(self):
@@ -93,15 +113,24 @@ class GCCUser(AbstractUser, AddressableModel):
         return all((self.address, self.city, self.country, self.postal_code))
 
     def has_complete_profile(self):
-        return self.has_complete_address() and all((self.first_name,
-                                                    self.last_name, self.email,
-                                                    self.gender, self.birthday,
-                                                    self.phone))
+        return self.has_complete_address() and all(
+            (
+                self.first_name,
+                self.last_name,
+                self.email,
+                self.gender,
+                self.birthday,
+                self.phone,
+            )
+        )
 
     def get_absolute_url(self):
         return reverse('users:profile', args=[self.pk])
 
     def get_unsubscribe_url(self):
-        return '{}{}?uid={}&token={}'.format(settings.SITE_BASE_URL,
-                                             reverse('users:unsubscribe'),
-                                             self.id, self.unsubscribe_token)
+        return '{}{}?uid={}&token={}'.format(
+            settings.SITE_BASE_URL,
+            reverse('users:unsubscribe'),
+            self.id,
+            self.unsubscribe_token,
+        )

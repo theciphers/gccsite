@@ -27,7 +27,9 @@ def absolute_site_url(request, absolute_path):
 
 def get_slug(name):
     name = unicodedata.normalize('NFKD', name.lower())
-    name = ''.join(x for x in name if x in string.ascii_letters + string.digits + ' _-')
+    name = ''.join(
+        x for x in name if x in string.ascii_letters + string.digits + ' _-'
+    )
     name = re.sub(r'[^a-z0-9\-]', '_', name)
     return name
 
@@ -102,7 +104,9 @@ class ChoiceEnum(enum.Enum):
         assert callable(func)
 
         def classbuilder(klass):
-            klass.label_for = classmethod(lambda cls, member: _(func(member.name)))
+            klass.label_for = classmethod(
+                lambda cls, member: _(func(member.name))
+            )
             return klass
 
         return classbuilder
@@ -123,7 +127,11 @@ class ChoiceEnum(enum.Enum):
 
         def classbuilder(klass):
             orig_get_choices = klass._get_choices
-            klass._get_choices = classmethod(lambda cls: sorted(orig_get_choices(), key=key, reverse=reverse))
+            klass._get_choices = classmethod(
+                lambda cls: sorted(
+                    orig_get_choices(), key=key, reverse=reverse
+                )
+            )
             return klass
 
         return classbuilder
@@ -176,8 +184,15 @@ def cached(func, cache_setting_name, **kwargs):
 def admin_url_for(model_admin, obj, method='change', label=lambda e: str(e)):
     if obj is None:
         return model_admin.get_empty_value_display()
-    return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
-                                                args=[obj.pk]), conditional_escape(label(obj)))
+    return '<a href="{}">{}</a>'.format(
+        reverse(
+            'admin:{}_{}_{}'.format(
+                obj._meta.app_label, obj._meta.model_name, method
+            ),
+            args=[obj.pk],
+        ),
+        conditional_escape(label(obj)),
+    )
 
 
 ENCODINGS = ('utf-8-sig', 'utf-8', 'latin1')
@@ -190,8 +205,11 @@ def read_try_hard(fileobj: File, *args, encodings=ENCODINGS):
             return data.decode(encoding)
         except UnicodeDecodeError:
             pass
-    raise ValueError("Could not find proper encoding (tried {}) for file: {}"
-                     .format(', '.join(ENCODINGS), fileobj))
+    raise ValueError(
+        "Could not find proper encoding (tried {}) for file: {}".format(
+            ', '.join(ENCODINGS), fileobj
+        )
+    )
 
 
 def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
@@ -208,8 +226,11 @@ def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
         except UnicodeDecodeError:
             pass
     else:
-        raise ValueError("Could not find proper encoding (tried {}) for file: {}"
-                         .format(', '.join(ENCODINGS), filename))
+        raise ValueError(
+            "Could not find proper encoding (tried {}) for file: {}".format(
+                ', '.join(ENCODINGS), filename
+            )
+        )
 
 
 def lazy_attr(prop_name, getter):
@@ -228,6 +249,7 @@ def lazy_attr(prop_name, getter):
     >> bar = Foo()
     Calling `bar.fake_property` is equivalent to a first call of `bar.getter()`.
     """
+
     def wrapped(self, *args, **kwargs):
         try:
             return getattr(self, prop_name)
@@ -235,6 +257,7 @@ def lazy_attr(prop_name, getter):
             data = getter(self, *args, **kwargs)
             setattr(self, prop_name, data)
             return data
+
     return property(wrapped)
 
 
@@ -242,26 +265,36 @@ def read_props(filename):
     def parse(value):
         value = value.strip()
         value_lower = value.lower()
-        if value.isnumeric() or (value.startswith('-') and value[1:].isnumeric()):
+        if value.isnumeric() or (
+            value.startswith('-') and value[1:].isnumeric()
+        ):
             return int(value)
         if value_lower in ('true', 'false'):
             return value_lower == 'true'
         return value
 
     def props(f):
-        return {k.strip().replace('_', '-'): parse(v)
-                for line in f if line.strip()
-                for k, v in [line.split(':', 1)]}
+        return {
+            k.strip().replace('_', '-'): parse(v)
+            for line in f
+            if line.strip()
+            for k, v in [line.split(':', 1)]
+        }
+
     return open_try_hard(props, filename)
 
 
 def translate_format(format_str):
-    rep = {"%Y": _("year")[0] * 4,
-           "%m": _("month")[0] * 2,
-           "%d": _("day")[0] * 2}
+    rep = {
+        "%Y": _("year")[0] * 4,
+        "%m": _("month")[0] * 2,
+        "%d": _("day")[0] * 2,
+    }
     # single-pass replacement
     rep = {re.escape(k): v for k, v in rep.items()}
-    return re.sub("|".join(rep.keys()), lambda m: rep[re.escape(m.group(0))], format_str)
+    return re.sub(
+        "|".join(rep.keys()), lambda m: rep[re.escape(m.group(0))], format_str
+    )
 
 
 @contextmanager
@@ -276,6 +309,7 @@ def save_random_state(seed=None):
 @contextmanager
 def override_locale(category, lang):
     import locale
+
     current = locale.getlocale(category)
     locale.setlocale(category, lang)
     yield
@@ -292,17 +326,48 @@ class SubprocessFailedException(Exception):
 
 class LazyDictMeta(type):
     def __call__(cls, *args, **kwargs):
-        for method_name in ('__contains__', '__delitem__', '__eq__', '__format__', '__ge__', '__getitem__', '__gt__',
-                            '__hash__', '__repr__', '__str__', '__iter__', '__le__', '__len__', '__lt__', '__ne__',
-                            '__reduce__', '__reduce_ex__', '__setitem__', '__sizeof__', 'clear', 'copy', 'fromkeys',
-                            'get', 'items', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values'):
+        for method_name in (
+            '__contains__',
+            '__delitem__',
+            '__eq__',
+            '__format__',
+            '__ge__',
+            '__getitem__',
+            '__gt__',
+            '__hash__',
+            '__repr__',
+            '__str__',
+            '__iter__',
+            '__le__',
+            '__len__',
+            '__lt__',
+            '__ne__',
+            '__reduce__',
+            '__reduce_ex__',
+            '__setitem__',
+            '__sizeof__',
+            'clear',
+            'copy',
+            'fromkeys',
+            'get',
+            'items',
+            'keys',
+            'pop',
+            'popitem',
+            'setdefault',
+            'update',
+            'values',
+        ):
+
             def wrap(name):
                 def wrapped(self, *args, **kwargs):
                     if not hasattr(self, '_proxy'):
                         self._proxy = self.__wakeup__()
                     method = getattr(self._proxy, name)
                     return method(*args, **kwargs)
+
                 return wrapped
+
             setattr(cls, method_name, wrap(method_name))
         return super().__call__(*args, **kwargs)
 

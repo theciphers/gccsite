@@ -14,4 +14,6 @@ class LegacyUrlRedirectView(SingleObjectMixin, RedirectView):
     permanent = True
 
     def get_redirect_url(self, *args, **kwargs):
-        return reverse('zinnia:entry_shortlink', args=[base36(self.get_object().pk)])
+        return reverse(
+            'zinnia:entry_shortlink', args=[base36(self.get_object().pk)]
+        )

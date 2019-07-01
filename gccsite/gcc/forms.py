@@ -10,8 +10,15 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
-from gcc.models import (Answer, AnswerTypes, Applicant, ApplicantStatusTypes,
-                        Event, EventWish, QuestionForForm)
+from gcc.models import (
+    Answer,
+    AnswerTypes,
+    Applicant,
+    ApplicantStatusTypes,
+    Event,
+    EventWish,
+    QuestionForForm,
+)
 
 from prologin import utils
 from prologin.utils.multiforms import MultiForm
@@ -28,7 +35,6 @@ def build_dynamic_form(form, user, edition):
     """Build a form with fields described in models.Question"""
 
     class DynamicForm(forms.Form):
-
         @staticmethod
         def question_field_name(question_id):
             return 'field_{}'.format(question_id)
@@ -44,7 +50,8 @@ def build_dynamic_form(form, user, edition):
             # to take the ordering into account
             self.questions = [
                 joined.question
-                for joined in QuestionForForm.objects.filter(form=form)]
+                for joined in QuestionForForm.objects.filter(form=form)
+            ]
 
             for question in self.questions:
                 # set basic fields parameters
@@ -60,7 +67,7 @@ def build_dynamic_form(form, user, edition):
                     answer = Answer.objects.get(
                         question=question,
                         applicant__user=user,
-                        applicant__edition=edition
+                        applicant__edition=edition,
                     )
                     basic_args['initial'] = answer.response
                 except Answer.DoesNotExist:
@@ -76,13 +83,16 @@ def build_dynamic_form(form, user, edition):
                     self.fields[field_id] = forms.CharField(**basic_args)
                 elif question.response_type == AnswerTypes.text.value:
                     self.fields[field_id] = forms.CharField(
-                        widget=forms.Textarea, **basic_args)
+                        widget=forms.Textarea, **basic_args
+                    )
                 elif question.response_type == AnswerTypes.multichoice.value:
                     self.fields[field_id] = forms.ChoiceField(
                         choices=[
                             (str(choice), question.meta['choices'][choice])
                             for choice in question.meta['choices'].keys()
-                        ], **basic_args)
+                        ],
+                        **basic_args,
+                    )
 
         def save(self):
             """
@@ -99,8 +109,9 @@ def build_dynamic_form(form, user, edition):
                     # Try to modify existing answer, create a new answer if it
                     # doesn't exist
                     try:
-                        answer = Answer.objects.get(applicant=applicant,
-                                                    question=question)
+                        answer = Answer.objects.get(
+                            applicant=applicant, question=question
+                        )
                     except Answer.DoesNotExist:
                         answer = Answer(applicant=applicant, question=question)
 
@@ -113,8 +124,18 @@ def build_dynamic_form(form, user, edition):
 class ApplicantUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'birthday', 'gender', 'address',
-                  'postal_code', 'city', 'country', 'phone', 'school_stage')
+        fields = (
+            'first_name',
+            'last_name',
+            'birthday',
+            'gender',
+            'address',
+            'postal_code',
+            'city',
+            'country',
+            'phone',
+            'school_stage',
+        )
         optional_fields = ('school_stage',)
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
@@ -124,14 +145,19 @@ class ApplicantUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['gender'].label = _('How do you identify?')
-        self.fields['gender'].help_text = \
-            _('You have to identify as a girl/woman to apply to the Girls Can '
-              'Code! summer camps.')
+        self.fields['gender'].help_text = _(
+            'You have to identify as a girl/woman to apply to the Girls Can '
+            'Code! summer camps.'
+        )
         self.fields['gender'].choices = [
-            (Gender.female.value,
-             mark_safe(_('<em>I identify as girl/woman.</em>'))),
-            (Gender.male.value,
-             mark_safe(_('<em>I identify as boy/man.</em>'))),
+            (
+                Gender.female.value,
+                mark_safe(_('<em>I identify as girl/woman.</em>')),
+            ),
+            (
+                Gender.male.value,
+                mark_safe(_('<em>I identify as boy/man.</em>')),
+            ),
             ("", _("Other or prefer not to tell")),
         ]
         # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
@@ -139,45 +165,62 @@ class ApplicantUserForm(forms.ModelForm):
         self.fields['last_name'].help_text = _(
             'We need your real name and address for legal reasons, as the '
             'Prologin staff engages its responsibility to supervise you '
-            'during the summer camps.')
+            'during the summer camps.'
+        )
         self.fields['country'].help_text = _(
             'We will send the invitation to the summer camps at this address, '
-            'so make sure it\'s valid.')
+            'so make sure it\'s valid.'
+        )
         self.fields['birthday'].help_text = _('Format: %(format)s') % {
-            'format': utils.translate_format(formats.get_format('DATE_INPUT_FORMATS')[0])}
+            'format': utils.translate_format(
+                formats.get_format('DATE_INPUT_FORMATS')[0]
+            )
+        }
 
         if self.instance:
             url = reverse('gcc:index')
-            self.fields[self.Meta.fields[-1]].help_text = (
-                '<i class="fa fa-info-circle"></i> {}'.format(_(
+            self.fields[
+                self.Meta.fields[-1]
+            ].help_text = '<i class="fa fa-info-circle"></i> {}'.format(
+                _(
                     'You can modify or review all your personal information '
                     'on your <a href="%(url)s">profile page</a>.'
-                ) % {'url': url}))
+                )
+                % {'url': url}
+            )
         for field in self.Meta.optional_fields:
             self.fields[field].help_text = _("Optional.")
 
     def clean_gender(self):
         gender = self.cleaned_data['gender']
         if not gender == Gender.female.value:
-            raise forms.ValidationError(_(
-                'You cannot participate if you don\'t identify as a '
-                'girl/woman.'))
+            raise forms.ValidationError(
+                _(
+                    'You cannot participate if you don\'t identify as a '
+                    'girl/woman.'
+                )
+            )
         return gender == Gender.female.value
 
 
 class CombinedApplicantUserForm(MultiForm):
-
     def __init__(self, *args, **kwargs):
         self.edition = kwargs.pop('edition')
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
     def get_form_classes(self):
-        form_classes = OrderedDict([
-            ('user', ApplicantUserForm),
-            ('editionform', build_dynamic_form(self.edition.signup_form,
-                                               self.user, self.edition)),
-        ])
+        form_classes = OrderedDict(
+            [
+                ('user', ApplicantUserForm),
+                (
+                    'editionform',
+                    build_dynamic_form(
+                        self.edition.signup_form, self.user, self.edition
+                    ),
+                ),
+            ]
+        )
         return form_classes
 
     def save(self):
@@ -199,14 +242,15 @@ class ApplicationWishesForm(forms.Form):
         events = Event.objects.filter(
             signup_start__lt=date.today(),
             signup_end__gt=date.today(),
-            edition=edition).order_by('event_start')
-        events_selection = \
-            [(None, '')] + [(event.pk, str(event)) for event in events]
+            edition=edition,
+        ).order_by('event_start')
+        events_selection = [(None, '')] + [
+            (event.pk, str(event)) for event in events
+        ]
 
-        self.fields['priority1'].choices \
-            = self.fields['priority2'].choices \
-            = self.fields['priority3'].choices \
-            = events_selection
+        self.fields['priority1'].choices = self.fields[
+            'priority2'
+        ].choices = self.fields['priority3'].choices = events_selection
 
     def save(self, user, edition):
         """
@@ -221,7 +265,8 @@ class ApplicationWishesForm(forms.Form):
         # Verify that no application is already accepted or rejected
         if applicant.status != ApplicantStatusTypes.incomplete.value:
             raise Applicant.AlreadyLocked(
-                'The user has a processed application')
+                'The user has a processed application'
+            )
 
         # Remove previous choices
         EventWish.objects.filter(applicant=applicant).delete()
@@ -232,9 +277,12 @@ class ApplicationWishesForm(forms.Form):
         if data['priority2'] and data['priority2'] != data['priority1']:
             events.append(Event.objects.get(pk=data['priority2']))
 
-        if data['priority3'] and data['priority3'] not in [data['priority1'], data['priority2']]:
+        if data['priority3'] and data['priority3'] not in [
+            data['priority1'],
+            data['priority2'],
+        ]:
             events.append(Event.objects.get(pk=data['priority3']))
 
         # Save applications
         for i, event in enumerate(events):
-            EventWish(applicant=applicant, event=event, order=i+1).save()
+            EventWish(applicant=applicant, event=event, order=i + 1).save()

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 from django.template import Library
+
 register = Library()
 
 from django.utils.translation import ugettext as _

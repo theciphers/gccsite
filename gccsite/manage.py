@@ -1,7 +1,6 @@
+#!/usr/bin/env python3
 # Copyright (C) <2019> Association Prologin <association@prologin.org>
 # SPDX-License-Identifier: GPL-3.0+
-
-#!/usr/bin/env python3
 
 import os
 import sys

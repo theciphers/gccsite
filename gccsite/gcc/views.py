@@ -14,10 +14,20 @@ from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
-from gcc.forms import (ApplicationWishesForm, CombinedApplicantUserForm,
-                       EmailForm)
-from gcc.models import (Applicant, ApplicantStatusTypes, Edition, Event,
-                        EventWish, Sponsor, SubscriberEmail)
+from gcc.forms import (
+    ApplicationWishesForm,
+    CombinedApplicantUserForm,
+    EmailForm,
+)
+from gcc.models import (
+    Applicant,
+    ApplicantStatusTypes,
+    Edition,
+    Event,
+    EventWish,
+    Sponsor,
+    SubscriberEmail,
+)
 from prologin.email import send_email
 from rules.contrib.views import PermissionRequiredMixin
 from zinnia.models import Entry
@@ -46,33 +56,47 @@ class IndexView(FormView):
 
     def form_valid(self, form):
         instance, created = SubscriberEmail.objects.get_or_create(
-            email=form.cleaned_data['email'])
+            email=form.cleaned_data['email']
+        )
 
         if created:
-            messages.add_message(self.request, messages.SUCCESS,
-                                 _('Subscription succeeded'))
-            send_email('gcc/mails/subscribe', instance.email,
-                       {'unsubscribe_url': instance.unsubscribe_url})
+            messages.add_message(
+                self.request, messages.SUCCESS, _('Subscription succeeded')
+            )
+            send_email(
+                'gcc/mails/subscribe',
+                instance.email,
+                {'unsubscribe_url': instance.unsubscribe_url},
+            )
         else:
-            messages.add_message(self.request, messages.WARNING,
-                                 _('Subscription failed: already subscribed'))
+            messages.add_message(
+                self.request,
+                messages.WARNING,
+                _('Subscription failed: already subscribed'),
+            )
 
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        articles = Entry.published.prefetch_related(
-            'authors').all()[:settings.HOMEPAGE_ARTICLES]
-        context.update({
-            'last_edition': Edition.objects.latest(),
-            'sponsors': list(Sponsor.objects.active()),
-            'articles': articles
-        })
+        articles = Entry.published.prefetch_related('authors').all()[
+            : settings.HOMEPAGE_ARTICLES
+        ]
+        context.update(
+            {
+                'last_edition': Edition.objects.latest(),
+                'sponsors': list(Sponsor.objects.active()),
+                'articles': articles,
+            }
+        )
         context['events'] = Event.objects.filter(
-            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
-            edition=context['last_edition']).order_by('event_start')
+            signup_start__lt=datetime.now(),
+            signup_end__gt=datetime.now(),
+            edition=context['last_edition'],
+        ).order_by('event_start')
         random.shuffle(context['sponsors'])
         return context
+
 
 # Ressources, Learn More
 
@@ -86,12 +110,17 @@ class LearnMoreView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'last_edition': Edition.objects.latest(),
-            'SITE_HOST': settings.SITE_HOST, })
+        context.update(
+            {
+                'last_edition': Edition.objects.latest(),
+                'SITE_HOST': settings.SITE_HOST,
+            }
+        )
         context['events'] = Event.objects.filter(
-            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
-            edition=context['last_edition']).order_by('event_start')
+            signup_start__lt=datetime.now(),
+            signup_end__gt=datetime.now(),
+            edition=context['last_edition'],
+        ).order_by('event_start')
         return context
 
 
@@ -104,22 +133,27 @@ class NewsletterUnsubscribeView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         try:
-            subscriber = SubscriberEmail.objects.get(
-                email=kwargs['email'])
+            subscriber = SubscriberEmail.objects.get(email=kwargs['email'])
 
             if subscriber.unsubscribe_token == kwargs['token']:
                 subscriber.delete()
                 messages.add_message(
-                    request, messages.SUCCESS,
-                    _('Successfully unsubscribed from newsletter.'))
+                    request,
+                    messages.SUCCESS,
+                    _('Successfully unsubscribed from newsletter.'),
+                )
             else:
                 messages.add_message(
-                    request, messages.ERROR,
-                    _('Failed to unsubscribe: wrong token.'))
+                    request,
+                    messages.ERROR,
+                    _('Failed to unsubscribe: wrong token.'),
+                )
         except SubscriberEmail.DoesNotExist:
             messages.add_message(
-                request, messages.ERROR,
-                _('Failed to unsubscribe: unregistered address'))
+                request,
+                messages.ERROR,
+                _('Failed to unsubscribe: unregistered address'),
+            )
 
         return super().get(request, *args, **kwargs)
 
@@ -138,13 +172,16 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
 
-        context.update({
-            'shown_user': shown_user,
-            'current_edition': Edition.current(),
-            'applications': Applicant.objects.filter(user=shown_user),
-            'has_applied_to_current':
-                Edition.current().user_has_applied(shown_user)
-        })
+        context.update(
+            {
+                'shown_user': shown_user,
+                'current_edition': Edition.current(),
+                'applications': Applicant.objects.filter(user=shown_user),
+                'has_applied_to_current': Edition.current().user_has_applied(
+                    shown_user
+                ),
+            }
+        )
         return context
 
     def get(self, request, *args, **kwargs):
@@ -168,37 +205,50 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
 
     # TODO: remove redondancy of get
     def get_context_data(self, **kwargs):
-        applicant = get_object_or_404(Applicant, user=self.request.user,
-                                      edition=self.kwargs['edition'])
+        applicant = get_object_or_404(
+            Applicant, user=self.request.user, edition=self.kwargs['edition']
+        )
         context = super().get_context_data(**kwargs)
         context['applicant'] = applicant
         return context
 
     def get_success_url(self):
         return reverse(
-            'gcc:application_summary',
-            kwargs={'pk': self.request.user.pk})
+            'gcc:application_summary', kwargs={'pk': self.request.user.pk}
+        )
 
     def post(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
 
-        applicant = get_object_or_404(Applicant, user=self.request.user,
-                                      edition=kwargs['edition'])
+        applicant = get_object_or_404(
+            Applicant, user=self.request.user, edition=kwargs['edition']
+        )
 
         if not applicant.has_complete_application():
-            messages.add_message(request, messages.ERROR,
-                                 _('Failed to validate your application, your '
-                                   'profile is incomplete.'))
+            messages.add_message(
+                request,
+                messages.ERROR,
+                _(
+                    'Failed to validate your application, your '
+                    'profile is incomplete.'
+                ),
+            )
         else:
             applicant.validate_current_wishes()
-            messages.add_message(request, messages.SUCCESS,
-                                 _('Successfully validated your application.'))
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                _('Successfully validated your application.'),
+            )
 
         if not self.object.is_active and not self.request.user.is_staff:
             raise Http404()
 
-        return HttpResponseRedirect(reverse(
-            'gcc:application_summary', kwargs={'pk': self.request.user.pk}))
+        return HttpResponseRedirect(
+            reverse(
+                'gcc:application_summary', kwargs={'pk': self.request.user.pk}
+            )
+        )
 
 
 class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
@@ -219,20 +269,29 @@ class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
 
         if applicant.status != 0:
             messages.add_message(
-                request, messages.ERROR,
-                _('Your application has already been validated, if you '
-                  'really want to change something contact us by email.'))
-            return HttpResponseRedirect(reverse(
-                'gcc:application_summary',
-                kwargs={'pk': self.request.user.pk}))
+                request,
+                messages.ERROR,
+                _(
+                    'Your application has already been validated, if you '
+                    'really want to change something contact us by email.'
+                ),
+            )
+            return HttpResponseRedirect(
+                reverse(
+                    'gcc:application_summary',
+                    kwargs={'pk': self.request.user.pk},
+                )
+            )
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['applicant'] = get_object_or_404(
-            Applicant, edition__year=self.kwargs['edition'],
-            user=self.request.user)
+            Applicant,
+            edition__year=self.kwargs['edition'],
+            user=self.request.user,
+        )
         return context
 
     def get_object(self, queryset=None):
@@ -243,14 +302,16 @@ class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
         kwargs = super().get_form_kwargs()
         kwargs['instance'] = self.request.user
         kwargs['user'] = self.request.user
-        kwargs['edition'] = get_object_or_404(Edition,
-                                              year=self.kwargs['edition'])
+        kwargs['edition'] = get_object_or_404(
+            Edition, year=self.kwargs['edition']
+        )
         self.edition = kwargs['edition']
         return kwargs
 
     def get_success_url(self):
-        return reverse('gcc:application_wishes',
-                       kwargs={'edition': self.edition})
+        return reverse(
+            'gcc:application_wishes', kwargs={'edition': self.edition}
+        )
 
     def form_valid(self, form):
         form.save()
@@ -268,8 +329,8 @@ class ApplicationWishesView(FormView):
 
     def get_success_url(self):
         return reverse(
-            'gcc:application_summary',
-            kwargs={'pk': self.request.user.pk})
+            'gcc:application_summary', kwargs={'pk': self.request.user.pk}
+        )
 
     def get_form_kwargs(self):
         # Specify the edition to the form's constructor
@@ -282,11 +343,12 @@ class ApplicationWishesView(FormView):
 
     def get_initial(self):
         event_wishes = EventWish.objects.filter(
-            applicant__user=self.request.user, applicant__edition=self.edition)
+            applicant__user=self.request.user, applicant__edition=self.edition
+        )
         initials = {}
 
         for wish in event_wishes:
-            assert(wish.order in [1, 2, 3])
+            assert wish.order in [1, 2, 3]
             field_name = 'priority' + str(wish.order)
             initials[field_name] = wish.event.pk
 
@@ -295,21 +357,25 @@ class ApplicationWishesView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(
-            signup_start__lt=datetime.now(), signup_end__gt=datetime.now(),
-            edition=self.kwargs['edition']).order_by('event_start')
+            signup_start__lt=datetime.now(),
+            signup_end__gt=datetime.now(),
+            edition=self.kwargs['edition'],
+        ).order_by('event_start')
         return context
 
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
         return super().form_valid(form)
 
+
 class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
     permission_required = 'users.edit'
 
     def get_redirect_url(self, *args, **kwargs):
         wish = get_object_or_404(EventWish, pk=kwargs['wish'])
-        return reverse('gcc:application_summary',
-                       kwargs={'pk': wish.applicant.user.pk})
+        return reverse(
+            'gcc:application_summary', kwargs={'pk': wish.applicant.user.pk}
+        )
 
     def get(self, request, *args, **kwargs):
         if self.has_permission():
@@ -321,6 +387,7 @@ class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
                 messages.add_message(
                     self.request,
                     messages.SUCCESS,
-                    _('Confirmation completed, thank you for your help!'))
+                    _('Confirmation completed, thank you for your help!'),
+                )
 
         return super().get(request, *args, **kwargs)

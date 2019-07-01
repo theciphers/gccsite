@@ -16,8 +16,9 @@ from collections import namedtuple
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
-    os.path.realpath(__file__))))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -38,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-
     # Vendor
     'adminsortable',
     'bootstrap3',
@@ -52,18 +52,15 @@ INSTALLED_APPS = (
     'rules.apps.AutodiscoverRulesConfig',
     'statictemplate',
     'tagging',
-
     # GCC apps
     'gccsite',
     'centers',
     'users',
     'gcc',
     'news',
-
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
     'zinnia',
-
     # Debug Toolbar (will not load if DEBUG = False)
     'debug_toolbar',
 )
@@ -98,7 +95,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    }
 ]
 
 ROOT_URLCONF = 'gccsite.urls'
@@ -111,24 +108,17 @@ WSGI_APPLICATION = 'gccsite.wsgi.application'
 
 LANGUAGE_CODE = 'fr'
 
-LANGUAGES = (
-    ('en', _("English")),
-    ('fr', _("French")),
-)
+LANGUAGES = (('en', _("English")), ('fr', _("French")))
 
 TIME_ZONE = 'Europe/Paris'
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 USE_I18N = True
 
 USE_L10N = True
 
-FORMAT_MODULE_PATH = [
-    'formats',
-]
+FORMAT_MODULE_PATH = ['formats']
 
 USE_TZ = True
 
@@ -191,8 +181,10 @@ CacheSetting = namedtuple('CacheSetting', 'key duration')
 
 # Debug toolbar
 
+
 def show_toolbar_cb(req):
     from debug_toolbar.middleware import show_toolbar
+
     if not show_toolbar(req):
         return False
     # Disable for statictemplate
@@ -204,12 +196,14 @@ def show_toolbar_cb(req):
 DEBUG_TOOLBAR_CONFIG = {
     # Already served
     'JQUERY_URL': '',
-    'DISABLE_PANELS': {'debug_toolbar.panels.redirects.RedirectsPanel',
-                       # StaticFilesPanel takes *way* too much compute power
-                       # while being useless
-                       'debug_toolbar.panels.staticfiles.StaticFilesPanel'},
+    'DISABLE_PANELS': {
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+        # StaticFilesPanel takes *way* too much compute power
+        # while being useless
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    },
     'SHOW_COLLAPSED': True,
-    'SHOW_TOOLBAR_CALLBACK': show_toolbar_cb
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar_cb,
 }
 
 # NPM (static assets)

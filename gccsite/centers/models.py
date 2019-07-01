@@ -40,7 +40,7 @@ class Center(AddressableModel):
     objects = CenterQuerySet.as_manager()
 
     class Meta:
-        ordering = ('type', 'name', 'city',)
+        ordering = ('type', 'name', 'city')
 
     @property
     def coordinates(self):
@@ -53,10 +53,17 @@ class Center(AddressableModel):
     def geocode(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
             geocoder = geopy.geocoders.get_geocoder_for_service('google')
-        location = geocoder().geocode("{name}, {addr}, {code} {city} {suffix}".format(
-            name=self.name, addr=self.address, code=self.postal_code, city=self.city,
-            suffix=suffix,
-        ), language='fr', timeout=10)
+        location = geocoder().geocode(
+            "{name}, {addr}, {code} {city} {suffix}".format(
+                name=self.name,
+                addr=self.address,
+                code=self.postal_code,
+                city=self.city,
+                suffix=suffix,
+            ),
+            language='fr',
+            timeout=10,
+        )
         self.lat = location.latitude
         self.lng = location.longitude
         self.save()
@@ -64,10 +71,16 @@ class Center(AddressableModel):
     def normalize(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
             geocoder = geopy.geocoders.get_geocoder_for_service('google')
-        location = geocoder().geocode("{addr}, {code} {city} {suffix}".format(
-            addr=self.address, code=self.postal_code, city=self.city,
-            suffix=suffix,
-        ), language='fr', timeout=10)
+        location = geocoder().geocode(
+            "{addr}, {code} {city} {suffix}".format(
+                addr=self.address,
+                code=self.postal_code,
+                city=self.city,
+                suffix=suffix,
+            ),
+            language='fr',
+            timeout=10,
+        )
         addr, city, country = location.address.split(',')
         if country.strip().lower() != 'france':
             raise ValueError("Country is not France")
@@ -89,7 +102,9 @@ class Contact(ContactModel):
         ugettext_noop("Manager")
         ugettext_noop("Contact")
 
-    center = models.ForeignKey(Center, related_name='contacts', on_delete=models.CASCADE)
+    center = models.ForeignKey(
+        Center, related_name='contacts', on_delete=models.CASCADE
+    )
     type = EnumField(Type, db_index=True)
 
     def __str__(self):

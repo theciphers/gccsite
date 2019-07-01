@@ -27,10 +27,7 @@ OAUTH_SECRET = 'CHANGEME'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gcc',
-    }
+    'default': {'ENGINE': 'django.db.backends.postgresql', 'NAME': 'gcc'}
 }
 
 # Logging
@@ -40,17 +37,10 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
+        'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler'}
     },
     'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
+        '': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': True}
     },
 }
 

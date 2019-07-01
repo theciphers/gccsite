@@ -15,8 +15,14 @@ from prologin.email import send_email
 from django.utils.text import slugify
 
 
-from gcc.models import (Answer, Applicant, ApplicantLabel, ApplicantStatusTypes,
-                        Event, EventWish)
+from gcc.models import (
+    Answer,
+    Applicant,
+    ApplicantLabel,
+    ApplicantStatusTypes,
+    Event,
+    EventWish,
+)
 from rules.contrib.views import PermissionRequiredMixin
 
 
@@ -30,8 +36,11 @@ class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
         their applications in the same object.
         """
         context = super().get_context_data(**kwargs)
-        context['events'] = Event.objects.all().prefetch_related(
-            'center', 'edition').order_by('edition', 'event_start')
+        context['events'] = (
+            Event.objects.all()
+            .prefetch_related('center', 'edition')
+            .order_by('edition', 'event_start')
+        )
         return context
 
 
@@ -50,8 +59,13 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         event = get_object_or_404(Event, pk=kwargs['event'])
         applicants = Applicant.objects.filter(assignation_wishes=event)
         applicants = applicants.prefetch_related(
-            'user', 'answers', 'answers__question', 'eventwish_set',
-            'eventwish_set__event', 'labels')
+            'user',
+            'answers',
+            'answers__question',
+            'eventwish_set',
+            'eventwish_set__event',
+            'labels',
+        )
         acceptable_applicants = Applicant.acceptable_applicants_for(event)
 
         # Group applicants by choice order
@@ -59,7 +73,8 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
 
         for applicant in applicants:
             order = EventWish.objects.get(
-                applicant=applicant, event=event).order
+                applicant=applicant, event=event
+            ).order
 
             if order not in grouped_applicants:
                 grouped_applicants[order] = []
@@ -67,8 +82,12 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
             grouped_applicants[order].append(applicant)
 
         for group in grouped_applicants.values():
-            group.sort(key=lambda applicant: (applicant.user.last_name.upper(),
-                                              applicant.user.first_name.upper()))
+            group.sort(
+                key=lambda applicant: (
+                    applicant.user.last_name.upper(),
+                    applicant.user.first_name.upper(),
+                )
+            )
 
         grouped_applicants = sorted(grouped_applicants.items())
 
@@ -76,17 +95,22 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         assert event.edition.year == kwargs['edition']
 
         context = super().get_context_data(**kwargs)
-        context.update({
-            'grouped_applicants': grouped_applicants,
-            'event': event,
-            'labels': ApplicantLabel.objects.all(),
-            'nb_acceptables': len(acceptable_applicants)
-        })
+        context.update(
+            {
+                'grouped_applicants': grouped_applicants,
+                'event': event,
+                'labels': ApplicantLabel.objects.all(),
+                'nb_acceptables': len(acceptable_applicants),
+            }
+        )
 
         context['nb_accepted'] = len(Applicant.accepted_applicants_for(event))
-        context['nb_confirmed'] = len(Applicant.confirmed_applicants_for(event))
+        context['nb_confirmed'] = len(
+            Applicant.confirmed_applicants_for(event)
+        )
 
         return context
+
 
 #      _                      _        _   _
 #     / \   ___ ___ ___ _ __ | |_ __ _| |_(_) ___  _ __  ___
@@ -108,9 +132,7 @@ class ApplicationAcceptView(PermissionRequiredMixin, TemplateView):
         applicants = Applicant.acceptable_applicants_for(event)
 
         context = super().get_context_data(**kwargs)
-        context.update({
-            'applicants': applicants,
-            'event': event, })
+        context.update({'applicants': applicants, 'event': event})
         return context
 
 
@@ -119,8 +141,10 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         event = get_object_or_404(Event, pk=kwargs['event'])
-        return reverse('gcc:application_review', kwargs={'edition': event.edition,
-                                                         'event': event.pk})
+        return reverse(
+            'gcc:application_review',
+            kwargs={'edition': event.edition, 'event': event.pk},
+        )
 
     def get_permission_object(self):
         return get_object_or_404(Event, pk=self.kwargs['event'])
@@ -131,9 +155,11 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
 
         for applicant in acceptables:
             wish = get_object_or_404(
-                EventWish, applicant=applicant, event=event)
+                EventWish, applicant=applicant, event=event
+            )
 
             try:
+
                 def catch_attachment(path):
                     return open(staticfiles_storage.path(path), 'rb').read()
 
@@ -143,31 +169,64 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                 event_name = slugify(event_center + '-' + event_date)
 
                 attachments = (
-                    ('autorisation-participation.pdf', catch_attachment(
-                        'gcc/attachments/autorisation-participation-' + event_name + '.pdf'), 'application/pdf'),
-                    ('planning.pdf', catch_attachment(
-                        'gcc/attachments/planning-' + event_name + '.pdf'), 'application/pdf'),
-                    ('droits-image.pdf',
-                     catch_attachment('gcc/attachments/droits-image-' + event_name + '.pdf'), 'application/pdf'),
-                    ('fiche-sanitaire.pdf',
-                     catch_attachment('gcc/attachments/fiche-sanitaire-' + event_name + '.pdf'), 'application/pdf'),
+                    (
+                        'autorisation-participation.pdf',
+                        catch_attachment(
+                            'gcc/attachments/autorisation-participation-'
+                            + event_name
+                            + '.pdf'
+                        ),
+                        'application/pdf',
+                    ),
+                    (
+                        'planning.pdf',
+                        catch_attachment(
+                            'gcc/attachments/planning-' + event_name + '.pdf'
+                        ),
+                        'application/pdf',
+                    ),
+                    (
+                        'droits-image.pdf',
+                        catch_attachment(
+                            'gcc/attachments/droits-image-'
+                            + event_name
+                            + '.pdf'
+                        ),
+                        'application/pdf',
+                    ),
+                    (
+                        'fiche-sanitaire.pdf',
+                        catch_attachment(
+                            'gcc/attachments/fiche-sanitaire-'
+                            + event_name
+                            + '.pdf'
+                        ),
+                        'application/pdf',
+                    ),
                 )
 
                 # TODO: CRITICAL: this is hardcoded pk of parent's email
                 parent_email = Answer.objects.get(
-                    applicant=applicant, question__pk=17).response
+                    applicant=applicant, question__pk=17
+                ).response
 
                 for dest in [applicant.user.email, parent_email]:
-                    confirm_url = 'https://' + settings.SITE_HOST + \
-                        reverse('gcc:confirm', kwargs={'wish': wish.pk})
+                    confirm_url = (
+                        'https://'
+                        + settings.SITE_HOST
+                        + reverse('gcc:confirm', kwargs={'wish': wish.pk})
+                    )
 
                     send_email(
                         'gcc/mails/accept',
                         dest,
-                        {'applicant': applicant,
-                         'event': event,
-                         'confirm_url': confirm_url},
-                        attachments)
+                        {
+                            'applicant': applicant,
+                            'event': event,
+                            'confirm_url': confirm_url,
+                        },
+                        attachments,
+                    )
 
                 wish.status = ApplicantStatusTypes.accepted.value
                 wish.save()
@@ -178,7 +237,9 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                     self.request,
                     messages.ERROR,
                     'Failed to accept: {}: {} ({}:{})'.format(
-                        applicant.user.username, exp, fname, exc_tb.tb_lineno))
+                        applicant.user.username, exp, fname, exc_tb.tb_lineno
+                    ),
+                )
 
         return super().get(request, *args, **kwargs)
 
@@ -204,19 +265,23 @@ class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
             label = ApplicantLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
-            return JsonResponse({'status': 'error',
-                                 'reason': _('applicant does not exist')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('applicant does not exist')}
+            )
         except ApplicantLabel.DoesNotExist:
-            return JsonResponse({'status': 'error',
-                                 'reason': _('label does not exist')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('label does not exist')}
+            )
 
         if not self.has_permission():
-            return JsonResponse({'status': 'error',
-                                 'reason': _('not allowed')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('not allowed')}
+            )
 
         if label not in applicant.labels.all():
-            return JsonResponse({'status': 'error',
-                                 'reason': 'label not applied'})
+            return JsonResponse(
+                {'status': 'error', 'reason': 'label not applied'}
+            )
 
         applicant.labels.remove(label)
         return JsonResponse({'status': 'ok'})
@@ -233,19 +298,23 @@ class ApplicationAddLabelView(PermissionRequiredMixin, View):
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
             label = ApplicantLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
-            return JsonResponse({'status': 'error',
-                                 'reason': _('applicant does not exist')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('applicant does not exist')}
+            )
         except ApplicantLabel.DoesNotExist:
-            return JsonResponse({'status': 'error',
-                                 'reason': _('label does not exist')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('label does not exist')}
+            )
 
         if not self.has_permission():
-            return JsonResponse({'status': 'error',
-                                 'reason': _('not allowed')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('not allowed')}
+            )
 
         if label in applicant.labels.all():
-            return JsonResponse({'status': 'error',
-                                 'reason': 'label already applied'})
+            return JsonResponse(
+                {'status': 'error', 'reason': 'label already applied'}
+            )
 
         applicant.labels.add(label)
         return JsonResponse({'status': 'ok'})
@@ -262,22 +331,28 @@ class UpdateWish(PermissionRequiredMixin, View):
             wish = EventWish.objects.get(pk=kwargs['wish'])
             status = kwargs['status']
         except EventWish.DoesNotExist:
-            return JsonResponse({'status': 'error',
-                                 'reason': _('wish does not exist')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('wish does not exist')}
+            )
 
         if not self.has_permission():
-            return JsonResponse({'status': 'error',
-                                 'reason': _('not allowed')})
+            return JsonResponse(
+                {'status': 'error', 'reason': _('not allowed')}
+            )
 
         if wish.status == status:
-            return JsonResponse({'status': 'error',
-                                 'reason': 'wish already accepted'})
+            return JsonResponse(
+                {'status': 'error', 'reason': 'wish already accepted'}
+            )
         wish.status = status
         wish.save()
 
         nb_acceptables = len(Applicant.acceptable_applicants_for(wish.event))
-        return JsonResponse({
-            'status': 'ok',
-            'applicant': wish.applicant.pk,
-            'applicant-status': wish.applicant.get_status_display(),
-            'nb_acceptable_applicants': nb_acceptables, })
+        return JsonResponse(
+            {
+                'status': 'ok',
+                'applicant': wish.applicant.pk,
+                'applicant-status': wish.applicant.get_status_display(),
+                'nb_acceptable_applicants': nb_acceptables,
+            }
+        )

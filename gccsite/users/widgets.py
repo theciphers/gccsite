@@ -17,7 +17,12 @@ class PreviewFileInput(ClearableFileInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['image_attrs'] = (
-            mark_safe(" ".join(format_html('{}="{}"', k, v) for k, v in self.image_attrs.items())
-            if self.image_attrs else ""))
+        context['widget']['image_attrs'] = mark_safe(
+            " ".join(
+                format_html('{}="{}"', k, v)
+                for k, v in self.image_attrs.items()
+            )
+            if self.image_attrs
+            else ""
+        )
         return context

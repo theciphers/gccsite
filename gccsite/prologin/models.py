@@ -18,7 +18,9 @@ class Gender(ChoiceEnum):
 class BaseEnumField:
     def __init__(self, enum, *args, **kwargs):
         assert issubclass(enum, ChoiceEnum)
-        kwargs['choices'] = enum.choices(empty_label=kwargs.pop('empty_label', None))
+        kwargs['choices'] = enum.choices(
+            empty_label=kwargs.pop('empty_label', None)
+        )
         self._enum = enum
         super().__init__(*args, **kwargs)
 
@@ -47,17 +49,29 @@ def _enumfield_factory(basecls, enumcls, name, **fieldkwargs):
         name, path, args, kwargs = basecls.deconstruct(self)
         return name, path, args[1:], kwargs
 
-    return type(name, (basecls,), {'__init__': init, 'deconstruct': deconstruct})
+    return type(
+        name, (basecls,), {'__init__': init, 'deconstruct': deconstruct}
+    )
 
 
-GenderField = _enumfield_factory(EnumField, Gender, 'GenderField',
-                                 empty_label=_("Other or prefer not to tell"), verbose_name=_("Gender"))
+GenderField = _enumfield_factory(
+    EnumField,
+    Gender,
+    'GenderField',
+    empty_label=_("Other or prefer not to tell"),
+    verbose_name=_("Gender"),
+)
+
 
 class AddressableModel(models.Model):
     address = models.TextField(blank=True, verbose_name=_("Address"))
-    postal_code = models.CharField(max_length=32, blank=True, verbose_name=_("Postal code"))
+    postal_code = models.CharField(
+        max_length=32, blank=True, verbose_name=_("Postal code")
+    )
     city = models.CharField(max_length=64, blank=True, verbose_name=_("City"))
-    country = models.CharField(max_length=64, blank=True, verbose_name=_("Country"))
+    country = models.CharField(
+        max_length=64, blank=True, verbose_name=_("Country")
+    )
 
     class Meta:
         abstract = True
@@ -74,8 +88,11 @@ class ContactModel(models.Model):
     contact_email = models.EmailField(blank=True)
 
     def get_full_name(self):
-        return " ".join(field for field in
-                        (self.contact_first_name, self.contact_last_name) if field)
+        return " ".join(
+            field
+            for field in (self.contact_first_name, self.contact_last_name)
+            if field
+        )
 
     class Meta:
         abstract = True

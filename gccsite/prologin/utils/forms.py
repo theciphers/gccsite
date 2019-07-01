@@ -17,7 +17,9 @@ class NewableModelChoiceField(forms.ModelChoiceField):
 
 
 class ConfirmDangerMixin(forms.Form):
-    password_conf = forms.CharField(widget=forms.PasswordInput, label=_("Your current password"))
+    password_conf = forms.CharField(
+        widget=forms.PasswordInput, label=_("Your current password")
+    )
 
     def __init__(self, *args, **kwargs):
         # the user doing the dangerous operation, who must provide their password
@@ -25,5 +27,7 @@ class ConfirmDangerMixin(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_password_conf(self):
-        if not self.action_user.check_password(self.cleaned_data['password_conf']):
+        if not self.action_user.check_password(
+            self.cleaned_data['password_conf']
+        ):
             raise forms.ValidationError(_("Wrong password."))

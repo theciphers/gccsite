@@ -20,8 +20,12 @@ class CaseMapping(Case):
        .annotate(order=CaseMapping('field', [('a', 23), ('b', 11), ('c', 0)]))
        .order_by('-order')
     """
+
     def __init__(self, field, mapping, **kwargs):
-        cases = [When(**{field: key, 'then': Value(value)}) for key, value in mapping]
+        cases = [
+            When(**{field: key, 'then': Value(value)})
+            for key, value in mapping
+        ]
         super().__init__(*cases, **kwargs)
 
 
@@ -40,11 +44,18 @@ class ConditionalSum(Sum):
         ok_count=ConditionalSum(bars__state=True),
         nok_count=ConditionalSum(bars__state=False))
     """
+
     def __init__(self, **mapping):
-        super(ConditionalSum, self).__init__(*[
-            Case(When(**{field: value, 'then': Value(1)}), default=0, output_field=IntegerField())
-            for field, value in mapping.items()
-        ])
+        super(ConditionalSum, self).__init__(
+            *[
+                Case(
+                    When(**{field: value, 'then': Value(1)}),
+                    default=0,
+                    output_field=IntegerField(),
+                )
+                for field, value in mapping.items()
+            ]
+        )
 
 
 class AdminOrderFieldsMixin:
@@ -64,6 +75,7 @@ class AdminOrderFieldsMixin:
             ('related_obj_count', Count('related_objs'), "Human description"),
         ]
     """
+
     annotations = []
 
     def __init__(self, *args, **kwargs):
@@ -77,6 +89,7 @@ class AdminOrderFieldsMixin:
 
             def method(obj):
                 return getattr(obj, name)
+
             method.__qualname__ = name
             method.admin_order_field = name
             method.short_description = text

@@ -39,13 +39,17 @@ class Edition(models.Model):
     def file_path(self, *tail):
         """Gets file's absolute path"""
         return os.path.abspath(
-            os.path.join(settings.GCC_REPOSITORY_PATH, str(self.year), *tail))
+            os.path.join(settings.GCC_REPOSITORY_PATH, str(self.year), *tail)
+        )
 
     def file_url(self, *tail):
         """Gets file's URL"""
         return os.path.join(
-            settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
-            str(self.year), *tail)
+            settings.STATIC_URL,
+            settings.GCC_REPOSITORY_STATIC_PREFIX,
+            str(self.year),
+            *tail,
+        )
 
     @staticmethod
     def current():
@@ -54,9 +58,11 @@ class Edition(models.Model):
 
     def subscription_is_open(self):
         """Is there still one event open for subscription"""
-        current_events = Event.objects.filter(edition=self,
-                                              signup_start__lt=date.today(),
-                                              signup_end__gte=date.today())
+        current_events = Event.objects.filter(
+            edition=self,
+            signup_start__lt=date.today(),
+            signup_end__gte=date.today(),
+        )
         return current_events.exists()
 
     def user_has_applied(self, user):
@@ -78,26 +84,34 @@ class Event(models.Model):
     event_end = models.DateTimeField()
     signup_start = models.DateTimeField()
     signup_end = models.DateTimeField()
-    signup_form = models.ForeignKey('Form', on_delete=models.CASCADE,
-                                    null=True)
+    signup_form = models.ForeignKey(
+        'Form', on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
-        return (self.event_start.strftime('%Y-%m-%d') + ' - '
-                + self.event_start.strftime('%Y-%m-%d') + ' '
-                + str(self.center))
+        return (
+            self.event_start.strftime('%Y-%m-%d')
+            + ' - '
+            + self.event_start.strftime('%Y-%m-%d')
+            + ' '
+            + str(self.center)
+        )
 
     def short_description(self):
         return '{name} – {start} to {end}'.format(
             name=self.center.name,
             start=date_format(self.event_start, "SHORT_DATE_FORMAT"),
-            end=date_format(self.event_end, "SHORT_DATE_FORMAT"))
+            end=date_format(self.event_end, "SHORT_DATE_FORMAT"),
+        )
 
 
 class Corrector(models.Model):
-    event = models.ForeignKey('Event', on_delete=models.CASCADE,
-                              related_name='correctors')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    event = models.ForeignKey(
+        'Event', on_delete=models.CASCADE, related_name='correctors'
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return str(self.user)
@@ -105,6 +119,7 @@ class Corrector(models.Model):
 
 class ApplicantLabel(models.Model):
     """Labels to comment on an applicant"""
+
     display = models.CharField(max_length=10)
 
     def __str__(self):
@@ -140,20 +155,24 @@ class Applicant(models.Model):
     Notice that no free writing field has been added yet in order to ensure an
     GDPR-safe usage of reviews.
     """
+
     # General informations about the application
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
 
     # Wishes of the candidate
     # TODO: Rename as assignation_event is deprecated
     assignation_wishes = models.ManyToManyField(
-        Event, through='EventWish', related_name='applicants', blank=True)
+        Event, through='EventWish', related_name='applicants', blank=True
+    )
 
     # Wishes she is accepted to
     # TODO: Deprecated (use wish-specific status)
     assignation_event = models.ManyToManyField(
-        Event, related_name='assigned_applicants', blank=True)
+        Event, related_name='assigned_applicants', blank=True
+    )
 
     # Review of the application
     labels = models.ManyToManyField(ApplicantLabel, blank=True)
@@ -230,7 +249,8 @@ class Applicant(models.Model):
         `selected`).
         """
         acceptable_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.selected.value)
+            event=event, status=ApplicantStatusTypes.selected.value
+        )
         return [wish.applicant for wish in acceptable_wishes]
 
     @staticmethod
@@ -240,7 +260,8 @@ class Applicant(models.Model):
         `selected`).
         """
         accepted_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.accepted.value)
+            event=event, status=ApplicantStatusTypes.accepted.value
+        )
         return [wish.applicant for wish in accepted_wishes]
 
     @staticmethod
@@ -250,7 +271,8 @@ class Applicant(models.Model):
         `selected`).
         """
         confirmed_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.confirmed.value)
+            event=event, status=ApplicantStatusTypes.confirmed.value
+        )
         return [wish.applicant for wish in confirmed_wishes]
 
     @staticmethod
@@ -260,7 +282,8 @@ class Applicant(models.Model):
         applicant has been created for this edition yet, it will be created.
         """
         applicant, created = Applicant.objects.get_or_create(
-            user=user, edition=edition)
+            user=user, edition=edition
+        )
 
         if created:
             applicant.save()
@@ -275,31 +298,33 @@ class Applicant(models.Model):
         This exception is raised if a new application is submitted for an user
         who has already been accepted or rejected this year.
         """
+
         pass
 
     class Meta:
-        unique_together = (('user', 'edition'), )
+        unique_together = (('user', 'edition'),)
 
 
 class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    status = EnumField(ApplicantStatusTypes, db_index=True, blank=True,
-                       default=ApplicantStatusTypes.incomplete.value)
+    status = EnumField(
+        ApplicantStatusTypes,
+        db_index=True,
+        blank=True,
+        default=ApplicantStatusTypes.incomplete.value,
+    )
 
     # Priority defined by the candidate to express his preferred event
     # The lower the order is, the more important is the choice
     order = models.IntegerField(default=1)
 
     def __str__(self):
-        return '{} for {}'.format(
-            str(self.applicant),
-            str(self.event)
-        )
+        return '{} for {}'.format(str(self.applicant), str(self.event))
 
     class Meta:
-        ordering = ('order', )
-        unique_together = (('applicant', 'event'), )
+        ordering = ('order',)
+        unique_together = (('applicant', 'event'),)
 
 
 @ChoiceEnum.labels(str.capitalize)
@@ -316,8 +341,9 @@ class Form(models.Model):
     # Name of the form
     name = models.CharField(max_length=64)
     # List of question
-    question_list = models.ManyToManyField('Question',
-                                           through='QuestionForForm')
+    question_list = models.ManyToManyField(
+        'Question', through='QuestionForForm'
+    )
 
     def __str__(self):
         return self.name
@@ -336,6 +362,7 @@ class Question(models.Model):
         }
     }
     """
+
     # Formulation of the question
     question = models.TextField()
     # Potential additional indications about the questions
@@ -366,15 +393,17 @@ class QuestionForForm(SortableMixin):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     form = models.ForeignKey(Form, on_delete=models.CASCADE)
     order = models.PositiveIntegerField(
-        default=0, editable=False, db_index=True)
+        default=0, editable=False, db_index=True
+    )
 
     class Meta:
         ordering = ['order']
 
 
 class Answer(models.Model):
-    applicant = models.ForeignKey(Applicant, related_name='answers',
-                                  on_delete=models.CASCADE)
+    applicant = models.ForeignKey(
+        Applicant, related_name='answers', on_delete=models.CASCADE
+    )
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
 
@@ -398,7 +427,7 @@ class Answer(models.Model):
         return str(self.response)
 
     class Meta:
-        unique_together = (('applicant', 'question'), )
+        unique_together = (('applicant', 'question'),)
 
 
 class SubscriberEmail(models.Model):
@@ -413,8 +442,10 @@ class SubscriberEmail(models.Model):
 
     @property
     def unsubscribe_url(self):
-        return reverse('gcc:news_unsubscribe', kwargs={
-            'email': self.email, 'token': self.unsubscribe_token})
+        return reverse(
+            'gcc:news_unsubscribe',
+            kwargs={'email': self.email, 'token': self.unsubscribe_token},
+        )
 
     def __str__(self):
         return self.email

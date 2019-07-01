@@ -53,6 +53,8 @@ def hijack_forbidden(*args, **kwargs):
     """
     Prevent calling django-hijack CSRF-exposed views
     """
+
     def view(*args, **kwargs):
         raise SuspiciousOperation("Trying to access monkey-patched function")
+
     return view

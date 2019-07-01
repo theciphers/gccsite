@@ -85,11 +85,11 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
         # Piggy-back on the view to do garbage collection.
         AuthToken.garbage_collect()
 
-        return client.redirect_url + '?' + urlencode(
-            {
-                'code': auth_token.code,
-                'state': state
-            })
+        return (
+            client.redirect_url
+            + '?'
+            + urlencode({'code': auth_token.code, 'state': state})
+        )
 
     def get(self, request, *args, **kwargs):
         try:
@@ -141,7 +141,8 @@ class TokenRetrievalMixin:
             return error("token does not exist (may have expired)")
         except Exception as exc:
             return error(
-                "unexpected error while retrieving token: {}".format(exc))
+                "unexpected error while retrieving token: {}".format(exc)
+            )
 
         self.on_success(auth_token)
 

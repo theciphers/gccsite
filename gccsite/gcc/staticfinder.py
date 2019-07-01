@@ -11,7 +11,4 @@ class ArchivesStaticFinder(PatternStaticFinder):
 
     root = settings.ARCHIVES_REPOSITORY_PATH
     prefix = settings.ARCHIVES_REPOSITORY_STATIC_PREFIX
-    patterns = (
-        '/gcc/*/photos/*.jpg',
-        '/gcc/*/*.jpg',
-    )
+    patterns = ('/gcc/*/photos/*.jpg', '/gcc/*/*.jpg')

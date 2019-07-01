@@ -54,6 +54,7 @@ def choiceenum_member(enum_path, type='value'):
 @register.simple_tag
 def admin_boolean_icon(boolean):
     from django.contrib.admin.templatetags.admin_list import _boolean_icon
+
     return _boolean_icon(boolean)
 
 
@@ -84,7 +85,10 @@ def phone_number(num):
 def truncate(value, length):
     if len(value) <= length:
         return value
-    return "{} [{}]".format(value[:length], _("truncated to %(length)s characters") % {'length': length})
+    return "{} [{}]".format(
+        value[:length],
+        _("truncated to %(length)s characters") % {'length': length},
+    )
 
 
 @register.simple_tag
@@ -100,7 +104,7 @@ def get_setting(name):
 def human_file_size(size, binary=False):
     suffix = pgettext("File size suffix", "B")
     name = pgettext("File size unit", "bytes")
-    base = 1024. if binary else 1000.
+    base = 1024.0 if binary else 1000.0
     unit_i = 'i' if binary else ''
     for unit in ('', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'):
         if abs(size) < base:
@@ -118,7 +122,9 @@ def do_captureas(parser, token):
     try:
         tag_name, args = token.contents.split(None, 1)
     except ValueError:
-        raise template.TemplateSyntaxError("'captureas' node requires a variable name.")
+        raise template.TemplateSyntaxError(
+            "'captureas' node requires a variable name."
+        )
 
     nodelist = parser.parse(('endcaptureas',))
     parser.delete_first_token()
@@ -162,7 +168,9 @@ def qurl(parser, token):
     """
     bits = token.split_contents()
     if len(bits) < 2:
-        raise TemplateSyntaxError("'%s' takes at least one argument (url)" % bits[0])
+        raise TemplateSyntaxError(
+            "'%s' takes at least one argument (url)" % bits[0]
+        )
 
     url = parser.compile_filter(bits[1])
 
@@ -180,7 +188,7 @@ def qurl(parser, token):
             if not match:
                 raise TemplateSyntaxError("Malformed arguments to url tag")
             name, op, value = match.groups()
-            qs.append((name, op, parser.compile_filter(value),))
+            qs.append((name, op, parser.compile_filter(value)))
 
     return QURLNode(url, qs, asvar)
 

@@ -9,7 +9,9 @@ from markdown.util import etree
 
 
 class ScoreboardProcessor(BlockProcessor):
-    PATTERN = re.compile(r'\{%\s+scoreboard(?:\s+(?P<type>before|after)\s+(?P<n>[0-9]+))?\s+%\}')
+    PATTERN = re.compile(
+        r'\{%\s+scoreboard(?:\s+(?P<type>before|after)\s+(?P<n>[0-9]+))?\s+%\}'
+    )
 
     def __init__(self, parser, scoreboard):
         super().__init__(parser)
@@ -33,9 +35,9 @@ class ScoreboardProcessor(BlockProcessor):
             else:
                 return
         scoreboard = etree.SubElement(parent, 'div', {'class': 'scoreboard'})
-        html = get_template('archives/inline-scoreboard.html').render({
-            'scoreboard': self.scoreboard[start:end],
-        })
+        html = get_template('archives/inline-scoreboard.html').render(
+            {'scoreboard': self.scoreboard[start:end]}
+        )
         scoreboard.append(etree.fromstring(html))
 
 
@@ -46,7 +48,11 @@ class ScoreboardExtension(Extension):
 
     def extendMarkdown(self, md, md_globals):
         """ Add an instance of ScoreboardProcessor to BlockParser. """
-        md.parser.blockprocessors.add('scoreboard', ScoreboardProcessor(md.parser, self.scoreboard), '<hashheader')
+        md.parser.blockprocessors.add(
+            'scoreboard',
+            ScoreboardProcessor(md.parser, self.scoreboard),
+            '<hashheader',
+        )
 
 
 def makeExtension(*args, **kwargs):

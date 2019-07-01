@@ -20,7 +20,7 @@ rules==1.4
 transifex-client
 typing; python_version < '3.5'
 
-#git+https://github.com/ojii/django-statictemplate.git@feature/new_django
-
 # From Prologin
 git+https://github.com/prologin/django-proloauth-client
+# Pillow for images
+pillow

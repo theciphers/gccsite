@@ -7,6 +7,4 @@ import centers.views
 
 app_name = 'centers'
 
-urlpatterns = [
-    path('', centers.views.CenterListView.as_view(), name='map'),
-]
+urlpatterns = [path('', centers.views.CenterListView.as_view(), name='map')]

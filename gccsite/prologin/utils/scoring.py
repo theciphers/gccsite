@@ -5,7 +5,9 @@ from collections import namedtuple
 
 
 class Scoreboard:
-    ScoreboardItem = namedtuple('ScoreboardItem', 'rank ex_aequo nonlinear item')
+    ScoreboardItem = namedtuple(
+        'ScoreboardItem', 'rank ex_aequo nonlinear item'
+    )
 
     def __init__(self, iterable):
         self.iterable = list(iterable)
@@ -44,10 +46,12 @@ class Scoreboard:
                 raise StopIteration
             if self.slice.start is None or i >= self.slice.start:
                 break
-        return Scoreboard.ScoreboardItem(rank=self.rank,
-                                         ex_aequo=self.ex_aequo,
-                                         nonlinear=i > 1 and last_rank != self.rank - 1,
-                                         item=item)
+        return Scoreboard.ScoreboardItem(
+            rank=self.rank,
+            ex_aequo=self.ex_aequo,
+            nonlinear=i > 1 and last_rank != self.rank - 1,
+            item=item,
+        )
 
 
 def decorate_with_rank(iterable, score_getter, decorator):

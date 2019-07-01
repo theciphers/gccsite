@@ -12,11 +12,17 @@ class ContactInlineAdmin(admin.TabularInline):
 
 
 class CenterAdmin(admin.ModelAdmin):
-    list_filter = ('is_active', 'type', 'city',)
-    list_display = ('name', 'city', 'type', 'coordinates', 'is_active',
-                    'contact_names')
-    actions = ('geocode_centers', 'normalize_centers',)
-    search_fields = ('name', 'city', 'comments',)
+    list_filter = ('is_active', 'type', 'city')
+    list_display = (
+        'name',
+        'city',
+        'type',
+        'coordinates',
+        'is_active',
+        'contact_names',
+    )
+    actions = ('geocode_centers', 'normalize_centers')
+    search_fields = ('name', 'city', 'comments')
     inlines = [ContactInlineAdmin]
 
     def contact_names(self, obj):
@@ -31,9 +37,13 @@ class CenterAdmin(admin.ModelAdmin):
                 success += 1
             except Exception:
                 errors += 1
-        self.message_user(request, "{success} centers geocoded, {errors} errors".format(
-            success=success, errors=errors,
-        ))
+        self.message_user(
+            request,
+            "{success} centers geocoded, {errors} errors".format(
+                success=success, errors=errors
+            ),
+        )
+
     geocode_centers.short_description = _("Geocode selected centers")
 
     def normalize_centers(self, request, queryset):
@@ -46,10 +56,16 @@ class CenterAdmin(admin.ModelAdmin):
             except Exception:
                 traceback.print_exc()
                 errors += 1
-        self.message_user(request, "{success} centers normalized, {errors} errors".format(
-            success=success, errors=errors,
-        ))
-    normalize_centers.short_description = _("Normalize selected center addresses")
+        self.message_user(
+            request,
+            "{success} centers normalized, {errors} errors".format(
+                success=success, errors=errors
+            ),
+        )
+
+    normalize_centers.short_description = _(
+        "Normalize selected center addresses"
+    )
 
 
 admin.site.register(centers.models.Center, CenterAdmin)

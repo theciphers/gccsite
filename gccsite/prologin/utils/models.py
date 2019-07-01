@@ -16,7 +16,9 @@ class ResizeOnSaveImageField(models.ImageField):
         if isinstance(fit_into, int):
             fit_into = (fit_into, fit_into)
         elif len(fit_into) != 2:
-            raise ValueError("fit_into must be an dimension or a pair of dimensions")
+            raise ValueError(
+                "fit_into must be an dimension or a pair of dimensions"
+            )
         assert fit_into[0] > 0 and fit_into[1] > 0
         self.fit_into = fit_into
         super().__init__(*args, **kwargs)
@@ -36,7 +38,12 @@ class ResizeOnSaveImageField(models.ImageField):
                     im = Image(file=file)
                 except MissingDelegateError:
                     file.seek(0)
-                    im = Image(file=file, format=os.path.splitext(file.name)[1].strip(os.path.extsep))
+                    im = Image(
+                        file=file,
+                        format=os.path.splitext(file.name)[1].strip(
+                            os.path.extsep
+                        ),
+                    )
             file.close()
             im.transform(resize='{}x{}>'.format(*self.fit_into))
             buf = io.BytesIO()
