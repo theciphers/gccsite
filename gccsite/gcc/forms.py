@@ -1,3 +1,6 @@
+# Copyright (C) <2018> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from collections import OrderedDict
 from datetime import date
 from django import forms

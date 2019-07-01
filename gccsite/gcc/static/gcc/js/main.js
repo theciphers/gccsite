@@ -1,3 +1,6 @@
+/* Copyright (C) <2018> Association Prologin <association@prologin.org>
+ * SPDX-License-Identifier: GPL-3.0+
+ */
 /*
 	Escape Velocity by HTML5 UP
 	html5up.net | @ajlkn
