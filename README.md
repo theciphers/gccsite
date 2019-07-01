@@ -1,6 +1,10 @@
 Girls Can Code! website
 =======================
 
+[![Build Status](https://travis-ci.com/prologin/gccsite.svg?branch=master)](https://travis-ci.com/prologin/gccsite)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+
 This repository contains the source of the website of GCC!:
 <https://gcc.prologin.org>.
 
@@ -153,4 +157,20 @@ make tx-pull tx-push
 make tx-pull
 # Commit
 git commit gccsite/locale -m 'locale: update for <feature>'
+```
+
+
+Contributing
+------------
+
+#### Formatting
+
+All of the python codebase needs to be formatted using [black](https://github.com/python/black)
+by running `black .` at the root of the project before any commit.
+
+You can automate the process by installing the recommended pre-commit hooks:
+
+```bash
+pip install -r requirements-dev.txt
+pre-commit install
 ```
