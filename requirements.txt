@@ -23,4 +23,4 @@ typing; python_version < '3.5'
 #git+https://github.com/ojii/django-statictemplate.git@feature/new_django
 
 # From Prologin
-git+https://github.com/prologin/django-oauth
+git+https://github.com/prologin/django-proloauth-client
