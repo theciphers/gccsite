@@ -1,0 +1,37 @@
+{% extends "gcc/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Accept candidates" %}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <h3>
+        {% blocktrans with event=event.center nb_applicants=applicants|length count nb_applicants as nb_applicants %}
+          Reject the candidate for {{event}}?
+        {% plural %}
+          Reject all the {{nb_applicants}} candidates for {{event}}?
+        {% endblocktrans %}
+      </h3>
+      <p>
+        {% blocktrans %}<s>As soon as you rejected the candidates, they will
+        receive an email to notify them that they are rejected for the
+        event.</s>{% endblocktrans %}
+      </p>
+      <a class="btn btn-danger" href="{% url 'gcc:reject_all_send' event=event.pk %}">
+        {% trans "Go On" %}
+      </a>
+    </div>
+    <div class="col-md-6">
+      <h3>{% trans "Concerned candidates" %}</h3>
+      <ul>
+        {% for applicant in applicants %}
+          <li>
+            {{ applicant.user.first_name }} {{ applicant.user.last_name }}
+            - {{ applicant.user.email }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

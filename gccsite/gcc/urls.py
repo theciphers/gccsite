@@ -77,6 +77,16 @@ APPLICATION_PATTERNS = [
         staff_views.ApplicationAcceptSendView.as_view(),
         name='accept_all_send',
     ),
+    path(
+        'reject_all/<int:event>/',
+        staff_views.ApplicationRejectView.as_view(),
+        name='reject_all',
+    ),
+    path(
+        'reject_all_send/<int:event>/',
+        staff_views.ApplicationRejectSendView.as_view(),
+        name='reject_all_send',
+    ),
 ]
 
 urlpatterns = [

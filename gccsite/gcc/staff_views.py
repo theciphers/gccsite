@@ -67,6 +67,7 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
             'labels',
         )
         acceptable_applicants = Applicant.acceptable_applicants_for(event)
+        rejectable_applicants = Applicant.rejectable_applicants_for(event)
 
         # Group applicants by choice order
         grouped_applicants = dict()
@@ -100,7 +101,8 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
                 'grouped_applicants': grouped_applicants,
                 'event': event,
                 'labels': ApplicantLabel.objects.all(),
-                'nb_acceptables': len(acceptable_applicants),
+                'nb_accepts': len(acceptable_applicants),
+                'nb_rejects': len(rejectable_applicants),
             }
         )
 
@@ -240,6 +242,59 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                         applicant.user.username, exp, fname, exc_tb.tb_lineno
                     ),
                 )
+
+        return super().get(request, *args, **kwargs)
+
+
+#   ____       _           _        _   _
+#  |  _ \ ___ (_) ___  ___| |_ __ _| |_(_) ___  _ __
+#  | |_) / _ \| |/ _ \/ __| __/ _` | __| |/ _ \| '_ \
+#  |  _ <  __/| |  __/ (__| || (_| | |_| | (_) | | | |
+#  |_| \_\___|/ |\___|\___|\__\__,_|\__|_|\___/|_| |_|
+#           |__/
+
+
+# TODO: eliminate redundancy with acceptation
+class ApplicationRejectView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'gcc.can_review_event'
+    template_name = 'gcc/application/reject.html'
+
+    def get_permission_object(self):
+        return get_object_or_404(Event, pk=self.kwargs['event'])
+
+    def get_context_data(self, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        applicants = Applicant.rejectable_applicants_for(event)
+
+        context = super().get_context_data(**kwargs)
+        context.update({'applicants': applicants, 'event': event})
+        return context
+
+
+class ApplicationRejectSendView(PermissionRequiredMixin, RedirectView):
+    permission_required = 'gcc.can_review_event'
+
+    def get_redirect_url(self, *args, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        return reverse(
+            'gcc:application_review',
+            kwargs={'edition': event.edition, 'event': event.pk},
+        )
+
+    def get_permission_object(self):
+        return get_object_or_404(Event, pk=self.kwargs['event'])
+
+    def get(self, request, *args, **kwargs):
+        event = get_object_or_404(Event, pk=kwargs['event'])
+        rejectables = Applicant.rejectable_applicants_for(event)
+
+        for applicant in rejectables:
+            wish = get_object_or_404(
+                EventWish, applicant=applicant, event=event
+            )
+
+            wish.status = ApplicantStatusTypes.rejected.value
+            wish.save()
 
         return super().get(request, *args, **kwargs)
 

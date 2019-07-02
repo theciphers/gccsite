@@ -88,6 +88,16 @@ class Event(models.Model):
         'Form', on_delete=models.CASCADE, null=True
     )
 
+    def short_description(self):
+        return '{name} – {start} to {end}'.format(
+            name=self.center.name,
+            start=date_format(self.event_start, "SHORT_DATE_FORMAT"),
+            end=date_format(self.event_end, "SHORT_DATE_FORMAT"),
+        )
+
+    def signup_opened(self):
+        return self.signup_end >= datetime.now()
+
     def __str__(self):
         return (
             self.event_start.strftime('%Y-%m-%d')
@@ -95,13 +105,6 @@ class Event(models.Model):
             + self.event_start.strftime('%Y-%m-%d')
             + ' '
             + str(self.center)
-        )
-
-    def short_description(self):
-        return '{name} – {start} to {end}'.format(
-            name=self.center.name,
-            start=date_format(self.event_start, "SHORT_DATE_FORMAT"),
-            end=date_format(self.event_end, "SHORT_DATE_FORMAT"),
         )
 
 
@@ -245,13 +248,23 @@ class Applicant(models.Model):
     @staticmethod
     def acceptable_applicants_for(event):
         """
-        List the applicants which are waiting to be accepted (ie. in the state
+        List the applicants which can be accepted (ie. in the state
         `selected`).
         """
         acceptable_wishes = EventWish.objects.filter(
             event=event, status=ApplicantStatusTypes.selected.value
         )
         return [wish.applicant for wish in acceptable_wishes]
+
+    @staticmethod
+    def rejectable_applicants_for(event):
+        """
+        List the applicants which can be rejected.
+        """
+        rejectable_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.pending.value
+        )
+        return [wish.applicant for wish in rejectable_wishes]
 
     @staticmethod
     def accepted_applicants_for(event):
