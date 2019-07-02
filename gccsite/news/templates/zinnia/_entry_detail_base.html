@@ -17,24 +17,26 @@
         {% with authors=object.authors.all %}
         {% if authors|length %}
         {% trans "Written by" %}
-        {% for author in authors %}
-        <span class="vcard author">
-          <a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
-          title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
+          {% for author in authors %}
+            <span class="vcard author">
+              <a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
+              title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a>
+            </span>
+            {% if not forloop.last %}, {% endif %}
           {% endfor %}
-          {% trans "on" context "Written by <user> *on* <date>" %}
+          {% trans 'on' %}
           {% else %}
-          {% trans "Written on" context "*Written on* <date>" %}
+          {% trans 'Written on' %}
           {% endif %}
           {% endwith %}
-          <abbr class="published" title="{{ object.creation_date|date:"c" }}">{{ object.creation_date|date:"DATE_FORMAT" }}</abbr>
-          <meta itemprop="datePublished" content="{{ object.creation_date|date:"c" }}" />
+          <abbr class="published" title="{{ object.creation_date|date:'c' }}">{{ object.creation_date|date:"DATE_FORMAT" }}</abbr>
+          <meta itemprop="datePublished" content="{{ object.creation_date|date:'c' }}" />
         {% for tag in object.tags_list %}
           <a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
         {% endfor %}
       </p>
       <p class="entry-last-update">
-        {% trans "Last update on" %} <abbr class="updated" title="{{ object.last_update|date:"c" }}">{{ object.last_update|date:"DATE_FORMAT" }}</abbr>
+        {% trans "Last update on" %} <abbr class="updated" title="{{ object.last_update|date:'c' }}">{{ object.last_update|date:"DATE_FORMAT" }}</abbr>
       </p>
     </div>
     {% endblock entry-info %}

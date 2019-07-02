@@ -87,7 +87,7 @@
                 {% trans "Written on" %}
                 {% endif %}
                 {% endwith %}
-                <abbr class="published" title="{{ article.creation_date|date:"c" }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
+                <abbr class="published" title="{{ article.creation_date|date:'c' }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
               {% for tag in article.tags_list %}
                 <a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
               {% endfor %}

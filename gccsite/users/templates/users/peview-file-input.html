@@ -10,9 +10,9 @@
       </div>
       <div class="col-xs-9">
         <a href="#" class="btn btn-default btn-file-input">
-          <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+          <label {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
             {{ widget.input_text }}
-            <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} />
+            <input type="{{ widget.type }}" name="{{ widget.name }}" {% include 'django/forms/widgets/attrs.html' %} />
           </label>
         </a>
         {% if widget.is_initial and not widget.required %} {# not empty and not required: clearable #}

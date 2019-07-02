@@ -19,7 +19,7 @@
   <ul class="pager align-left">
     {% for date in date_list %}
     <li>
-      <a href="{% url 'zinnia:entry_archive_year' date|date:"Y" %}" rel="archives">{{ date|date:"Y" }}</a>
+      <a href="{% url 'zinnia:entry_archive_year' date|date:'Y' %}" rel="archives">{{ date|date:"Y" }}</a>
     </li>
     {% endfor %}
   </ul>

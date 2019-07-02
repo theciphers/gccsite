@@ -19,13 +19,13 @@
   <link rel="shortlink" href="{{ object.short_url }}" />
   <link rel="canonical" href="{{ object.get_absolute_url }}" />
   {% with year=object.creation_date|date:"Y" month=object.creation_date|date:"m" day=object.creation_date|date:"d" %}
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed of discussions on" %} '{{ object.title }}'"
+  <link rel="alternate" type="application/rss+xml" title="{% trans 'RSS feed of discussions on' %} '{{ object.title }}'"
         href="{% url 'zinnia:entry_discussion_feed' year month day object.slug %}" />
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed of comments on" %} '{{ object.title }}'"
+  <link rel="alternate" type="application/rss+xml" title="{% trans 'RSS feed of comments on' %} '{{ object.title }}'"
         href="{% url 'zinnia:entry_comment_feed' year month day object.slug %}" />
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed of pingbacks on" %} '{{ object.title }}'"
+  <link rel="alternate" type="application/rss+xml" title="{% trans 'RSS feed of pingbacks on' %} '{{ object.title }}'"
         href="{% url 'zinnia:entry_pingback_feed' year month day object.slug %}" />
-  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed of trackbacks on" %} '{{ object.title }}'"
+  <link rel="alternate" type="application/rss+xml" title="{% trans 'RSS feed of trackbacks on' %} '{{ object.title }}'"
         href="{% url 'zinnia:entry_trackback_feed' year month day object.slug %}" />
   {% endwith %}
 {% endblock link %}
@@ -112,12 +112,12 @@
         <a href="{{ pingback.url }}" rel="external nofollow"
            class="fn url org">{{ pingback.name }}</a>
         {% trans "on" context "on date" %}
-        <abbr class="pingback-published" title="{{ pingback.submit_date|date:"c" }}">
+        <abbr class="pingback-published" title="{{ pingback.submit_date|date:'c' }}">
           {{ pingback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </abbr>
         <a href="#pingback-{{ pingback.pk }}"
            id="c{{ pingback.pk }}" class="anchor-link"
-           title="{% trans "Direct link to this pingback" %}">#</a>
+           title="{% trans 'Direct link to this pingback' %}">#</a>
       </p>
       {% endblock pingback-info %}
       {% block pingback-content %}
@@ -156,12 +156,12 @@
         <a href="{{ trackback.url }}" rel="external nofollow"
            class="fn url org">{{ trackback.name }}</a>
        {% trans "on" context "on date" %}
-        <abbr class="trackback-published" title="{{ trackback.submit_date|date:"c" }}">
+        <abbr class="trackback-published" title="{{ trackback.submit_date|date:'c' }}">
           {{ trackback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </abbr>
         <a href="#trackback-{{ trackback.pk }}"
            id="c{{ trackback.pk }}" class="anchor-link"
-           title="{% trans "Direct link to this trackback" %}">#</a>
+           title="{% trans 'Direct link to this trackback' %}">#</a>
       </p>
       {% endblock trackback-info %}
       {% block trackback-content %}
@@ -203,7 +203,7 @@
 {% block admin-tools %}
 {% if perms.zinnia.change_entry %}
 <li>
-  <a href="{% url 'admin:zinnia_entry_change' object.pk %}" title="{% trans "Edit the entry" %}">
+  <a href="{% url 'admin:zinnia_entry_change' object.pk %}" title="{% trans 'Edit the entry' %}">
     {% trans "Edit the entry" %}
   </a>
 </li>

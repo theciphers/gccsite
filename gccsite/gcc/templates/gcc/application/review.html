@@ -126,8 +126,8 @@
                     <h3>Form</h3>
                     <dl class="dl-vertical">
                       {% for answer in applicant.answers.all %}
-                       <dt>{{answer.question}}</dd>
-                       <dd>{{answer}}</dt>
+                       <dt>{{answer.question}}</dt>
+                       <dd>{{answer}}</dd>
                       {% endfor %}
                     </dl>
                     <h3>
@@ -148,5 +148,5 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src="{% static "gcc/js/application.js"%}"> </script>
+<script src="{% static 'gcc/js/application.js'%}"> </script>
 {% endblock %}

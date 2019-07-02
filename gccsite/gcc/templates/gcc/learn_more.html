@@ -12,13 +12,15 @@
 
 <div class="container col-md-9">
   <h2>{% trans 'The different types of Summer Camps' %}</h2>
-    <p>{% blocktrans %}
+    {% blocktrans %}
+      <p>
         There are two types of Girls Can Code! summer camps:
-        <ul>
-            <li>Long ones, they last for a week. They were first created in 2014.</li>
-            <li>Short ones, also called "Girls Can Code! Week-end", they started in 2019.</li>
-        </ul>
-    {% endblocktrans %}</p>
+      </p>
+      <ul>
+        <li>Long ones, they last for a week. They were first created in 2014.</li>
+        <li>Short ones, also called "Girls Can Code! Week-end", they started in 2019.</li>
+      </ul>
+    {% endblocktrans %}
 
   <h2>{% trans 'Content and schedule of the week-end Summer Camps' %}</h2>
   <p>{% blocktrans %}
@@ -30,12 +32,12 @@
   {% endblocktrans %}</p>
 
   <p>
-  {% blocktrans %}Here is an example schedule of a GCC! week-end, but the time of arrival and
-  departure may vary, you will be sent a precise one when accepted.{% endblocktrans %}
-    </p>
-    <a href="{% static 'gcc/img/schedule_short.svg'%}">
-      <img  style="width: 50%;" alt="Typical Schedule of a GCC! Week-end" src="{% static 'gcc/img/schedule_short.svg' %}" />
-    </a>
+    {% blocktrans %}Here is an example schedule of a GCC! week-end, but the time of arrival and
+    departure may vary, you will be sent a precise one when accepted.{% endblocktrans %}
+  </p>
+  <a href="{% static 'gcc/img/schedule_short.svg'%}">
+    <img  style="width: 50%;" alt="Typical Schedule of a GCC! Week-end" src="{% static 'gcc/img/schedule_short.svg' %}" />
+  </a>
 
   <h2>{% trans 'Content and schedule of the week-long Summer Camps' %}</h2>
   <p>
