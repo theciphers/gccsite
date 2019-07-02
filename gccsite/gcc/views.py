@@ -371,6 +371,11 @@ class ApplicationWishesView(FormView):
 class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
     permission_required = 'users.edit'
 
+    def get_permission_object(self):
+        return get_object_or_404(
+            EventWish, pk=self.kwargs['wish']
+        ).applicant.user
+
     def get_redirect_url(self, *args, **kwargs):
         wish = get_object_or_404(EventWish, pk=kwargs['wish'])
         return reverse(
