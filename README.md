@@ -120,7 +120,9 @@ OAUTH_SECRET = 'SECRET'
 (**Note**: If you would rather work with an **anonymized database dump** of the
 website, ask one of the Prologin roots to provide you one.)
 
-*TODO*
+```bash
+python manage.py edition create
+```
 
 Hacking on the website
 ----------------------
