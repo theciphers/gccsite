@@ -76,7 +76,18 @@
                     <span class="remove-label label label-default label-xs" for-applicant="{{applicant.pk}}" for-label="{{label.pk}}" for-event="{{event.pk}}" {% if label not in applicant.labels.all %}style="display: none;"{% endif %}>{{label}}</span>
                   {% endfor %}
                 </td>
-                <td class="applicant-status">{{ applicant.get_status_display }}</td>
+                <td class="applicant-status">
+                    {% for wish in applicant.eventwish_set.all %}
+                        {% if wish.event == event %}
+                           {% if wish.status == 0 %}{% trans 'incomplete' %}{% endif %}
+                           {% if wish.status == 1 %}{% trans 'pending' %}{% endif %}
+                           {% if wish.status == 2 %}{% trans 'rejected' %}{% endif %}
+                           {% if wish.status == 3 %}{% trans 'selected' %}{% endif %}
+                           {% if wish.status == 4 %}{% trans 'accepted' %}{% endif %}
+                           {% if wish.status == 5 %}{% trans 'confirmed' %} {% endif %}
+                        {% endif %}
+                    {% endfor%}
+                </td>
               </tr>
               <tr style="display: none">
                 <td colspan="4">
