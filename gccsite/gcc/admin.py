@@ -10,6 +10,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 import gcc.models as models
+from gcc.export import export_queryset_as_csv
 
 
 admin.site.register([models.ApplicantLabel, models.Edition])
@@ -159,6 +160,20 @@ class EventAdmin(admin.ModelAdmin):
     ]
     list_filter = ['edition', 'center']
     inlines = [CorrectorInline]
+
+    def event_participant_export_as_csv(self, request, queryset):
+        participants = []
+        for obj in queryset:
+            participants += models.Applicant.accepted_applicants_for(
+                obj
+            ) + models.Applicant.confirmed_applicants_for(obj)
+        return export_queryset_as_csv(participants, models.Applicant)
+
+    event_participant_export_as_csv.short_description = (
+        "Export participant as csv"
+    )
+
+    actions = ["event_participant_export_as_csv"]
 
 
 # -- Question
