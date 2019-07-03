@@ -176,7 +176,7 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
             {
                 'shown_user': shown_user,
                 'current_edition': Edition.current(),
-                'applications': Applicant.objects.filter(user=shown_user),
+                'applicant': get_object_or_404(Applicant, user=shown_user),
                 'has_applied_to_current': Edition.current().user_has_applied(
                     shown_user
                 ),

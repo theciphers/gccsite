@@ -199,6 +199,16 @@ class Applicant(models.Model):
             applicant=self,
         ).exists()
 
+    def has_rejected_choices(self):
+        return EventWish.objects.filter(
+            applicant=self, status=ApplicantStatusTypes.rejected.value
+        ).exists()
+
+    def has_non_rejected_choices(self):
+        return EventWish.objects.filter(
+            ~Q(status=ApplicantStatusTypes.rejected.value), applicant=self
+        ).exists()
+
     def get_export_data(self):
         """
         Return an array of data to be converted to csv

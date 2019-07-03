@@ -77,7 +77,7 @@
             </div>
         </div>
         {% endif %}
-        {% for applicant in applications %}
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <table class="panel-title">
@@ -124,24 +124,44 @@
                   {% endfor %}
                 </ul>
 
-                <h3>{% trans "My applications" %}</h3>
-                <ol>
-                  {% for wish in applicant.eventwish_set.all %}
-                    <li>
-                      {{ wish.event.short_description }}
-                      <span class="badge {{ wish.status|status_badge }} pull-right">
-                        {{ wish.get_status_display}}
-                      </span>
-                      {% if wish.status == 4 %}
-                        <a class="pull-right" href="{% url 'gcc:confirm' wish=wish.pk%}" style="margin-right: 10px;">
-                          <strong>
-                            {% trans "Confirm my venue" %}
-                          </strong>
-                        </a>
+                {% if applicant.has_non_rejected_choices %}
+                  <h3>{% trans "My applications" %}</h3>
+                  <ol>
+                    {% for wish in applicant.eventwish_set.all %}
+                      {% if wish.status != 2 %}
+                        <li>
+                          {{ wish.event.short_description }}
+                          <span class="badge {{ wish.status|status_badge }} pull-right">
+                            {{ wish.get_status_display}}
+                          </span>
+                          {% if wish.status == 4 %}
+                            <a class="pull-right" href="{% url 'gcc:confirm' wish=wish.pk%}" style="margin-right: 10px;">
+                              <strong>
+                                {% trans "Confirm my venue" %}
+                              </strong>
+                            </a>
+                          {% endif %}
+                        </li>
                       {% endif %}
-                    </li>
-                  {% endfor %}
-                </ol>
+                    {% endfor %}
+                  </ol>
+                {% endif %}
+
+                {% if applicant.has_rejected_choices %}
+                  <h3>{% trans "My rejected applications" %}</h3>
+                  <ol>
+                    {% for wish in applicant.eventwish_set.all %}
+                      {% if wish.status == 2 %}
+                        <li>
+                          {{ wish.event.short_description }}
+                          <span class="badge {{ wish.status|status_badge }} pull-right">
+                            {{ wish.get_status_display}}
+                          </span>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ol>
+                {% endif %}
 
                 <h3>{% trans "Status" %}</h3>
                 <p>
@@ -163,7 +183,6 @@
                 </p>
               </div>
           </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}
