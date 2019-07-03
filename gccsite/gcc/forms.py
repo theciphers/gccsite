@@ -5,6 +5,7 @@ from collections import OrderedDict
 from datetime import date
 from django import forms
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -160,8 +161,8 @@ class ApplicantUserForm(forms.ModelForm):
             ),
             ("", _("Other or prefer not to tell")),
         ]
-        # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
-        # the static field declaration above
+        # Assigning the help_text there because for some reason reverse_lazy()
+        # is not lazy enough in the static field declaration above
         self.fields['last_name'].help_text = _(
             'We need your real name and address for legal reasons, as the '
             'Prologin staff engages its responsibility to supervise you '
@@ -235,15 +236,25 @@ class ApplicationWishesForm(forms.Form):
     priority2 = forms.TypedChoiceField(label=_('2nd choice'), required=False)
     priority3 = forms.TypedChoiceField(label=_('3rd choice'), required=False)
 
-    def __init__(self, edition, *args, **kwargs):
+    def __init__(self, edition, user, *args, **kwargs):
         super(ApplicationWishesForm, self).__init__(*args, **kwargs)
 
-        # Get a list of (primary_key, event name) for the selectors
+        # Get the list of events the user can apply to
+        tried_for = EventWish.objects.filter(
+            ~Q(status=ApplicantStatusTypes.incomplete.value),
+            applicant__user=user,
+            event__edition=edition,
+        )
+        tried_for = set(wish.event for wish in tried_for)
+
         events = Event.objects.filter(
             signup_start__lt=date.today(),
             signup_end__gt=date.today(),
             edition=edition,
         ).order_by('event_start')
+        events = [event for event in events if event not in tried_for]
+
+        # Get a list of (primary_key, event name) for the selectors
         events_selection = [(None, '')] + [
             (event.pk, str(event)) for event in events
         ]
@@ -263,13 +274,18 @@ class ApplicationWishesForm(forms.Form):
         applicant = Applicant.for_user_and_edition(user, edition)
 
         # Verify that no application is already accepted or rejected
-        if applicant.status != ApplicantStatusTypes.incomplete.value:
+        if applicant.status not in [
+            ApplicantStatusTypes.incomplete.value,
+            ApplicantStatusTypes.rejected.value,
+        ]:
             raise Applicant.AlreadyLocked(
-                'The user has a processed application'
+                'The user has a processing application'
             )
 
         # Remove previous choices
-        EventWish.objects.filter(applicant=applicant).delete()
+        EventWish.objects.filter(
+            applicant=applicant, status=ApplicantStatusTypes.incomplete.value
+        ).delete()
 
         # Collect selected events, remove duplicates
         events = [Event.objects.get(pk=data['priority1'])]

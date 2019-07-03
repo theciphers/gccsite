@@ -251,23 +251,19 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
         )
 
 
-class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
+class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
     form_class = CombinedApplicantUserForm
 
-    def __init__(self, **kwargs):
-        self.edition = None
-        super().__init__(**kwargs)
-
     def dispatch(self, request, *args, **kwargs):
-        # redirect if already validated for this year.
+        # Redirect if already validated for this year.
         if request.user.is_anonymous:
             return super().dispatch(request, *args, **kwargs)
 
         edition = get_object_or_404(Edition, year=kwargs['edition'])
         applicant = Applicant.for_user_and_edition(self.request.user, edition)
 
-        if applicant.status != 0:
+        if applicant.is_locked():
             messages.add_message(
                 request,
                 messages.ERROR,
@@ -305,12 +301,16 @@ class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
         kwargs['edition'] = get_object_or_404(
             Edition, year=self.kwargs['edition']
         )
-        self.edition = kwargs['edition']
         return kwargs
 
     def get_success_url(self):
         return reverse(
-            'gcc:application_wishes', kwargs={'edition': self.edition}
+            'gcc:application_wishes',
+            kwargs={
+                'edition': get_object_or_404(
+                    Edition, year=self.kwargs['edition']
+                )
+            },
         )
 
     def form_valid(self, form):
@@ -318,14 +318,17 @@ class ApplicationFormView(auth.mixins.LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
-class ApplicationWishesView(FormView):
+class ApplicationWishesView(FormView, PermissionRequiredMixin):
     template_name = 'gcc/application/wishes.html'
     form_class = ApplicationWishesForm
+    permission_required = 'gcc.can_edit_own_application'
 
-    def __init__(self, **kwargs):
-        self.edition_year = None
-        self.edition = None
-        super().__init__(**kwargs)
+    def get_permission_object(self):
+        return get_object_or_404(
+            Applicant,
+            user=self.request.user,
+            edition__year=self.kwargs['edition'],
+        )
 
     def get_success_url(self):
         return reverse(
@@ -334,16 +337,21 @@ class ApplicationWishesView(FormView):
 
     def get_form_kwargs(self):
         # Specify the edition to the form's constructor
-        self.edition_year = self.kwargs['edition']
-        self.edition = get_object_or_404(Edition, year=self.edition_year)
-
         kwargs = super().get_form_kwargs()
-        kwargs.update({'edition': self.edition})
+        kwargs.update(
+            {
+                'edition': get_object_or_404(
+                    Edition, year=self.kwargs['edition']
+                ),
+                'user': self.request.user,
+            }
+        )
         return kwargs
 
     def get_initial(self):
         event_wishes = EventWish.objects.filter(
-            applicant__user=self.request.user, applicant__edition=self.edition
+            applicant__user=self.request.user,
+            applicant__edition__year=self.kwargs['edition'],
         )
         initials = {}
 
@@ -364,7 +372,8 @@ class ApplicationWishesView(FormView):
         return context
 
     def form_valid(self, form):
-        form.save(self.request.user, self.edition)
+        edition = get_object_or_404(Edition, year=self.kwargs['edition'])
+        form.save(self.request.user, edition)
         return super().form_valid(form)
 
 

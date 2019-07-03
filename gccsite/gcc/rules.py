@@ -3,7 +3,12 @@
 
 import rules
 
-from gcc.models import Corrector, Event
+from gcc.models import ApplicantStatusTypes, Corrector, Event
+
+
+@rules.predicate
+def can_edit_own_application(user, applicant):
+    return not applicant.is_locked()
 
 
 @rules.predicate
@@ -27,6 +32,7 @@ def can_review_event(user, event):
     return Corrector.objects.filter(event=event, user=user).exists()
 
 
+rules.add_perm('gcc.can_edit_own_application', can_edit_own_application)
 rules.add_perm('gcc.can_edit_application_labels', can_edit_application_labels)
 rules.add_perm('gcc.can_accept_wish', can_accept_wish)
 rules.add_perm('gcc.can_review', rules.is_staff)

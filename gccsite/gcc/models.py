@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
@@ -139,8 +140,8 @@ class ApplicantStatusTypes(ChoiceEnum):
 # Increasing order of status, for example, if the wishes of a candidate have
 # separate status, the greatest one is displayed
 STATUS_ORDER = [
-    ApplicantStatusTypes.incomplete.value,
     ApplicantStatusTypes.rejected.value,
+    ApplicantStatusTypes.incomplete.value,
     ApplicantStatusTypes.pending.value,
     ApplicantStatusTypes.selected.value,
     ApplicantStatusTypes.accepted.value,
@@ -187,9 +188,20 @@ class Applicant(models.Model):
 
         return ApplicantStatusTypes.incomplete.value
 
+    def is_locked(self):
+        return EventWish.objects.filter(
+            ~Q(
+                status__in=[
+                    ApplicantStatusTypes.incomplete.value,
+                    ApplicantStatusTypes.rejected.value,
+                ]
+            ),
+            applicant=self,
+        ).exists()
+
     def get_export_data(self):
         """
-            Return an array of data to be converted to csv
+        Return an array of data to be converted to csv
         """
 
         export_datas = OrderedDict()
