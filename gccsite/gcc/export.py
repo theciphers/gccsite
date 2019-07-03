@@ -3,11 +3,7 @@ import csv
 from django.http import HttpResponse
 
 
-def export_queryset_as_csv(queryset, mod):
-    if len(queryset) == 0:
-        return
-
-    meta = mod._meta
+def export_queryset_as_csv(queryset, filename):
     fieldnames = []
 
     all_keys = set()
@@ -25,8 +21,8 @@ def export_queryset_as_csv(queryset, mod):
 
     # create the response
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename={}.csv'.format(
-        meta
+    response['Content-Disposition'] = (
+        'attachment; filename=' + filename + '.csv'
     )
     writer = csv.DictWriter(response, fieldnames=fieldnames)
     writer.writeheader()

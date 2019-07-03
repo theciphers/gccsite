@@ -99,6 +99,13 @@ class Event(models.Model):
             + str(self.center)
         )
 
+    def csv_name(self):
+        return (
+            self.event_start.strftime('%Y-%m-%d')
+            + '_'
+            + str(self.center).replace(' ', '_')
+        )
+
     def short_description(self):
         return '{name} – {start} to {end}'.format(
             name=self.center.name,
@@ -266,6 +273,16 @@ class Applicant(models.Model):
                 wish.save()
 
     @staticmethod
+    def incomplete_applicants_for(event):
+        """
+        List the applicants which are incomplete.
+        """
+        acceptable_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.incomplete.value
+        )
+        return [wish.applicant for wish in acceptable_wishes]
+
+    @staticmethod
     def acceptable_applicants_for(event):
         """
         List the applicants which are waiting to be accepted (ie. in the state
@@ -279,8 +296,7 @@ class Applicant(models.Model):
     @staticmethod
     def accepted_applicants_for(event):
         """
-        List the applicants which are waiting to be accepted (ie. in the state
-        `selected`).
+        List the applicants which are accepted but did not confirm.
         """
         accepted_wishes = EventWish.objects.filter(
             event=event, status=ApplicantStatusTypes.accepted.value
@@ -290,13 +306,22 @@ class Applicant(models.Model):
     @staticmethod
     def confirmed_applicants_for(event):
         """
-        List the applicants which are waiting to be accepted (ie. in the state
-        `selected`).
+        List the applicants which are confirmed.
         """
         confirmed_wishes = EventWish.objects.filter(
             event=event, status=ApplicantStatusTypes.confirmed.value
         )
         return [wish.applicant for wish in confirmed_wishes]
+
+    @staticmethod
+    def rejected_applicants_for(event):
+        """
+        List the applicants which were rejected.
+        """
+        acceptable_wishes = EventWish.objects.filter(
+            event=event, status=ApplicantStatusTypes.rejected.value
+        )
+        return [wish.applicant for wish in acceptable_wishes]
 
     @staticmethod
     def for_user_and_edition(user, edition):
