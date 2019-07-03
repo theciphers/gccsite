@@ -42,6 +42,7 @@ class ExportCsvMixin:
         for obj in queryset:
             data = obj.get_export_data()
             datas.append(data)
+
             for key in data:
                 if key not in all_keys:
                     fieldnames.append(key)
@@ -130,6 +131,7 @@ class ApplicationAdmin(admin.ModelAdmin, ExportCsvMixin):
         'edition',
         ApplicationStatusFilter,
         'assignation_wishes__center',
+        'assignation_wishes',
     ]
     readonly_fields = ['user', 'edition']
     fieldsets = [
