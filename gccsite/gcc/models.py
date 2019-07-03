@@ -81,6 +81,7 @@ class Edition(models.Model):
 class Event(models.Model):
     center = models.ForeignKey(Center, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
+    is_long = models.BooleanField(default=True)
     event_start = models.DateTimeField()
     event_end = models.DateTimeField()
     signup_start = models.DateTimeField()
