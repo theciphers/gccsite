@@ -1,14 +1,7 @@
-{% extends "gcc/base.html" %}
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans 'Past Editions' %}{% endblock %}
-
-{% block extra_head %}
+{% extends "gcc/base.html" %} {% load static %} {% load i18n %} {% block title
+%}{% trans 'Past Editions' %}{% endblock %} {% block extra_head %}
 <link rel="stylesheet" href="{% static 'gcc/css/editions.css' %}" />
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div id="edition-history" class="container">
   <div class="row">
     <div class="col-sm-2 edition-header">
@@ -17,18 +10,20 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        Subscriptions are still open for this edition.
-        {% endblocktrans %}
+        {% blocktrans %} Subscriptions are still open for this edition. {%
+        endblocktrans %}
       </p>
       {% if user.is_authenticated %}
-        <a href="/application/form/2019" class="btn btn-primary btn-lg">
-          {% trans 'Apply' %}
-        </a>
+      <a href="/application/form/2019" class="btn btn-primary btn-lg">
+        {% trans 'Apply' %}
+      </a>
       {% else %}
-        <a href="{% url 'proloauth_client:autologin' %}" class="btn btn-primary btn-lg">
-          {% trans 'Sign in and apply' %}
-        </a>
+      <a
+        href="{% url 'proloauth_client:autologin' %}"
+        class="btn btn-primary btn-lg"
+      >
+        {% trans 'Sign in and apply' %}
+      </a>
       {% endif %}
     </div>
   </div>
@@ -39,12 +34,24 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />
-        Those summer camps had a total of <strong>70 girls</strong> and a new practice on <strong>microcontrolers microbit</strong> is created. With the video games tutorial and some activities with the Lego robots it's a great way to practice the skills learned during the week with creativity and fun !
-        {% endblocktrans %}
+        {% blocktrans %} This year, the organization of a Girls Can Code! at
+        <strong>Nantes</strong> was delegated to the organization Adn-ouest
+        Atlantic 2020. Meanwhile, Prologin organizes the summer camps at
+        <strong>Paris</strong> and <strong>Lyon</strong>.<br />
+        Those summer camps had a total of <strong>70 girls</strong> and a new
+        practice on <strong>microcontrolers microbit</strong> is created. With
+        the video games tutorial and some activities with the Lego robots it's a
+        great way to practice the skills learned during the week with creativity
+        and fun ! {% endblocktrans %}
       </p>
-      <button class="btn btn-lg btn-default btn-block" type="button" data-toggle="collapse" data-target="#photos2018" aria-expanded="false" aria-controls="photos2018">
+      <button
+        class="btn btn-lg btn-default btn-block"
+        type="button"
+        data-toggle="collapse"
+        data-target="#photos2018"
+        aria-expanded="false"
+        aria-controls="photos2018"
+      >
         4 photos
       </button>
       <div class="collapse" id="photos2018">
@@ -64,11 +71,20 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at <strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !
-        {% endblocktrans %}
+        {% blocktrans %} In 2017, Prologin challenges itself to organize 3 Girls
+        Can Code summer camps! One at <strong>Bordeaux</strong> in July and two
+        others at <strong>Paris</strong> and <strong>Lyon</strong> at the same
+        time at the end of august. They received a total of
+        <strong>52 participants</strong> ! {% endblocktrans %}
       </p>
-      <button class="btn btn-lg btn-default btn-block" type="button" data-toggle="collapse" data-target="#photos2017" aria-expanded="false" aria-controls="photos2017">
+      <button
+        class="btn btn-lg btn-default btn-block"
+        type="button"
+        data-toggle="collapse"
+        data-target="#photos2017"
+        aria-expanded="false"
+        aria-controls="photos2017"
+      >
         3 photos
       </button>
       <div class="collapse" id="photos2017">
@@ -86,12 +102,19 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.
-        This year a new tutorial was created on <strong>Networks</strong>, where each girls creates it's own chat client !
-        {% endblocktrans %}
+        {% blocktrans %} In 2016,the <strong>18 girls</strong> had very
+        different levels, so the camp was split in small groups. This year a new
+        tutorial was created on <strong>Networks</strong>, where each girls
+        creates it's own chat client ! {% endblocktrans %}
       </p>
-      <button class="btn btn-lg btn-default btn-block" type="button" data-toggle="collapse" data-target="#photos2016" aria-expanded="false" aria-controls="photos2016">
+      <button
+        class="btn btn-lg btn-default btn-block"
+        type="button"
+        data-toggle="collapse"
+        data-target="#photos2016"
+        aria-expanded="false"
+        aria-controls="photos2016"
+      >
         1 photo
       </button>
       <div class="collapse" id="photos2016">
@@ -107,11 +130,20 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.
-        {% endblocktrans %}
+        {% blocktrans %} In 2015, there was <strong>12 girls</strong> taking
+        part to the summer camps which for the first time as tutorials on
+        <strong>web programming</strong>, and a small tutorial on
+        <strong>video game creation</strong> with the Pygame library and even an
+        introduction to <strong>Linux</strong>. {% endblocktrans %}
       </p>
-      <button class="btn btn-lg btn-default btn-block" type="button" data-toggle="collapse" data-target="#photos2015" aria-expanded="false" aria-controls="photos2015">
+      <button
+        class="btn btn-lg btn-default btn-block"
+        type="button"
+        data-toggle="collapse"
+        data-target="#photos2015"
+        aria-expanded="false"
+        aria-controls="photos2015"
+      >
         1 photo
       </button>
       <div class="collapse" id="photos2015">
@@ -127,13 +159,21 @@
     </div>
     <div class="col-sm-10 edition-description">
       <p>
-        {% blocktrans %}
-        This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.
-        Center around algorithmic, we learn to use abstract data structures, for example <strong>graphs</strong>.
-        Among all the participants, two in particular continue to study IT and became organizers as well.
-        {% endblocktrans %}
+        {% blocktrans %} This first summer camp hosted
+        <strong>10 participants</strong> for 5 days to introduce to them to
+        programming. Center around algorithmic, we learn to use abstract data
+        structures, for example <strong>graphs</strong>. Among all the
+        participants, two in particular continue to study IT and became
+        organizers as well. {% endblocktrans %}
       </p>
-      <button class="btn btn-lg btn-default btn-block" type="button" data-toggle="collapse" data-target="#photos2014" aria-expanded="false" aria-controls="photos2014">
+      <button
+        class="btn btn-lg btn-default btn-block"
+        type="button"
+        data-toggle="collapse"
+        data-target="#photos2014"
+        aria-expanded="false"
+        aria-controls="photos2014"
+      >
         1 photo
       </button>
       <div class="collapse" id="photos2014">

@@ -1,20 +1,23 @@
 /* Copyright (C) <2019> Association Prologin <association@prologin.org>
  * SPDX-License-Identifier: GPL-3.0+
  */
-(function ($) {
+(function($) {
   /**
    * Standard affix.
    * @param options: parent: optional, the selector string to the affix's parent for scrollspy
    *                 offset: top offset; default: 20
    *                 footer: selector string to the page footer element; default: 'footer'
    */
-  $.fn.standardAffix = function (options) {
-    var settings = $.extend({
-      offset: 20,
-      footer: 'footer'
-    }, options);
+  $.fn.standardAffix = function(options) {
+    var settings = $.extend(
+      {
+        offset: 20,
+        footer: "footer"
+      },
+      options
+    );
 
-    return this.each(function () {
+    return this.each(function() {
       var $that = $(this);
 
       if (settings.parent) {
@@ -26,12 +29,12 @@
 
       $that.affix({
         offset: {
-          top: function () {
+          top: function() {
             var c = $that.offset().top - settings.offset;
-            return this.top = c;
+            return (this.top = c);
           },
-          bottom: function () {
-            return this.bottom = $(settings.footer).outerHeight(true);
+          bottom: function() {
+            return (this.bottom = $(settings.footer).outerHeight(true));
           }
         }
       });
@@ -43,36 +46,38 @@
    * @param options: checkedClass: the class that will be added when `prop` is true; default: 'checked'
    *                 prop: the property that is read with prop(); default: 'checked'
    */
-  $.fn.inputToLabels = function (options) {
-    var settings = $.extend({
-      checkedClass: 'checked',
-      prop: 'checked'
-    }, options);
-    return this.each(function () {
+  $.fn.inputToLabels = function(options) {
+    var settings = $.extend(
+      {
+        checkedClass: "checked",
+        prop: "checked"
+      },
+      options
+    );
+    return this.each(function() {
       var that = $(this);
-      var labels = that.find('label');
-      labels.each(function () {
+      var labels = that.find("label");
+      labels.each(function() {
         var label = $(this);
-        var input = $(label.find('input'));
-        input.change(function (e) {
+        var input = $(label.find("input"));
+        input.change(function(e) {
           if ($(this).prop(settings.prop)) {
             labels.removeClass(settings.checkedClass);
             label.addClass(settings.checkedClass);
           }
         });
-        if (input.prop(settings.prop))
-          label.addClass(settings.checkedClass);
+        if (input.prop(settings.prop)) label.addClass(settings.checkedClass);
       });
     });
   };
-
 })(jQuery);
 
 function debounce(func, wait, immediate) {
   var timeout;
-  return function () {
-    var context = this, args = arguments;
-    var later = function () {
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };

@@ -1,22 +1,28 @@
-{% extends "gcc/base.html" %}
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans "GCC! − Validation" %}{% endblock %}
-
-{% block head %}
-  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
-{% endblock %}
-
-{% block content %}
-  {% if not applicant.has_complete_application %}
-  <div class="alert alert-warning" role="alert">
-    {% trans "You are missing some key information, you won't be able to validate your application !" %}
-  </div>
-  {% endif%}
-  <center><h2>{% trans "Be careful after this you won't be able to change your answers or event wishes." %}</h2></center>
-  <form method="post">
-    {% csrf_token %}
-    <center><button class="btn btn-default btn-lg" type="submit"><i class="fa fa-save"></i> {% trans "Validate application" %}</button></center>
-  </form>
+{% extends "gcc/base.html" %} {% load static %} {% load i18n %} {% block title
+%}{% trans "GCC! − Validation" %}{% endblock %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"
+/>
+{% endblock %} {% block content %} {% if not applicant.has_complete_application
+%}
+<div class="alert alert-warning" role="alert">
+  {% trans "You are missing some key information, you won't be able to validate
+  your application !" %}
+</div>
+{% endif%}
+<center>
+  <h2>
+    {% trans "Be careful after this you won't be able to change your answers or
+    event wishes." %}
+  </h2>
+</center>
+<form method="post">
+  {% csrf_token %}
+  <center>
+    <button class="btn btn-default btn-lg" type="submit">
+      <i class="fa fa-save"></i> {% trans "Validate application" %}
+    </button>
+  </center>
+</form>
 {% endblock %}

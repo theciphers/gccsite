@@ -1,10 +1,10 @@
-{% extends "_error_base.html" %}
-{% load i18n %}
-
-{% block breadcrumbs %}{% with 500 as number %}{{ block.super }}{% endwith %}{% endblock %}
-{% block title       %}{% with 500 as number %}{{ block.super }}{% endwith %}{% endblock %}
-
-{% block explanation %}
-<p>{% trans "Some internal server error happened. You did nothing wrong, we are to be blamed! Our team has been notified of the issue." %}</p>
+{% extends "_error_base.html" %} {% load i18n %} {% block breadcrumbs %}{% with
+500 as number %}{{ block.super }}{% endwith %}{% endblock %} {% block title %}{%
+with 500 as number %}{{ block.super }}{% endwith %}{% endblock %} {% block
+explanation %}
+<p>
+  {% trans "Some internal server error happened. You did nothing wrong, we are
+  to be blamed! Our team has been notified of the issue." %}
+</p>
 <p>{% trans "Please try again later." %}</p>
 {% endblock %}

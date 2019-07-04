@@ -1,9 +1,6 @@
-{% extends "_error_base.html" %}
-{% load i18n %}
-
-{% block breadcrumbs %}{% with 400 as number %}{{ block.super }}{% endwith %}{% endblock %}
-{% block title       %}{% with 400 as number %}{{ block.super }}{% endwith %}{% endblock %}
-
-{% block explanation %}
+{% extends "_error_base.html" %} {% load i18n %} {% block breadcrumbs %}{% with
+400 as number %}{{ block.super }}{% endwith %}{% endblock %} {% block title %}{%
+with 400 as number %}{{ block.super }}{% endwith %}{% endblock %} {% block
+explanation %}
 <p>{% trans "The request you have made is invalid or malformed." %}</p>
 {% endblock %}

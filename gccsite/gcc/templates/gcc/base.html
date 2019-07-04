@@ -1,82 +1,125 @@
-{% load i18n staticfiles %}
-{% load static %}
+{% load i18n staticfiles %} {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{% block super_title %}{% block title %}{% endblock %} – Girls Can Code!{% endblock %}</title>
-  <link rel="icon" type="image/png" href="{% static 'gcc/img/favicon.png' %}">
+    <title>
+      {% block super_title %}{% block title %}{% endblock %} – Girls Can Code!{%
+      endblock %}
+    </title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'gcc/img/favicon.png' %}"
+    />
 
-  {# Google font, Boostrap, FontAwesome #}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"/>
-  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
+    {# Google font, Boostrap, FontAwesome #}
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"
+    />
 
-  {# Custom #}
-  <link rel="stylesheet" type="text/css" href="{% static 'gcc/css/gcc.css' %}"/>
+    {# Custom #}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'gcc/css/gcc.css' %}"
+    />
 
-  {% block extra_head %}{% endblock %}
-</head>
-<body class="tex2jax_ignore {% block body_class %}{% endblock %}" {% block body_tag %}{% endblock %}>
-
-  {# Header #}
-  {% block super_header %}
-  <div class="navbar-header">
-    <div class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-brand">
-          <a href="{% url 'gcc:index' %}">
-            <img src="{% static 'gcc/img/logo.png' %}" alt="Girls Can Code!">
-          </a>
-        </div>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-collapse collapse pull-right">
-          {% include "gcc/main-menu.html" %}
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body
+    class="tex2jax_ignore {% block body_class %}{% endblock %}"
+    {%
+    block
+    body_tag
+    %}{%
+    endblock
+    %}
+  >
+    {# Header #} {% block super_header %}
+    <div class="navbar-header">
+      <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-brand">
+            <a href="{% url 'gcc:index' %}">
+              <img
+                src="{% static 'gcc/img/logo.png' %}"
+                alt="Girls Can Code!"
+              />
+            </a>
+          </div>
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-collapse collapse pull-right">
+            {% include "gcc/main-menu.html" %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {% endblock super_header %}
-
-  {% block super_content %}
-  {# Content #}
+    {% endblock super_header %} {% block super_content %} {# Content #}
     <div class="container">
-      {% include 'prologin/messages.html' %}
-      {% block content %}{% endblock %}
+      {% include 'prologin/messages.html' %} {% block content %}{% endblock %}
     </div>
-  {% endblock super_content %}
+    {% endblock super_content %} {# Footer #}
+    <footer>
+      <div class="container">
+        {% include "gcc/main-footer.html" %}
+      </div>
+    </footer>
 
-  {# Footer #}
-  <footer>
-    <div class="container">
-      {% include "gcc/main-footer.html" %}
-    </div>
-  </footer>
+    {# Scripts #}
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script type="application/javascript">
+      $(function() {
+        $('.modal[role="dialog"]').modal();
+      });
+    </script>
 
-  {# Scripts #}
-  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-  <script type="application/javascript">
-  $(function() {
-    $('.modal[role="dialog"]').modal();
-  });
-  </script>
-
-  {% block extra_script %}{% endblock %}
-  {% if google_analytics_id %}<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', '{{ google_analytics_id }}', 'auto');
-  ga('send', 'pageview');
-  </script>{% endif %}
-</body>
+    {% block extra_script %}{% endblock %} {% if google_analytics_id %}<script
+      type="text/javascript"
+    >
+      (function(i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "//www.google-analytics.com/analytics.js",
+        "ga"
+      );
+      ga("create", "{{ google_analytics_id }}", "auto");
+      ga("send", "pageview");</script
+    >{% endif %}
+  </body>
 </html>

@@ -1,5 +1,4 @@
-Girls Can Code! website
-=======================
+# Girls Can Code! website
 
 [![Build Status](https://travis-ci.com/prologin/gccsite.svg?branch=master)](https://travis-ci.com/prologin/gccsite)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -11,27 +10,25 @@ This repository contains the source of the website of GCC!:
 GCC! is a free computer science summer camp for girls under 18 organised by the
 association [Prologin](https://prologin.org) since 2014.
 
-Table of Contents
------------------
+## Table of Contents
 
-* [Table of Contents](#table-of-contents)
-* [Installation](#installation)
-* [Hacking on the website](#hacking-on-the-website)
-* [Contributing](#Contributing)
-* [Troubleshooting](#troubleshooting)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Hacking on the website](#hacking-on-the-website)
+- [Contributing](#Contributing)
+- [Troubleshooting](#troubleshooting)
 
-Installation
-------------
+## Installation
 
 ### Requirements
 
 Running the GCC! website requires the following dependencies:
 
-* Git
-* Python 3
-* NPM (for Javascript & CSS assets)
-* PostgreSQL
-* A running version of the [Prologin website](https://github.com/prologin/site)
+- Git
+- Python 3
+- NPM (for Javascript & CSS assets)
+- PostgreSQL
+- A running version of the [Prologin website](https://github.com/prologin/site)
   in order to interact with its OAuth server.
 
 Theses requirements are a subset of the requirements of the Prologin website
@@ -103,6 +100,7 @@ should work by default, you can however modify this configuration if you
 please:
 
 dev.py on the Prologin website:
+
 ```python3
 AUTH_TOKEN_CLIENTS = {
     'gcc': AuthTokenClient('SECRET', '//localhost:8001/user/auth/callback'),
@@ -110,6 +108,7 @@ AUTH_TOKEN_CLIENTS = {
 ```
 
 dev.py on the GCC! website:
+
 ```python3
 OAUTH_ENDPOINT = 'http://localhost:8000/user/auth'
 OAUTH_SECRET = 'SECRET'
@@ -120,29 +119,28 @@ OAUTH_SECRET = 'SECRET'
 (**Note**: If you would rather work with an **anonymized database dump** of the
 website, ask one of the Prologin roots to provide you one.)
 
-*TODO*
+_TODO_
 
-Hacking on the website
-----------------------
+## Hacking on the website
 
 Every time you need to work on the website:
 
 1. Enter the virtualenv:
-    ```bash
-    source .venv/bin/activate
-    ```
+   ```bash
+   source .venv/bin/activate
+   ```
 2. Launch the local dev server:
-    ```bash
-    make runserver
-    ```
+   ```bash
+   make runserver
+   ```
 
-Contributing
-----------------------
+## Contributing
+
 In order to contribute, please follow this guide
 
- 1. Create a branch for the issue/functionnality you wish to implement
- 2. Commit all your changes in the new branch and then create a Merge Request
- 3. Format the code as follows
+1.  Create a branch for the issue/functionnality you wish to implement
+2.  Commit all your changes in the new branch and then create a Merge Request
+3.  Format the code as follows
 
 #### Formatting
 
@@ -164,7 +162,7 @@ i18n framework.
 You can translate the strings locally by editing the `.po` files in your editor
 or using a dedicated software such as [poedit](https://poedit.net/).
 
-To ease the *community* translation process, it is possible to upload the
+To ease the _community_ translation process, it is possible to upload the
 untranslated (English) strings to Transifex, ask people to translate them (eg.
 using the Transifex web app) and download them back to the repository.
 To that end, use the provided `make` commands:

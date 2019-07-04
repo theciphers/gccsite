@@ -1,35 +1,42 @@
-{% extends "gcc/base.html" %}
-{% load bootstrap %}
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans 'Home' %}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'gcc/css/homepage.css' %}" />
-<link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
-{% endblock %}
-
-{% block super_content %}
+{% extends "gcc/base.html" %} {% load bootstrap %} {% load static %} {% load
+i18n %} {% block title %}{% trans 'Home' %}{% endblock %} {% block extra_head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'gcc/css/homepage.css' %}"
+/>
+<link
+  rel="stylesheet"
+  href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"
+/>
+{% endblock %} {% block super_content %}
 
 <section class="home-jumbo jumbotron">
   <div class="container">
-    <h1>{% trans "Girls Can Code! computer science summer camps for girls under 18." %}</h1>
-    <p>{% trans "In Middle or High school? Apply for the Girls Can Code summer camps! Registration is free."%}</p>
+    <h1>
+      {% trans "Girls Can Code! computer science summer camps for girls under
+      18." %}
+    </h1>
+    <p>
+      {% trans "In Middle or High school? Apply for the Girls Can Code summer
+      camps! Registration is free."%}
+    </p>
 
     <div class="htl">
       <div class="row">
-        {% include "gcc/index/free.html" %}
-        {% include "gcc/index/beginners.html" %}
-        {% include "gcc/index/projects.html" %}
+        {% include "gcc/index/free.html" %} {% include
+        "gcc/index/beginners.html" %} {% include "gcc/index/projects.html" %}
       </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="row">
       <div class="col-lg-4 col-lg-offset-4">
-        <a href="{% url 'gcc:learn_more' %}" class="btn btn-primary btn-lg btn-block">
+        <a
+          href="{% url 'gcc:learn_more' %}"
+          class="btn btn-primary btn-lg btn-block"
+        >
           {% trans 'Learn More' %}
         </a>
       </div>
@@ -37,137 +44,182 @@
   </div>
 </section>
 
-
 <div class="container">
-      {% include 'prologin/messages.html' %}
+  {% include 'prologin/messages.html' %} {% block content %}
 
-      {% block content %}
+  <div class="row">
+    <div class="col-sm-3">
+      {% include 'gcc/registration_widget.html' %}
 
-      <div class="row">
-      <div class="col-sm-3">
-        {% include 'gcc/registration_widget.html' %}
-
-        <section>
-          <h2>{% trans "Sponsors" %}</h2>
-          <div class="row">
-            {% for sponsor in sponsors %}
-            <div class="col-xs-6 col-sm-12 text-center">
-              {% if sponsor.site %}<a href="{{ sponsor.site }}" title="{{ sponsor.name }}" rel="nofollow">{% endif %}
-                {% if sponsor.logo %}
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" class="sponsor" />
-                {% else %}
-                  <strong>{{ sponsor.name }}</strong>
-                {% endif %}
-              {% if sponsor.site %}</a>{% endif %}
-            </div>
-            {% endfor %}
+      <section>
+        <h2>{% trans "Sponsors" %}</h2>
+        <div class="row">
+          {% for sponsor in sponsors %}
+          <div class="col-xs-6 col-sm-12 text-center">
+            {% if sponsor.site %}<a
+              href="{{ sponsor.site }}"
+              title="{{ sponsor.name }}"
+              rel="nofollow"
+              >{% endif %} {% if sponsor.logo %}
+              <img
+                alt="{{ sponsor.name }}"
+                src="{{ sponsor.logo.url }}"
+                class="sponsor"
+              />
+              {% else %}
+              <strong>{{ sponsor.name }}</strong>
+              {% endif %} {% if sponsor.site %}</a
+            >{% endif %}
           </div>
-        </section>
-      </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
 
-      <div class="col-sm-9">
+    <div class="col-sm-9">
       <h2>{% trans "Latest news" %}</h2>
-        <ul class="clearfix nav text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+      <ul class="clearfix nav text-center">
+        <li>
+          <a href="{% url 'zinnia:entry_archive_index' %}"
+            ><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a
+          >
+        </li>
+      </ul>
 
-        {% for article in articles %}
-        <section class="clearfix news-entry">
-          <h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
-          <div class="entry-meta-line text-muted">
-            <p class="entry-info">
-              {% with authors=article.authors.all %}
-              {% if authors|length %}
-              {% trans "Written by" %}
-              {% for author in authors %}
-              <span class="vcard author">
-                <a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
-                title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-                {% trans "on" %}
-                {% else %}
-                {% trans "Written on" %}
-                {% endif %}
-                {% endwith %}
-                <abbr class="published" title="{{ article.creation_date|date:'c' }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
-              {% for tag in article.tags_list %}
-                <a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
-              {% endfor %}
+      {% for article in articles %}
+      <section class="clearfix news-entry">
+        <h3>
+          <a
+            href="{{ article.get_absolute_url }}"
+            title="{{ article.title }}"
+            rel="bookmark"
+            >{{ article.title }}</a
+          >
+        </h3>
+        <div class="entry-meta-line text-muted">
+          <p class="entry-info">
+            {% with authors=article.authors.all %} {% if authors|length %} {%
+            trans "Written by" %} {% for author in authors %}
+            <span class="vcard author">
+              <a
+                href="{{ author.get_absolute_url }}"
+                class="fn url{% if not author.get_full_name %} nickname{% endif %}"
+                rel="author"
+                title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}"
+                >{{ author }}</a
+              ></span
+            >{% if not forloop.last %}, {% endif %} {% endfor %} {% trans "on"
+            %} {% else %} {% trans "Written on" %} {% endif %} {% endwith %}
+            <abbr class="published" title="{{ article.creation_date|date:'c' }}"
+              >{{ article.creation_date|date:"DATE_FORMAT" }}</abbr
+            >
+            {% for tag in article.tags_list %}
+            <a href="{% url 'zinnia:tag_detail' tag %}"
+              ><span class="label label-default">{{ tag }}</span></a
+            >
+            {% endfor %}
+          </p>
+        </div>
+        <div class="entry-summary" itemprop="headline">
+          {{ article.html_lead|safe }}
+        </div>
+        <div class="entry-content" itemprop="articleBody">
+          {% if article.featured or not article.lead %} {{
+          article.html_content|safe }} {% endif %}
+        </div>
+      </section>
+
+      {% endfor %}
+
+      <ul class="clearfix nav text-center">
+        <li>
+          <a href="{% url 'zinnia:entry_archive_index' %}"
+            ><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a
+          >
+        </li>
+      </ul>
+
+      <h2>{% trans 'Get updated!' %}</h2>
+      <p>
+        {% blocktrans %} Subscribe to the newsletter to get updated with the
+        latest news. {% endblocktrans %}
+      </p>
+      <form action="" method="POST" class="form-horizontal">
+        {% csrf_token %} {{ form|bootstrap_horizontal:'col-sm-3' }}
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <button class="btn btn-primary" type="submit">
+              <i class="fa fa-newspaper-o"></i> {% trans "Subscribe" %}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <h2>{% trans 'History behind Girls Can Code!' %}</h2>
+      <div class="row uniform-row">
+        <div class="col-sm-4">
+          <div class="highlight">
+            {% with
+            url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html"
+            %}
+            <div class="thumbnail">
+              <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" />
+            </div>
+            <h4><a href="{{url}}">{% trans 'Parity in IT' %}</a></h4>
+            <p>
+              {% blocktrans %} Girls Can Code! was created to promote girls to
+              take a place in this masculine field despite stereotypes. {%
+              endblocktrans %}
             </p>
+            <a href="{{url}}" class="btn btn-primary btn-block"
+              >{% trans 'Learn more' %}</a
+            >
+            {% endwith %}
           </div>
-          <div class="entry-summary" itemprop="headline">
-            {{ article.html_lead|safe }}
+        </div>
+        <div class="col-sm-4">
+          <div class="highlight">
+            <div class="thumbnail">
+              <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" />
+            </div>
+            <h4>
+              <a href="{% url 'gcc:editions' %}"
+                >{% trans 'Girls Can Code past editions!' %}</a
+              >
+            </h4>
+            <p>
+              {% blocktrans %} The first ever Girls Can Code! edition was in
+              2014, therefore the 2019<sup>th</sup> edition will be the
+              6<sup>th</sup>. {% endblocktrans %}
+            </p>
+            <a href="{% url 'gcc:editions' %}" class="btn btn-primary btn-block"
+              >{% trans 'Learn more' %}</a
+            >
           </div>
-          <div class="entry-content" itemprop="articleBody">
-            {% if article.featured or not article.lead %}
-              {{ article.html_content|safe }}
-            {% endif %}
-          </div>
-        </section>
-
-        {% endfor %}
-
-        <ul class="clearfix nav text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
-
-        <h2>{% trans 'Get updated!' %}</h2>
-        <p>
-          {% blocktrans %}
-            Subscribe to the newsletter to get updated with the latest news.
-          {% endblocktrans %}
-        </p>
-        <form action="" method="POST" class="form-horizontal">
-          {% csrf_token %}
-          {{ form|bootstrap_horizontal:'col-sm-3' }}
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-              <button class="btn btn-primary" type="submit">
-                <i class="fa fa-newspaper-o"></i> {% trans "Subscribe" %}
-              </button>
+        </div>
+        <div class="col-sm-4">
+          <div class="highlight">
+            <div class="thumbnail">
+              <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" />
             </div>
-          </div>
-        </form>
-
-        <h2>{% trans 'History behind Girls Can Code!' %}</h2>
-         <div class="row uniform-row">
-             <div class="col-sm-4">
-               <div class="highlight">
-                {% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
-                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" /> </div>
-                <h4><a href="{{url}}">{% trans 'Parity in IT' %}</a></h4>
-                <p>
-                    {% blocktrans %}
-                    Girls Can Code! was created to promote girls to take a place in this masculine field despite stereotypes.
-                    {% endblocktrans %}
-                </p>
-                <a href="{{url}}" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
-                {% endwith %}
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="highlight">
-                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /> </div>
-                <h4><a href="{% url 'gcc:editions' %}">{% trans 'Girls Can Code past editions!' %}</a></h4>
-                <p>
-                    {% blocktrans %}
-                    The first ever Girls Can Code! edition was in 2014, therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.
-                    {% endblocktrans %}
-                </p>
-                <a href="{% url 'gcc:editions' %}" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="highlight">
-                <div class="thumbnail"> <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /> </div>
-                <h4><a href="//prologin.org/">{% trans 'Prologin, an association since in 1991' %}</a></h4>
-                <p>
-                    {% blocktrans %}
-                    The Prologin association organizes the national computer contest since 1991, and runs since 2014 the Girls Can Code! summer camps.
-                    {% endblocktrans %}
-                </p>
-                <a href="//prologin.org/" class="btn btn-primary btn-block">{% trans 'Learn more' %}</a>
-            </div>
+            <h4>
+              <a href="//prologin.org/"
+                >{% trans 'Prologin, an association since in 1991' %}</a
+              >
+            </h4>
+            <p>
+              {% blocktrans %} The Prologin association organizes the national
+              computer contest since 1991, and runs since 2014 the Girls Can
+              Code! summer camps. {% endblocktrans %}
+            </p>
+            <a href="//prologin.org/" class="btn btn-primary btn-block"
+              >{% trans 'Learn more' %}</a
+            >
           </div>
         </div>
       </div>
-      </div>
+    </div>
+  </div>
 
   {% endblock content %}
 </div>

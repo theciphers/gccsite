@@ -53,8 +53,7 @@
     background-color: #1d655e;
 }
 
-@media(max-width: 768px) {
-
+@media (max-width: 768px) {
     #edition-history h1::after {
         left: -7px;
     }
@@ -66,7 +65,6 @@
     #edition-history .edition-header:after {
         left: 0;
     }
-
 }
 
 /*

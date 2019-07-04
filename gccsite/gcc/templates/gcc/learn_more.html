@@ -1,79 +1,92 @@
-{% extends "gcc/base.html" %}
-
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans 'Main Informations' %}{% endblock %}
-
-{% block content %}
+{% extends "gcc/base.html" %} {% load static %} {% load i18n %} {% block title
+%}{% trans 'Main Informations' %}{% endblock %} {% block content %}
 <div class="col-sm-3">
   {% include 'gcc/registration_widget.html' %}
 </div>
 
 <div class="container col-md-9">
   <h2>{% trans 'The different types of Summer Camps' %}</h2>
-    {% blocktrans %}
-      <p>
-        There are two types of Girls Can Code! summer camps:
-      </p>
-      <ul>
-        <li>Long ones, they last for a week. They were first created in 2014.</li>
-        <li>Short ones, also called "Girls Can Code! Week-end", they started in 2019.</li>
-      </ul>
-    {% endblocktrans %}
+  {% blocktrans %}
+  <p>
+    There are two types of Girls Can Code! summer camps:
+  </p>
+  <ul>
+    <li>Long ones, they last for a week. They were first created in 2014.</li>
+    <li>
+      Short ones, also called "Girls Can Code! Week-end", they started in 2019.
+    </li>
+  </ul>
+  {% endblocktrans %}
 
   <h2>{% trans 'Content and schedule of the week-end Summer Camps' %}</h2>
-  <p>{% blocktrans %}
-      They are shorter thus give less time to discover the variety of computer science but can be
-      organized more often and in various locations. They can focus on special topics but as a
-      default they are an introduction to computer science via practical sessions. The first day
-      focuses on the discovery of Python and the next on the creation of a small project on a
-      microcontroller.
-  {% endblocktrans %}</p>
+  <p>
+    {% blocktrans %} They are shorter thus give less time to discover the
+    variety of computer science but can be organized more often and in various
+    locations. They can focus on special topics but as a default they are an
+    introduction to computer science via practical sessions. The first day
+    focuses on the discovery of Python and the next on the creation of a small
+    project on a microcontroller. {% endblocktrans %}
+  </p>
 
   <p>
-    {% blocktrans %}Here is an example schedule of a GCC! week-end, but the time of arrival and
-    departure may vary, you will be sent a precise one when accepted.{% endblocktrans %}
+    {% blocktrans %}Here is an example schedule of a GCC! week-end, but the time
+    of arrival and departure may vary, you will be sent a precise one when
+    accepted.{% endblocktrans %}
   </p>
   <a href="{% static 'gcc/img/schedule_short.svg'%}">
-    <img  style="width: 50%;" alt="Typical Schedule of a GCC! Week-end" src="{% static 'gcc/img/schedule_short.svg' %}" />
+    <img
+      style="width: 50%;"
+      alt="Typical Schedule of a GCC! Week-end"
+      src="{% static 'gcc/img/schedule_short.svg' %}"
+    />
   </a>
 
   <h2>{% trans 'Content and schedule of the week-long Summer Camps' %}</h2>
   <p>
-    {% blocktrans %}The summer camps lasts for one week and mainly consist of practical exercises.
-    The week starts with an initiation to the Python programming language, and then some
-    introductive tutorials about several subdomains of informatics like network or web design.
-    Finally, the week ends with a personal project, that can be chosen among several main topics:
-    video game, robotics or microcontroller.{% endblocktrans %}
+    {% blocktrans %}The summer camps lasts for one week and mainly consist of
+    practical exercises. The week starts with an initiation to the Python
+    programming language, and then some introductive tutorials about several
+    subdomains of informatics like network or web design. Finally, the week ends
+    with a personal project, that can be chosen among several main topics: video
+    game, robotics or microcontroller.{% endblocktrans %}
   </p>
   <p>
-    {% blocktrans %}Here is a typical schedule of a GCC! week. Notice that the attendees can arrive
-    between 9 am and 9:30 am and can leave at between 18 pm and 19 am.{% endblocktrans %}
+    {% blocktrans %}Here is a typical schedule of a GCC! week. Notice that the
+    attendees can arrive between 9 am and 9:30 am and can leave at between 18 pm
+    and 19 am.{% endblocktrans %}
   </p>
   <a href="{% static 'gcc/img/schedule.svg'%}">
-    <img alt="Typical Schedule of a GCC! Week" src="{% static 'gcc/img/schedule.svg' %}" />
+    <img
+      alt="Typical Schedule of a GCC! Week"
+      src="{% static 'gcc/img/schedule.svg' %}"
+    />
   </a>
 
   <h2>{% trans 'Academic Level' %}</h2>
   <p>
-    {% blocktrans %}We accept girls attending to secondary school are higher, the difficulty of the
-    internship aims at adapting to the knowledge of all participants.{% endblocktrans %}
+    {% blocktrans %}We accept girls attending to secondary school are higher,
+    the difficulty of the internship aims at adapting to the knowledge of all
+    participants.{% endblocktrans %}
   </p>
 
   <h2>{% trans 'Grants' %}</h2>
   <p>
-    {% blocktrans %}Prologin can attribute grants for some of the participants. Specifically,
-    Prologin can pay back the costs of the transport and housing for participants, thus they need
-    to keep their receipts.{% endblocktrans %}
+    {% blocktrans %}Prologin can attribute grants for some of the participants.
+    Specifically, Prologin can pay back the costs of the transport and housing
+    for participants, thus they need to keep their receipts.{% endblocktrans %}
   </p>
 
-  {% blocktrans %}To candidate for a grant you need to send an email to bourse2019@prologin.org and
-  specify the following informations:{% endblocktrans %}
+  {% blocktrans %}To candidate for a grant you need to send an email to
+  bourse2019@prologin.org and specify the following informations:{%
+  endblocktrans %}
   <ul>
-    <li>{% blocktrans %}first and last name of the participant{% endblocktrans %}</li>
-    <li>{% blocktrans %}whether you need this grant for the travel, the housing or both
-      {% endblocktrans %}</li>
+    <li>
+      {% blocktrans %}first and last name of the participant{% endblocktrans %}
+    </li>
+    <li>
+      {% blocktrans %}whether you need this grant for the travel, the housing or
+      both {% endblocktrans %}
+    </li>
     <li>{% blocktrans %}a proof of address{% endblocktrans %}</li>
     <li>{% blocktrans %}a your last tax notice{% endblocktrans %}</li>
   </ul>
@@ -81,9 +94,10 @@
   <br />
 
   <p>
-    {% url 'gcc:privacy' as privacy_url %}
-    {% blocktrans %}Please take some time reading our article about privacy:
-    <a href="{{privacy_url}}">{{SITE_HOST}}{{privacy_url}}</a>{% endblocktrans %}
+    {% url 'gcc:privacy' as privacy_url %} {% blocktrans %}Please take some time
+    reading our article about privacy:
+    <a href="{{privacy_url}}">{{SITE_HOST}}{{privacy_url}}</a>{% endblocktrans
+    %}
   </p>
 </div>
 {% endblock %}

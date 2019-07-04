@@ -10,22 +10,25 @@
 /* XLarge */
 
 @media screen and (max-width: 1680px) {
-
     /* Basic */
 
-    body, input, textarea, select {
+    body,
+    input,
+    textarea,
+    select {
         font-size: 12pt;
     }
-
 }
 
 /* Large */
 
 @media screen and (max-width: 1280px) {
-
     /* Basic */
 
-    body, input, select, textarea {
+    body,
+    input,
+    select,
+    textarea {
         font-size: 11pt;
         line-height: 1.5em;
         letter-spacing: 0.015em;
@@ -64,12 +67,12 @@
 
 /* Medium */
 
-#navPanel, #titleBar {
+#navPanel,
+#titleBar {
     display: none;
 }
 
 @media screen and (max-width: 980px) {
-
     /* Section/Article */
 
     header br {
@@ -128,7 +131,6 @@
 }
 
 @media screen and (max-width: 980px) {
-
     /* Nav */
 
     #page-wrapper {
@@ -175,17 +177,17 @@
     }
 
     #titleBar .toggle:before {
-        -moz-transition: all .15s ease-in-out;
-        -webkit-transition: all .15s ease-in-out;
-        -ms-transition: all .15s ease-in-out;
-        transition: all .15s ease-in-out;
+        -moz-transition: all 0.15s ease-in-out;
+        -webkit-transition: all 0.15s ease-in-out;
+        -ms-transition: all 0.15s ease-in-out;
+        transition: all 0.15s ease-in-out;
         font-family: FontAwesome;
         text-decoration: none;
         font-style: normal;
         font-weight: normal;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        content: '\f0c9';
+        content: "\f0c9";
         font-size: 14px;
         position: absolute;
         top: 6px;
@@ -301,7 +303,6 @@
 /* Small */
 
 @media screen and (max-width: 736px) {
-
     #header-popup {
         margin-top: 0;
         border-radius: 0;
@@ -309,13 +310,20 @@
 
     /* Basic */
 
-    body, input, select, textarea {
+    body,
+    input,
+    select,
+    textarea {
         line-height: 1.5em;
         font-size: 10.5pt;
         letter-spacing: 0;
     }
 
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-size: 1.2em;
         letter-spacing: 0.05em;
         margin: 0 0 1em 0;
@@ -327,7 +335,8 @@
 
     /* Section/Article */
 
-    section, article {
+    section,
+    article {
         clear: both;
     }
 
@@ -409,7 +418,8 @@
         padding-top: 0.5em;
     }
 
-    .wrapper .title:before, .wrapper .title:after {
+    .wrapper .title:before,
+    .wrapper .title:after {
         height: 15px;
         bottom: -15px;
         background-size: 100% 100%;
@@ -424,5 +434,4 @@
     #content header.style1 {
         padding-bottom: 2.5em;
     }
-
 }

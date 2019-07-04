@@ -1,120 +1,211 @@
-{% extends "gcc/base.html" %}
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans 'privacy' %}{% endblock %}
-
-
-{% block content %}
-{% blocktrans %}
+{% extends "gcc/base.html" %} {% load static %} {% load i18n %} {% block title
+%}{% trans 'privacy' %}{% endblock %} {% block content %} {% blocktrans %}
 <section class="privacy">
-<h2>GCC! and your Personal Data</h2>
+  <h2>GCC! and your Personal Data</h2>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#processing" aria-expanded="false" aria-controls="processing">
-  <h3>About the Processing</h3>
-</button>
-<div class="collapse" id="processing">
-<h4>Purposes</h4>
-<p>The processing goal is to <strong>organize the Girls Can Code! (GCC!) summer camps</strong>.<br>
-It enables the Prologin association to:
-</p>
-	<ul>
-		<li>handle the applications;</li>
-		<li>grant or no a financial grant;</li>
-		<li>customize the content to meet the expectations;</li>
-		<li>tailor the meals taking into account each dieatry restrictions;</li>
-		<li>answer questions from the participants;</li>
-		<li>steer the summer camps (evaluate participant satisfaction, produce statistics).</li>
-	</ul>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#processing"
+    aria-expanded="false"
+    aria-controls="processing"
+  >
+    <h3>About the Processing</h3>
+  </button>
+  <div class="collapse" id="processing">
+    <h4>Purposes</h4>
+    <p>
+      The processing goal is to
+      <strong>organize the Girls Can Code! (GCC!) summer camps</strong>.<br />
+      It enables the Prologin association to:
+    </p>
+    <ul>
+      <li>handle the applications;</li>
+      <li>grant or no a financial grant;</li>
+      <li>customize the content to meet the expectations;</li>
+      <li>tailor the meals taking into account each dieatry restrictions;</li>
+      <li>answer questions from the participants;</li>
+      <li>
+        steer the summer camps (evaluate participant satisfaction, produce
+        statistics).
+      </li>
+    </ul>
 
-<h4>Lawfulness of Processing</h4>
-<p>The data subjects give consent to the processing of their personal data for the declared purposes (art. 6(1)a of GDPR).</p>
-</div>
+    <h4>Lawfulness of Processing</h4>
+    <p>
+      The data subjects give consent to the processing of their personal data
+      for the declared purposes (art. 6(1)a of GDPR).
+    </p>
+  </div>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#processed_data" aria-expanded="false" aria-controls="processed_data">
-<h3>Processed Data</h3>
-</button>
-<div class="collapse" id="processed_data">
-<h4>Data Categories</h4>
-<ul>
-	<li>Identification: name, firstname, address...;</li>
-	<li>School life (also referred to as professional life): current class level;</li>
-	<li>Personal life: dietary constraints;</li>
-	<li>Financial data, if a grant request is made;</li>
-	<li>Internet: audience measurement;</li>
-	<li>Health data: medical treatments and allergies.</li>
-</ul>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#processed_data"
+    aria-expanded="false"
+    aria-controls="processed_data"
+  >
+    <h3>Processed Data</h3>
+  </button>
+  <div class="collapse" id="processed_data">
+    <h4>Data Categories</h4>
+    <ul>
+      <li>Identification: name, firstname, address...;</li>
+      <li>
+        School life (also referred to as professional life): current class
+        level;
+      </li>
+      <li>Personal life: dietary constraints;</li>
+      <li>Financial data, if a grant request is made;</li>
+      <li>Internet: audience measurement;</li>
+      <li>Health data: medical treatments and allergies.</li>
+    </ul>
 
-<h4>Data Source</h4>
-<p>These informations are collected directly from the applicant, and/or from the holder of parental authority when necessary (candidate is less than 16).</p>
+    <h4>Data Source</h4>
+    <p>
+      These informations are collected directly from the applicant, and/or from
+      the holder of parental authority when necessary (candidate is less than
+      16).
+    </p>
 
-<h4>Mandatory Answers</h4>
-<p>Application to a GCC! summer camp requires (unless specified) the collection of data necessary to process the application.</p>
+    <h4>Mandatory Answers</h4>
+    <p>
+      Application to a GCC! summer camp requires (unless specified) the
+      collection of data necessary to process the application.
+    </p>
 
-<h4>Automated Individual Decision-making</h4>
-<p>This processing does not include automated decision: all applications are reviewed by a human being :)</p>
-</div>
+    <h4>Automated Individual Decision-making</h4>
+    <p>
+      This processing does not include automated decision: all applications are
+      reviewed by a human being :)
+    </p>
+  </div>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#data_subjects" aria-expanded="false" aria-controls="data_subjects">
-<h3>Data Subjects</h3>
-</button>
-<div class="collapse" id="data_subjects">
-<p>This processing involves:</p>
-<ul>
-  <li>natural persons applying to a GCC! summer camp;</li>
-  <li>holder of parental authorities for the above persons if necessary (applicant is less than 16);</li>
-  <li>members of Prologin in charge of the summer camps;</li>
-  <li>natural or legal persons from Prologin partners and/or sub-processors.</li>
-</ul>
-</div>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#data_subjects"
+    aria-expanded="false"
+    aria-controls="data_subjects"
+  >
+    <h3>Data Subjects</h3>
+  </button>
+  <div class="collapse" id="data_subjects">
+    <p>This processing involves:</p>
+    <ul>
+      <li>natural persons applying to a GCC! summer camp;</li>
+      <li>
+        holder of parental authorities for the above persons if necessary
+        (applicant is less than 16);
+      </li>
+      <li>members of Prologin in charge of the summer camps;</li>
+      <li>
+        natural or legal persons from Prologin partners and/or sub-processors.
+      </li>
+    </ul>
+  </div>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#data_recipients" aria-expanded="false" aria-controls="data_recipients">
-<h3>Data Recipients</h3>
-</button>
-<div class="collapse" id="data_recipients">
-<h4>Categories of Recipients</h4>
-<p>Taking into account their respective needs, the following are recipient of all or any parts of the data:</p>
-<ul>
-  <li>authorized members of Prologin;</li>
-  <li>authorized members of Prologin partners and/or sub-contractors;</li>
-  <li>other participants of the same summer camp;</li>
-  <li>emergency services if needed.</li>
-</ul>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#data_recipients"
+    aria-expanded="false"
+    aria-controls="data_recipients"
+  >
+    <h3>Data Recipients</h3>
+  </button>
+  <div class="collapse" id="data_recipients">
+    <h4>Categories of Recipients</h4>
+    <p>
+      Taking into account their respective needs, the following are recipient of
+      all or any parts of the data:
+    </p>
+    <ul>
+      <li>authorized members of Prologin;</li>
+      <li>authorized members of Prologin partners and/or sub-contractors;</li>
+      <li>other participants of the same summer camp;</li>
+      <li>emergency services if needed.</li>
+    </ul>
 
-<h4>Data Transfers Outside of EU</h4>
-<p>There is no transfer to any country outside of the EU.</p>
-</div>
+    <h4>Data Transfers Outside of EU</h4>
+    <p>There is no transfer to any country outside of the EU.</p>
+  </div>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#storage_period" aria-expanded="false" aria-controls="storage_period">
-<h3>Storage Period</h3>
-</button>
-<div class="collapse" id="storage_period">
-<p>Identification data, school and personal life are stored until the data subject unsubscribe from Prologin.<br>
-Financial data are stored until the grant decision has been taken, plus one month.<br>
-Health data are deleted three years after the end of the summer camps.</p>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#storage_period"
+    aria-expanded="false"
+    aria-controls="storage_period"
+  >
+    <h3>Storage Period</h3>
+  </button>
+  <div class="collapse" id="storage_period">
+    <p>
+      Identification data, school and personal life are stored until the data
+      subject unsubscribe from Prologin.<br />
+      Financial data are stored until the grant decision has been taken, plus
+      one month.<br />
+      Health data are deleted three years after the end of the summer camps.
+    </p>
+  </div>
 
-</div>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#security"
+    aria-expanded="false"
+    aria-controls="security"
+  >
+    <h3>Security</h3>
+  </button>
+  <div class="collapse" id="security">
+    <p>
+      Some security measures, aiming to ensure confidentiality, integrity and
+      availability of the data, have been implemented. They are extracted from
+      the ISO/IEC27002 standard. It includes, without being limited to, data
+      encryption in-transit and externalized backups.
+    </p>
+  </div>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#security" aria-expanded="false" aria-controls="security">
-<h3>Security</h3>
-</button>
-<div class="collapse" id="security">
-<p>Some security measures, aiming to ensure confidentiality, integrity and availability of the data, have been implemented. They are extracted from the ISO/IEC27002 standard. It includes, without being limited to, data encryption in-transit and externalized backups.</p>
-</div>
+  <button
+    class="btn btn-default btn-block"
+    type="button"
+    data-toggle="collapse"
+    data-target="#your_rights"
+    aria-expanded="false"
+    aria-controls="your_rights"
+  >
+    <h3>Your Rights</h3>
+  </button>
+  <div class="collapse" id="your_rights">
+    <h4>The Essential</h4>
+    <p>
+      You have (<em>via</em> the holder of parental authorities when applicable)
+      the right to access and obtain a copy of your personal data, to object to
+      their processing, to rectify or to erase them. You also have the right to
+      restrict the processing of your data. Please refer to the website of your
+      national Data Protection Authority to learn more about your rights.
+    </p>
 
-<button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#your_rights" aria-expanded="false" aria-controls="your_rights">
-<h3>Your Rights</h3>
-</button>
-<div class="collapse" id="your_rights">
-<h4>The Essential</h4>
-<p>You have (<em>via</em> the holder of parental authorities when applicable) the right to access and obtain a copy of your personal data, to object to their processing, to rectify or to erase them. You also have the right to restrict the processing of your data. Please refer to the website of your national Data Protection Authority to learn more about your rights.</p>
+    <h4>How to Exercize your Rights</h4>
+    <p>
+      Any request must be sent by email to
+      <a href="mailto:info@prologin.org">info@prologin.org</a>.
+    </p>
 
-<h4>How to Exercize your Rights</h4>
-<p>Any request must be sent by email to <a href="mailto:info@prologin.org">info@prologin.org</a>.</p>
-
-<h4>Lodging a Complaint</h4>
-<p>Should you think your right are not respected, and after having contacted us, you can lodge a complaint with your national Data Protection Authority.</p>
-</div>
+    <h4>Lodging a Complaint</h4>
+    <p>
+      Should you think your right are not respected, and after having contacted
+      us, you can lodge a complaint with your national Data Protection
+      Authority.
+    </p>
+  </div>
 </section>
-{% endblocktrans %}
-{% endblock %}
+{% endblocktrans %} {% endblock %}

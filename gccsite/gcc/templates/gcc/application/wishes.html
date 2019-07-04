@@ -1,22 +1,17 @@
-{% extends "gcc/base.html" %}
-{% load bootstrap %}
-{% load static %}
-{% load i18n %}
-
-{% block title %}{% trans "GCC! − Application" %}{% endblock %}
-
-{% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
-<link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
-{% endblock %}
-
-{% block content %}
+{% extends "gcc/base.html" %} {% load bootstrap %} {% load static %} {% load
+i18n %} {% block title %}{% trans "GCC! − Application" %}{% endblock %} {% block
+head %} <link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
+<link
+  rel="stylesheet"
+  href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"
+/>
+{% endblock %} {% block content %}
 <div class="container">
-<h2>{% trans "Choose my location wishes" %}</h2>
+  <h2>{% trans "Choose my location wishes" %}</h2>
   <form method="post" class="form-horizontal">
-    {% csrf_token %}
-    {{ form|bootstrap_horizontal:'col-md-2' }}
-    <input class="btn btn-primary btn-lg btn-block" type="submit" value="{% trans "Confirm my application" %}">
+    {% csrf_token %} {{ form|bootstrap_horizontal:'col-md-2' }} <input
+    class="btn btn-primary btn-lg btn-block" type="submit" value="{% trans
+    "Confirm my application" %}">
   </form>
 </div>
 
@@ -24,17 +19,19 @@
 <div class="container">
   <div class="row">
     {% for event in events %}
-      <div class="col-md-6">
-        <a href="//prologin.org/center"><h3>{{ event.center.name }}</h3></a>
-        <p>
-          {% blocktrans with start=event.event_start|date:"DATE_FORMAT" end=event.event_end|date:"DATE_FORMAT" %}
-            From {{start}} to {{end}}
-          {% endblocktrans %}
-          <br />
-          {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
-          {% blocktrans with signup_end=event.signup_end|date:"DATE_FORMAT" %}Inscription close the {{signup_end}} {% endblocktrans %}
-        </p>
-      </div>
+    <div class="col-md-6">
+      <a href="//prologin.org/center"><h3>{{ event.center.name }}</h3></a>
+      <p>
+        {% blocktrans with start=event.event_start|date:"DATE_FORMAT"
+        end=event.event_end|date:"DATE_FORMAT" %} From {{start}} to {{end}} {%
+        endblocktrans %}
+        <br />
+        {{event.center.address}}, {{event.center.postal_code}}
+        {{event.center.city}}<br />
+        {% blocktrans with signup_end=event.signup_end|date:"DATE_FORMAT"
+        %}Inscription close the {{signup_end}} {% endblocktrans %}
+      </p>
+    </div>
     {% endfor %}
   </div>
 </div>

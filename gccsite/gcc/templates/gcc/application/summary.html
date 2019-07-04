@@ -1,169 +1,173 @@
-{% extends "gcc/base.html" %}
-{% load i18n static staticfiles %}
-{% load application_status utils %}
-
-{% block head %}
-  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
-{% endblock %}
-
-{% block title %}{% trans "GCC! − Summary" %}{% endblock %}
-
-{% block content %}
+{% extends "gcc/base.html" %} {% load i18n static staticfiles %} {% load
+application_status utils %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"
+/>
+{% endblock %} {% block title %}{% trans "GCC! − Summary" %}{% endblock %} {%
+block content %}
 <div class="row">
-    <div class="col-sm-4 col-md-3">
-        <ul class="fa-ul text-break-word profile-info" style="margin-bottom: 1em">
-            {% if shown_user.get_full_name %}
-            <li title="{% trans 'Full name' %}">
-                <i class="fa fa-li fa-user"></i>
-                <span class="text-capitalize">{{ shown_user.first_name }}</span>
-                <span class="text-smallcaps">{{ shown_user.last_name }}</span>
-            </li>
-            {% endif %}
-            {% if shown_user.phone %}
-            <li title="{% trans 'Phone number' %}">
-                <i class="fa fa-li fa-phone"></i>
-                <a href="tel:{{ shown_user.phone }}">{{ shown_user.phone|phone_number }}</a>
-            </li>
-            {% endif %}
-            {% if shown_user.email %}
-            <li title="{% trans 'Email address' %}">
-                <i class="fa fa-li fa-envelope-o"></i>
-                <a href="email:{{ shown_user.email }}">{{ shown_user.email }}</a>
-            </li>
-            {% endif %}
-            {% if shown_user.birthday %}
-            <li title="{% trans 'Birth day' %}"><i class="fa fa-li fa-birthday-cake"></i>
-                {{ shown_user.birthday }}<br>
-                <small class="text-muted">{{ shown_user.birthday|timesince }}</small>
-            </li>
-            {% endif %}
-            {% if user.has_partial_address %}
-            <li title="{% trans 'Postal address' %}">
-                <i class="fa fa-li fa-map-marker"></i>
-                <address>
-                    {{ shown_user.address|linebreaksbr }}<br>
-                    {{ shown_user.postal_code }} {{ shown_user.city }}<br>
-                    {{ shown_user.country }}
-                </address>
-            </li>
-            {% endif %}
-            <li title="{% trans 'Date joined' %}">
-                <i class="fa fa-li fa-clock-o"></i>
-                {% trans "Member for" %} {{ shown_user.date_joined|timesince }}
-            </li>
-        </ul>
+  <div class="col-sm-4 col-md-3">
+    <ul class="fa-ul text-break-word profile-info" style="margin-bottom: 1em">
+      {% if shown_user.get_full_name %}
+      <li title="{% trans 'Full name' %}">
+        <i class="fa fa-li fa-user"></i>
+        <span class="text-capitalize">{{ shown_user.first_name }}</span>
+        <span class="text-smallcaps">{{ shown_user.last_name }}</span>
+      </li>
+      {% endif %} {% if shown_user.phone %}
+      <li title="{% trans 'Phone number' %}">
+        <i class="fa fa-li fa-phone"></i>
+        <a href="tel:{{ shown_user.phone }}"
+          >{{ shown_user.phone|phone_number }}</a
+        >
+      </li>
+      {% endif %} {% if shown_user.email %}
+      <li title="{% trans 'Email address' %}">
+        <i class="fa fa-li fa-envelope-o"></i>
+        <a href="email:{{ shown_user.email }}">{{ shown_user.email }}</a>
+      </li>
+      {% endif %} {% if shown_user.birthday %}
+      <li title="{% trans 'Birth day' %}">
+        <i class="fa fa-li fa-birthday-cake"></i> {{ shown_user.birthday }}<br />
+        <small class="text-muted">{{ shown_user.birthday|timesince }}</small>
+      </li>
+      {% endif %} {% if user.has_partial_address %}
+      <li title="{% trans 'Postal address' %}">
+        <i class="fa fa-li fa-map-marker"></i>
+        <address>
+          {{ shown_user.address|linebreaksbr }}<br />
+          {{ shown_user.postal_code }} {{ shown_user.city }}<br />
+          {{ shown_user.country }}
+        </address>
+      </li>
+      {% endif %}
+      <li title="{% trans 'Date joined' %}">
+        <i class="fa fa-li fa-clock-o"></i>
+        {% trans "Member for" %} {{ shown_user.date_joined|timesince }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-8 col-md-8 compact-headings">
+    {% if not has_applied_to_current %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <td width="100%">{% trans "Edition" %} {{current_edition}}</td>
+      </div>
+      <div class="panel-body">
+        <table class="panel-title">
+          <tbody>
+            <tr>
+              <td width="100%">
+                <p>
+                  {% trans "Sadly you did not apply yet for the current
+                  edition..." %}
+                </p>
+              </td>
+              <td class="text-right">
+                <a
+                  href="{% url 'gcc:application_form' edition=current_edition %}"
+                  class="btn btn-default btn-xs"
+                >
+                  <i class="fa fa-pencil"></i> {% trans "Apply" %}</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-sm-8 col-md-8 compact-headings">
-        {% if not has_applied_to_current %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                            <td width="100%">{% trans "Edition" %} {{current_edition}}</td>
-            </div>
-            <div class="panel-body">
-                <table class="panel-title">
-                    <tbody>
-                        <tr>
-                            <td width="100%">
-                                <p> {% trans "Sadly you did not apply yet for the current edition..." %} </p>
-                            </td>
-                            <td class="text-right">
-                                <a  href="{% url 'gcc:application_form' edition=current_edition %}"
-                              class="btn btn-default btn-xs">
-         <i class="fa fa-pencil"></i> {% trans "Apply" %}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    {% endif %} {% for applicant in applications %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <table class="panel-title">
+          <tbody>
+            <tr>
+              <td width="100%">Edition {{applicant.edition}}</td>
+              {% if applicant.edition.subscription_is_open %} {% if
+              applicant.status == 0 %}
+              <td class="text-right">
+                <a
+                  href="{% url 'gcc:application_form' edition=applicant.edition %}"
+                  class="btn btn-default btn-xs"
+                >
+                  <i class="fa fa-pencil"></i> {% trans "Edit application" %}
+                </a>
+              </td>
+              {% if applicant.edition.subscription_is_open %}
+              <td class="text-right">
+                <a
+                  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}"
+                  class="btn btn-default btn-xs"
+                >
+                  <i class="fa fa-save"></i> {% trans "Validate application" %}
+                </a>
+              </td>
+              {% endif %} {% else %}
+              <span
+                class="badge {{ applicant.status|status_badge }} pull-right"
+              >
+                {{ applicant.get_status_display}}
+              </span>
+              {% endif %} {% endif %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-body">
+        <h3>{% trans "My informations" %}</h3>
+        {% if not applicant.has_complete_application %}
+        <div class="alert alert-warning" role="alert">
+          {% trans "You are missing some key information, you won't be able to
+          validate your application !" %}
         </div>
         {% endif %}
-        {% for applicant in applications %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <table class="panel-title">
-                    <tbody>
-                        <tr>
-                            <td width="100%">Edition {{applicant.edition}}</td>
-                            {% if applicant.edition.subscription_is_open %}
-                              {% if applicant.status == 0 %}
-                                <td class="text-right">
-                                  <a  href="{% url 'gcc:application_form' edition=applicant.edition %}" class="btn btn-default btn-xs">
-                                    <i class="fa fa-pencil"></i> {% trans "Edit application" %}
-                                  </a>
-                                </td>
-                                {% if applicant.edition.subscription_is_open %}
-                                  <td class="text-right">
-                                    <a  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}" class="btn btn-default btn-xs">
-                                      <i class="fa fa-save"></i> {% trans "Validate application" %}
-                                    </a>
-                                  </td>
-                                {% endif %}
-                              {% else %}
-                                <span class="badge {{ applicant.status|status_badge }} pull-right">
-                                  {{ applicant.get_status_display}}
-                                </span>
-                              {% endif %}
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="panel-body">
-                <h3>{% trans "My informations" %}</h3>
-                {% if not applicant.has_complete_application %}
-                  <div class="alert alert-warning" role="alert">
-                    {% trans "You are missing some key information, you won't be able to validate your application !" %}
-                  </div>
-                {% endif %}
-                <ul class="nav nav-stacked fa-ul">
-                  {% for answer in applicant.answers.all %}
-                    {% if applicant.edition == answer.applicant.edition %}
-                      <li> <strong> {{answer.question}} </strong> </li>
-                      <li>{{ answer }}</li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
+        <ul class="nav nav-stacked fa-ul">
+          {% for answer in applicant.answers.all %} {% if applicant.edition ==
+          answer.applicant.edition %}
+          <li><strong> {{answer.question}} </strong></li>
+          <li>{{ answer }}</li>
+          {% endif %} {% endfor %}
+        </ul>
 
-                <h3>{% trans "My applications" %}</h3>
-                <ol>
-                  {% for wish in applicant.eventwish_set.all %}
-                    <li>
-                      {{ wish.event.short_description }}
-                      <span class="badge {{ wish.status|status_badge }} pull-right">
-                        {{ wish.get_status_display}}
-                      </span>
-                      {% if wish.status == 4 %}
-                        <a class="pull-right" href="{% url 'gcc:confirm' wish=wish.pk%}" style="margin-right: 10px;">
-                          <strong>
-                            {% trans "Confirm my venue" %}
-                          </strong>
-                        </a>
-                      {% endif %}
-                    </li>
-                  {% endfor %}
-                </ol>
+        <h3>{% trans "My applications" %}</h3>
+        <ol>
+          {% for wish in applicant.eventwish_set.all %}
+          <li>
+            {{ wish.event.short_description }}
+            <span class="badge {{ wish.status|status_badge }} pull-right">
+              {{ wish.get_status_display}}
+            </span>
+            {% if wish.status == 4 %}
+            <a
+              class="pull-right"
+              href="{% url 'gcc:confirm' wish=wish.pk%}"
+              style="margin-right: 10px;"
+            >
+              <strong>
+                {% trans "Confirm my venue" %}
+              </strong>
+            </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ol>
 
-                <h3>{% trans "Status" %}</h3>
-                <p>
-                  {% if applicant.status == 0 %}
-                    {% if applicant.edition.subscription_is_open %}
-                      {% trans "Please validate your applications." %}
-                    {% else %}
-                      {% trans "Subscriptions are not opened yet for this year." %}
-                    {% endif %}
-                  {% elif applicant.status == 3 %}
-                    {% trans "You will soon receive your assignation." %}
-                  {% elif applicant.status == 4 %}
-                    {% trans "You have been assigned to an event, please confirm your venue." %}
-                  {% elif applicant.status == 5 %}
-                    {% trans "Your venue has been confirmed!" %}
-                  {% else %}
-                    {% trans "Please wait while we review and update your application!" %}
-                  {% endif %}
-                </p>
-              </div>
-          </div>
-        {% endfor %}
+        <h3>{% trans "Status" %}</h3>
+        <p>
+          {% if applicant.status == 0 %} {% if
+          applicant.edition.subscription_is_open %} {% trans "Please validate
+          your applications." %} {% else %} {% trans "Subscriptions are not
+          opened yet for this year." %} {% endif %} {% elif applicant.status ==
+          3 %} {% trans "You will soon receive your assignation." %} {% elif
+          applicant.status == 4 %} {% trans "You have been assigned to an event,
+          please confirm your venue." %} {% elif applicant.status == 5 %} {%
+          trans "Your venue has been confirmed!" %} {% else %} {% trans "Please
+          wait while we review and update your application!" %} {% endif %}
+        </p>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
