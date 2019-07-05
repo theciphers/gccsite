@@ -1,29 +1,31 @@
 # Copyright (C) <2019> Association Prologin <association@prologin.org>
 # SPDX-License-Identifier: GPL-3.0+
 
-import sys
 import os
+import sys
+
+from rules.contrib.views import PermissionRequiredMixin
+from zinnia.models import Entry
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView, View
+
 from prologin.email import send_email
-from django.utils.text import slugify
-
-
-from gcc.models import (
+from application.models import (
     Answer,
     Applicant,
-    ApplicantLabel,
     ApplicantStatusTypes,
-    Event,
     EventWish,
 )
-from rules.contrib.views import PermissionRequiredMixin
+from review.models import ApplicantLabel
+from event.models import Event
 
 
 class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):

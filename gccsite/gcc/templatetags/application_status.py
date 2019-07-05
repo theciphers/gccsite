@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 from django import template
-from gcc.models import ApplicantStatusTypes as StatusType
+from application.models import ApplicantStatusTypes as StatusType
 
 
 register = template.Library()

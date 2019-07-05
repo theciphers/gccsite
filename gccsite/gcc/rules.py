@@ -3,7 +3,8 @@
 
 import rules
 
-from gcc.models import ApplicantStatusTypes, Corrector, Event
+from event.models import Event
+from review.models import Corrector
 
 
 @rules.predicate

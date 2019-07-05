@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from gcc.models import Applicant, ApplicantStatusTypes
 from prologin.models import (
     AddressableModel,
     ChoiceEnum,
@@ -91,14 +90,6 @@ class GCCUser(AbstractUser, AddressableModel):
         verbose_name=_("Locale"),
         choices=settings.LANGUAGES,
     )
-
-    @cached_property
-    def participations_count(self):
-        applicants = Applicant.objects.filter(user=self)
-        return sum(
-            (applicant.status == ApplicantStatusTypes.confirmed.value)
-            for applicant in applicants
-        )
 
     @property
     def unsubscribe_token(self):

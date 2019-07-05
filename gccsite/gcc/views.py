@@ -4,6 +4,9 @@
 import random
 from datetime import datetime
 
+from rules.contrib.views import PermissionRequiredMixin
+from zinnia.models import Entry
+
 from django.conf import settings
 from django.contrib import auth, messages
 from django.http import Http404, HttpResponseRedirect
@@ -14,23 +17,15 @@ from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
-from gcc.forms import (
-    ApplicationWishesForm,
-    CombinedApplicantUserForm,
-    EmailForm,
-)
-from gcc.models import (
-    Applicant,
-    ApplicantStatusTypes,
-    Edition,
-    Event,
-    EventWish,
-    Sponsor,
-    SubscriberEmail,
-)
+from application.forms import ApplicationWishesForm, CombinedApplicantUserForm
+from application.models import Applicant, ApplicantStatusTypes, EventWish
+from event.models import Event
+from gcc.models import Edition
+from homepage.forms import EmailForm
+from homepage.models import SubscriberEmail
 from prologin.email import send_email
-from rules.contrib.views import PermissionRequiredMixin
-from zinnia.models import Entry
+from sponsor.models import Sponsor
+
 
 # Editions
 
@@ -177,9 +172,12 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
                 'shown_user': shown_user,
                 'current_edition': Edition.current(),
                 'applicant': get_object_or_404(Applicant, user=shown_user),
-                'has_applied_to_current': Edition.current().user_has_applied(
-                    shown_user
-                ),
+                'has_applied_to_current': Applicant.objects.filter(
+                    user=shown_user, edition=Edition.current_edition()
+                ).exists(),
+                'subscription_is_open': Event.objects.opened_for_edition(
+                    Edition.current_edition()
+                ).exists(),
             }
         )
         return context

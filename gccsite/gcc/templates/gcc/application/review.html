@@ -65,10 +65,10 @@
                   <span class="first-name">{{applicant.user.first_name}}</span>
                 </td>
                 <td>
-                  {% if applicant.user.participations_count == 0 %}
+                  {% if applicant.participations_count == 0 %}
                   {% trans 'None' %}
                   {% else %}
-                    {{ applicant.user.participations_count }} participations
+                    {{ applicant.participations_count }} participations
                   {% endif %}
                 </td>
                 <td>

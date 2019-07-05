@@ -84,20 +84,18 @@
                     <tbody>
                         <tr>
                             <td width="100%">Edition {{applicant.edition}}</td>
-                            {% if applicant.edition.subscription_is_open %}
+                            {% if subscription_is_open %}
                               {% if applicant.status == 0 %}
                                 <td class="text-right">
                                   <a  href="{% url 'gcc:application_form' edition=applicant.edition %}" class="btn btn-default btn-xs">
                                     <i class="fa fa-pencil"></i> {% trans "Edit application" %}
                                   </a>
                                 </td>
-                                {% if applicant.edition.subscription_is_open %}
-                                  <td class="text-right">
-                                    <a  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}" class="btn btn-default btn-xs">
-                                      <i class="fa fa-save"></i> {% trans "Validate application" %}
-                                    </a>
-                                  </td>
-                                {% endif %}
+                                <td class="text-right">
+                                  <a  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}" class="btn btn-default btn-xs">
+                                    <i class="fa fa-save"></i> {% trans "Validate application" %}
+                                  </a>
+                                </td>
                               {% else %}
                                 <span class="badge {{ applicant.status|status_badge }} pull-right">
                                   {{ applicant.get_status_display}}
@@ -166,7 +164,7 @@
                 <h3>{% trans "Status" %}</h3>
                 <p>
                   {% if applicant.status == 0 %}
-                    {% if applicant.edition.subscription_is_open %}
+                    {% if subscription_is_open %}
                       {% trans "Please validate your applications." %}
                     {% else %}
                       {% trans "Subscriptions are not opened yet for this year." %}

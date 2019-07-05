@@ -4,16 +4,28 @@
 import csv
 
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
+
 from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-import gcc.models as models
+from application.models import (
+    Answer,
+    Applicant,
+    ApplicantStatusTypes,
+    EventWish,
+)
 from gcc.export import export_queryset_as_csv
+from form.models import Form, Question
+from event.models import Event
+from review.models import ApplicantLabel, Corrector
+from gcc.models import Edition
+from sponsor.models import Sponsor
+from homepage.models import SubscriberEmail
 
 
-admin.site.register([models.ApplicantLabel, models.Edition])
+admin.site.register([ApplicantLabel, Edition])
 
 # -- Mixins
 
@@ -68,11 +80,11 @@ class ExportCsvMixin:
 
 
 class QuestionInline(SortableTabularInline):
-    model = models.Form.question_list.through
+    model = Form.question_list.through
     extra = 1
 
 
-@admin.register(models.Form)
+@admin.register(Form)
 class FormAdmin(NonSortableParentAdmin):
     inlines = [QuestionInline]
 
@@ -81,7 +93,7 @@ class FormAdmin(NonSortableParentAdmin):
 
 
 class EventWishesInline(admin.TabularInline):
-    model = models.EventWish
+    model = EventWish
     max_num = 3
 
 
@@ -89,7 +101,7 @@ class AnswersInline(admin.TabularInline):
     def answer(self, obj):
         return str(obj)
 
-    model = models.Answer
+    model = Answer
     can_delete = True
     extra = 0
 
@@ -101,14 +113,14 @@ class ApplicationStatusFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return (
             (str(item.value), name)
-            for name, item in models.ApplicantStatusTypes.__members__.items()
+            for name, item in ApplicantStatusTypes.__members__.items()
         )
 
     def queryset(self, request, queryset):
         if self.value() is None:
             return queryset
 
-        if int(self.value()) == models.ApplicantStatusTypes.incomplete.value:
+        if int(self.value()) == ApplicantStatusTypes.incomplete.value:
             return queryset.filter(
                 Q(eventwish__status=0) | Q(eventwish=None)
             ).distinct()
@@ -116,9 +128,9 @@ class ApplicationStatusFilter(admin.SimpleListFilter):
         return queryset.filter(eventwish__status=self.value())
 
 
-@admin.register(models.Applicant)
+@admin.register(Applicant)
 class ApplicationAdmin(admin.ModelAdmin, ExportCsvMixin):
-    models.Applicant.get_status_display.short_description = _('status')
+    Applicant.get_status_display.short_description = _('status')
 
     search_fields = [
         'user__username',
@@ -147,10 +159,10 @@ class ApplicationAdmin(admin.ModelAdmin, ExportCsvMixin):
 
 
 class CorrectorInline(admin.TabularInline):
-    model = models.Corrector
+    model = Corrector
 
 
-@admin.register(models.Event)
+@admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = [
         'edition',
@@ -166,31 +178,29 @@ class EventAdmin(admin.ModelAdmin):
     def incomplete_export_as_csv(self, request, queryset):
         participants = []
         for obj in queryset:
-            participants += models.Applicant.incomplete_applicants_for(obj)
+            participants += Applicant.incomplete_applicants_for(obj)
             return export_queryset_as_csv(
                 participants, 'incomplete' + '_' + obj.csv_name()
             )
 
-            incomplete_export_as_csv.short_description = (
-                "Export incomplete as csv"
-            )
+    incomplete_export_as_csv.short_description = "Export incomplete as csv"
 
     def pending_export_as_csv(self, request, queryset):
         participants = []
         for obj in queryset:
-            participants += models.Applicant.acceptable_applicants_for(obj)
+            participants += Applicant.acceptable_applicants_for(obj)
             return export_queryset_as_csv(
                 participants, 'pending' + '_' + obj.csv_name()
             )
 
-            pending_export_as_csv.short_description = "Export pending as csv"
+    pending_export_as_csv.short_description = "Export pending as csv"
 
     def accepted_and_confirmed_export_as_csv(self, request, queryset):
         participants = []
         for obj in queryset:
-            participants += models.Applicant.accepted_applicants_for(
+            participants += Applicant.accepted_applicants_for(
                 obj
-            ) + models.Applicant.confirmed_applicants_for(obj)
+            ) + Applicant.confirmed_applicants_for(obj)
         return export_queryset_as_csv(
             participants, 'accepted_and_confirmed' + '_' + obj.csv_name()
         )
@@ -202,7 +212,7 @@ class EventAdmin(admin.ModelAdmin):
     def rejected_export_as_csv(self, request, queryset):
         participants = []
         for obj in queryset:
-            participants += models.Applicant.rejected_applicants_for(obj)
+            participants += Applicant.rejected_applicants_for(obj)
         return export_queryset_as_csv(
             participants, 'rejected' + '_' + obj.csv_name()
         )
@@ -220,7 +230,7 @@ class EventAdmin(admin.ModelAdmin):
 # -- Question
 
 
-@admin.register(models.Question)
+@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ['question', 'comment', 'response_type']
     search_fields = ['question', 'comment']
@@ -229,7 +239,7 @@ class QuestionAdmin(admin.ModelAdmin):
 # -- Sponsor
 
 
-@admin.register(models.Sponsor)
+@admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
     list_display = [
         'name',
@@ -267,6 +277,6 @@ class SponsorAdmin(admin.ModelAdmin):
 # Newsletter
 
 
-@admin.register(models.SubscriberEmail)
+@admin.register(SubscriberEmail)
 class SubscriberEmailAdmin(admin.ModelAdmin):
     search_fields = ['email']
