@@ -13,13 +13,13 @@ from django.urls import reverse
 
 from gcc.models import (
     Answer,
-    AnswerTypes,
     Applicant,
     ApplicantStatusTypes,
     Event,
     EventWish,
     QuestionForForm,
 )
+from gcc.models.forms import AnswerTypes
 
 from prologin import utils
 from prologin.utils.multiforms import MultiForm

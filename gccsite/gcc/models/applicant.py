@@ -1,138 +1,20 @@
 # Copyright (C) <2019> Association Prologin <association@prologin.org>
 # SPDX-License-Identifier: GPL-3.0+
 
-import hashlib
-import os
 from collections import OrderedDict
-from datetime import date
 
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models import Q
-from django.urls import reverse
-from django.utils.formats import date_format
-from django.utils.functional import cached_property
-from django.utils.translation import ugettext_noop
 
-from adminsortable.models import SortableMixin
-from centers.models import Center
-from prologin.models import AddressableModel, ContactModel, EnumField
-from prologin.utils import ChoiceEnum, upload_path
+from prologin.models import EnumField
+from prologin.utils import ChoiceEnum
 
-
-class Edition(models.Model):
-    year = models.PositiveIntegerField(primary_key=True, unique=True)
-    signup_form = models.ForeignKey('Form', on_delete=models.CASCADE)
-
-    @cached_property
-    def poster_url(self):
-        """Gets poster's URL if it exists else return None"""
-        name = 'poster.full.jpg'
-        path = self.file_path(name)
-
-        if not os.path.exists(path):
-            return None
-
-        return self.file_url(name)
-
-    def file_path(self, *tail):
-        """Gets file's absolute path"""
-        return os.path.abspath(
-            os.path.join(settings.GCC_REPOSITORY_PATH, str(self.year), *tail)
-        )
-
-    def file_url(self, *tail):
-        """Gets file's URL"""
-        return os.path.join(
-            settings.STATIC_URL,
-            settings.GCC_REPOSITORY_STATIC_PREFIX,
-            str(self.year),
-            *tail,
-        )
-
-    @staticmethod
-    def current():
-        """Gets current edition"""
-        return Edition.objects.latest()
-
-    def subscription_is_open(self):
-        """Is there still one event open for subscription"""
-        current_events = Event.objects.filter(
-            edition=self,
-            signup_start__lt=date.today(),
-            signup_end__gte=date.today(),
-        )
-        return current_events.exists()
-
-    def user_has_applied(self, user):
-        """Check whether a user has applied for this edition"""
-        return Applicant.objects.filter(user=user, edition=self).exists()
-
-    def __str__(self):
-        return str(self.year)
-
-    class Meta:
-        ordering = ['-year']
-        get_latest_by = ['year']
-
-
-class Event(models.Model):
-    center = models.ForeignKey(Center, on_delete=models.CASCADE)
-    edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
-    is_long = models.BooleanField(default=True)
-    event_start = models.DateTimeField()
-    event_end = models.DateTimeField()
-    signup_start = models.DateTimeField()
-    signup_end = models.DateTimeField()
-    signup_form = models.ForeignKey(
-        'Form', on_delete=models.CASCADE, null=True
-    )
-
-    def __str__(self):
-        return (
-            self.event_start.strftime('%Y-%m-%d')
-            + ' - '
-            + self.event_start.strftime('%Y-%m-%d')
-            + ' '
-            + str(self.center)
-        )
-
-    def csv_name(self):
-        return (
-            self.event_start.strftime('%Y-%m-%d')
-            + '_'
-            + str(self.center).replace(' ', '_')
-        )
-
-    def short_description(self):
-        return '{name} – {start} to {end}'.format(
-            name=self.center.name,
-            start=date_format(self.event_start, "SHORT_DATE_FORMAT"),
-            end=date_format(self.event_end, "SHORT_DATE_FORMAT"),
-        )
-
-
-class Corrector(models.Model):
-    event = models.ForeignKey(
-        'Event', on_delete=models.CASCADE, related_name='correctors'
-    )
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return str(self.user)
-
-
-class ApplicantLabel(models.Model):
-    """Labels to comment on an applicant"""
-
-    display = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.display
+from .edition import Edition, Event
+from .forms import AnswerTypes, Question
+from .review import ApplicantLabel
 
 
 @ChoiceEnum.labels(str.capitalize)
@@ -347,105 +229,8 @@ class Applicant(models.Model):
         who has already been accepted or rejected this year.
         """
 
-        pass
-
     class Meta:
         unique_together = (('user', 'edition'),)
-
-
-class EventWish(models.Model):
-    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    status = EnumField(
-        ApplicantStatusTypes,
-        db_index=True,
-        blank=True,
-        default=ApplicantStatusTypes.incomplete.value,
-    )
-
-    # Priority defined by the candidate to express his preferred event
-    # The lower the order is, the more important is the choice
-    order = models.IntegerField(default=1)
-
-    def __str__(self):
-        return '{} for {}'.format(str(self.applicant), str(self.event))
-
-    class Meta:
-        ordering = ('order',)
-        unique_together = (('applicant', 'event'),)
-
-
-@ChoiceEnum.labels(str.capitalize)
-class AnswerTypes(ChoiceEnum):
-    boolean = 0
-    integer = 1
-    date = 2
-    string = 3
-    text = 4
-    multichoice = 5
-
-
-class Form(models.Model):
-    # Name of the form
-    name = models.CharField(max_length=64)
-    # List of question
-    question_list = models.ManyToManyField(
-        'Question', through='QuestionForForm'
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Question(models.Model):
-    """
-    A generic question type, that can be of several type.
-
-    If response_type is multichoice you have to specify the answer in the meta
-    field, respecting the following structure:
-    {
-        "choices": {
-            "0": "first option",
-            "1": "second option"
-        }
-    }
-    """
-
-    # Formulation of the question
-    question = models.TextField()
-    # Potential additional indications about the questions
-    comment = models.TextField(blank=True)
-    # How to represent the answer
-    response_type = EnumField(AnswerTypes)
-
-    # If set to true, the applicant will need to fill this field in order to
-    # save his application.
-    always_required = models.BooleanField(default=False)
-    # If set to true, the applicant will need to fill this field in order to
-    # validate his application.
-    finaly_required = models.BooleanField(default=True)
-
-    # Some extra constraints on the answer
-    meta = JSONField(encoder=DjangoJSONEncoder, default=dict, null=True)
-
-    def __str__(self):
-        ret = self.question
-
-        if self.finaly_required:
-            ret += ' (*)'
-
-        return ret
-
-
-class QuestionForForm(SortableMixin):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    form = models.ForeignKey(Form, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(
-        default=0, editable=False, db_index=True
-    )
-
-    class Meta:
-        ordering = ['order']
 
 
 class Answer(models.Model):
@@ -478,44 +263,23 @@ class Answer(models.Model):
         unique_together = (('applicant', 'question'),)
 
 
-class SubscriberEmail(models.Model):
-    email = models.EmailField()
-    date = models.DateTimeField(auto_now_add=True)
+class EventWish(models.Model):
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    status = EnumField(
+        ApplicantStatusTypes,
+        db_index=True,
+        blank=True,
+        default=ApplicantStatusTypes.incomplete.value,
+    )
 
-    @property
-    def unsubscribe_token(self):
-        subscriber_id = str(self.id).encode()
-        secret = settings.SECRET_KEY.encode()
-        return hashlib.sha256(subscriber_id + secret).hexdigest()[:32]
-
-    @property
-    def unsubscribe_url(self):
-        return reverse(
-            'gcc:news_unsubscribe',
-            kwargs={'email': self.email, 'token': self.unsubscribe_token},
-        )
+    # Priority defined by the candidate to express his preferred event
+    # The lower the order is, the more important is the choice
+    order = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.email
+        return '{} for {}'.format(str(self.applicant), str(self.event))
 
-
-class SponsorQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(is_active=True)
-
-
-class Sponsor(AddressableModel, ContactModel, models.Model):
-    def upload_logo_to(self, *args, **kwargs):
-        return upload_path('sponsor')(self, *args, **kwargs)
-
-    name = models.CharField(max_length=255, db_index=True)
-    description = models.TextField(blank=True)
-    comment = models.TextField(blank=True)
-    logo = models.ImageField(upload_to=upload_logo_to, blank=True)
-    site = models.URLField(blank=True)
-    is_active = models.BooleanField(default=True)
-
-    objects = SponsorQuerySet.as_manager()
-
-    def __str__(self):
-        return self.name
+    class Meta:
+        ordering = ('order',)
+        unique_together = (('applicant', 'event'),)

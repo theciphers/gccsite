@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('question', models.TextField()),
                 ('comment', models.TextField(blank=True)),
-                ('response_type', prologin.models.EnumField(gcc.models.AnswerTypes, choices=[(0, 'Boolean'), (1, 'Integer'), (2, 'Date'), (3, 'String'), (4, 'Text'), (5, 'Multichoice')])),
+                ('response_type', prologin.models.EnumField(gcc.models.forms.AnswerTypes, choices=[(0, 'Boolean'), (1, 'Integer'), (2, 'Date'), (3, 'String'), (4, 'Text'), (5, 'Multichoice')])),
                 ('required', models.BooleanField(default=False)),
                 ('meta', django.contrib.postgres.fields.jsonb.JSONField(default=dict, encoder=django.core.serializers.json.DjangoJSONEncoder, null=True)),
             ],
