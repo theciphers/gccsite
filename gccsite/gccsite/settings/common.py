@@ -206,6 +206,10 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar_cb,
 }
 
+# Bootstrap configuration
+BOOTSTRAP3 = {'success_css_class': ''}
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # NPM (static assets)
 NPM_ROOT_PATH = os.path.join(PROJECT_ROOT_DIR, 'assets')
 NPM_STATIC_FILES_PREFIX = 'vendor'
