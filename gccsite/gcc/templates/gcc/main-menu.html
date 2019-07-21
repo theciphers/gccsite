@@ -17,7 +17,7 @@
     {% endif%}
     <li class="sep"><a>&nbsp;</a></li>
     {% if not user.is_authenticated %}
-      <li><a href="{% url 'proloauth_client:autologin' %}">{% trans 'Sign in with Prologin' %}</a></li>
+      <li><a href="{% url 'proloauth_client:autologin' %}?next={{ request.path }}">{% trans 'Sign in with Prologin' %}</a></li>
     {% else %}
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ user.username }} <span class="caret"></span></a>
