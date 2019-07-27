@@ -16,7 +16,7 @@ from django.views.generic import RedirectView, TemplateView, View
 from prologin.email import send_email
 from rules.contrib.views import PermissionRequiredMixin
 
-from gcc.models import Answer, Applicant, ApplicantLabel, Event, EventWish
+from gcc.models import Answer, Applicant, Event, EventWish, ReviewLabel
 from gcc.models.applicant import StatusTypes
 
 
@@ -93,7 +93,7 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
             {
                 'grouped_applicants': grouped_applicants,
                 'event': event,
-                'labels': ApplicantLabel.objects.all(),
+                'labels': ReviewLabel.objects.all(),
                 'nb_acceptables': len(acceptable_applicants),
             }
         )
@@ -257,12 +257,12 @@ class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         try:
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
-            label = ApplicantLabel.objects.get(pk=kwargs['label'])
+            label = ReviewLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
             return JsonResponse(
                 {'status': 'error', 'reason': _('applicant does not exist')}
             )
-        except ApplicantLabel.DoesNotExist:
+        except ReviewLabel.DoesNotExist:
             return JsonResponse(
                 {'status': 'error', 'reason': _('label does not exist')}
             )
@@ -290,12 +290,12 @@ class ApplicationAddLabelView(PermissionRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         try:
             applicant = Applicant.objects.get(pk=kwargs['applicant'])
-            label = ApplicantLabel.objects.get(pk=kwargs['label'])
+            label = ReviewLabel.objects.get(pk=kwargs['label'])
         except Applicant.DoesNotExist:
             return JsonResponse(
                 {'status': 'error', 'reason': _('applicant does not exist')}
             )
-        except ApplicantLabel.DoesNotExist:
+        except ReviewLabel.DoesNotExist:
             return JsonResponse(
                 {'status': 'error', 'reason': _('label does not exist')}
             )

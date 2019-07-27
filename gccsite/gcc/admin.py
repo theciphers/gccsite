@@ -14,7 +14,7 @@ from gcc.export import export_queryset_as_csv
 from gcc.models.applicant import StatusTypes
 
 
-admin.site.register([models.ApplicantLabel, models.Edition])
+admin.site.register([models.ReviewLabel, models.Edition])
 
 # -- Mixins
 

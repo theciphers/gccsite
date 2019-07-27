@@ -7,7 +7,7 @@ from django.db import models
 from .edition import Event
 
 
-class ApplicantLabel(models.Model):
+class ReviewLabel(models.Model):
     """Labels to comment on an applicant"""
 
     display = models.CharField(max_length=10)

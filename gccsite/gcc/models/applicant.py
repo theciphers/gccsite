@@ -14,7 +14,7 @@ from prologin.utils import ChoiceEnum
 
 from .edition import Edition, Event
 from .forms import AnswerTypes, Question
-from .review import ApplicantLabel
+from .review import ReviewLabel
 
 
 @ChoiceEnum.labels(str.capitalize)
@@ -66,7 +66,7 @@ class Applicant(models.Model):
     )
 
     # Review of the application
-    labels = models.ManyToManyField(ApplicantLabel, blank=True)
+    labels = models.ManyToManyField(ReviewLabel, blank=True)
 
     @property
     def status(self):
