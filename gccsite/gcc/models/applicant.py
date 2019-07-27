@@ -18,7 +18,7 @@ from .review import ApplicantLabel
 
 
 @ChoiceEnum.labels(str.capitalize)
-class ApplicantStatusTypes(ChoiceEnum):
+class StatusTypes(ChoiceEnum):
     incomplete = 0  # the candidate hasn't finished her registration yet
     pending = 1  # the candidate finished her registration
     rejected = 2  # the candidate's application has been rejected
@@ -30,12 +30,12 @@ class ApplicantStatusTypes(ChoiceEnum):
 # Increasing order of status, for example, if the wishes of a candidate have
 # separate status, the greatest one is displayed
 STATUS_ORDER = [
-    ApplicantStatusTypes.rejected.value,
-    ApplicantStatusTypes.incomplete.value,
-    ApplicantStatusTypes.pending.value,
-    ApplicantStatusTypes.selected.value,
-    ApplicantStatusTypes.accepted.value,
-    ApplicantStatusTypes.confirmed.value,
+    StatusTypes.rejected.value,
+    StatusTypes.incomplete.value,
+    StatusTypes.pending.value,
+    StatusTypes.selected.value,
+    StatusTypes.accepted.value,
+    StatusTypes.confirmed.value,
 ]
 
 
@@ -76,14 +76,14 @@ class Applicant(models.Model):
             if wish_status in wishes_status:
                 return wish_status
 
-        return ApplicantStatusTypes.incomplete.value
+        return StatusTypes.incomplete.value
 
     def is_locked(self):
         return EventWish.objects.filter(
             ~Q(
                 status__in=[
-                    ApplicantStatusTypes.incomplete.value,
-                    ApplicantStatusTypes.rejected.value,
+                    StatusTypes.incomplete.value,
+                    StatusTypes.rejected.value,
                 ]
             ),
             applicant=self,
@@ -91,12 +91,12 @@ class Applicant(models.Model):
 
     def has_rejected_choices(self):
         return EventWish.objects.filter(
-            applicant=self, status=ApplicantStatusTypes.rejected.value
+            applicant=self, status=StatusTypes.rejected.value
         ).exists()
 
     def has_non_rejected_choices(self):
         return EventWish.objects.filter(
-            ~Q(status=ApplicantStatusTypes.rejected.value), applicant=self
+            ~Q(status=StatusTypes.rejected.value), applicant=self
         ).exists()
 
     def get_export_data(self):
@@ -124,7 +124,7 @@ class Applicant(models.Model):
         return export_datas
 
     def get_status_display(self):
-        return ApplicantStatusTypes(self.status).name
+        return StatusTypes(self.status).name
 
     def list_of_assignation_wishes(self):
         return [event for event in self.assignation_wishes.all()]
@@ -150,8 +150,8 @@ class Applicant(models.Model):
 
     def validate_current_wishes(self):
         for wish in self.eventwish_set.all():
-            if wish.status == ApplicantStatusTypes.incomplete.value:
-                wish.status = ApplicantStatusTypes.pending.value
+            if wish.status == StatusTypes.incomplete.value:
+                wish.status = StatusTypes.pending.value
                 wish.save()
 
     @staticmethod
@@ -160,7 +160,7 @@ class Applicant(models.Model):
         List the applicants which are incomplete.
         """
         acceptable_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.incomplete.value
+            event=event, status=StatusTypes.incomplete.value
         )
         return [wish.applicant for wish in acceptable_wishes]
 
@@ -171,7 +171,7 @@ class Applicant(models.Model):
         `selected`).
         """
         acceptable_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.selected.value
+            event=event, status=StatusTypes.selected.value
         )
         return [wish.applicant for wish in acceptable_wishes]
 
@@ -181,7 +181,7 @@ class Applicant(models.Model):
         List the applicants which are accepted but did not confirm.
         """
         accepted_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.accepted.value
+            event=event, status=StatusTypes.accepted.value
         )
         return [wish.applicant for wish in accepted_wishes]
 
@@ -191,7 +191,7 @@ class Applicant(models.Model):
         List the applicants which are confirmed.
         """
         confirmed_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.confirmed.value
+            event=event, status=StatusTypes.confirmed.value
         )
         return [wish.applicant for wish in confirmed_wishes]
 
@@ -201,7 +201,7 @@ class Applicant(models.Model):
         List the applicants which were rejected.
         """
         acceptable_wishes = EventWish.objects.filter(
-            event=event, status=ApplicantStatusTypes.rejected.value
+            event=event, status=StatusTypes.rejected.value
         )
         return [wish.applicant for wish in acceptable_wishes]
 
@@ -267,10 +267,10 @@ class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     status = EnumField(
-        ApplicantStatusTypes,
+        StatusTypes,
         db_index=True,
         blank=True,
-        default=ApplicantStatusTypes.incomplete.value,
+        default=StatusTypes.incomplete.value,
     )
 
     # Priority defined by the candidate to express his preferred event

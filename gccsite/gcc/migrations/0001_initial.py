@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             name='Applicant',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', prologin.models.EnumField(gcc.models.ApplicantStatusTypes, blank=True, choices=[(0, 'incomplete'), (1, 'pending'), (2, 'rejected'), (3, 'selected'), (4, 'accepted'), (5, 'confirmed')], db_index=True, default=0)),
+                ('status', prologin.models.EnumField(gcc.models.applicant.StatusTypes, blank=True, choices=[(0, 'incomplete'), (1, 'pending'), (2, 'rejected'), (3, 'selected'), (4, 'accepted'), (5, 'confirmed')], db_index=True, default=0)),
             ],
         ),
         migrations.CreateModel(

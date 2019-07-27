@@ -9,5 +9,4 @@ from .review import Corrector
 from .sponsor import Sponsor
 
 # TODO: import from real path and rename
-from .applicant import ApplicantStatusTypes
 from .review import ApplicantLabel

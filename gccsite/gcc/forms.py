@@ -11,14 +11,8 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
-from gcc.models import (
-    Answer,
-    Applicant,
-    ApplicantStatusTypes,
-    Event,
-    EventWish,
-    QuestionForForm,
-)
+from gcc.models import Answer, Applicant, Event, EventWish, QuestionForForm
+from gcc.models.applicant import StatusTypes
 from gcc.models.forms import AnswerTypes
 
 from prologin import utils
@@ -241,7 +235,7 @@ class ApplicationWishesForm(forms.Form):
 
         # Get the list of events the user can apply to
         tried_for = EventWish.objects.filter(
-            ~Q(status=ApplicantStatusTypes.incomplete.value),
+            ~Q(status=StatusTypes.incomplete.value),
             applicant__user=user,
             event__edition=edition,
         )
@@ -275,8 +269,8 @@ class ApplicationWishesForm(forms.Form):
 
         # Verify that no application is already accepted or rejected
         if applicant.status not in [
-            ApplicantStatusTypes.incomplete.value,
-            ApplicantStatusTypes.rejected.value,
+            StatusTypes.incomplete.value,
+            StatusTypes.rejected.value,
         ]:
             raise Applicant.AlreadyLocked(
                 'The user has a processing application'
@@ -284,7 +278,7 @@ class ApplicationWishesForm(forms.Form):
 
         # Remove previous choices
         EventWish.objects.filter(
-            applicant=applicant, status=ApplicantStatusTypes.incomplete.value
+            applicant=applicant, status=StatusTypes.incomplete.value
         ).delete()
 
         # Collect selected events, remove duplicates

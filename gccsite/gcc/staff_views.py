@@ -3,27 +3,21 @@
 
 import sys
 import os
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView, View
 from prologin.email import send_email
-from django.utils.text import slugify
-
-
-from gcc.models import (
-    Answer,
-    Applicant,
-    ApplicantLabel,
-    ApplicantStatusTypes,
-    Event,
-    EventWish,
-)
 from rules.contrib.views import PermissionRequiredMixin
+
+from gcc.models import Answer, Applicant, ApplicantLabel, Event, EventWish
+from gcc.models.applicant import StatusTypes
 
 
 class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
@@ -228,7 +222,7 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
                         attachments,
                     )
 
-                wish.status = ApplicantStatusTypes.accepted.value
+                wish.status = StatusTypes.accepted.value
                 wish.save()
             except Exception as exp:
                 exc_type, exc_obj, exc_tb = sys.exc_info()

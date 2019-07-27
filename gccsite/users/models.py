@@ -1,7 +1,6 @@
 # Copyright (C) <2019> Association Prologin <association@prologin.org>
 # SPDX-License-Identifier: GPL-3.0+
 
-import hashlib
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -10,14 +9,16 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from gcc.models import Applicant, ApplicantStatusTypes
 from prologin.models import (
     AddressableModel,
     ChoiceEnum,
     EnumField,
     GenderField,
 )
+import hashlib
 from timezone_field import TimeZoneField
+
+from gcc.models.applicant import Applicant, StatusTypes
 
 
 class EducationStage(ChoiceEnum):
@@ -96,7 +97,7 @@ class GCCUser(AbstractUser, AddressableModel):
     def participations_count(self):
         applicants = Applicant.objects.filter(user=self)
         return sum(
-            (applicant.status == ApplicantStatusTypes.confirmed.value)
+            (applicant.status == StatusTypes.confirmed.value)
             for applicant in applicants
         )
 

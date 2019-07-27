@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 import gcc.models as models
 from gcc.export import export_queryset_as_csv
+from gcc.models.applicant import StatusTypes
 
 
 admin.site.register([models.ApplicantLabel, models.Edition])
@@ -101,14 +102,14 @@ class ApplicationStatusFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return (
             (str(item.value), name)
-            for name, item in models.ApplicantStatusTypes.__members__.items()
+            for name, item in StatusTypes.__members__.items()
         )
 
     def queryset(self, request, queryset):
         if self.value() is None:
             return queryset
 
-        if int(self.value()) == models.ApplicantStatusTypes.incomplete.value:
+        if int(self.value()) == StatusTypes.incomplete.value:
             return queryset.filter(
                 Q(eventwish__status=0) | Q(eventwish=None)
             ).distinct()

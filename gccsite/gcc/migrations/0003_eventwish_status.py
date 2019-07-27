@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='eventwish',
             name='status',
-            field=prologin.models.EnumField(gcc.models.ApplicantStatusTypes, blank=True, choices=[(0, 'incomplete'), (1, 'pending'), (2, 'rejected'), (3, 'selected'), (4, 'accepted'), (5, 'confirmed')], db_index=True, default=1),
+            field=prologin.models.EnumField(gcc.models.applicant.StatusTypes, blank=True, choices=[(0, 'incomplete'), (1, 'pending'), (2, 'rejected'), (3, 'selected'), (4, 'accepted'), (5, 'confirmed')], db_index=True, default=1),
         ),
     ]

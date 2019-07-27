@@ -21,13 +21,13 @@ from gcc.forms import (
 )
 from gcc.models import (
     Applicant,
-    ApplicantStatusTypes,
     Edition,
     Event,
     EventWish,
     Sponsor,
     SubscriberEmail,
 )
+from gcc.models.applicant import StatusTypes
 from prologin.email import send_email
 from rules.contrib.views import PermissionRequiredMixin
 from zinnia.models import Entry
@@ -395,8 +395,8 @@ class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
         if self.has_permission():
             wish = get_object_or_404(EventWish, pk=kwargs['wish'])
 
-            if wish.status == ApplicantStatusTypes.accepted.value:
-                wish.status = ApplicantStatusTypes.confirmed.value
+            if wish.status == StatusTypes.accepted.value:
+                wish.status = StatusTypes.confirmed.value
                 wish.save()
                 messages.add_message(
                     self.request,

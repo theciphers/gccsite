@@ -441,13 +441,13 @@ class Command(BaseCommand):
             if fields['accepted']:
                 if fields['confirmed']:
                     applicant.status = (
-                        models.ApplicantStatusTypes.confirmed.value
+                        models.applicant.StatusTypes.confirmed.value
                     )
                 else:
                     applicant.status = (
-                        models.ApplicantStatusTypes.accepted.value
+                        models.applicant.StatusTypes.accepted.value
                     )
             elif fields['accepted'] is False:
-                applicant.status = models.ApplicantStatusTypes.rejected.value
+                applicant.status = models.applicant.StatusTypes.rejected.value
 
             applicant.save()
