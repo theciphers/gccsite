@@ -1,167 +1,24 @@
 # Copyright (C) <2019> Association Prologin <association@prologin.org>
 # SPDX-License-Identifier: GPL-3.0+
 
-import random
 from datetime import datetime
 
-from django.conf import settings
 from django.contrib import auth, messages
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
-from gcc.forms import (
-    ApplicationWishesForm,
-    CombinedApplicantUserForm,
-    EmailForm,
-)
-from gcc.models import (
-    Applicant,
-    Edition,
-    Event,
-    EventWish,
-    Sponsor,
-    SubscriberEmail,
-)
+from gcc.forms import ApplicationWishesForm, CombinedApplicantUserForm
+from gcc.models import Applicant, Edition, Event, EventWish
 from gcc.models.applicant import StatusTypes
-from prologin.email import send_email
 from rules.contrib.views import PermissionRequiredMixin
-from zinnia.models import Entry
-
-# Editions
 
 
-class EditionsView(TemplateView):
-    template_name = "gcc/editions.html"
-
-
-# Privacy
-
-
-class PrivacyView(TemplateView):
-    template_name = "gcc/privacy.html"
-
-
-# Homepage
-
-
-class IndexView(FormView):
-    template_name = "gcc/index.html"
-    form_class = EmailForm
-    success_url = reverse_lazy("gcc:index")
-
-    def form_valid(self, form):
-        instance, created = SubscriberEmail.objects.get_or_create(
-            email=form.cleaned_data['email']
-        )
-
-        if created:
-            messages.add_message(
-                self.request, messages.SUCCESS, _('Subscription succeeded')
-            )
-            send_email(
-                'gcc/mails/subscribe',
-                instance.email,
-                {'unsubscribe_url': instance.unsubscribe_url},
-            )
-        else:
-            messages.add_message(
-                self.request,
-                messages.WARNING,
-                _('Subscription failed: already subscribed'),
-            )
-
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        articles = Entry.published.prefetch_related('authors').all()[
-            : settings.HOMEPAGE_ARTICLES
-        ]
-        context.update(
-            {
-                'last_edition': Edition.objects.latest(),
-                'sponsors': list(Sponsor.objects.active()),
-                'articles': articles,
-            }
-        )
-        context['events'] = Event.objects.filter(
-            signup_start__lt=datetime.now(),
-            signup_end__gt=datetime.now(),
-            edition=context['last_edition'],
-        ).order_by('event_start')
-        random.shuffle(context['sponsors'])
-        return context
-
-
-# Ressources, Learn More
-
-
-class RessourcesView(TemplateView):
-    template_name = "gcc/resources.html"
-
-
-class LearnMoreView(TemplateView):
-    template_name = "gcc/learn_more.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                'last_edition': Edition.objects.latest(),
-                'SITE_HOST': settings.SITE_HOST,
-            }
-        )
-        context['events'] = Event.objects.filter(
-            signup_start__lt=datetime.now(),
-            signup_end__gt=datetime.now(),
-            edition=context['last_edition'],
-        ).order_by('event_start')
-        return context
-
-
-# Newsletter
-
-
-class NewsletterUnsubscribeView(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse('gcc:index')
-
-    def get(self, request, *args, **kwargs):
-        try:
-            subscriber = SubscriberEmail.objects.get(email=kwargs['email'])
-
-            if subscriber.unsubscribe_token == kwargs['token']:
-                subscriber.delete()
-                messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    _('Successfully unsubscribed from newsletter.'),
-                )
-            else:
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    _('Failed to unsubscribe: wrong token.'),
-                )
-        except SubscriberEmail.DoesNotExist:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                _('Failed to unsubscribe: unregistered address'),
-            )
-
-        return super().get(request, *args, **kwargs)
-
-
-# Application
-
-
-class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
+class SummaryView(PermissionRequiredMixin, DetailView):
     model = auth.get_user_model()
     context_object_name = 'shown_user'
     template_name = 'gcc/application/summary.html'
@@ -191,7 +48,7 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
         return result
 
 
-class ApplicationValidationView(PermissionRequiredMixin, DetailView):
+class ValidationView(PermissionRequiredMixin, DetailView):
     model = auth.get_user_model()
     context_object_name = 'shown_user'
     template_name = 'gcc/application/validation.html'
@@ -251,7 +108,7 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
         )
 
 
-class ApplicationFormView(FormView):
+class FormView(FormView):
     template_name = 'gcc/application/form.html'
     form_class = CombinedApplicantUserForm
 
@@ -318,7 +175,7 @@ class ApplicationFormView(FormView):
         return super().form_valid(form)
 
 
-class ApplicationWishesView(FormView, PermissionRequiredMixin):
+class WishesView(FormView, PermissionRequiredMixin):
     template_name = 'gcc/application/wishes.html'
     form_class = ApplicationWishesForm
     permission_required = 'gcc.can_edit_own_application'
@@ -377,7 +234,7 @@ class ApplicationWishesView(FormView, PermissionRequiredMixin):
         return super().form_valid(form)
 
 
-class ApplicationConfirmVenueView(PermissionRequiredMixin, RedirectView):
+class ConfirmVenueView(PermissionRequiredMixin, RedirectView):
     permission_required = 'users.edit'
 
     def get_permission_object(self):
