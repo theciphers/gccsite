@@ -103,7 +103,7 @@ $('.remove-label').on('click', function (event) {
     const applicant_id = $(event.target).attr('for-applicant');
     const event_id = $(event.target).attr('for-event');
     const label_id = $(event.target).attr('for-label');
-    const url = `/application/label_remove/${event_id}/${applicant_id}/${label_id}`;
+    const url = `/application/review/label_remove/${event_id}/${applicant_id}/${label_id}`;
 
     $.getJSON(url, function(data) {
         if (data['status'] == 'ok') {
@@ -122,7 +122,7 @@ $('.add-label').on('click', function (event) {
     const applicant_id = $(event.target).attr('for-applicant');
     const event_id = $(event.target).attr('for-event');
     const label_id = $(event.target).attr('for-label');
-    const url = `/application/label_add/${event_id}/${applicant_id}/${label_id}`;
+    const url = `/application/review/label_add/${event_id}/${applicant_id}/${label_id}`;
 
     $.getJSON(url, function(data) {
         if (data['status'] == 'ok') {
@@ -143,7 +143,7 @@ $('.update-wish').on('click', function (event) {
 
     const wish_id = $(event.target).attr('for-wish');
     const new_status = $(event.target).attr('new-status');
-    const url = `/application/update_wish/${wish_id}/${new_status}/`;
+    const url = `/application/review/update_wish/${wish_id}/${new_status}/`;
 
     $.getJSON(url, function(data) {
         if (data['status'] == 'ok') {
@@ -172,4 +172,3 @@ $('.update-wish').on('click', function (event) {
         }
     })
 })
-

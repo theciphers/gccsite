@@ -20,7 +20,7 @@ from gcc.models import Answer, Applicant, Event, EventWish, ReviewLabel
 from gcc.models.applicant import StatusTypes
 
 
-class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
+class IndexView(PermissionRequiredMixin, TemplateView):
     permission_required = 'gcc.can_review'
     template_name = "gcc/application/review_index.html"
 
@@ -38,7 +38,7 @@ class ApplicationReviewIndexView(PermissionRequiredMixin, TemplateView):
         return context
 
 
-class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
+class EventView(PermissionRequiredMixin, TemplateView):
     permission_required = 'gcc.can_review_event'
     template_name = "gcc/application/review.html"
 
@@ -114,7 +114,7 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
 #                      |_|
 
 
-class ApplicationAcceptView(PermissionRequiredMixin, TemplateView):
+class AcceptView(PermissionRequiredMixin, TemplateView):
     permission_required = 'gcc.can_review_event'
     template_name = 'gcc/application/accept.html'
 
@@ -130,7 +130,7 @@ class ApplicationAcceptView(PermissionRequiredMixin, TemplateView):
         return context
 
 
-class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
+class AcceptSendView(PermissionRequiredMixin, RedirectView):
     permission_required = 'gcc.can_review_event'
 
     def get_redirect_url(self, *args, **kwargs):
@@ -248,7 +248,7 @@ class ApplicationAcceptSendView(PermissionRequiredMixin, RedirectView):
 # candidates.
 
 
-class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
+class RemoveLabelView(PermissionRequiredMixin, View):
     permission_required = 'gcc.can_edit_application_labels'
 
     def get_permission_object(self):
@@ -281,7 +281,7 @@ class ApplicationRemoveLabelView(PermissionRequiredMixin, View):
         return JsonResponse({'status': 'ok'})
 
 
-class ApplicationAddLabelView(PermissionRequiredMixin, View):
+class AddLabelView(PermissionRequiredMixin, View):
     permission_required = 'gcc.can_edit_application_labels'
 
     def get_permission_object(self):
