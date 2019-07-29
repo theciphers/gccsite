@@ -7,115 +7,62 @@
 {% block content %}
 
 <section class="ressources">
-<div class="row">
   <h1>{% trans "Learning to program" %}</h1>
   <p>
     {% blocktrans %}
-    Many resources are available on the internet to start coding, but it is sometime hard not to get lost in this ocean of informations.
-    We detail here some interesting resources to start learning.
+      Many resources are available on the internet to start coding, but it is sometime hard not to get lost in this ocean of informations.
+      We detail here some interesting resources to start learning.
     {% endblocktrans %}
   </p>
 
   <h1>{% trans "Which language to begin with ?" %}</h1>
   <p>
     {% blocktrans %}
-    When coding, we describe information that the machine will execute. To be able interact with the machine, we need to choose the language we will write in.
-    There are many existing languages, each with their specificities.
+      When coding, we describe information that the machine will execute. To be able interact with the machine, we need to choose the language we will write in.
+      There are many existing languages, each with their specificities.
     {% endblocktrans %}
   </p>
   <p>
     {% blocktrans %}
-    It's important to know in which language we want to start programming in when starting because we learn to program in a language.
-    During the summer camps we mainly teach Python, which we recommend to start.
-    It's an easy language to start with (compared to other...) and it has many uses. YouTube for example is coded in Python.
+      It's important to know in which language we want to start programming in when starting because we learn to program in a language.
+      During the summer camps we mainly teach Python, which we recommend to start.
+      It's an easy language to start with (compared to other...) and it has many uses. YouTube for example is coded in Python.
     {% endblocktrans %}
   </p>
 
-    <h1>{% trans "Starting" %}</h1>
-
-    <div class="row highlight-horizontal">
-        <div class="col-xs-3">
-          {% with url="http://www.france-ioi.org/" %}
-          <a target="_blank" href="{{url}}" class="image featured">
-            <img src="{% static 'gcc/img/logo_ioi.png' %}" />
-          </a>
-        </div>
-        <div class="col-xs-9">
-          <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
-          {% endwith %}
-          <p>
-            {% blocktrans %}
-            France-IOI offers a learning platform with exercises organized by level of difficulty, everything accessible completely freely and fully in french !
-            {% endblocktrans %}
-          </p>
-        </div>
-    </div>
-    <div class="row highlight-horizontal">
-        <div class="col-xs-3">
-          {% with url="https://www.codecademy.com/fr" %}
-          <a target="_blank" href="{{url}}" class="image featured">
-            <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
-          </a>
-        </div>
-        <div class="col-xs-9">
-          <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
-          {% endwith %}
-          <p>
-            {% blocktrans %}
-            If you speak a bit of English, Codeacademy is a good resource to start programming.
-            {% endblocktrans %}
-          </p>
-        </div>
-    </div>
+  <h1>{% trans "Starting" %}</h1>
+  <div class="row">
+      {% blocktrans asvar body %}
+        France-IOI offers a learning platform with exercises organized by level of difficulty, everything accessible completely freely and fully in french !
+      {% endblocktrans %}
+      {% include 'gcc/components/resource.html' with logo_path='gcc/img/logo_ioi.png' title='France IOI' url='https://www.france-ioi.org/' %}
+      {% blocktrans asvar body %}
+        If you speak a bit of English, Codeacademy is a good resource to start programming.
+      {% endblocktrans %}
+      {% include 'gcc/components/resource.html' with logo_path='gcc/img/logo_codeac.svg' url="https://www.codecademy.com/fr" title='Codeacademy' %}
+  </div>
 
   <h1>{% trans "Keep coding"%}</h1>
-        <p>
-            {% blocktrans %}
-            The good thing when learning to program, is that it can be used in many ways, to do plenty of things
-            There are a lot of sub domain or application in computer science, and to keep coding, it's more fun to find something we really like
-            Here are some examples:
-            {% endblocktrans %}
-        </p>
-
-      {% with url="https://djangogirls.org/" %}
-        <div class="row highlight-horizontal">
-            <div class="col-xs-3">
-                <div class="img-container">
-                  <a href="{{url}}">
-                    <img src="https://djangogirls.org/static/img/global/logo.png" />
-                  </a>
-                </div>
-            </div>
-            <div class="col-xs-9">
-              <h3><a href="{{url}}">Django girls</a></h3>
-              <p>
-                  {% blocktrans %}
-                  They have written a tutorial to create a blog in Python thanks to the Django framework.
-                  It has been entirely translated in french and is very accessible.
-                  Django is a very powerful tool for web platforms. Both the GCC! and Prologin websites use Django.
-                  {% endblocktrans %}
-              </p>
-            </div>
-        </div>
-        {% endwith %}
-
-        <div class="row highlight-horizontal">
-          <div class="col-xs-3">
-              <a href="//prologin.org/">
-                  <img src="https://prologin.org/static/img/logo_cube.png" />
-              </a>
-          </div>
-          <div class="col-xs-9">
-              <h3><a href="//prologin.org/">Prologin</a></h3>
-              <p>
-                  {% blocktrans %}
-                  It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
-                  On the website, you can find archives of the previous years exercises.
-                  They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !
-                  {% endblocktrans %}
-              </p>
-          </div>
-        </div>
-    </div>
+  <p>
+    {% blocktrans %}
+      The good thing when learning to program, is that it can be used in many ways, to do plenty of things
+      There are a lot of sub domain or application in computer science, and to keep coding, it's more fun to find something we really like
+      Here are some examples:
+    {% endblocktrans %}
+  </p>
+  <div class="row">
+      {% blocktrans asvar body %}
+        They have written a tutorial to create a blog in Python thanks to the Django framework.
+        It has been entirely translated in french and is very accessible.
+        Django is a very powerful tool for web platforms. Both the GCC! and Prologin websites use Django.
+      {% endblocktrans %}
+      {% include 'gcc/components/resource.html' with logo_url='https://djangogirls.org/static/img/global/logo.png' url="https://djangogirls.org/" title='Django girls' %}
+      {% blocktrans asvar body %}
+        It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
+        On the website, you can find archives of the previous years exercises.
+        They are small exercises that give a entry and expect a precise answer, and it's your task to code the program giving the expected answer !
+      {% endblocktrans %}
+      {% include 'gcc/components/resource.html' with url='//prologin.org/' logo_url='https://prologin.org/static/img/logo_cube.png' title='Prologin' %}
+  </div>
 </section>
 {% endblock %}
