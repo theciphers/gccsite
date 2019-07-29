@@ -1,3 +1,6 @@
+# Copyright (C) <2019> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import csv
 
 from django.http import HttpResponse
@@ -5,12 +8,13 @@ from django.http import HttpResponse
 
 class ExportCsvMixin:
     """
-    Snippet from https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
+    Snippet from
+    https://books.agiliq.com/projects/django-admin-cookbook/en/latest/export.html
 
-    Exports data into CSV, useful for giving data back to users and exploiting big
-    amount of datas in dedicated softs
+    Exports data into CSV, useful for giving data back to users and exploiting
+    big amount of datas in dedicated softs.
 
-    The model must implement get_export_data methods
+    The model must implement get_export_data methods.
     """
 
     def export_as_csv(self, request, queryset):
