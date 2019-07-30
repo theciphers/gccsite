@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 14:01+0200\n"
+"POT-Creation-Date: 2019-07-30 12:19+0200\n"
 "PO-Revision-Date: 2019-03-06 21:42+0000\n"
 "Last-Translator: Rémi Dupré <remim.dupre@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
@@ -81,19 +81,19 @@ msgstr "Montrer"
 msgid "Full map"
 msgstr "Plein format"
 
-#: gcc/admin.py:96 gcc/admin.py:119
+#: gcc/admin.py:98 gcc/admin.py:121
 msgid "status"
 msgstr "status"
 
-#: gcc/admin.py:136 gcc/templates/gcc/application/review_index.html:3
+#: gcc/admin.py:139 gcc/templates/gcc/application/review_index.html:3
 msgid "Review"
 msgstr "Sélection"
 
-#: gcc/admin.py:207
+#: gcc/admin.py:263
 msgid "Active"
 msgstr "Actif"
 
-#: gcc/forms.py:32 users/templates/users/profile.html:56
+#: gcc/forms.py:32 homepage/forms.py:11 users/templates/users/profile.html:56
 msgid "Email address"
 msgstr "Adresse e-mail"
 
@@ -341,59 +341,65 @@ msgstr "Les candidates ayant l'évènement en %(order)s choix"
 msgid "None"
 msgstr "Aucun"
 
-#: gcc/templates/gcc/application/review.html:85
-msgid "Profile of"
-msgstr "Profil de"
-
-#: gcc/templates/gcc/application/review.html:87
-msgid "login/nickname"
-msgstr "identifiant/pseudonyme"
-
-#: gcc/templates/gcc/application/review.html:89
-msgid "email"
-msgstr "E-mail"
-
-#: gcc/templates/gcc/application/review.html:91
-msgid "birthday"
-msgstr "anniversaire"
-
-#: gcc/templates/gcc/application/review.html:93
-msgid "participations"
-msgstr "participations"
-
-#: gcc/templates/gcc/application/review.html:103
+#: gcc/templates/gcc/application/review.html:82
+#: gcc/templates/gcc/application/review.html:114
 msgid "incomplete"
 msgstr "incomplet"
 
-#: gcc/templates/gcc/application/review.html:104
+#: gcc/templates/gcc/application/review.html:83
+#: gcc/templates/gcc/application/review.html:115
 msgid "pending"
 msgstr "en attente"
 
-#: gcc/templates/gcc/application/review.html:105
+#: gcc/templates/gcc/application/review.html:84
+#: gcc/templates/gcc/application/review.html:116
 msgid "rejected"
 msgstr "rejetée"
 
-#: gcc/templates/gcc/application/review.html:106
+#: gcc/templates/gcc/application/review.html:85
+#: gcc/templates/gcc/application/review.html:117
 msgid "selected"
 msgstr "sélectionnée"
 
-#: gcc/templates/gcc/application/review.html:107
+#: gcc/templates/gcc/application/review.html:86
+#: gcc/templates/gcc/application/review.html:118
 msgid "accepted"
 msgstr "acceptée"
 
-#: gcc/templates/gcc/application/review.html:108
+#: gcc/templates/gcc/application/review.html:87
+#: gcc/templates/gcc/application/review.html:119
 msgid "confirmed"
 msgstr "confirmé"
 
-#: gcc/templates/gcc/application/review.html:113
+#: gcc/templates/gcc/application/review.html:96
+msgid "Profile of"
+msgstr "Profil de"
+
+#: gcc/templates/gcc/application/review.html:98
+msgid "login/nickname"
+msgstr "identifiant/pseudonyme"
+
+#: gcc/templates/gcc/application/review.html:100
+msgid "email"
+msgstr "E-mail"
+
+#: gcc/templates/gcc/application/review.html:102
+msgid "birthday"
+msgstr "anniversaire"
+
+#: gcc/templates/gcc/application/review.html:104
+msgid "participations"
+msgstr "participations"
+
+#: gcc/templates/gcc/application/review.html:124
 msgid "select"
 msgstr "sélectionner"
 
-#: gcc/templates/gcc/application/review.html:114
+#: gcc/templates/gcc/application/review.html:125
 msgid "reject"
 msgstr "rejeter"
 
-#: gcc/templates/gcc/application/review.html:115
+#: gcc/templates/gcc/application/review.html:126
 msgid "cancel"
 msgstr "annuler"
 
@@ -405,11 +411,15 @@ msgstr "Index de review"
 msgid "Event"
 msgstr "Évènement"
 
-#: gcc/templates/gcc/application/review_index.html:32
+#: gcc/templates/gcc/application/review_index.html:33
 msgid "Long Summer Camp"
 msgstr "Stage Long"
 
-#: gcc/templates/gcc/application/review_index.html:37
+#: gcc/templates/gcc/application/review_index.html:35
+msgid "Short Summer Camp"
+msgstr "Stage Court"
+
+#: gcc/templates/gcc/application/review_index.html:41
 msgid "Browse"
 msgstr "Parcourir"
 
@@ -983,6 +993,7 @@ msgstr ""
 "<a href=\"%(privacy_url)s\">%(SITE_HOST)s%(privacy_url)s</a>"
 
 #: gcc/templates/gcc/mails/subscribe.body.text.html:8
+#: homepage/templates/homepage/mails/subscribe.body.text.html:8
 #, python-format
 msgid ""
 "\n"
@@ -1020,6 +1031,7 @@ msgstr ""
 "L'équipe Prologin\n"
 
 #: gcc/templates/gcc/mails/subscribe.subject.html:3
+#: homepage/templates/homepage/mails/subscribe.subject.html:3
 msgid "Subscription the newsletter of GCC!"
 msgstr "Inscription à la newsletter de GCC!"
 
@@ -1416,16 +1428,16 @@ msgstr ""
 msgid "Resources"
 msgstr "Ressources"
 
-#: gcc/templates/gcc/resources.html:11
+#: gcc/templates/gcc/resources.html:10
 msgid "Learning to program"
 msgstr "Apprendre à programmer"
 
-#: gcc/templates/gcc/resources.html:13
+#: gcc/templates/gcc/resources.html:12
 msgid ""
 "\n"
-"    Many resources are available on the internet to start coding, but it is "
-"sometime hard not to get lost in this ocean of informations.\n"
-"    We detail here some interesting resources to start learning.\n"
+"      Many resources are available on the internet to start coding, but it "
+"is sometime hard not to get lost in this ocean of informations.\n"
+"      We detail here some interesting resources to start learning.\n"
 "    "
 msgstr ""
 "\n"
@@ -1435,33 +1447,34 @@ msgstr ""
 "Nous détaillons ici quelques ressources particulièrement intéressantes pour "
 "débuter et s'entraîner."
 
-#: gcc/templates/gcc/resources.html:19
+#: gcc/templates/gcc/resources.html:18
 msgid "Which language to begin with ?"
 msgstr "Avec quel langage commencer ?"
 
-#: gcc/templates/gcc/resources.html:21
+#: gcc/templates/gcc/resources.html:20
 msgid ""
 "\n"
-"    When coding, we describe information that the machine will execute. To "
+"      When coding, we describe information that the machine will execute. To "
 "be able interact with the machine, we need to choose the language we will "
 "write in.\n"
-"    There are many existing languages, each with their specificities.\n"
+"      There are many existing languages, each with their specificities.\n"
 "    "
 msgstr ""
 "\n"
 "Coder consiste à décrire des opérations que la machine exécutera, et pour "
 "communiquer avec la machine, on doit choisir au préalable dans quel langage "
-"on va lui parler. Il existe beaucoup de langages de programmation "
-"différents, chacun avec leurs spécificités."
+"on va lui parler.\n"
+"Il existe beaucoup de langages de programmation différents, chacun avec "
+"leurs spécificités."
 
-#: gcc/templates/gcc/resources.html:27
+#: gcc/templates/gcc/resources.html:26
 msgid ""
 "\n"
-"    It's important to know in which language we want to start programming in "
-"when starting because we learn to program in a language.\n"
-"    During the summer camps we mainly teach Python, which we recommend to "
+"      It's important to know in which language we want to start programming "
+"in when starting because we learn to program in a language.\n"
+"      During the summer camps we mainly teach Python, which we recommend to "
 "start.\n"
-"    It's an easy language to start with (compared to other...) and it has "
+"      It's an easy language to start with (compared to other...) and it has "
 "many uses. YouTube for example is coded in Python.\n"
 "    "
 msgstr ""
@@ -1469,49 +1482,49 @@ msgstr ""
 "Il est important de savoir dans quel langage on souhaite commencer à "
 "programmer avant de se lancer.\n"
 "Durant les stages, les participantes utilisent Python, un langage facile à "
-"prendre en main et qui a de très nombreuses applications. YouTube par "
-"exemple est codé à l'aide de Python !"
+"prendre en main (plus que d'autres en tous cas ...) et qui a de très "
+"nombreuses applications. YouTube par exemple est codé à l'aide de Python !"
 
-#: gcc/templates/gcc/resources.html:34
+#: gcc/templates/gcc/resources.html:33
 msgid "Starting"
 msgstr "Débuter"
 
-#: gcc/templates/gcc/resources.html:47
+#: gcc/templates/gcc/resources.html:35
 msgid ""
 "\n"
-"            France-IOI offers a learning platform with exercises organized "
-"by level of difficulty, everything accessible completely freely and fully in "
+"        France-IOI offers a learning platform with exercises organized by "
+"level of difficulty, everything accessible completely freely and fully in "
 "french !\n"
-"            "
+"      "
 msgstr ""
 "\n"
 "France-IOI offre une plateforme d'apprentissage avec des exercices organisés "
 "par niveaux, le tout gratuitement et entièrement en français !"
 
-#: gcc/templates/gcc/resources.html:64
+#: gcc/templates/gcc/resources.html:39
 msgid ""
 "\n"
-"            If you speak a bit of English, Codeacademy is a good resource to "
+"        If you speak a bit of English, Codeacademy is a good resource to "
 "start programming.\n"
-"            "
+"      "
 msgstr ""
 "\n"
 "Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te "
 "lancer dans la programmation."
 
-#: gcc/templates/gcc/resources.html:71
+#: gcc/templates/gcc/resources.html:45
 msgid "Keep coding"
 msgstr "Continuer à coder"
 
-#: gcc/templates/gcc/resources.html:73
+#: gcc/templates/gcc/resources.html:47
 msgid ""
 "\n"
-"            The good thing when learning to program, is that it can be used "
-"in many ways, to do plenty of things\n"
-"            There are a lot of sub domain or application in computer "
-"science, and to keep coding, it's more fun to find something we really like\n"
-"            Here are some examples:\n"
-"            "
+"      The good thing when learning to program, is that it can be used in "
+"many ways, to do plenty of things\n"
+"      There are a lot of sub domain or application in computer science, and "
+"to keep coding, it's more fun to find something we really like\n"
+"      Here are some examples:\n"
+"    "
 msgstr ""
 "\n"
 "L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en "
@@ -1520,16 +1533,15 @@ msgstr ""
 "continuer à coder, c’est motivant de trouver quelque chose qui nous plaît.\n"
 "Voici quelques exemples :"
 
-#: gcc/templates/gcc/resources.html:92
+#: gcc/templates/gcc/resources.html:54
 msgid ""
 "\n"
-"                  They have written a tutorial to create a blog in Python "
-"thanks to the Django framework.\n"
-"                  It has been entirely translated in french and is very "
-"accessible.\n"
-"                  Django is a very powerful tool for web platforms. Both the "
-"GCC! and Prologin websites use Django.\n"
-"                  "
+"        They have written a tutorial to create a blog in Python thanks to "
+"the Django framework.\n"
+"        It has been entirely translated in french and is very accessible.\n"
+"        Django is a very powerful tool for web platforms. Both the GCC! and "
+"Prologin websites use Django.\n"
+"      "
 msgstr ""
 "\n"
 "Elles ont écrit un tutoriel pour la création d’un blog en Python avec le "
@@ -1538,18 +1550,17 @@ msgstr ""
 "Django est un outil très puissant pour le web. Les sites de GCC! et Prologin "
 "utilisent d’ailleurs ce framework."
 
-#: gcc/templates/gcc/resources.html:111
+#: gcc/templates/gcc/resources.html:60
 msgid ""
 "\n"
-"                  It's the name of the organization that organize the Girls "
-"Can Code! camps but i's also a computer science contest for people under 21 "
-"years old.\n"
-"                  On the website, you can find archives of the previous "
-"years exercises.\n"
-"                  They are small exercises that give a entry and expect a "
-"precise answer, and it's your task to code the program giving the expected "
-"answer !\n"
-"                  "
+"        It's the name of the organization that organize the Girls Can Code! "
+"camps but i's also a computer science contest for people under 21 years "
+"old.\n"
+"        On the website, you can find archives of the previous years "
+"exercises.\n"
+"        They are small exercises that give a entry and expect a precise "
+"answer, and it's your task to code the program giving the expected answer !\n"
+"      "
 msgstr ""
 "\n"
 "C’est le nom de l’association qui organise les stages mais aussi un concours "
@@ -1559,23 +1570,23 @@ msgstr ""
 "Ce sont des petits problèmes qui donnent une entrée et demandent une réponse "
 "précise, c’est à toi d’écrire le programme qui trouve la réponse !"
 
-#: gcc/views.py:64
+#: gcc/views.py:64 homepage/views.py:32
 msgid "Subscription succeeded"
 msgstr "Inscription réussie"
 
-#: gcc/views.py:75
+#: gcc/views.py:75 homepage/views.py:43
 msgid "Subscription failed: already subscribed"
 msgstr "L'inscription a échoué: vous êtes déjà inscrit"
 
-#: gcc/views.py:143
+#: gcc/views.py:143 homepage/views.py:85
 msgid "Successfully unsubscribed from newsletter."
 msgstr "Désinscription de la newsletter réussie."
 
-#: gcc/views.py:149
+#: gcc/views.py:149 homepage/views.py:91
 msgid "Failed to unsubscribe: wrong token."
 msgstr "La désinscription a échoué: mauvais token."
 
-#: gcc/views.py:155
+#: gcc/views.py:155 homepage/views.py:97
 msgid "Failed to unsubscribe: unregistered address"
 msgstr "La désinscription a échoué: adresse non enregistrée."
 
